@@ -10,6 +10,8 @@
   <style>
     /* ─── Reset & Base ──────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { overflow-x: hidden; }
+    body { overflow-x: hidden; }
 
     /* ─── Dark Theme (default) ──────────────────────────────────── */
     :root {
@@ -566,6 +568,7 @@
     .nav-toggle-wrap {
       margin-top: auto;
       padding-top: 28px;
+      padding-right: 40px; /* match side-nav's padding-left so toggle is centred */
     }
     .nav-toggle-wrap .theme-toggle {
       width: 100%;
@@ -575,7 +578,7 @@
       color: var(--toggle-text);
     }
 
-    .main-content { padding: 0; }
+    .main-content { padding: 0; min-width: 0; }
 
     /* ─── Logo show/hide by theme ───────────────────────────────── */
     .logo-light { display: none; }
