@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-format="presentation" data-theme="dark">
+<!-- dark is default; toggleTheme() switches to light -->
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,6 +21,7 @@
       --border: rgba(255,255,255,0.08);
       --text: #E8EAF6;
       --text-muted: rgba(232,234,246,0.5);
+      --accent: #0CF4DF;
       --cyan: #0CF4DF;
       --deep-blue: #1F3395;
       --cobalt: #3257D9;
@@ -29,6 +31,26 @@
       --plum: #7C316D;
       --depth-grad: linear-gradient(135deg, #7C316D 0%, #0B0B3C 55%, #1A2E73 100%);
       --action-grad: linear-gradient(135deg, #0CF4DF 0%, #1F3395 100%);
+      --toggle-bg: rgba(255,255,255,0.07);
+      --toggle-border: rgba(255,255,255,0.14);
+      --toggle-text: rgba(255,255,255,0.75);
+      --header-bg: rgba(7,8,31,0.94);
+      --t: 0.22s ease;
+    }
+
+    html[data-theme="light"] {
+      --bg: #F4F5FA;
+      --surface: #FFFFFF;
+      --surface-2: #ECEEF6;
+      --border: rgba(11,11,60,0.1);
+      --text: #0B0B3C;
+      --text-muted: rgba(11,11,60,0.5);
+      --accent: #1F3395;
+      --cyan: #1F3395;
+      --toggle-bg: rgba(11,11,60,0.06);
+      --toggle-border: rgba(11,11,60,0.14);
+      --toggle-text: rgba(11,11,60,0.7);
+      --header-bg: rgba(244,245,250,0.96);
     }
 
     html { scroll-behavior: smooth; }
@@ -49,10 +71,11 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(7, 8, 31, 0.92);
+      background: var(--header-bg);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
+      transition: background var(--t), border-color var(--t);
     }
 
     .header-inner {
@@ -240,6 +263,8 @@
       font-family: 'Inter', monospace;
     }
 
+    .card-actions { display: flex; gap: 6px; }
+
     .expand-btn {
       display: flex;
       align-items: center;
@@ -261,6 +286,41 @@
       background: rgba(12,244,223,0.06);
     }
     .expand-btn svg { width: 12px; height: 12px; }
+
+    .download-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 5px;
+      border: 1px solid rgba(12,244,223,0.25);
+      background: rgba(12,244,223,0.06);
+      color: #0CF4DF;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .download-btn:hover { background: rgba(12,244,223,0.14); border-color: rgba(12,244,223,0.5); }
+    .download-btn svg { width: 11px; height: 11px; }
+
+    /* ─── Theme Toggle ─────────── */
+    .theme-toggle {
+      display: flex; align-items: center; gap: 7px;
+      background: var(--toggle-bg); border: 1px solid var(--toggle-border);
+      color: var(--toggle-text); border-radius: 8px;
+      padding: 5px 13px; font-size: 12px; font-weight: 500;
+      cursor: pointer; font-family: 'Inter', sans-serif;
+      transition: background var(--t), border-color var(--t), color var(--t);
+      white-space: nowrap;
+    }
+    .theme-toggle:hover { background: rgba(255,255,255,0.12); }
+    html[data-theme="light"] .theme-toggle:hover { background: rgba(11,11,60,0.1); }
+    .icon-moon, .icon-sun { width: 14px; height: 14px; flex-shrink: 0; }
+    .icon-sun { display: none; }
+    html[data-theme="light"] .icon-moon { display: none; }
+    html[data-theme="light"] .icon-sun  { display: block; }
 
     /* =============================================
        BACKGROUND PREVIEW
@@ -290,12 +350,26 @@
 
     /* gradient definitions per background */
     .grad-depth        { background: linear-gradient(135deg, #7C316D 0%, #0B0B3C 55%, #1A2E73 100%); }
+    .grad-midnight     { background: #07081F; }
     .grad-white        { background: #FFFFFF; }
+    .grad-frost        { background: linear-gradient(145deg, #EEF2FF 0%, #F5F7FF 100%); }
     .grad-violet       { background: linear-gradient(135deg, #2D0770 0%, #4A0FA8 55%, #9B5FE8 100%); }
+    .grad-violet-light { background: linear-gradient(145deg, #F8F4FF 0%, #EDE6FF 100%); }
     .grad-teal-sol     { background: linear-gradient(135deg, #040E28 0%, #1A8A76 55%, #5FD9C2 100%); }
+    .grad-teal-light   { background: linear-gradient(145deg, #E8FDF8 0%, #F0FFFC 100%); }
     .grad-amber        { background: linear-gradient(135deg, #1A0A00 0%, #A86B00 55%, #F2B33D 100%); }
+    .grad-amber-light  { background: linear-gradient(145deg, #FFF9E8 0%, #FFFCF0 100%); }
     .grad-indigo       { background: linear-gradient(135deg, #0D0820 0%, #3A2073 55%, #5B4499 100%); }
+    .grad-indigo-light { background: linear-gradient(145deg, #EEF0FF 0%, #F4F5FF 100%); }
     .grad-crimson      { background: linear-gradient(135deg, #1A0400 0%, #8F200A 55%, #F25E3D 100%); }
+    .grad-crimson-light { background: linear-gradient(145deg, #FFF2EE 0%, #FFF7F5 100%); }
+
+    /* Color accent bars for light backgrounds */
+    .bg-color-bar { position: absolute; top: 0; left: 0; right: 0; height: 6px; z-index: 2; border-radius: 0; }
+
+    /* Light-tinted geo paths for light backgrounds */
+    .light-bg-geo { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+    .light-bg-geo path { opacity: 0.04; }
 
     /* =============================================
        INNER LAYOUT OF EACH BACKGROUND
@@ -525,6 +599,11 @@
           <button class="format-tab" role="tab" data-format="story">Story 9:16</button>
           <button class="format-tab" role="tab" data-format="banner">Banner 1.91:1</button>
         </div>
+        <button class="theme-toggle" onclick="toggleTheme()" id="theme-toggle-btn">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <span id="toggle-label">Light Mode</span>
+        </button>
       </div>
     </div>
   </header>
@@ -536,7 +615,7 @@
 
     <div class="page-intro">
       <h1>Background Assets</h1>
-      <p>13 production-ready backgrounds across five solution categories. Switch formats using the tabs above. Click Expand to preview at full screen.</p>
+      <p>20 production-ready backgrounds across six categories — dark, light, and print-ready. Switch formats using the tabs above. Click Expand to preview at full screen.</p>
     </div>
 
     <!-- ============================================================
@@ -546,7 +625,7 @@
       <div class="section-header">
         <div class="section-dot" style="background: linear-gradient(135deg, #7C316D, #3257D9);"></div>
         <span class="section-name">Main Brand</span>
-        <span class="section-count">3 backgrounds</span>
+        <span class="section-count">5 backgrounds</span>
       </div>
       <div class="bg-grid">
 
@@ -554,12 +633,16 @@
         <div class="bg-card">
           <div class="bg-card-label">
             <span class="bg-card-name">main-minimal</span>
-            <button class="expand-btn" onclick="openModal('main-minimal')">
-              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
-              </svg>
-              Expand
-            </button>
+            <div class="card-actions">
+              <button class="expand-btn" onclick="openModal('main-minimal')">
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/></svg>
+                Expand
+              </button>
+              <button class="download-btn" onclick="downloadBg('main-minimal')">
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v7M3 6l3 3 3-3M1.5 10.5h9"/></svg>
+                PNG
+              </button>
+            </div>
           </div>
           <div class="bg-preview-wrap">
             <div class="bg-preview grad-depth" id="main-minimal">
@@ -569,12 +652,6 @@
                 <path d="M600 500 L600 300 L380 80 L180 80 L380 280 L380 500 Z" fill="white" fill-opacity="0.04"/>
                 <path d="M600 500 L600 420 L510 330 L350 330 L510 500 Z" fill="white" fill-opacity="0.03"/>
               </svg>
-              <div class="bg-inner centered">
-                <img class="bg-logo" src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
-                <div class="bg-bot">
-                  <span class="bg-url">momentifyapp.com</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -583,12 +660,24 @@
         <div class="bg-card">
           <div class="bg-card-label">
             <span class="bg-card-name">main-statement</span>
-            <button class="expand-btn" onclick="openModal('main-statement')">
+            <div class="card-actions">
+
+              <button class="expand-btn" onclick="openModal('main-statement')">
               <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
               </svg>
               Expand
             </button>
+
+              <button class="download-btn" onclick="downloadBg('main-statement')">
+
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v7M3 6l3 3 3-3M1.5 10.5h9"/></svg>
+
+                PNG
+
+              </button>
+
+            </div>
           </div>
           <div class="bg-preview-wrap">
             <div class="bg-preview grad-depth" id="main-statement">
@@ -596,18 +685,6 @@
                 <path d="M600 500 L600 180 L420 0 L220 0 L440 220 L440 500 Z" fill="white" fill-opacity="0.05"/>
                 <path d="M600 500 L600 300 L380 80 L180 80 L380 280 L380 500 Z" fill="white" fill-opacity="0.04"/>
               </svg>
-              <div class="bg-inner" style="justify-content: space-between;">
-                <div class="bg-top">
-                  <img class="bg-logo" src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
-                </div>
-                <div class="bg-mid">
-                  <div class="bg-headline">Turn Effort Into Evidence.</div>
-                  <div class="bg-sub">Engagement intelligence for every moment.</div>
-                </div>
-                <div class="bg-bot">
-                  <span class="bg-url">momentifyapp.com</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -616,28 +693,28 @@
         <div class="bg-card">
           <div class="bg-card-label">
             <span class="bg-card-name">main-light</span>
-            <button class="expand-btn" onclick="openModal('main-light')">
+            <div class="card-actions">
+
+              <button class="expand-btn" onclick="openModal('main-light')">
               <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
               </svg>
               Expand
             </button>
+
+              <button class="download-btn" onclick="downloadBg('main-light')">
+
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v7M3 6l3 3 3-3M1.5 10.5h9"/></svg>
+
+                PNG
+
+              </button>
+
+            </div>
           </div>
           <div class="bg-preview-wrap">
             <div class="bg-preview grad-white light-bg" id="main-light">
               <div class="light-accent-bar"></div>
-              <div class="bg-inner" style="justify-content: space-between;">
-                <div class="bg-top">
-                  <img class="bg-logo" src="assets/Momentify-Logo.svg" alt="Momentify" />
-                </div>
-                <div class="bg-mid">
-                  <div class="bg-headline">Turn Effort Into Evidence.</div>
-                  <div class="bg-sub">Engagement intelligence for every moment.</div>
-                </div>
-                <div class="bg-bot">
-                  <span class="bg-url">momentifyapp.com</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -652,7 +729,7 @@
       <div class="section-header">
         <div class="section-dot" style="background: #9B5FE8;"></div>
         <span class="section-name">Trade Shows &amp; Exhibits</span>
-        <span class="section-count">2 backgrounds</span>
+        <span class="section-count">3 backgrounds</span>
       </div>
       <div class="bg-grid">
 
@@ -660,12 +737,24 @@
         <div class="bg-card">
           <div class="bg-card-label">
             <span class="bg-card-name">violet-minimal</span>
-            <button class="expand-btn" onclick="openModal('violet-minimal')">
+            <div class="card-actions">
+
+              <button class="expand-btn" onclick="openModal('violet-minimal')">
               <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
               </svg>
               Expand
             </button>
+
+              <button class="download-btn" onclick="downloadBg('violet-minimal')">
+
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v7M3 6l3 3 3-3M1.5 10.5h9"/></svg>
+
+                PNG
+
+              </button>
+
+            </div>
           </div>
           <div class="bg-preview-wrap">
             <div class="bg-preview grad-violet" id="violet-minimal">
@@ -673,13 +762,6 @@
                 <path d="M600 500 L600 150 L400 0 L180 0 L420 240 L420 500 Z" fill="white" fill-opacity="0.05"/>
                 <path d="M600 500 L600 310 L360 70 L160 70 L360 270 L360 500 Z" fill="white" fill-opacity="0.04"/>
               </svg>
-              <div class="bg-inner centered">
-                <img class="bg-logo" src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
-                <div class="bg-label" style="color: #D4AAFF;">Trade Shows &amp; Exhibits</div>
-                <div class="bg-bot">
-                  <span class="bg-url">momentifyapp.com</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -688,12 +770,24 @@
         <div class="bg-card">
           <div class="bg-card-label">
             <span class="bg-card-name">violet-statement</span>
-            <button class="expand-btn" onclick="openModal('violet-statement')">
+            <div class="card-actions">
+
+              <button class="expand-btn" onclick="openModal('violet-statement')">
               <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
               </svg>
               Expand
             </button>
+
+              <button class="download-btn" onclick="downloadBg('violet-statement')">
+
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v7M3 6l3 3 3-3M1.5 10.5h9"/></svg>
+
+                PNG
+
+              </button>
+
+            </div>
           </div>
           <div class="bg-preview-wrap">
             <div class="bg-preview grad-violet" id="violet-statement">
@@ -701,18 +795,6 @@
                 <path d="M600 500 L600 150 L400 0 L180 0 L420 240 L420 500 Z" fill="white" fill-opacity="0.05"/>
                 <path d="M600 500 L600 310 L360 70 L160 70 L360 270 L360 500 Z" fill="white" fill-opacity="0.04"/>
               </svg>
-              <div class="bg-inner" style="justify-content: space-between;">
-                <div class="bg-top">
-                  <img class="bg-logo" src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
-                </div>
-                <div class="bg-mid">
-                  <div class="bg-headline">Every booth. Every handshake. Every lead.</div>
-                  <div class="bg-sub">Know who showed up and what they were ready to do.</div>
-                </div>
-                <div class="bg-bot">
-                  <span class="bg-url">momentifyapp.com</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -727,7 +809,7 @@
       <div class="section-header">
         <div class="section-dot" style="background: #5FD9C2;"></div>
         <span class="section-name">Technical Recruiting</span>
-        <span class="section-count">2 backgrounds</span>
+        <span class="section-count">3 backgrounds</span>
       </div>
       <div class="bg-grid">
 
@@ -735,12 +817,24 @@
         <div class="bg-card">
           <div class="bg-card-label">
             <span class="bg-card-name">teal-minimal</span>
-            <button class="expand-btn" onclick="openModal('teal-minimal')">
+            <div class="card-actions">
+
+              <button class="expand-btn" onclick="openModal('teal-minimal')">
               <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
               </svg>
               Expand
             </button>
+
+              <button class="download-btn" onclick="downloadBg('teal-minimal')">
+
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v7M3 6l3 3 3-3M1.5 10.5h9"/></svg>
+
+                PNG
+
+              </button>
+
+            </div>
           </div>
           <div class="bg-preview-wrap">
             <div class="bg-preview grad-teal-sol" id="teal-minimal">
@@ -748,13 +842,6 @@
                 <path d="M600 500 L600 150 L400 0 L180 0 L420 240 L420 500 Z" fill="white" fill-opacity="0.06"/>
                 <path d="M600 500 L600 310 L360 70 L160 70 L360 270 L360 500 Z" fill="white" fill-opacity="0.04"/>
               </svg>
-              <div class="bg-inner centered">
-                <img class="bg-logo" src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
-                <div class="bg-label" style="color: #A0F0E4;">Technical Recruiting</div>
-                <div class="bg-bot">
-                  <span class="bg-url">momentifyapp.com</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -763,12 +850,24 @@
         <div class="bg-card">
           <div class="bg-card-label">
             <span class="bg-card-name">teal-statement</span>
-            <button class="expand-btn" onclick="openModal('teal-statement')">
+            <div class="card-actions">
+
+              <button class="expand-btn" onclick="openModal('teal-statement')">
               <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
               </svg>
               Expand
             </button>
+
+              <button class="download-btn" onclick="downloadBg('teal-statement')">
+
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v7M3 6l3 3 3-3M1.5 10.5h9"/></svg>
+
+                PNG
+
+              </button>
+
+            </div>
           </div>
           <div class="bg-preview-wrap">
             <div class="bg-preview grad-teal-sol" id="teal-statement">
@@ -776,18 +875,6 @@
                 <path d="M600 500 L600 150 L400 0 L180 0 L420 240 L420 500 Z" fill="white" fill-opacity="0.06"/>
                 <path d="M600 500 L600 310 L360 70 L160 70 L360 270 L360 500 Z" fill="white" fill-opacity="0.04"/>
               </svg>
-              <div class="bg-inner" style="justify-content: space-between;">
-                <div class="bg-top">
-                  <img class="bg-logo" src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
-                </div>
-                <div class="bg-mid">
-                  <div class="bg-headline">Top talent is in the room. Make sure you know who.</div>
-                  <div class="bg-sub">Real-time candidate engagement, visible from the floor.</div>
-                </div>
-                <div class="bg-bot">
-                  <span class="bg-url">momentifyapp.com</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -802,7 +889,7 @@
       <div class="section-header">
         <div class="section-dot" style="background: #F2B33D;"></div>
         <span class="section-name">Field Sales Enablement</span>
-        <span class="section-count">2 backgrounds</span>
+        <span class="section-count">3 backgrounds</span>
       </div>
       <div class="bg-grid">
 
@@ -810,12 +897,24 @@
         <div class="bg-card">
           <div class="bg-card-label">
             <span class="bg-card-name">amber-minimal</span>
-            <button class="expand-btn" onclick="openModal('amber-minimal')">
+            <div class="card-actions">
+
+              <button class="expand-btn" onclick="openModal('amber-minimal')">
               <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
               </svg>
               Expand
             </button>
+
+              <button class="download-btn" onclick="downloadBg('amber-minimal')">
+
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v7M3 6l3 3 3-3M1.5 10.5h9"/></svg>
+
+                PNG
+
+              </button>
+
+            </div>
           </div>
           <div class="bg-preview-wrap">
             <div class="bg-preview grad-amber" id="amber-minimal">
@@ -823,13 +922,6 @@
                 <path d="M600 500 L600 150 L400 0 L180 0 L420 240 L420 500 Z" fill="white" fill-opacity="0.05"/>
                 <path d="M600 500 L600 310 L360 70 L160 70 L360 270 L360 500 Z" fill="white" fill-opacity="0.04"/>
               </svg>
-              <div class="bg-inner centered">
-                <img class="bg-logo" src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
-                <div class="bg-label" style="color: #FFD88A;">Field Sales Enablement</div>
-                <div class="bg-bot">
-                  <span class="bg-url">momentifyapp.com</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -838,12 +930,24 @@
         <div class="bg-card">
           <div class="bg-card-label">
             <span class="bg-card-name">amber-statement</span>
-            <button class="expand-btn" onclick="openModal('amber-statement')">
+            <div class="card-actions">
+
+              <button class="expand-btn" onclick="openModal('amber-statement')">
               <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
               </svg>
               Expand
             </button>
+
+              <button class="download-btn" onclick="downloadBg('amber-statement')">
+
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v7M3 6l3 3 3-3M1.5 10.5h9"/></svg>
+
+                PNG
+
+              </button>
+
+            </div>
           </div>
           <div class="bg-preview-wrap">
             <div class="bg-preview grad-amber" id="amber-statement">
@@ -851,18 +955,6 @@
                 <path d="M600 500 L600 150 L400 0 L180 0 L420 240 L420 500 Z" fill="white" fill-opacity="0.05"/>
                 <path d="M600 500 L600 310 L360 70 L160 70 L360 270 L360 500 Z" fill="white" fill-opacity="0.04"/>
               </svg>
-              <div class="bg-inner" style="justify-content: space-between;">
-                <div class="bg-top">
-                  <img class="bg-logo" src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
-                </div>
-                <div class="bg-mid">
-                  <div class="bg-headline">Pipeline does not lie. Neither does your data.</div>
-                  <div class="bg-sub">See what happened in every meeting, every moment.</div>
-                </div>
-                <div class="bg-bot">
-                  <span class="bg-url">momentifyapp.com</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -877,7 +969,7 @@
       <div class="section-header">
         <div class="section-dot" style="background: #5B4499;"></div>
         <span class="section-name">Facilities</span>
-        <span class="section-count">2 backgrounds</span>
+        <span class="section-count">3 backgrounds</span>
       </div>
       <div class="bg-grid">
 
@@ -885,12 +977,24 @@
         <div class="bg-card">
           <div class="bg-card-label">
             <span class="bg-card-name">indigo-minimal</span>
-            <button class="expand-btn" onclick="openModal('indigo-minimal')">
+            <div class="card-actions">
+
+              <button class="expand-btn" onclick="openModal('indigo-minimal')">
               <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
               </svg>
               Expand
             </button>
+
+              <button class="download-btn" onclick="downloadBg('indigo-minimal')">
+
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v7M3 6l3 3 3-3M1.5 10.5h9"/></svg>
+
+                PNG
+
+              </button>
+
+            </div>
           </div>
           <div class="bg-preview-wrap">
             <div class="bg-preview grad-indigo" id="indigo-minimal">
@@ -898,13 +1002,6 @@
                 <path d="M600 500 L600 150 L400 0 L180 0 L420 240 L420 500 Z" fill="white" fill-opacity="0.05"/>
                 <path d="M600 500 L600 310 L360 70 L160 70 L360 270 L360 500 Z" fill="white" fill-opacity="0.04"/>
               </svg>
-              <div class="bg-inner centered">
-                <img class="bg-logo" src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
-                <div class="bg-label" style="color: #B8AAEE;">Facilities</div>
-                <div class="bg-bot">
-                  <span class="bg-url">momentifyapp.com</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -913,12 +1010,24 @@
         <div class="bg-card">
           <div class="bg-card-label">
             <span class="bg-card-name">indigo-statement</span>
-            <button class="expand-btn" onclick="openModal('indigo-statement')">
+            <div class="card-actions">
+
+              <button class="expand-btn" onclick="openModal('indigo-statement')">
               <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
               </svg>
               Expand
             </button>
+
+              <button class="download-btn" onclick="downloadBg('indigo-statement')">
+
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v7M3 6l3 3 3-3M1.5 10.5h9"/></svg>
+
+                PNG
+
+              </button>
+
+            </div>
           </div>
           <div class="bg-preview-wrap">
             <div class="bg-preview grad-indigo" id="indigo-statement">
@@ -926,18 +1035,6 @@
                 <path d="M600 500 L600 150 L400 0 L180 0 L420 240 L420 500 Z" fill="white" fill-opacity="0.05"/>
                 <path d="M600 500 L600 310 L360 70 L160 70 L360 270 L360 500 Z" fill="white" fill-opacity="0.04"/>
               </svg>
-              <div class="bg-inner" style="justify-content: space-between;">
-                <div class="bg-top">
-                  <img class="bg-logo" src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
-                </div>
-                <div class="bg-mid">
-                  <div class="bg-headline">What happens in your building should be measurable.</div>
-                  <div class="bg-sub">Turn facility engagement into operational intelligence.</div>
-                </div>
-                <div class="bg-bot">
-                  <span class="bg-url">momentifyapp.com</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -952,7 +1049,7 @@
       <div class="section-header">
         <div class="section-dot" style="background: #F25E3D;"></div>
         <span class="section-name">Events &amp; Venues</span>
-        <span class="section-count">2 backgrounds</span>
+        <span class="section-count">3 backgrounds</span>
       </div>
       <div class="bg-grid">
 
@@ -960,12 +1057,24 @@
         <div class="bg-card">
           <div class="bg-card-label">
             <span class="bg-card-name">crimson-minimal</span>
-            <button class="expand-btn" onclick="openModal('crimson-minimal')">
+            <div class="card-actions">
+
+              <button class="expand-btn" onclick="openModal('crimson-minimal')">
               <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
               </svg>
               Expand
             </button>
+
+              <button class="download-btn" onclick="downloadBg('crimson-minimal')">
+
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v7M3 6l3 3 3-3M1.5 10.5h9"/></svg>
+
+                PNG
+
+              </button>
+
+            </div>
           </div>
           <div class="bg-preview-wrap">
             <div class="bg-preview grad-crimson" id="crimson-minimal">
@@ -973,13 +1082,6 @@
                 <path d="M600 500 L600 150 L400 0 L180 0 L420 240 L420 500 Z" fill="white" fill-opacity="0.05"/>
                 <path d="M600 500 L600 310 L360 70 L160 70 L360 270 L360 500 Z" fill="white" fill-opacity="0.04"/>
               </svg>
-              <div class="bg-inner centered">
-                <img class="bg-logo" src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
-                <div class="bg-label" style="color: #FFBBA8;">Events &amp; Venues</div>
-                <div class="bg-bot">
-                  <span class="bg-url">momentifyapp.com</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -988,12 +1090,24 @@
         <div class="bg-card">
           <div class="bg-card-label">
             <span class="bg-card-name">crimson-statement</span>
-            <button class="expand-btn" onclick="openModal('crimson-statement')">
+            <div class="card-actions">
+
+              <button class="expand-btn" onclick="openModal('crimson-statement')">
               <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
               </svg>
               Expand
             </button>
+
+              <button class="download-btn" onclick="downloadBg('crimson-statement')">
+
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v7M3 6l3 3 3-3M1.5 10.5h9"/></svg>
+
+                PNG
+
+              </button>
+
+            </div>
           </div>
           <div class="bg-preview-wrap">
             <div class="bg-preview grad-crimson" id="crimson-statement">
@@ -1001,23 +1115,207 @@
                 <path d="M600 500 L600 150 L400 0 L180 0 L420 240 L420 500 Z" fill="white" fill-opacity="0.05"/>
                 <path d="M600 500 L600 310 L360 70 L160 70 L360 270 L360 500 Z" fill="white" fill-opacity="0.04"/>
               </svg>
-              <div class="bg-inner" style="justify-content: space-between;">
-                <div class="bg-top">
-                  <img class="bg-logo" src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
-                </div>
-                <div class="bg-mid">
-                  <div class="bg-headline">The room is full. Make every moment count.</div>
-                  <div class="bg-sub">Capture what happens when it still matters.</div>
-                </div>
-                <div class="bg-bot">
-                  <span class="bg-url">momentifyapp.com</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
 
       </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION: LIGHT & PRINT VARIANTS
+    ============================================================ -->
+    <section class="brand-section" aria-label="Light and Print Variants">
+      <div class="section-header">
+        <div class="section-dot" style="background: linear-gradient(135deg, #1F3395, #0CF4DF);"></div>
+        <span class="section-name">Light &amp; Print Variants</span>
+        <span class="section-count">7 backgrounds</span>
+      </div>
+      <div class="bg-grid">
+
+        <!-- main-midnight -->
+        <div class="bg-card">
+          <div class="bg-card-label">
+            <span class="bg-card-name">main-midnight</span>
+            <div class="card-actions">
+              <button class="expand-btn" onclick="openModal('main-midnight')">
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/></svg>
+                Expand
+              </button>
+              <button class="download-btn" onclick="downloadBg('main-midnight')">
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v7M3 6l3 3 3-3M1.5 10.5h9"/></svg>
+                PNG
+              </button>
+            </div>
+          </div>
+          <div class="bg-preview-wrap">
+            <div class="bg-preview grad-midnight" id="main-midnight">
+              <svg class="bg-geo" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle cx="480" cy="80" r="260" fill="#0CF4DF" fill-opacity="0.03"/>
+                <circle cx="520" cy="120" r="180" fill="#254FE5" fill-opacity="0.04"/>
+                <path d="M600 500 L600 300 L380 80 L180 80 L380 280 L380 500 Z" fill="white" fill-opacity="0.02"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- main-frost (light) -->
+        <div class="bg-card">
+          <div class="bg-card-label">
+            <span class="bg-card-name">main-frost</span>
+            <div class="card-actions">
+              <button class="expand-btn" onclick="openModal('main-frost')">
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/></svg>
+                Expand
+              </button>
+              <button class="download-btn" onclick="downloadBg('main-frost')">
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v7M3 6l3 3 3-3M1.5 10.5h9"/></svg>
+                PNG
+              </button>
+            </div>
+          </div>
+          <div class="bg-preview-wrap">
+            <div class="bg-preview grad-frost" id="main-frost">
+              <div class="bg-color-bar" style="background: linear-gradient(90deg, #0CF4DF, #254FE5);"></div>
+              <svg class="bg-geo" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M600 500 L600 180 L420 0 L220 0 L440 220 L440 500 Z" fill="#254FE5" fill-opacity="0.04"/>
+                <path d="M600 500 L600 300 L380 80 L180 80 L380 280 L380 500 Z" fill="#1F3395" fill-opacity="0.03"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- violet-light -->
+        <div class="bg-card">
+          <div class="bg-card-label">
+            <span class="bg-card-name">violet-light</span>
+            <div class="card-actions">
+              <button class="expand-btn" onclick="openModal('violet-light')">
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/></svg>
+                Expand
+              </button>
+              <button class="download-btn" onclick="downloadBg('violet-light')">
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v7M3 6l3 3 3-3M1.5 10.5h9"/></svg>
+                PNG
+              </button>
+            </div>
+          </div>
+          <div class="bg-preview-wrap">
+            <div class="bg-preview grad-violet-light" id="violet-light">
+              <div class="bg-color-bar" style="background: linear-gradient(90deg, #9B5FE8, #6B21D4);"></div>
+              <svg class="bg-geo" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M600 500 L600 150 L400 0 L180 0 L420 240 L420 500 Z" fill="#7B3FD4" fill-opacity="0.06"/>
+                <path d="M600 500 L600 310 L360 70 L160 70 L360 270 L360 500 Z" fill="#9B5FE8" fill-opacity="0.04"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- teal-light -->
+        <div class="bg-card">
+          <div class="bg-card-label">
+            <span class="bg-card-name">teal-light</span>
+            <div class="card-actions">
+              <button class="expand-btn" onclick="openModal('teal-light')">
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/></svg>
+                Expand
+              </button>
+              <button class="download-btn" onclick="downloadBg('teal-light')">
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v7M3 6l3 3 3-3M1.5 10.5h9"/></svg>
+                PNG
+              </button>
+            </div>
+          </div>
+          <div class="bg-preview-wrap">
+            <div class="bg-preview grad-teal-light" id="teal-light">
+              <div class="bg-color-bar" style="background: linear-gradient(90deg, #00BBA5, #5FD9C2);"></div>
+              <svg class="bg-geo" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M600 500 L600 150 L400 0 L180 0 L420 240 L420 500 Z" fill="#00BBA5" fill-opacity="0.07"/>
+                <path d="M600 500 L600 310 L360 70 L160 70 L360 270 L360 500 Z" fill="#1A8A76" fill-opacity="0.05"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- amber-light -->
+        <div class="bg-card">
+          <div class="bg-card-label">
+            <span class="bg-card-name">amber-light</span>
+            <div class="card-actions">
+              <button class="expand-btn" onclick="openModal('amber-light')">
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/></svg>
+                Expand
+              </button>
+              <button class="download-btn" onclick="downloadBg('amber-light')">
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v7M3 6l3 3 3-3M1.5 10.5h9"/></svg>
+                PNG
+              </button>
+            </div>
+          </div>
+          <div class="bg-preview-wrap">
+            <div class="bg-preview grad-amber-light" id="amber-light">
+              <div class="bg-color-bar" style="background: linear-gradient(90deg, #F2B33D, #E88C00);"></div>
+              <svg class="bg-geo" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M600 500 L600 150 L400 0 L180 0 L420 240 L420 500 Z" fill="#A86B00" fill-opacity="0.06"/>
+                <path d="M600 500 L600 310 L360 70 L160 70 L360 270 L360 500 Z" fill="#F2B33D" fill-opacity="0.04"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- indigo-light -->
+        <div class="bg-card">
+          <div class="bg-card-label">
+            <span class="bg-card-name">indigo-light</span>
+            <div class="card-actions">
+              <button class="expand-btn" onclick="openModal('indigo-light')">
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/></svg>
+                Expand
+              </button>
+              <button class="download-btn" onclick="downloadBg('indigo-light')">
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v7M3 6l3 3 3-3M1.5 10.5h9"/></svg>
+                PNG
+              </button>
+            </div>
+          </div>
+          <div class="bg-preview-wrap">
+            <div class="bg-preview grad-indigo-light" id="indigo-light">
+              <div class="bg-color-bar" style="background: linear-gradient(90deg, #5B4499, #3A2073);"></div>
+              <svg class="bg-geo" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M600 500 L600 150 L400 0 L180 0 L420 240 L420 500 Z" fill="#5B4499" fill-opacity="0.06"/>
+                <path d="M600 500 L600 310 L360 70 L160 70 L360 270 L360 500 Z" fill="#3A2073" fill-opacity="0.04"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- crimson-light -->
+        <div class="bg-card">
+          <div class="bg-card-label">
+            <span class="bg-card-name">crimson-light</span>
+            <div class="card-actions">
+              <button class="expand-btn" onclick="openModal('crimson-light')">
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/></svg>
+                Expand
+              </button>
+              <button class="download-btn" onclick="downloadBg('crimson-light')">
+                <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v7M3 6l3 3 3-3M1.5 10.5h9"/></svg>
+                PNG
+              </button>
+            </div>
+          </div>
+          <div class="bg-preview-wrap">
+            <div class="bg-preview grad-crimson-light" id="crimson-light">
+              <div class="bg-color-bar" style="background: linear-gradient(90deg, #F25E3D, #8F200A);"></div>
+              <svg class="bg-geo" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M600 500 L600 150 L400 0 L180 0 L420 240 L420 500 Z" fill="#8F200A" fill-opacity="0.06"/>
+                <path d="M600 500 L600 310 L360 70 L160 70 L360 270 L360 500 Z" fill="#F25E3D" fill-opacity="0.04"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /.bg-grid -->
     </section>
 
   </main><!-- /.page-body -->
@@ -1039,6 +1337,9 @@
       <!-- cloned bg-preview inserted here by JS -->
     </div>
   </div>
+
+  <!-- dom-to-image-more: PNG export of background cards -->
+  <script src="https://cdn.jsdelivr.net/npm/dom-to-image-more@3.4.0/src/dom-to-image-more.min.js"></script>
 
   <!-- ============================================================
        JAVASCRIPT
@@ -1075,6 +1376,58 @@
         }
       });
     });
+
+    /* -------------------------------------------------------
+       THEME TOGGLE
+    ------------------------------------------------------- */
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isLight = html.dataset.theme === 'light';
+      html.dataset.theme = isLight ? 'dark' : 'light';
+      const label = document.getElementById('toggle-label');
+      if (label) label.textContent = isLight ? 'Light Mode' : 'Dark Mode';
+    }
+
+    /* -------------------------------------------------------
+       DOWNLOAD BACKGROUND AS PNG
+    ------------------------------------------------------- */
+    function downloadBg(bgId) {
+      const el = document.getElementById(bgId);
+      if (!el) return;
+
+      // Temporarily size the element to presentation dimensions for export
+      const EXPORT_W = 1920;
+      const EXPORT_H = 1080;
+
+      const btn = el.closest('.bg-card') && el.closest('.bg-card').querySelector('.download-btn');
+      if (btn) { btn.textContent = 'Exporting…'; btn.disabled = true; }
+
+      domtoimage.toPng(el, {
+        width:  EXPORT_W,
+        height: EXPORT_H,
+        style: {
+          width:  EXPORT_W + 'px',
+          height: EXPORT_H + 'px',
+          transform: 'none',
+        },
+      })
+      .then(dataUrl => {
+        const a = document.createElement('a');
+        a.download = 'momentify-bg-' + bgId + '.png';
+        a.href = dataUrl;
+        a.click();
+      })
+      .catch(err => {
+        console.error('Export failed:', err);
+        alert('Export failed — see console for details.');
+      })
+      .finally(() => {
+        if (btn) {
+          btn.innerHTML = '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v7M3 6l3 3 3-3M1.5 10.5h9"/></svg> PNG';
+          btn.disabled = false;
+        }
+      });
+    }
 
     /* -------------------------------------------------------
        MODAL

@@ -6,7 +6,7 @@
   <title>Momentify — Brand Kit</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     /* ─── Reset & Base ──────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -29,7 +29,7 @@
       /* Gradients */
       --grad-primary: linear-gradient(135deg, #0CF4DF 0%, #1F3395 100%);
       --grad-dark:    linear-gradient(135deg, #7C316D 0%, #0B0B3C 55%, #1A2E73 100%);
-      --grad-logo:    linear-gradient(90deg, #00BBA5 0%, #3257D9 100%);
+      --grad-logo:    linear-gradient(135deg, #0CF4DF 0%, #254FE5 100%);
 
       /* UI tokens — dark */
       --bg:           #07081F;
@@ -367,7 +367,8 @@
       margin-bottom: 16px;
       transition: color var(--t);
     }
-    .type-sample-h1 { font-size: 48px; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: var(--text); }
+    .type-sample-h1 { font-size: clamp(36px, 5vw, 72px); font-weight: 700; line-height: 1.05; letter-spacing: -0.025em; color: var(--text); }
+    .type-sample-thin { font-size: clamp(36px, 5vw, 72px); font-weight: 100; line-height: 1.05; letter-spacing: -0.025em; color: var(--text); }
     .type-sample-body { font-size: 16px; font-weight: 400; line-height: 1.7; color: var(--text-body); }
     .type-meta {
       margin-top: 16px;
@@ -524,21 +525,31 @@
       display: grid;
       grid-template-columns: 220px 1fr;
       gap: 0;
-      align-items: start;
+      /* default stretch: side-nav column fills full page height */
     }
     .side-nav {
+      background: var(--nav-bg);
+      border-right: 1px solid var(--nav-border);
+      transition: background var(--t), border-color var(--t);
+    }
+    /* Sticky inner container — keeps nav visible while bg extends full height */
+    .side-nav-inner {
       position: sticky;
       top: 0;
       height: 100vh;
-      overflow-y: auto;
-      padding: 40px 0 40px 40px;
-      border-right: 1px solid var(--nav-border);
-      background: var(--nav-bg);
-      transition: background var(--t), border-color var(--t);
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      gap: 0;
+      width: 220px;
     }
+    /* Scrollable middle area for nav links */
+    .side-nav-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 40px 0 16px 40px;
+      scrollbar-width: none;
+    }
+    .side-nav-scroll::-webkit-scrollbar { display: none; }
     .side-nav-logo { margin-bottom: 32px; }
     .side-nav-logo img { height: 26px; }
     .side-nav-title {
@@ -565,10 +576,12 @@
     .side-nav a:hover,
     .side-nav a.active { color: var(--accent); border-left-color: var(--accent); }
 
+    /* Toggle pinned at bottom — always visible regardless of nav scroll */
     .nav-toggle-wrap {
-      margin-top: auto;
-      padding-top: 28px;
-      padding-right: 40px; /* match side-nav's padding-left so toggle is centred */
+      flex-shrink: 0;
+      padding: 16px 40px 24px 40px;
+      border-top: 1px solid var(--nav-border);
+      transition: border-color var(--t);
     }
     .nav-toggle-wrap .theme-toggle {
       width: 100%;
@@ -819,89 +832,60 @@
     }
     .ht-copy-btn:hover { background: var(--accent-sec); border-color: var(--accent); }
 
-    /* Treatment 1 — Gradient Word */
-    .ht-grad-word {
-      font-size: clamp(26px, 8cqw, 46px);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: #FFFFFF;
-      line-height: 1.18;
+    /* Treatment 1 — Thin + Heavy Split */
+    .ht-ths { text-align: left; }
+    .ht-ths-eye {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.25em;
+      text-transform: uppercase; color: #0CF4DF; margin-bottom: 10px;
     }
-    .ht-grad-word .gw {
+    .ht-ths-thin {
+      font-size: clamp(40px, 9cqw, 72px); font-weight: 100;
+      line-height: 0.95; letter-spacing: -0.025em; color: rgba(255,255,255,0.88);
+    }
+    .ht-ths-bold {
+      font-size: clamp(30px, 6.5cqw, 52px); font-weight: 800;
+      line-height: 0.95; letter-spacing: -0.035em; color: #0CF4DF;
+    }
+
+    /* Treatment 2 — Gradient Flood (thin) */
+    .ht-gft {
+      font-size: clamp(36px, 8.5cqw, 68px); font-weight: 100;
+      line-height: 1.02; letter-spacing: -0.025em;
       background: linear-gradient(135deg, #0CF4DF 0%, #254FE5 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
 
-    /* Treatment 2 — Gradient Underline */
-    .ht-underline-wrap {
-      display: inline-block;
-      position: relative;
-      font-size: clamp(24px, 7cqw, 42px);
-      font-weight: 700;
-      color: #FFFFFF;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-      padding-bottom: 14px;
+    /* Treatment 3 — Weight Cascade */
+    .ht-wc { text-align: left; line-height: 0.98; letter-spacing: -0.03em; }
+    .ht-wc-100 { font-size: clamp(28px, 6.5cqw, 52px); font-weight: 100; color: rgba(255,255,255,0.32); display: block; }
+    .ht-wc-300 { font-size: clamp(34px, 8cqw, 64px); font-weight: 300; color: rgba(255,255,255,0.62); display: block; }
+    .ht-wc-800 { font-size: clamp(42px, 10cqw, 80px); font-weight: 800; color: #ffffff; display: block; }
+
+    /* Treatment 4 — Thin Rule Break */
+    .ht-trb { text-align: left; }
+    .ht-trb-thin {
+      font-size: clamp(36px, 8cqw, 64px); font-weight: 100;
+      line-height: 0.95; letter-spacing: -0.025em; color: rgba(255,255,255,0.9);
     }
-    .ht-underline-wrap::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, #0CF4DF, #1F3395);
-      border-radius: 2px;
+    .ht-trb-rule {
+      height: 2px; margin: 14px 0;
+      background: linear-gradient(90deg, #0CF4DF 0%, #254FE5 60%, transparent 100%);
+      border-radius: 2px; width: 100%;
+    }
+    .ht-trb-bold {
+      font-size: clamp(24px, 5.5cqw, 44px); font-weight: 700;
+      line-height: 1; letter-spacing: -0.03em; color: #ffffff;
     }
 
-    /* Treatment 3 — Gradient Pill */
-    .ht-pill-wrap {
-      font-size: clamp(24px, 7cqw, 42px);
-      font-weight: 800;
-      color: #FFFFFF;
-      letter-spacing: -0.02em;
-      line-height: 1.35;
+    /* Treatment 5 — Three-Word Color */
+    .ht-3w { line-height: 0.95; letter-spacing: -0.03em; }
+    .ht-3w-mute { font-size: clamp(28px, 6.5cqw, 52px); font-weight: 100; color: rgba(255,255,255,0.28); display: block; }
+    .ht-3w-grad {
+      font-size: clamp(28px, 6.5cqw, 52px); font-weight: 100; display: block;
+      background: linear-gradient(135deg, #0CF4DF 0%, #254FE5 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
-    .ht-pill-wrap .gp {
-      background: linear-gradient(135deg, rgba(12,244,223,0.18), rgba(37,79,229,0.24));
-      border-radius: 100px;
-      padding: 0 18px;
-      box-shadow: inset 0 0 0 1px rgba(12,244,223,0.4);
-      white-space: nowrap;
-    }
-
-    /* Treatment 4 — Mixed Weight */
-    .ht-mix {
-      font-size: clamp(26px, 8cqw, 44px);
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-      color: #FFFFFF;
-    }
-    .ht-mix .ht-light { font-weight: 300; opacity: 0.5; }
-    .ht-mix .ht-bold  { font-weight: 800; }
-
-    /* Treatment 5 — Eyebrow + Display */
-    .ht-eyebrow-wrap { text-align: left; }
-    .ht-eyebrow-wrap .ht-eyebrow {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      background: linear-gradient(90deg, #0CF4DF, #254FE5);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 10px;
-    }
-    .ht-eyebrow-wrap .ht-display {
-      font-size: clamp(28px, 8cqw, 50px);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.05;
-      color: #FFFFFF;
-    }
+    .ht-3w-bold { font-size: clamp(28px, 6.5cqw, 52px); font-weight: 800; color: #ffffff; display: block; }
 
     /* ─── Mobile Nav ────────────────────────────────────────────── */
     .mobile-nav {
@@ -1047,24 +1031,27 @@
 
     <!-- Side Nav -->
     <nav class="side-nav">
-      <div class="side-nav-logo">
-        <img class="logo-dark"  src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
-        <img class="logo-light" src="assets/Momentify-Logo.svg" alt="Momentify" />
-      </div>
-      <div class="side-nav-title">Brand Kit</div>
-      <ul>
-        <li><a href="#logo">Logo</a></li>
-        <li><a href="#colors">Color Palette</a></li>
-        <li><a href="#gradients">Gradients</a></li>
-        <li><a href="#typography">Typography</a></li>
-        <li><a href="#voice">Voice &amp; Tone</a></li>
-        <li><a href="#usage">Usage Rules</a></li>
-        <li><a href="#solutions">Solutions</a></li>
-        <li><a href="#headlines">Headlines</a></li>
-        <li><a href="backgrounds.html" target="_blank" style="display:flex;align-items:center;gap:5px;">Backgrounds <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 11L11 1M11 1H5M11 1v6"/></svg></a></li>
-      </ul>
-      <div class="nav-toggle-wrap">
-        <button class="theme-toggle" id="nav-toggle" onclick="toggleTheme()">
+      <div class="side-nav-inner">
+        <div class="side-nav-scroll">
+          <div class="side-nav-logo">
+            <img class="logo-dark"  src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
+            <img class="logo-light" src="assets/Momentify-Logo.svg" alt="Momentify" />
+          </div>
+          <div class="side-nav-title">Brand Kit</div>
+          <ul>
+            <li><a href="#logo">Logo</a></li>
+            <li><a href="#colors">Color Palette</a></li>
+            <li><a href="#gradients">Gradients</a></li>
+            <li><a href="#typography">Typography</a></li>
+            <li><a href="#voice">Voice &amp; Tone</a></li>
+            <li><a href="#usage">Usage Rules</a></li>
+            <li><a href="#solutions">Solutions</a></li>
+            <li><a href="#headlines">Headlines</a></li>
+            <li><a href="backgrounds.html" target="_blank" style="display:flex;align-items:center;gap:5px;">Backgrounds <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 11L11 1M11 1H5M11 1v6"/></svg></a></li>
+          </ul>
+        </div>
+        <div class="nav-toggle-wrap">
+          <button class="theme-toggle" id="nav-toggle" onclick="toggleTheme()">
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/>
           </svg>
@@ -1077,7 +1064,8 @@
           </svg>
           <span id="nav-toggle-label">Light Mode</span>
         </button>
-      </div>
+        </div><!-- /.nav-toggle-wrap -->
+      </div><!-- /.side-nav-inner -->
     </nav>
 
     <!-- Main Content -->
@@ -1254,13 +1242,12 @@
               </div>
             </div>
             <div class="gradient-card">
-              <div class="gradient-swatch" style="background:linear-gradient(to right,#00BBA5,#3A2073 40%,#3257D9);"></div>
+              <div class="gradient-swatch" style="background:linear-gradient(135deg,#0CF4DF 0%,#254FE5 100%);"></div>
               <div class="gradient-info">
-                <div class="gradient-name">Logo Gradient <span style="font-size:10px;font-weight:500;opacity:0.5;margin-left:6px;">90deg horizontal · logo only</span></div>
+                <div class="gradient-name">Logo Gradient <span style="font-size:10px;font-weight:500;opacity:0.5;margin-left:6px;">135deg diagonal · logo mark only</span></div>
                 <div class="gradient-stops">
-                  <div class="gradient-stop">→ #00BBA5 (Teal, 0%)</div>
-                  <div class="gradient-stop">→ #3A2073 (Deep Indigo, 40%)</div>
-                  <div class="gradient-stop">→ #3257D9 (Cobalt, 100%)</div>
+                  <div class="gradient-stop">→ #0CF4DF (Cyan, 0%)</div>
+                  <div class="gradient-stop">→ #254FE5 (Blue, 100%)</div>
                 </div>
                 <div class="gradient-usage">Reserved for the logo icon only. Do not use on UI elements or backgrounds.</div>
               </div>
@@ -1278,15 +1265,24 @@
 
           <div class="type-showcase">
             <div class="type-card">
-              <div class="type-label">Display / H1</div>
-              <div class="type-sample-h1">Capture Every<br/>Moment.</div>
+              <div class="type-label">Display — Bold</div>
+              <div class="type-sample-h1">Empower Every<br/>Moment.</div>
               <div class="type-meta">
-                <div class="type-meta-item"><div class="type-meta-key">Size</div><div class="type-meta-val">48px</div></div>
+                <div class="type-meta-item"><div class="type-meta-key">Size</div><div class="type-meta-val">72px</div></div>
                 <div class="type-meta-item"><div class="type-meta-key">Weight</div><div class="type-meta-val">700 Bold</div></div>
-                <div class="type-meta-item"><div class="type-meta-key">Tracking</div><div class="type-meta-val">−0.02em</div></div>
+                <div class="type-meta-item"><div class="type-meta-key">Tracking</div><div class="type-meta-val">−0.025em</div></div>
               </div>
             </div>
             <div class="type-card">
+              <div class="type-label">Display — Thin</div>
+              <div class="type-sample-thin">Empower Every<br/>Moment.</div>
+              <div class="type-meta">
+                <div class="type-meta-item"><div class="type-meta-key">Size</div><div class="type-meta-val">72px</div></div>
+                <div class="type-meta-item"><div class="type-meta-key">Weight</div><div class="type-meta-val">100 Thin</div></div>
+                <div class="type-meta-item"><div class="type-meta-key">Tracking</div><div class="type-meta-val">−0.025em</div></div>
+              </div>
+            </div>
+            <div class="type-card" style="grid-column: 1 / -1;">
               <div class="type-label">Body Copy</div>
               <div class="type-sample-body">Momentify transforms trade show and facility engagement. Passive attendees become active participants. Intelligent, real-time experience design makes the difference.</div>
               <div class="type-meta">
@@ -1313,7 +1309,7 @@
               <span class="type-scale-size">48px</span>
               <span class="type-scale-weight">700</span>
               <span class="type-scale-lh">1.1</span>
-              <span style="font-size:20px;font-weight:700;">Capture Every Moment</span>
+              <span style="font-size:20px;font-weight:700;">Empower Every Moment</span>
             </div>
             <div class="type-scale-row">
               <span class="type-scale-name">Heading 2</span>
@@ -1714,82 +1710,91 @@
         <div class="container">
           <div class="section-label">08 — Headlines</div>
           <h2 class="section-title">Headline Treatments</h2>
-          <p class="section-desc">Five Inter-based headline treatments for digital, presentations, and social. Each pairs with the brand gradient system. Click Copy CSS to grab the snippet directly.</p>
+          <p class="section-desc">Five Inter-based headline treatments using weight contrast and gradient for digital, presentations, and social. Inter 100 Thin is available throughout. Click Copy CSS to grab the snippet.</p>
 
           <div class="ht-grid">
 
-            <!-- Treatment 1: Gradient Word -->
+            <!-- Treatment 1: Thin + Heavy Split -->
             <div class="ht-card">
-              <div class="ht-preview">
-                <div class="ht-grad-word">Empower Every<br/><span class="gw">Moment.</span></div>
+              <div class="ht-preview" style="align-items:flex-start; justify-content:flex-start;">
+                <div class="ht-ths">
+                  <div class="ht-ths-eye">Empower</div>
+                  <div class="ht-ths-thin">Every</div>
+                  <div class="ht-ths-bold">Moment.</div>
+                </div>
               </div>
               <div class="ht-card-footer">
                 <div>
-                  <div class="ht-card-name">Gradient Word</div>
-                  <div class="ht-card-desc">Key word gets the Action Gradient. Rest stays white.</div>
+                  <div class="ht-card-name">Thin + Heavy Split</div>
+                  <div class="ht-card-desc">Weight 100 thin top, weight 800 bold bottom. Cyan accent punch.</div>
                 </div>
                 <button class="ht-copy-btn" onclick="copyCSS(1)">Copy CSS</button>
               </div>
             </div>
 
-            <!-- Treatment 2: Gradient Underline -->
+            <!-- Treatment 2: Gradient Flood Thin -->
             <div class="ht-card">
               <div class="ht-preview">
-                <div class="ht-underline-wrap">Engagement<br/>That Converts.</div>
+                <div class="ht-gft">Empower<br/>Every<br/>Moment.</div>
               </div>
               <div class="ht-card-footer">
                 <div>
-                  <div class="ht-card-name">Gradient Underline</div>
-                  <div class="ht-card-desc">Full headline. Gradient rule beneath anchors the copy.</div>
+                  <div class="ht-card-name">Gradient Flood</div>
+                  <div class="ht-card-desc">Weight 100 at display scale. Full Action Gradient fill.</div>
                 </div>
                 <button class="ht-copy-btn" onclick="copyCSS(2)">Copy CSS</button>
               </div>
             </div>
 
-            <!-- Treatment 3: Gradient Pill -->
+            <!-- Treatment 3: Weight Cascade -->
             <div class="ht-card">
-              <div class="ht-preview">
-                <div class="ht-pill-wrap">Intelligence<br/>for <span class="gp">Every Floor.</span></div>
+              <div class="ht-preview" style="align-items:flex-start; justify-content:flex-start;">
+                <div class="ht-wc">
+                  <span class="ht-wc-100">Empower</span>
+                  <span class="ht-wc-300">Every</span>
+                  <span class="ht-wc-800">Moment.</span>
+                </div>
               </div>
               <div class="ht-card-footer">
                 <div>
-                  <div class="ht-card-name">Gradient Pill</div>
-                  <div class="ht-card-desc">Phrase highlighted inside a soft gradient capsule.</div>
+                  <div class="ht-card-name">Weight Cascade</div>
+                  <div class="ht-card-desc">Three weights descend: 100 → 300 → 800. No color needed.</div>
                 </div>
                 <button class="ht-copy-btn" onclick="copyCSS(3)">Copy CSS</button>
               </div>
             </div>
 
-            <!-- Treatment 4: Mixed Weight -->
+            <!-- Treatment 4: Thin Rule Break -->
             <div class="ht-card">
-              <div class="ht-preview">
-                <div class="ht-mix">
-                  <span class="ht-light">Real-Time</span><br/>
-                  <span class="ht-bold">Engagement</span><br/>
-                  <span class="ht-light">at Scale.</span>
+              <div class="ht-preview" style="align-items:flex-start; justify-content:flex-start;">
+                <div class="ht-trb">
+                  <div class="ht-trb-thin">Empower Every</div>
+                  <div class="ht-trb-rule"></div>
+                  <div class="ht-trb-bold">Moment.</div>
                 </div>
               </div>
               <div class="ht-card-footer">
                 <div>
-                  <div class="ht-card-name">Mixed Weight</div>
-                  <div class="ht-card-desc">Weight contrast creates rhythm without color.</div>
+                  <div class="ht-card-name">Thin Rule Break</div>
+                  <div class="ht-card-desc">Thin 100 phrase over a gradient rule, bold anchor below.</div>
                 </div>
                 <button class="ht-copy-btn" onclick="copyCSS(4)">Copy CSS</button>
               </div>
             </div>
 
-            <!-- Treatment 5: Eyebrow + Display -->
+            <!-- Treatment 5: Three-Word Color -->
             <div class="ht-card">
               <div class="ht-preview">
-                <div class="ht-eyebrow-wrap">
-                  <div class="ht-eyebrow">Engagement Intelligence</div>
-                  <div class="ht-display">Every Moment<br/>Counts.</div>
+                <div class="ht-3w">
+                  <span class="ht-3w-mute">Empower</span>
+                  <span class="ht-3w-grad">Every</span>
+                  <span class="ht-3w-bold">Moment.</span>
                 </div>
               </div>
               <div class="ht-card-footer">
                 <div>
-                  <div class="ht-card-name">Eyebrow + Display</div>
-                  <div class="ht-card-desc">Gradient eyebrow label. Heavy display below.</div>
+                  <div class="ht-card-name">Three-Word Color</div>
+                  <div class="ht-card-desc">Muted thin → gradient thin → solid bold. One word per role.</div>
                 </div>
                 <button class="ht-copy-btn" onclick="copyCSS(5)">Copy CSS</button>
               </div>
