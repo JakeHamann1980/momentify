@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en" data-format="presentation" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brand Assets — Backgrounds | Momentify</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* =============================================
+       RESET & BASE
+    ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #07081F;
+      --surface: #0F1035;
+      --surface-2: #161840;
+      --border: rgba(255,255,255,0.08);
+      --text: #E8EAF6;
+      --text-muted: rgba(232,234,246,0.5);
+      --cyan: #0CF4DF;
+      --deep-blue: #1F3395;
+      --cobalt: #3257D9;
+      --teal: #00BBA5;
+      --midnight: #0B0B3C;
+      --navy: #1A2E73;
+      --plum: #7C316D;
+      --depth-grad: linear-gradient(135deg, #7C316D 0%, #0B0B3C 55%, #1A2E73 100%);
+      --action-grad: linear-gradient(135deg, #0CF4DF 0%, #1F3395 100%);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* =============================================
+       PAGE HEADER
+    ============================================= */
+    .page-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 8, 31, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color 0.2s;
+      flex-shrink: 0;
+    }
+    .back-link:hover { color: var(--cyan); }
+    .back-link svg { width: 14px; height: 14px; }
+
+    .header-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    .page-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      flex: 1;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* =============================================
+       FORMAT TABS
+    ============================================= */
+    .format-tabs {
+      display: flex;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .format-tab {
+      padding: 5px 12px;
+      border-radius: 5px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.18s;
+      white-space: nowrap;
+    }
+
+    .format-tab:hover { color: var(--text); }
+
+    .format-tab.active {
+      background: var(--surface-2);
+      color: var(--cyan);
+      box-shadow: 0 0 0 1px rgba(12,244,223,0.2);
+    }
+
+    /* =============================================
+       MAIN LAYOUT
+    ============================================= */
+    .page-body {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 48px 32px 80px;
+    }
+
+    .page-intro {
+      margin-bottom: 48px;
+    }
+
+    .page-intro h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .page-intro p {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 560px;
+      line-height: 1.6;
+    }
+
+    /* =============================================
+       SOLUTION SECTIONS
+    ============================================= */
+    .brand-section {
+      margin-bottom: 56px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .section-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      flex: 1;
+    }
+
+    .section-count {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    /* =============================================
+       BACKGROUND GRID
+    ============================================= */
+    .bg-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    /* =============================================
+       BACKGROUND CARD
+    ============================================= */
+    .bg-card {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #000;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bg-card-label {
+      padding: 10px 14px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .bg-card-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-family: 'Inter', monospace;
+    }
+
+    .expand-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 5px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--text-muted);
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .expand-btn:hover {
+      color: var(--cyan);
+      border-color: rgba(12,244,223,0.3);
+      background: rgba(12,244,223,0.06);
+    }
+    .expand-btn svg { width: 12px; height: 12px; }
+
+    /* =============================================
+       BACKGROUND PREVIEW
+    ============================================= */
+    .bg-preview-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* format-driven aspect-ratio */
+    [data-format="presentation"] .bg-preview { aspect-ratio: 16 / 9; }
+    [data-format="square"]       .bg-preview { aspect-ratio: 1 / 1; }
+    [data-format="story"]        .bg-preview { aspect-ratio: 9 / 16; }
+    [data-format="banner"]       .bg-preview { aspect-ratio: 191 / 100; }
+
+    .bg-preview {
+      position: relative;
+      width: 100%;
+      container-type: inline-size;
+      overflow: hidden;
+    }
+
+    .bg-absolute {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* gradient definitions per background */
+    .grad-depth        { background: linear-gradient(135deg, #7C316D 0%, #0B0B3C 55%, #1A2E73 100%); }
+    .grad-white        { background: #FFFFFF; }
+    .grad-violet       { background: linear-gradient(135deg, #2D0770 0%, #4A0FA8 55%, #9B5FE8 100%); }
+    .grad-teal-sol     { background: linear-gradient(135deg, #040E28 0%, #1A8A76 55%, #5FD9C2 100%); }
+    .grad-amber        { background: linear-gradient(135deg, #1A0A00 0%, #A86B00 55%, #F2B33D 100%); }
+    .grad-indigo       { background: linear-gradient(135deg, #0D0820 0%, #3A2073 55%, #5B4499 100%); }
+    .grad-crimson      { background: linear-gradient(135deg, #1A0400 0%, #8F200A 55%, #F25E3D 100%); }
+
+    /* =============================================
+       INNER LAYOUT OF EACH BACKGROUND
+    ============================================= */
+    .bg-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(10px, 5cqw, 48px);
+    }
+
+    .bg-logo {
+      width: clamp(60px, 28cqw, 200px);
+      display: block;
+    }
+
+    .bg-top { display: flex; align-items: flex-start; }
+    .bg-mid { display: flex; flex-direction: column; gap: clamp(4px, 1.5cqw, 16px); }
+    .bg-bot { display: flex; align-items: flex-end; justify-content: space-between; }
+
+    .bg-headline {
+      font-size: clamp(10px, 5.5cqw, 80px);
+      font-weight: 800;
+      line-height: 1.05;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    .bg-sub {
+      font-size: clamp(7px, 2.2cqw, 28px);
+      color: rgba(255,255,255,0.65);
+      font-weight: 400;
+      line-height: 1.35;
+    }
+
+    .bg-label {
+      font-size: clamp(7px, 2cqw, 22px);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+    }
+
+    .bg-url {
+      font-size: clamp(5px, 1.5cqw, 16px);
+      color: rgba(255,255,255,0.4);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+
+    /* centered layouts */
+    .bg-inner.centered {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: clamp(6px, 2cqw, 20px);
+    }
+    .bg-inner.centered .bg-logo {
+      margin-bottom: clamp(4px, 1.5cqw, 14px);
+    }
+    .bg-inner.centered .bg-bot {
+      position: absolute;
+      bottom: clamp(10px, 5cqw, 48px);
+      left: clamp(10px, 5cqw, 48px);
+      right: clamp(10px, 5cqw, 48px);
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    /* =============================================
+       LIGHT BACKGROUND OVERRIDES
+    ============================================= */
+    .light-bg .bg-headline { color: #0B0B3C; }
+    .light-bg .bg-sub      { color: rgba(11,11,60,0.55); }
+    .light-bg .bg-url      { color: rgba(11,11,60,0.35); }
+    .light-bg .bg-label    { color: rgba(11,11,60,0.55); }
+
+    .light-accent-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(to right, #0CF4DF, #1F3395);
+      z-index: 2;
+    }
+
+    /* =============================================
+       GEOMETRIC DECORATION SVG
+    ============================================= */
+    .bg-geo {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 52%;
+      height: auto;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* =============================================
+       FULLSCREEN MODAL
+    ============================================= */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: #000;
+      flex-direction: column;
+    }
+
+    .modal-overlay.open { display: flex; }
+    body.modal-open { overflow: hidden; }
+
+    .modal-topbar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 44px;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 10;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .modal-format-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.7);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .modal-close {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.07);
+      color: rgba(255,255,255,0.8);
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .modal-close:hover {
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+    }
+    .modal-close svg { width: 12px; height: 12px; }
+
+    .modal-bg-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 44px 0 0;
+      overflow: hidden;
+    }
+
+    /* The modal-bg element itself fills based on current format */
+    .modal-bg {
+      position: relative;
+      overflow: hidden;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    /* Modal bg-inner overrides: use vw-based font sizes */
+    .modal-overlay .bg-inner {
+      padding: clamp(24px, 5vw, 80px);
+    }
+    .modal-overlay .bg-logo       { width: clamp(120px, 20vw, 320px); }
+    .modal-overlay .bg-headline   { font-size: clamp(28px, 5vw, 96px); }
+    .modal-overlay .bg-sub        { font-size: clamp(12px, 2vw, 36px); }
+    .modal-overlay .bg-url        { font-size: clamp(8px, 1.2vw, 20px); }
+    .modal-overlay .bg-label      { font-size: clamp(10px, 1.5vw, 24px); }
+
+    .modal-overlay .bg-inner.centered .bg-bot {
+      bottom: clamp(24px, 5vw, 80px);
+      left: clamp(24px, 5vw, 80px);
+      right: clamp(24px, 5vw, 80px);
+    }
+
+    /* =============================================
+       RESPONSIVE
+    ============================================= */
+    @media (max-width: 900px) {
+      .bg-grid { grid-template-columns: 1fr; }
+      .header-inner { padding: 0 16px; gap: 12px; }
+      .page-body { padding: 32px 16px 60px; }
+      .format-tab { padding: 5px 8px; font-size: 11px; }
+    }
+
+    @media (max-width: 600px) {
+      .format-tabs { flex-wrap: wrap; }
+      .header-controls { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body data-format="presentation">
+
+  <!-- ============================================================
+       PAGE HEADER
+  ============================================================ -->
+  <header class="page-header">
+    <div class="header-inner">
+      <a href="index.html" class="back-link">
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 2L4 7l5 5"/>
+        </svg>
+        Brand Kit
+      </a>
+      <div class="header-divider"></div>
+      <span class="page-title">Backgrounds</span>
+      <div class="header-controls">
+        <div class="format-tabs" role="tablist" aria-label="Format">
+          <button class="format-tab active" role="tab" data-format="presentation" aria-selected="true">Presentation 16:9</button>
+          <button class="format-tab" role="tab" data-format="square">Square 1:1</button>
+          <button class="format-tab" role="tab" data-format="story">Story 9:16</button>
+          <button class="format-tab" role="tab" data-format="banner">Banner 1.91:1</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN CONTENT
+  ============================================================ -->
+  <main class="page-body">
+
+    <div class="page-intro">
+      <h1>Background Assets</h1>
+      <p>13 production-ready backgrounds across five solution categories. Switch formats using the tabs above. Click Expand to preview at full screen.</p>
+    </div>
+
+    <!-- ============================================================
+         SECTION: MAIN BRAND
+    ============================================================ -->
+    <section class="brand-section" aria-label="Main Brand">
+      <div class="section-header">
+        <div class="section-dot" style="background: linear-gradient(135deg, #7C316D, #3257D9);"></div>
+        <span class="section-name">Main Brand</span>
+        <span class="section-count">3 backgrounds</span>
+      </div>
+      <div class="bg-grid">
+
+        <!-- 1. main-minimal -->
+        <div class="bg-card">
+          <div class="bg-card-label">
+            <span class="bg-card-name">main-minimal</span>
+            <button class="expand-btn" onclick="openModal('main-minimal')">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
+              </svg>
+              Expand
+            </button>
+          </div>
+          <div class="bg-preview-wrap">
+            <div class="bg-preview grad-depth" id="main-minimal">
+              <!-- Geo decoration -->
+              <svg class="bg-geo" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M600 500 L600 180 L420 0 L220 0 L440 220 L440 500 Z" fill="white" fill-opacity="0.05"/>
+                <path d="M600 500 L600 300 L380 80 L180 80 L380 280 L380 500 Z" fill="white" fill-opacity="0.04"/>
+                <path d="M600 500 L600 420 L510 330 L350 330 L510 500 Z" fill="white" fill-opacity="0.03"/>
+              </svg>
+              <div class="bg-inner centered">
+                <img class="bg-logo" src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
+                <div class="bg-bot">
+                  <span class="bg-url">momentifyapp.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. main-statement -->
+        <div class="bg-card">
+          <div class="bg-card-label">
+            <span class="bg-card-name">main-statement</span>
+            <button class="expand-btn" onclick="openModal('main-statement')">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
+              </svg>
+              Expand
+            </button>
+          </div>
+          <div class="bg-preview-wrap">
+            <div class="bg-preview grad-depth" id="main-statement">
+              <svg class="bg-geo" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M600 500 L600 180 L420 0 L220 0 L440 220 L440 500 Z" fill="white" fill-opacity="0.05"/>
+                <path d="M600 500 L600 300 L380 80 L180 80 L380 280 L380 500 Z" fill="white" fill-opacity="0.04"/>
+              </svg>
+              <div class="bg-inner" style="justify-content: space-between;">
+                <div class="bg-top">
+                  <img class="bg-logo" src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
+                </div>
+                <div class="bg-mid">
+                  <div class="bg-headline">Turn Effort Into Evidence.</div>
+                  <div class="bg-sub">Engagement intelligence for every moment.</div>
+                </div>
+                <div class="bg-bot">
+                  <span class="bg-url">momentifyapp.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. main-light -->
+        <div class="bg-card">
+          <div class="bg-card-label">
+            <span class="bg-card-name">main-light</span>
+            <button class="expand-btn" onclick="openModal('main-light')">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
+              </svg>
+              Expand
+            </button>
+          </div>
+          <div class="bg-preview-wrap">
+            <div class="bg-preview grad-white light-bg" id="main-light">
+              <div class="light-accent-bar"></div>
+              <div class="bg-inner" style="justify-content: space-between;">
+                <div class="bg-top">
+                  <img class="bg-logo" src="assets/Momentify-Logo.svg" alt="Momentify" />
+                </div>
+                <div class="bg-mid">
+                  <div class="bg-headline">Turn Effort Into Evidence.</div>
+                  <div class="bg-sub">Engagement intelligence for every moment.</div>
+                </div>
+                <div class="bg-bot">
+                  <span class="bg-url">momentifyapp.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /.bg-grid -->
+    </section>
+
+    <!-- ============================================================
+         SECTION: VIOLET — Trade Shows & Exhibits
+    ============================================================ -->
+    <section class="brand-section" aria-label="Trade Shows and Exhibits">
+      <div class="section-header">
+        <div class="section-dot" style="background: #9B5FE8;"></div>
+        <span class="section-name">Trade Shows &amp; Exhibits</span>
+        <span class="section-count">2 backgrounds</span>
+      </div>
+      <div class="bg-grid">
+
+        <!-- 4. violet-minimal -->
+        <div class="bg-card">
+          <div class="bg-card-label">
+            <span class="bg-card-name">violet-minimal</span>
+            <button class="expand-btn" onclick="openModal('violet-minimal')">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
+              </svg>
+              Expand
+            </button>
+          </div>
+          <div class="bg-preview-wrap">
+            <div class="bg-preview grad-violet" id="violet-minimal">
+              <svg class="bg-geo" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M600 500 L600 150 L400 0 L180 0 L420 240 L420 500 Z" fill="white" fill-opacity="0.05"/>
+                <path d="M600 500 L600 310 L360 70 L160 70 L360 270 L360 500 Z" fill="white" fill-opacity="0.04"/>
+              </svg>
+              <div class="bg-inner centered">
+                <img class="bg-logo" src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
+                <div class="bg-label" style="color: #D4AAFF;">Trade Shows &amp; Exhibits</div>
+                <div class="bg-bot">
+                  <span class="bg-url">momentifyapp.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. violet-statement -->
+        <div class="bg-card">
+          <div class="bg-card-label">
+            <span class="bg-card-name">violet-statement</span>
+            <button class="expand-btn" onclick="openModal('violet-statement')">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
+              </svg>
+              Expand
+            </button>
+          </div>
+          <div class="bg-preview-wrap">
+            <div class="bg-preview grad-violet" id="violet-statement">
+              <svg class="bg-geo" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M600 500 L600 150 L400 0 L180 0 L420 240 L420 500 Z" fill="white" fill-opacity="0.05"/>
+                <path d="M600 500 L600 310 L360 70 L160 70 L360 270 L360 500 Z" fill="white" fill-opacity="0.04"/>
+              </svg>
+              <div class="bg-inner" style="justify-content: space-between;">
+                <div class="bg-top">
+                  <img class="bg-logo" src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
+                </div>
+                <div class="bg-mid">
+                  <div class="bg-headline">Every booth. Every handshake. Every lead.</div>
+                  <div class="bg-sub">Know who showed up and what they were ready to do.</div>
+                </div>
+                <div class="bg-bot">
+                  <span class="bg-url">momentifyapp.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION: TEAL — Technical Recruiting
+    ============================================================ -->
+    <section class="brand-section" aria-label="Technical Recruiting">
+      <div class="section-header">
+        <div class="section-dot" style="background: #5FD9C2;"></div>
+        <span class="section-name">Technical Recruiting</span>
+        <span class="section-count">2 backgrounds</span>
+      </div>
+      <div class="bg-grid">
+
+        <!-- 6. teal-minimal -->
+        <div class="bg-card">
+          <div class="bg-card-label">
+            <span class="bg-card-name">teal-minimal</span>
+            <button class="expand-btn" onclick="openModal('teal-minimal')">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
+              </svg>
+              Expand
+            </button>
+          </div>
+          <div class="bg-preview-wrap">
+            <div class="bg-preview grad-teal-sol" id="teal-minimal">
+              <svg class="bg-geo" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M600 500 L600 150 L400 0 L180 0 L420 240 L420 500 Z" fill="white" fill-opacity="0.06"/>
+                <path d="M600 500 L600 310 L360 70 L160 70 L360 270 L360 500 Z" fill="white" fill-opacity="0.04"/>
+              </svg>
+              <div class="bg-inner centered">
+                <img class="bg-logo" src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
+                <div class="bg-label" style="color: #A0F0E4;">Technical Recruiting</div>
+                <div class="bg-bot">
+                  <span class="bg-url">momentifyapp.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. teal-statement -->
+        <div class="bg-card">
+          <div class="bg-card-label">
+            <span class="bg-card-name">teal-statement</span>
+            <button class="expand-btn" onclick="openModal('teal-statement')">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
+              </svg>
+              Expand
+            </button>
+          </div>
+          <div class="bg-preview-wrap">
+            <div class="bg-preview grad-teal-sol" id="teal-statement">
+              <svg class="bg-geo" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M600 500 L600 150 L400 0 L180 0 L420 240 L420 500 Z" fill="white" fill-opacity="0.06"/>
+                <path d="M600 500 L600 310 L360 70 L160 70 L360 270 L360 500 Z" fill="white" fill-opacity="0.04"/>
+              </svg>
+              <div class="bg-inner" style="justify-content: space-between;">
+                <div class="bg-top">
+                  <img class="bg-logo" src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
+                </div>
+                <div class="bg-mid">
+                  <div class="bg-headline">Top talent is in the room. Make sure you know who.</div>
+                  <div class="bg-sub">Real-time candidate engagement, visible from the floor.</div>
+                </div>
+                <div class="bg-bot">
+                  <span class="bg-url">momentifyapp.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION: AMBER — Field Sales Enablement
+    ============================================================ -->
+    <section class="brand-section" aria-label="Field Sales Enablement">
+      <div class="section-header">
+        <div class="section-dot" style="background: #F2B33D;"></div>
+        <span class="section-name">Field Sales Enablement</span>
+        <span class="section-count">2 backgrounds</span>
+      </div>
+      <div class="bg-grid">
+
+        <!-- 8. amber-minimal -->
+        <div class="bg-card">
+          <div class="bg-card-label">
+            <span class="bg-card-name">amber-minimal</span>
+            <button class="expand-btn" onclick="openModal('amber-minimal')">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
+              </svg>
+              Expand
+            </button>
+          </div>
+          <div class="bg-preview-wrap">
+            <div class="bg-preview grad-amber" id="amber-minimal">
+              <svg class="bg-geo" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M600 500 L600 150 L400 0 L180 0 L420 240 L420 500 Z" fill="white" fill-opacity="0.05"/>
+                <path d="M600 500 L600 310 L360 70 L160 70 L360 270 L360 500 Z" fill="white" fill-opacity="0.04"/>
+              </svg>
+              <div class="bg-inner centered">
+                <img class="bg-logo" src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
+                <div class="bg-label" style="color: #FFD88A;">Field Sales Enablement</div>
+                <div class="bg-bot">
+                  <span class="bg-url">momentifyapp.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9. amber-statement -->
+        <div class="bg-card">
+          <div class="bg-card-label">
+            <span class="bg-card-name">amber-statement</span>
+            <button class="expand-btn" onclick="openModal('amber-statement')">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
+              </svg>
+              Expand
+            </button>
+          </div>
+          <div class="bg-preview-wrap">
+            <div class="bg-preview grad-amber" id="amber-statement">
+              <svg class="bg-geo" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M600 500 L600 150 L400 0 L180 0 L420 240 L420 500 Z" fill="white" fill-opacity="0.05"/>
+                <path d="M600 500 L600 310 L360 70 L160 70 L360 270 L360 500 Z" fill="white" fill-opacity="0.04"/>
+              </svg>
+              <div class="bg-inner" style="justify-content: space-between;">
+                <div class="bg-top">
+                  <img class="bg-logo" src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
+                </div>
+                <div class="bg-mid">
+                  <div class="bg-headline">Pipeline does not lie. Neither does your data.</div>
+                  <div class="bg-sub">See what happened in every meeting, every moment.</div>
+                </div>
+                <div class="bg-bot">
+                  <span class="bg-url">momentifyapp.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION: INDIGO — Facilities
+    ============================================================ -->
+    <section class="brand-section" aria-label="Facilities">
+      <div class="section-header">
+        <div class="section-dot" style="background: #5B4499;"></div>
+        <span class="section-name">Facilities</span>
+        <span class="section-count">2 backgrounds</span>
+      </div>
+      <div class="bg-grid">
+
+        <!-- 10. indigo-minimal -->
+        <div class="bg-card">
+          <div class="bg-card-label">
+            <span class="bg-card-name">indigo-minimal</span>
+            <button class="expand-btn" onclick="openModal('indigo-minimal')">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
+              </svg>
+              Expand
+            </button>
+          </div>
+          <div class="bg-preview-wrap">
+            <div class="bg-preview grad-indigo" id="indigo-minimal">
+              <svg class="bg-geo" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M600 500 L600 150 L400 0 L180 0 L420 240 L420 500 Z" fill="white" fill-opacity="0.05"/>
+                <path d="M600 500 L600 310 L360 70 L160 70 L360 270 L360 500 Z" fill="white" fill-opacity="0.04"/>
+              </svg>
+              <div class="bg-inner centered">
+                <img class="bg-logo" src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
+                <div class="bg-label" style="color: #B8AAEE;">Facilities</div>
+                <div class="bg-bot">
+                  <span class="bg-url">momentifyapp.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 11. indigo-statement -->
+        <div class="bg-card">
+          <div class="bg-card-label">
+            <span class="bg-card-name">indigo-statement</span>
+            <button class="expand-btn" onclick="openModal('indigo-statement')">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
+              </svg>
+              Expand
+            </button>
+          </div>
+          <div class="bg-preview-wrap">
+            <div class="bg-preview grad-indigo" id="indigo-statement">
+              <svg class="bg-geo" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M600 500 L600 150 L400 0 L180 0 L420 240 L420 500 Z" fill="white" fill-opacity="0.05"/>
+                <path d="M600 500 L600 310 L360 70 L160 70 L360 270 L360 500 Z" fill="white" fill-opacity="0.04"/>
+              </svg>
+              <div class="bg-inner" style="justify-content: space-between;">
+                <div class="bg-top">
+                  <img class="bg-logo" src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
+                </div>
+                <div class="bg-mid">
+                  <div class="bg-headline">What happens in your building should be measurable.</div>
+                  <div class="bg-sub">Turn facility engagement into operational intelligence.</div>
+                </div>
+                <div class="bg-bot">
+                  <span class="bg-url">momentifyapp.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION: CRIMSON — Events & Venues
+    ============================================================ -->
+    <section class="brand-section" aria-label="Events and Venues">
+      <div class="section-header">
+        <div class="section-dot" style="background: #F25E3D;"></div>
+        <span class="section-name">Events &amp; Venues</span>
+        <span class="section-count">2 backgrounds</span>
+      </div>
+      <div class="bg-grid">
+
+        <!-- 12. crimson-minimal -->
+        <div class="bg-card">
+          <div class="bg-card-label">
+            <span class="bg-card-name">crimson-minimal</span>
+            <button class="expand-btn" onclick="openModal('crimson-minimal')">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
+              </svg>
+              Expand
+            </button>
+          </div>
+          <div class="bg-preview-wrap">
+            <div class="bg-preview grad-crimson" id="crimson-minimal">
+              <svg class="bg-geo" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M600 500 L600 150 L400 0 L180 0 L420 240 L420 500 Z" fill="white" fill-opacity="0.05"/>
+                <path d="M600 500 L600 310 L360 70 L160 70 L360 270 L360 500 Z" fill="white" fill-opacity="0.04"/>
+              </svg>
+              <div class="bg-inner centered">
+                <img class="bg-logo" src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
+                <div class="bg-label" style="color: #FFBBA8;">Events &amp; Venues</div>
+                <div class="bg-bot">
+                  <span class="bg-url">momentifyapp.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 13. crimson-statement -->
+        <div class="bg-card">
+          <div class="bg-card-label">
+            <span class="bg-card-name">crimson-statement</span>
+            <button class="expand-btn" onclick="openModal('crimson-statement')">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/>
+              </svg>
+              Expand
+            </button>
+          </div>
+          <div class="bg-preview-wrap">
+            <div class="bg-preview grad-crimson" id="crimson-statement">
+              <svg class="bg-geo" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M600 500 L600 150 L400 0 L180 0 L420 240 L420 500 Z" fill="white" fill-opacity="0.05"/>
+                <path d="M600 500 L600 310 L360 70 L160 70 L360 270 L360 500 Z" fill="white" fill-opacity="0.04"/>
+              </svg>
+              <div class="bg-inner" style="justify-content: space-between;">
+                <div class="bg-top">
+                  <img class="bg-logo" src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
+                </div>
+                <div class="bg-mid">
+                  <div class="bg-headline">The room is full. Make every moment count.</div>
+                  <div class="bg-sub">Capture what happens when it still matters.</div>
+                </div>
+                <div class="bg-bot">
+                  <span class="bg-url">momentifyapp.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main><!-- /.page-body -->
+
+  <!-- ============================================================
+       FULLSCREEN MODAL
+  ============================================================ -->
+  <div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-label="Background preview">
+    <div class="modal-topbar">
+      <span class="modal-format-label" id="modal-format-label"></span>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close preview">
+        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <path d="M1 1l10 10M11 1L1 11"/>
+        </svg>
+        Close
+      </button>
+    </div>
+    <div class="modal-bg-wrap" id="modal-bg-wrap" onclick="handleModalBackdropClick(event)">
+      <!-- cloned bg-preview inserted here by JS -->
+    </div>
+  </div>
+
+  <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+  <script>
+    /* -------------------------------------------------------
+       FORMAT TABS
+    ------------------------------------------------------- */
+    const tabs = document.querySelectorAll('.format-tab');
+    const bodyEl = document.body;
+
+    const formatLabels = {
+      presentation: '1920 \u00d7 1080px \u2014 Keynote / PowerPoint',
+      square:       '1080 \u00d7 1080px \u2014 Instagram / LinkedIn Post',
+      story:        '1080 \u00d7 1920px \u2014 Instagram / TikTok Story',
+      banner:       '1200 \u00d7 628px \u2014 LinkedIn / Twitter Banner',
+    };
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const fmt = tab.dataset.format;
+        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        bodyEl.dataset.format = fmt;
+
+        // also update modal if open
+        const modalLabel = document.getElementById('modal-format-label');
+        if (modalLabel) modalLabel.textContent = formatLabels[fmt] || '';
+
+        // If modal is open, re-fit the modal bg
+        if (document.getElementById('modal').classList.contains('open')) {
+          fitModalBg();
+        }
+      });
+    });
+
+    /* -------------------------------------------------------
+       MODAL
+    ------------------------------------------------------- */
+    const modal    = document.getElementById('modal');
+    const modalWrap = document.getElementById('modal-bg-wrap');
+    const modalLbl  = document.getElementById('modal-format-label');
+
+    function openModal(bgId) {
+      const source = document.getElementById(bgId);
+      if (!source) return;
+
+      // Clone the bg-preview element
+      const clone = source.cloneNode(true);
+      clone.removeAttribute('id');
+      clone.classList.add('modal-bg');
+
+      // Clear wrap and insert clone
+      modalWrap.innerHTML = '';
+      modalWrap.appendChild(clone);
+
+      // Set size label
+      const fmt = bodyEl.dataset.format || 'presentation';
+      modalLbl.textContent = formatLabels[fmt] || '';
+
+      // Size the modal bg to fit the viewport
+      fitModalBg();
+
+      modal.classList.add('open');
+      bodyEl.classList.add('modal-open');
+
+      // Focus trap
+      document.getElementById('modal').focus();
+    }
+
+    function fitModalBg() {
+      const clone = modalWrap.querySelector('.modal-bg');
+      if (!clone) return;
+
+      const fmt = bodyEl.dataset.format || 'presentation';
+      const ratioMap = {
+        presentation: 16 / 9,
+        square:       1 / 1,
+        story:        9 / 16,
+        banner:       1.91 / 1,
+      };
+      const ratio = ratioMap[fmt] || (16 / 9);
+
+      // Available space (subtract topbar height = 44px)
+      const availW = window.innerWidth;
+      const availH = window.innerHeight - 44;
+
+      let w, h;
+      if (availW / availH > ratio) {
+        // height-constrained
+        h = availH;
+        w = h * ratio;
+      } else {
+        w = availW;
+        h = w / ratio;
+      }
+
+      clone.style.width  = w + 'px';
+      clone.style.height = h + 'px';
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      bodyEl.classList.remove('modal-open');
+      modalWrap.innerHTML = '';
+    }
+
+    function handleModalBackdropClick(e) {
+      if (e.target === modalWrap) closeModal();
+    }
+
+    // ESC to close
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && modal.classList.contains('open')) {
+        closeModal();
+      }
+    });
+
+    // Re-fit on resize
+    window.addEventListener('resize', () => {
+      if (modal.classList.contains('open')) fitModalBg();
+    });
+  </script>
+</body>
+</html>

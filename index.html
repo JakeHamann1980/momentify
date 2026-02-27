@@ -760,6 +760,146 @@
     }
     #copy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+    /* ─── Headlines Section ─────────────────────────────────────── */
+    .ht-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .ht-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .ht-preview {
+      background: #07081F;
+      padding: 44px 36px;
+      min-height: 155px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      container-type: inline-size;
+    }
+    .ht-card-footer {
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .ht-card-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .ht-card-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+    .ht-copy-btn {
+      flex-shrink: 0;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--accent);
+      border-radius: 6px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background var(--t), border-color var(--t);
+    }
+    .ht-copy-btn:hover { background: var(--accent-sec); border-color: var(--accent); }
+
+    /* Treatment 1 — Gradient Word */
+    .ht-grad-word {
+      font-size: clamp(26px, 8cqw, 46px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+      line-height: 1.18;
+    }
+    .ht-grad-word .gw {
+      background: linear-gradient(135deg, #0CF4DF 0%, #254FE5 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Treatment 2 — Gradient Underline */
+    .ht-underline-wrap {
+      display: inline-block;
+      position: relative;
+      font-size: clamp(24px, 7cqw, 42px);
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      padding-bottom: 14px;
+    }
+    .ht-underline-wrap::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #0CF4DF, #1F3395);
+      border-radius: 2px;
+    }
+
+    /* Treatment 3 — Gradient Pill */
+    .ht-pill-wrap {
+      font-size: clamp(24px, 7cqw, 42px);
+      font-weight: 800;
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+      line-height: 1.35;
+    }
+    .ht-pill-wrap .gp {
+      background: linear-gradient(135deg, rgba(12,244,223,0.18), rgba(37,79,229,0.24));
+      border-radius: 100px;
+      padding: 0 18px;
+      box-shadow: inset 0 0 0 1px rgba(12,244,223,0.4);
+      white-space: nowrap;
+    }
+
+    /* Treatment 4 — Mixed Weight */
+    .ht-mix {
+      font-size: clamp(26px, 8cqw, 44px);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      color: #FFFFFF;
+    }
+    .ht-mix .ht-light { font-weight: 300; opacity: 0.5; }
+    .ht-mix .ht-bold  { font-weight: 800; }
+
+    /* Treatment 5 — Eyebrow + Display */
+    .ht-eyebrow-wrap { text-align: left; }
+    .ht-eyebrow-wrap .ht-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #0CF4DF, #254FE5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+    .ht-eyebrow-wrap .ht-display {
+      font-size: clamp(28px, 8cqw, 50px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: #FFFFFF;
+    }
+
     /* ─── Responsive ────────────────────────────────────────────── */
     @media (max-width: 900px) {
       .page-layout { grid-template-columns: 1fr; }
@@ -773,6 +913,7 @@
       .do-dont { grid-template-columns: 1fr; }
       .container { padding: 0 24px; }
       section { padding: 56px 0; }
+      .ht-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -829,6 +970,8 @@
         <li><a href="#voice">Voice &amp; Tone</a></li>
         <li><a href="#usage">Usage Rules</a></li>
         <li><a href="#solutions">Solutions</a></li>
+        <li><a href="#headlines">Headlines</a></li>
+        <li><a href="backgrounds.html" target="_blank" style="display:flex;align-items:center;gap:5px;">Backgrounds <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 11L11 1M11 1H5M11 1v6"/></svg></a></li>
       </ul>
       <div class="nav-toggle-wrap">
         <button class="theme-toggle" id="nav-toggle" onclick="toggleTheme()">
@@ -1476,6 +1619,96 @@
         </div>
       </section>
 
+      <!-- 08 — Headlines -->
+      <section id="headlines">
+        <div class="container">
+          <div class="section-label">08 — Headlines</div>
+          <h2 class="section-title">Headline Treatments</h2>
+          <p class="section-desc">Five Inter-based headline treatments for digital, presentations, and social. Each pairs with the brand gradient system. Click Copy CSS to grab the snippet directly.</p>
+
+          <div class="ht-grid">
+
+            <!-- Treatment 1: Gradient Word -->
+            <div class="ht-card">
+              <div class="ht-preview">
+                <div class="ht-grad-word">Empower Every<br/><span class="gw">Moment.</span></div>
+              </div>
+              <div class="ht-card-footer">
+                <div>
+                  <div class="ht-card-name">Gradient Word</div>
+                  <div class="ht-card-desc">Key word gets the Action Gradient. Rest stays white.</div>
+                </div>
+                <button class="ht-copy-btn" onclick="copyCSS(1)">Copy CSS</button>
+              </div>
+            </div>
+
+            <!-- Treatment 2: Gradient Underline -->
+            <div class="ht-card">
+              <div class="ht-preview">
+                <div class="ht-underline-wrap">Engagement<br/>That Converts.</div>
+              </div>
+              <div class="ht-card-footer">
+                <div>
+                  <div class="ht-card-name">Gradient Underline</div>
+                  <div class="ht-card-desc">Full headline. Gradient rule beneath anchors the copy.</div>
+                </div>
+                <button class="ht-copy-btn" onclick="copyCSS(2)">Copy CSS</button>
+              </div>
+            </div>
+
+            <!-- Treatment 3: Gradient Pill -->
+            <div class="ht-card">
+              <div class="ht-preview">
+                <div class="ht-pill-wrap">Intelligence<br/>for <span class="gp">Every Floor.</span></div>
+              </div>
+              <div class="ht-card-footer">
+                <div>
+                  <div class="ht-card-name">Gradient Pill</div>
+                  <div class="ht-card-desc">Phrase highlighted inside a soft gradient capsule.</div>
+                </div>
+                <button class="ht-copy-btn" onclick="copyCSS(3)">Copy CSS</button>
+              </div>
+            </div>
+
+            <!-- Treatment 4: Mixed Weight -->
+            <div class="ht-card">
+              <div class="ht-preview">
+                <div class="ht-mix">
+                  <span class="ht-light">Real-Time</span><br/>
+                  <span class="ht-bold">Engagement</span><br/>
+                  <span class="ht-light">at Scale.</span>
+                </div>
+              </div>
+              <div class="ht-card-footer">
+                <div>
+                  <div class="ht-card-name">Mixed Weight</div>
+                  <div class="ht-card-desc">Weight contrast creates rhythm without color.</div>
+                </div>
+                <button class="ht-copy-btn" onclick="copyCSS(4)">Copy CSS</button>
+              </div>
+            </div>
+
+            <!-- Treatment 5: Eyebrow + Display -->
+            <div class="ht-card">
+              <div class="ht-preview">
+                <div class="ht-eyebrow-wrap">
+                  <div class="ht-eyebrow">Engagement Intelligence</div>
+                  <div class="ht-display">Every Moment<br/>Counts.</div>
+                </div>
+              </div>
+              <div class="ht-card-footer">
+                <div>
+                  <div class="ht-card-name">Eyebrow + Display</div>
+                  <div class="ht-card-desc">Gradient eyebrow label. Heavy display below.</div>
+                </div>
+                <button class="ht-copy-btn" onclick="copyCSS(5)">Copy CSS</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
     </main>
   </div>
 
@@ -1513,6 +1746,23 @@
     // Restore saved preference
     const saved = localStorage.getItem('mk-theme');
     if (saved) setTheme(saved);
+
+    // ── Copy CSS snippet ─────────────────────────────────────────
+    const cssSnippets = {
+      1: `.headline { font-size: clamp(28px, 4vw, 48px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.18; color: #FFFFFF; }\n.headline .accent {\n  background: linear-gradient(135deg, #0CF4DF 0%, #254FE5 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}`,
+      2: `.headline {\n  font-family: 'Inter', sans-serif;\n  font-size: clamp(24px, 3.5vw, 42px);\n  font-weight: 700;\n  letter-spacing: -0.02em;\n  line-height: 1.2;\n  color: #FFFFFF;\n  display: inline-block;\n  position: relative;\n  padding-bottom: 14px;\n}\n.headline::after {\n  content: '';\n  position: absolute;\n  left: 0; bottom: 0;\n  width: 100%; height: 3px;\n  background: linear-gradient(90deg, #0CF4DF, #1F3395);\n  border-radius: 2px;\n}`,
+      3: `.headline {\n  font-family: 'Inter', sans-serif;\n  font-size: clamp(24px, 3.5vw, 42px);\n  font-weight: 800;\n  letter-spacing: -0.02em;\n  line-height: 1.35;\n  color: #FFFFFF;\n}\n.headline .pill {\n  background: linear-gradient(135deg, rgba(12,244,223,0.18), rgba(37,79,229,0.24));\n  border-radius: 100px;\n  padding: 0 18px;\n  box-shadow: inset 0 0 0 1px rgba(12,244,223,0.4);\n}`,
+      4: `.headline {\n  font-family: 'Inter', sans-serif;\n  font-size: clamp(26px, 4vw, 44px);\n  letter-spacing: -0.02em;\n  line-height: 1.2;\n  color: #FFFFFF;\n}\n.headline .light { font-weight: 300; opacity: 0.5; }\n.headline .bold  { font-weight: 800; }`,
+      5: `.eyebrow {\n  font-family: 'Inter', sans-serif;\n  font-size: 11px;\n  font-weight: 600;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n  background: linear-gradient(90deg, #0CF4DF, #254FE5);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin-bottom: 10px;\n}\n.display {\n  font-family: 'Inter', sans-serif;\n  font-size: clamp(30px, 4vw, 54px);\n  font-weight: 800;\n  letter-spacing: -0.03em;\n  line-height: 1.05;\n  color: #FFFFFF;\n}`
+    };
+    function copyCSS(id) {
+      navigator.clipboard.writeText(cssSnippets[id]).then(() => {
+        const toast = document.getElementById('copy-toast');
+        toast.textContent = 'CSS copied!';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
+      });
+    }
 
     // ── Copy hex ──────────────────────────────────────────────────
     function copyColor(hex) {
