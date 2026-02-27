@@ -900,20 +900,92 @@
       color: #FFFFFF;
     }
 
+    /* ─── Mobile Nav ────────────────────────────────────────────── */
+    .mobile-nav {
+      display: none;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--nav-border);
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      transition: background var(--t), border-color var(--t);
+    }
+    .mobile-nav::-webkit-scrollbar { display: none; }
+    .mobile-nav-inner {
+      display: flex;
+      gap: 6px;
+      padding: 10px 20px;
+      white-space: nowrap;
+    }
+    .mobile-nav a {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--nav-link);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: color 0.15s, background 0.15s, border-color 0.15s;
+    }
+    .mobile-nav a:hover,
+    .mobile-nav a.active { color: var(--accent); background: var(--accent-sec); border-color: var(--accent); }
+
     /* ─── Responsive ────────────────────────────────────────────── */
     @media (max-width: 900px) {
+      .mobile-nav { display: block; }
       .page-layout { grid-template-columns: 1fr; }
       .side-nav { display: none; }
+      header { padding: 44px 0 36px; }
+      .header-right { align-items: flex-start; }
+      .header-meta { text-align: left; }
       .logo-grid { grid-template-columns: 1fr; }
-      .logo-mark-row { grid-template-columns: 1fr 1fr; }
+      .logo-mark-row { grid-template-columns: repeat(3, 1fr); }
+      .logo-card { padding: 36px 28px; }
       .gradient-grid { grid-template-columns: 1fr 1fr; }
       .type-showcase { grid-template-columns: 1fr; }
-      .voice-grid { grid-template-columns: 1fr; }
+      .type-sample-h1 { font-size: clamp(28px, 6vw, 48px); }
+      .section-title { font-size: clamp(22px, 5vw, 32px); }
+      .type-scale { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .type-scale-row { min-width: 580px; }
+      .voice-grid { grid-template-columns: 1fr 1fr; }
       .rules-grid { grid-template-columns: 1fr; }
       .do-dont { grid-template-columns: 1fr; }
       .container { padding: 0 24px; }
       section { padding: 56px 0; }
+      .ht-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .gradient-grid { grid-template-columns: 1fr; }
+      .voice-grid { grid-template-columns: 1fr; }
+      .logo-mark-row { grid-template-columns: 1fr 1fr; }
+      .solution-header { padding: 24px 20px 20px; }
+      .solution-body { padding: 20px 20px 24px; }
+      .solution-gradients { grid-template-columns: 1fr; }
+      .swatch-block { width: 100px; height: 88px; }
+      .swatch-info { width: 100px; }
       .ht-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      section { padding: 40px 0; }
+      header { padding: 32px 0 28px; }
+      .header-logo img { height: 36px; }
+      .logo-mark-row { grid-template-columns: 1fr 1fr; }
+      .logo-card { padding: 28px 20px; }
+      .swatch-block { width: 80px; height: 76px; }
+      .swatch-info { width: 80px; }
+      .swatch-name { font-size: 11px; }
+      .swatch-hex { font-size: 10px; }
+      .section-title { font-size: clamp(20px, 6vw, 28px); }
+      .solution-name { font-size: 18px; }
+      .mobile-nav-inner { padding: 8px 16px; }
     }
   </style>
 </head>
@@ -951,6 +1023,21 @@
       </div>
     </div>
   </header>
+
+  <!-- Mobile Nav (hidden on desktop) -->
+  <nav class="mobile-nav" id="mobile-nav">
+    <div class="mobile-nav-inner">
+      <a href="#logo">Logo</a>
+      <a href="#colors">Colors</a>
+      <a href="#gradients">Gradients</a>
+      <a href="#typography">Typography</a>
+      <a href="#voice">Voice</a>
+      <a href="#usage">Usage</a>
+      <a href="#solutions">Solutions</a>
+      <a href="#headlines">Headlines</a>
+      <a href="backgrounds.html" target="_blank">Backgrounds ↗</a>
+    </div>
+  </nav>
 
   <!-- Page Layout -->
   <div class="page-layout">
@@ -1776,23 +1863,16 @@
 
     // ── Active nav on scroll ──────────────────────────────────────
     const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.side-nav a');
+    const navLinks = document.querySelectorAll('.side-nav a, .mobile-nav a');
 
-    new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          navLinks.forEach(l => l.classList.remove('active'));
-          const link = document.querySelector(`.side-nav a[href="#${entry.target.id}"]`);
-          if (link) link.classList.add('active');
-        }
-      });
-    }, { threshold: 0.35 }).observe
     sections.forEach(s => new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           navLinks.forEach(l => l.classList.remove('active'));
-          const link = document.querySelector(`.side-nav a[href="#${entry.target.id}"]`);
-          if (link) link.classList.add('active');
+          document.querySelectorAll(`a[href="#${entry.target.id}"]`).forEach(l => l.classList.add('active'));
+          // scroll active mobile nav link into view
+          const mobileLink = document.querySelector(`.mobile-nav a[href="#${entry.target.id}"]`);
+          if (mobileLink) mobileLink.scrollIntoView({ inline: 'center', block: 'nearest' });
         }
       });
     }, { threshold: 0.35 }).observe(s));
