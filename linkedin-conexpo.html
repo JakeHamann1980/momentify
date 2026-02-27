@@ -11,9 +11,39 @@
 
     html, body {
       width: 1200px;
-      height: 628px;
-      overflow: hidden;
       background: #07081F;
+    }
+
+    .export-bar {
+      width: 1200px;
+      padding: 18px 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 14px;
+    }
+    .dl-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #9B5FE8 0%, #6B21D4 100%);
+      color: #FFFFFF;
+      border: none;
+      padding: 11px 26px;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: opacity 0.18s;
+    }
+    .dl-btn:hover { opacity: 0.88; }
+    .dl-btn:disabled { opacity: 0.45; cursor: wait; }
+    .dl-hint {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: rgba(255,255,255,0.28);
     }
 
     .canvas {
@@ -297,5 +327,47 @@
   </div>
 
 </div>
+
+  <!-- Export bar -->
+  <div class="export-bar">
+    <span class="dl-hint">1200 × 628 px</span>
+    <button class="dl-btn" id="dl-btn" onclick="downloadPNG()">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7 1v8M7 9l-3-3M7 9l3-3M1 11h12" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Download PNG
+    </button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script>
+    function downloadPNG() {
+      const btn = document.getElementById('dl-btn');
+      btn.disabled = true;
+      btn.textContent = 'Rendering…';
+
+      html2canvas(document.querySelector('.canvas'), {
+        scale: 2,
+        useCORS: true,
+        allowTaint: false,
+        logging: false,
+        width: 1200,
+        height: 628,
+        windowWidth: 1200,
+        windowHeight: 628
+      }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'momentify-conexpo-linkedin.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        btn.disabled = false;
+        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M7 9l-3-3M7 9l3-3M1 11h12" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Download PNG';
+      }).catch(() => {
+        btn.disabled = false;
+        btn.textContent = 'Download PNG';
+      });
+    }
+  </script>
+
 </body>
 </html>
