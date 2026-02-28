@@ -53,7 +53,7 @@
       --header-bg: rgba(244,245,250,0.96);
     }
 
-    html { scroll-behavior: smooth; overflow-x: hidden; }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Inter', sans-serif;
@@ -62,7 +62,7 @@
       min-height: 100vh;
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
+      overflow-x: clip;
     }
 
     /* =============================================
@@ -341,12 +341,10 @@
     [data-format="presentation"] .bg-preview { aspect-ratio: 16 / 9; }
     [data-format="square"]       .bg-preview { aspect-ratio: 1 / 1; }
     [data-format="story"]        .bg-preview { aspect-ratio: 9 / 16; }
-    [data-format="banner"]       .bg-preview { aspect-ratio: 191 / 100; }
 
     .bg-preview {
       position: relative;
       width: 100%;
-      container-type: inline-size;
       overflow: hidden;
     }
 
@@ -606,7 +604,6 @@
             <option value="presentation" selected>Presentation 16:9</option>
             <option value="square">Square 1:1</option>
             <option value="story">Story 9:16</option>
-            <option value="banner">Banner 1.91:1</option>
           </select>
           <svg class="format-select-caret" viewBox="0 0 10 6" fill="none" aria-hidden="true">
             <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1483,7 +1480,6 @@
       presentation: '1920 \u00d7 1080px \u2014 Keynote / PowerPoint',
       square:       '1080 \u00d7 1080px \u2014 Instagram / LinkedIn Post',
       story:        '1080 \u00d7 1920px \u2014 Instagram / TikTok Story',
-      banner:       '1200 \u00d7 628px \u2014 LinkedIn / Twitter Banner',
     };
 
     formatSelect.addEventListener('change', () => {
@@ -1595,7 +1591,6 @@
         presentation: 16 / 9,
         square:       1 / 1,
         story:        9 / 16,
-        banner:       1.91 / 1,
       };
       const ratio = ratioMap[fmt] || (16 / 9);
 
