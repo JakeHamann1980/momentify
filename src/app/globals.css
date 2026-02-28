@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand Colors */
+  --color-cyan: #0CF4DF;
+  --color-teal: #00BBA5;
+  --color-blue: #254FE5;
+  --color-deep-blue: #1F3395;
+  --color-cobalt: #3257D9;
+  --color-navy: #1A2E73;
+  --color-deep-navy: #061341;
+  --color-midnight: #0B0B3C;
+  --color-plum: #7C316D;
+
+  /* Solution Colors */
+  --color-violet: #6B21D4;
+  --color-sol-teal: #5FD9C2;
+  --color-amber: #F2B33D;
+  --color-indigo: #3A2073;
+  --color-crimson: #F25E3D;
+
+  /* Neutral */
+  --color-light-bg: #F8F9FB;
+  --color-light-blue: #EEF3FD;
+  --color-card-dark: #0F1629;
+  --color-charcoal: #181818;
+  --color-gray-body: #555;
+
+  /* Font */
+  --font-inter: "Inter", sans-serif;
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-inter);
+  color: var(--color-charcoal);
+}
+
+/* Gradient text utility */
+.text-gradient-action {
+  background: linear-gradient(135deg, #0CF4DF 0%, #254FE5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Softer gradient for light backgrounds */
+.text-gradient-brand {
+  background: linear-gradient(135deg, #00BBA5 0%, #254FE5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Display Bold hero gradient — cyan to light blue (brand kit spec) */
+.text-gradient-hero {
+  background: linear-gradient(135deg, #0CF4DF, #5BA8F5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Hero depth gradient */
+.bg-depth-gradient {
+  background: linear-gradient(180deg, #7C316D 0%, #0B0B3C 45%, #1A2E73 100%);
+}
+
+/* ROX section gradient (reversed direction) */
+.bg-depth-gradient-reversed {
+  background: linear-gradient(0deg, #7C316D 0%, #0B0B3C 45%, #1A2E73 100%);
+}
+
+/* Action gradient background */
+.bg-action-gradient {
+  background: linear-gradient(135deg, #0CF4DF 0%, #254FE5 100%);
+}
+
+/* Typewriter cursor blink */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 0.8s step-end infinite;
+}
+
+/* Subtle SVG background drift */
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(20px, -15px) rotate(2deg); }
+}
+
+.animate-drift {
+  animation: drift 10s ease-in-out infinite;
+}
+
+.animate-drift-slow {
+  animation: drift 14s ease-in-out infinite reverse;
+}

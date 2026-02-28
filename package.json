@@ -1,0 +1,37 @@
+{
+  "name": "momentify",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JakeHamann1980/momentify.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JakeHamann1980/momentify/issues"
+  },
+  "homepage": "https://github.com/JakeHamann1980/momentify#readme",
+  "dependencies": {
+    "@types/node": "^25.3.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "framer-motion": "^12.34.3",
+    "next": "^16.1.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.2.1",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.2.1"
+  }
+}
