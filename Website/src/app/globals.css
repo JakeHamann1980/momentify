@@ -127,3 +127,9 @@ body {
   0%, 100% { transform: translate(0, 0) scale(1); }
   50% { transform: translate(-25px, -35px) scale(1.05); }
 }
+
+/* ARC pattern subtle drift */
+@keyframes arcDrift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(15px, -10px) scale(1.03); }
+}

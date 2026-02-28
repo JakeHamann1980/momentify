@@ -37,12 +37,12 @@ export default function Navigation() {
         <div className="flex h-[72px] items-center justify-between">
           {/* Logo */}
           <a href="/" className="flex items-center gap-2.5 flex-shrink-0">
-            <svg width="28" height="24" viewBox="0 0 144 103" fill="none">
-              <path d="M0.42772 92.0666L39.9572 3.39622C41.5243 -0.452991 46.6664 -1.17078 49.2277 2.1021L75.7664 33.9273C77.5509 36.2075 77.2236 39.4885 75.0238 41.3713L8.95573 98.2165C4.64682 101.904 -1.71099 97.3195 0.42772 92.0666Z" fill="url(#ng1)" />
-              <path d="M129.959 97.6845L104.837 67.7751C103.619 66.1262 101.34 65.0635 99.0327 66.1262L45.1948 91.7142C39.4911 94.3412 34.6433 86.7737 39.4142 82.6905L134.154 1.31667C137.95 -1.93233 143.745 1.26227 143.025 6.20685L139.625 95.2C138.933 99.9506 132.856 101.513 129.959 97.6845Z" fill="url(#ng2)" />
+            <svg width="28" height="24" viewBox="0 0 165 137" fill="none">
+              <path d="M18.1 94.945L52.9693 9.30142C54.5558 5.4049 59.761 4.67828 62.3539 7.9914L89.2188 40.2078C91.0252 42.5161 90.6939 45.8374 88.467 47.7433L26.7328 101.171C22.3709 104.904 15.935 100.263 18.1 94.945Z" fill="url(#ng1)" />
+              <path d="M144.078 104.749L118.647 74.4723C117.414 72.8031 115.107 71.7273 112.772 72.8031L60.3303 98.7056C54.5564 101.365 49.649 93.7043 54.4786 89.571L148.324 9.25522C152.167 5.96628 158.034 9.20015 157.304 14.2055L153.863 102.234C153.162 107.043 147.011 108.624 144.078 104.749Z" fill="url(#ng2)" />
               <defs>
-                <linearGradient id="ng1" x1="97" y1="3" x2="5" y2="3.5" gradientUnits="userSpaceOnUse"><stop stopColor="#00BBA5" /><stop offset="1" stopColor="#3257D9" /></linearGradient>
-                <linearGradient id="ng2" x1="173" y1="5" x2="40" y2="6" gradientUnits="userSpaceOnUse"><stop stopColor="#00BBA5" /><stop offset="1" stopColor="#3257D9" /></linearGradient>
+                <linearGradient id="ng1" x1="44" y1="28" x2="73" y2="122" gradientUnits="userSpaceOnUse"><stop stopColor="#0CF4DF" /><stop offset="1" stopColor="#1F3395" /></linearGradient>
+                <linearGradient id="ng2" x1="90" y1="31" x2="112" y2="131" gradientUnits="userSpaceOnUse"><stop stopColor="#0CF4DF" /><stop offset="1" stopColor="#1F3395" /></linearGradient>
               </defs>
             </svg>
             <span className={`text-[17px] font-semibold tracking-[-0.01em] transition-colors duration-300 ${wordmarkColor}`}>Momentify</span>

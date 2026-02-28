@@ -232,6 +232,24 @@ export default function Hero() {
         />
       </div>
 
+      {/* ARC pattern overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none z-[1] overflow-hidden"
+        style={{ animation: "arcDrift 20s ease-in-out infinite" }}
+      >
+        <svg
+          viewBox="0 0 600 500"
+          fill="none"
+          className="absolute w-full h-full"
+          style={{ top: 0, right: 0 }}
+          preserveAspectRatio="xMaxYMax meet"
+        >
+          <path d="M 600 300 A 200 200 0 0 0 400 500" stroke="white" strokeOpacity="0.08" strokeWidth="1.4" fill="none" />
+          <path d="M 600 150 A 350 350 0 0 0 250 500" stroke="white" strokeOpacity="0.05" strokeWidth="1" fill="none" />
+          <path d="M 600 0 A 500 500 0 0 0 100 500" stroke="white" strokeOpacity="0.03" strokeWidth="0.8" fill="none" />
+        </svg>
+      </div>
+
       {/* Style pickers — top right */}
       <div className="absolute top-20 right-6 lg:right-12 z-20 flex flex-col gap-2 items-end">
         <OptionPicker label="Sub" options={subheadOptions} active={subheadIdx} onChange={setSubheadIdx} />
@@ -245,7 +263,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-5"
+            className="mb-7"
           >
             <span style={ey.style}>
               {ey.label === "Dot Pill" && (
@@ -287,7 +305,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-6 text-white/60 max-w-xl"
+            className="mt-8 text-white/60 max-w-xl"
             style={{
               fontFamily: "var(--font-inter)",
               fontSize: sh.size,
@@ -304,7 +322,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.32 }}
-            className="mt-8 flex flex-wrap gap-3"
+            className="mt-10 flex flex-wrap gap-3"
           >
             <a
               href="#platform"
