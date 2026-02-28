@@ -53,7 +53,7 @@
       --header-bg: rgba(244,245,250,0.96);
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
 
     body {
       font-family: 'Inter', sans-serif;
@@ -62,6 +62,7 @@
       min-height: 100vh;
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
     /* =============================================
@@ -123,38 +124,44 @@
     }
 
     /* =============================================
-       FORMAT TABS
+       FORMAT SELECT
     ============================================= */
-    .format-tabs {
+    .format-select-wrap {
+      position: relative;
       display: flex;
+      align-items: center;
+    }
+
+    .format-select {
+      appearance: none;
+      -webkit-appearance: none;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 3px;
-      gap: 2px;
-    }
-
-    .format-tab {
-      padding: 5px 12px;
-      border-radius: 5px;
-      border: none;
-      background: transparent;
-      color: var(--text-muted);
+      color: var(--text);
       font-family: 'Inter', sans-serif;
       font-size: 12px;
       font-weight: 500;
+      padding: 6px 30px 6px 12px;
       cursor: pointer;
-      transition: all 0.18s;
-      white-space: nowrap;
+      outline: none;
+      min-width: 160px;
+      transition: border-color var(--t), background var(--t), color var(--t);
     }
 
-    .format-tab:hover { color: var(--text); }
+    .format-select:hover { border-color: rgba(12,244,223,0.3); }
+    .format-select:focus { border-color: rgba(12,244,223,0.5); box-shadow: 0 0 0 2px rgba(12,244,223,0.08); }
 
-    .format-tab.active {
-      background: var(--surface-2);
-      color: var(--cyan);
-      box-shadow: 0 0 0 1px rgba(12,244,223,0.2);
+    .format-select-caret {
+      position: absolute;
+      right: 9px;
+      width: 10px;
+      height: 6px;
+      color: var(--text-muted);
+      pointer-events: none;
     }
+
+    html[data-theme="light"] .format-select { color-scheme: light; }
 
     /* =============================================
        MAIN LAYOUT
@@ -568,12 +575,13 @@
       .bg-grid { grid-template-columns: 1fr; }
       .header-inner { padding: 0 16px; gap: 12px; }
       .page-body { padding: 32px 16px 60px; }
-      .format-tab { padding: 5px 8px; font-size: 11px; }
     }
 
     @media (max-width: 600px) {
-      .format-tabs { flex-wrap: wrap; }
-      .header-controls { flex-wrap: wrap; }
+      .header-inner { gap: 8px; }
+      .header-divider { display: none; }
+      .page-title { font-size: 13px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .format-select { min-width: 120px; font-size: 11px; }
     }
   </style>
 </head>
@@ -593,11 +601,16 @@
       <div class="header-divider"></div>
       <span class="page-title">Backgrounds</span>
       <div class="header-controls">
-        <div class="format-tabs" role="tablist" aria-label="Format">
-          <button class="format-tab active" role="tab" data-format="presentation" aria-selected="true">Presentation 16:9</button>
-          <button class="format-tab" role="tab" data-format="square">Square 1:1</button>
-          <button class="format-tab" role="tab" data-format="story">Story 9:16</button>
-          <button class="format-tab" role="tab" data-format="banner">Banner 1.91:1</button>
+        <div class="format-select-wrap">
+          <select class="format-select" id="format-select" aria-label="Background format">
+            <option value="presentation" selected>Presentation 16:9</option>
+            <option value="square">Square 1:1</option>
+            <option value="story">Story 9:16</option>
+            <option value="banner">Banner 1.91:1</option>
+          </select>
+          <svg class="format-select-caret" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+            <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
         <button class="theme-toggle" onclick="toggleTheme()" id="theme-toggle-btn">
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/></svg>
@@ -615,7 +628,7 @@
 
     <div class="page-intro">
       <h1>Background Assets</h1>
-      <p>26 production-ready backgrounds across six sections — dark, light, and print-ready. Switch formats using the tabs above. Click Expand to preview at full screen.</p>
+      <p>26 production-ready backgrounds across six sections — dark, light, and print-ready. Switch formats using the dropdown above. Click Expand to preview at full screen.</p>
     </div>
 
     <!-- ============================================================
@@ -1461,9 +1474,9 @@
   ============================================================ -->
   <script>
     /* -------------------------------------------------------
-       FORMAT TABS
+       FORMAT SELECT
     ------------------------------------------------------- */
-    const tabs = document.querySelectorAll('.format-tab');
+    const formatSelect = document.getElementById('format-select');
     const bodyEl = document.body;
 
     const formatLabels = {
@@ -1473,23 +1486,18 @@
       banner:       '1200 \u00d7 628px \u2014 LinkedIn / Twitter Banner',
     };
 
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const fmt = tab.dataset.format;
-        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
-        tab.classList.add('active');
-        tab.setAttribute('aria-selected', 'true');
-        bodyEl.dataset.format = fmt;
+    formatSelect.addEventListener('change', () => {
+      const fmt = formatSelect.value;
+      bodyEl.dataset.format = fmt;
 
-        // also update modal if open
-        const modalLabel = document.getElementById('modal-format-label');
-        if (modalLabel) modalLabel.textContent = formatLabels[fmt] || '';
+      // also update modal label if open
+      const modalLabel = document.getElementById('modal-format-label');
+      if (modalLabel) modalLabel.textContent = formatLabels[fmt] || '';
 
-        // If modal is open, re-fit the modal bg
-        if (document.getElementById('modal').classList.contains('open')) {
-          fitModalBg();
-        }
-      });
+      // re-fit modal bg if open
+      if (document.getElementById('modal').classList.contains('open')) {
+        fitModalBg();
+      }
     });
 
     /* -------------------------------------------------------
