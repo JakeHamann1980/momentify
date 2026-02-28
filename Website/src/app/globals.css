@@ -104,3 +104,19 @@ body {
 .animate-drift-slow {
   animation: drift 14s ease-in-out infinite reverse;
 }
+
+/* Ambient floating glow animations */
+@keyframes ambientFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-40px, 30px) scale(1.1); }
+}
+
+@keyframes ambientFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -20px) scale(1.15); }
+}
+
+@keyframes ambientFloat3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-25px, -35px) scale(1.05); }
+}
