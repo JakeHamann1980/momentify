@@ -15,24 +15,78 @@ const words = [
 /* ── Style option configs ──────────────────────────────── */
 
 const headlineOptions = [
-  { label: "800 / 72px", weight: 800, size: "clamp(36px,5.5vw,72px)", tracking: "-0.03em" },
-  { label: "700 / 72px", weight: 700, size: "clamp(36px,5.5vw,72px)", tracking: "-0.025em" },
-  { label: "800 / 64px", weight: 800, size: "clamp(32px,5vw,64px)", tracking: "-0.03em" },
   { label: "600 / 72px", weight: 600, size: "clamp(36px,5.5vw,72px)", tracking: "-0.02em" },
+  { label: "500 / 72px", weight: 500, size: "clamp(36px,5.5vw,72px)", tracking: "-0.02em" },
+  { label: "600 / 64px", weight: 600, size: "clamp(32px,5vw,64px)", tracking: "-0.02em" },
+  { label: "400 / 72px", weight: 400, size: "clamp(36px,5.5vw,72px)", tracking: "-0.015em" },
 ];
 
 const subheadOptions = [
-  { label: "400 / 16px", weight: 400, size: "16px", leading: "1.7" },
-  { label: "300 / 16px", weight: 300, size: "16px", leading: "1.7" },
-  { label: "400 / 18px", weight: 400, size: "18px", leading: "1.65" },
-  { label: "500 / 15px", weight: 500, size: "15px", leading: "1.7" },
+  { label: "400 / 14px", weight: 400, size: "14px", leading: "1.5" },
+  { label: "300 / 14px", weight: 300, size: "14px", leading: "1.5" },
+  { label: "400 / 15px", weight: 400, size: "15px", leading: "1.5" },
+  { label: "300 / 15px", weight: 300, size: "15px", leading: "1.5" },
 ];
 
 const eyebrowOptions = [
-  { label: "Uppercase Spaced", transform: "uppercase" as const, tracking: "0.14em", size: "10px", weight: 600, border: false },
-  { label: "Uppercase Pill", transform: "uppercase" as const, tracking: "0.10em", size: "10px", weight: 600, border: true },
-  { label: "Title Case", transform: "none" as const, tracking: "0.02em", size: "13px", weight: 500, border: false },
-  { label: "Uppercase Bold", transform: "uppercase" as const, tracking: "0.08em", size: "11px", weight: 700, border: false },
+  {
+    label: "Outlined Pill",
+    style: {
+      display: "inline-block" as const,
+      fontSize: "10px",
+      fontWeight: 600,
+      textTransform: "uppercase" as const,
+      letterSpacing: "0.10em",
+      color: "#0CF4DF",
+      border: "1px solid rgba(12,244,223,0.3)",
+      borderRadius: "999px",
+      padding: "5px 14px",
+    },
+  },
+  {
+    label: "Filled Pill",
+    style: {
+      display: "inline-block" as const,
+      fontSize: "10px",
+      fontWeight: 600,
+      textTransform: "uppercase" as const,
+      letterSpacing: "0.10em",
+      color: "#0B0B3C",
+      background: "linear-gradient(135deg, #0CF4DF, #5BA8F5)",
+      borderRadius: "999px",
+      padding: "5px 14px",
+    },
+  },
+  {
+    label: "Ghost Pill",
+    style: {
+      display: "inline-block" as const,
+      fontSize: "10px",
+      fontWeight: 500,
+      textTransform: "uppercase" as const,
+      letterSpacing: "0.10em",
+      color: "#0CF4DF",
+      background: "rgba(12,244,223,0.08)",
+      borderRadius: "999px",
+      padding: "5px 14px",
+    },
+  },
+  {
+    label: "Dot Pill",
+    style: {
+      display: "inline-flex" as const,
+      alignItems: "center" as const,
+      gap: "8px",
+      fontSize: "10px",
+      fontWeight: 600,
+      textTransform: "uppercase" as const,
+      letterSpacing: "0.10em",
+      color: "#0CF4DF",
+      border: "1px solid rgba(12,244,223,0.2)",
+      borderRadius: "999px",
+      padding: "5px 14px 5px 10px",
+    },
+  },
 ];
 
 /* ── Picker pill component ─────────────────────────────── */
@@ -148,8 +202,10 @@ export default function Hero() {
     <section
       className="relative overflow-hidden"
       style={{
-        background:
-          "linear-gradient(135deg, #7C316D 0%, #0B0B3C 55%, #1A2E73 100%)",
+        backgroundSize: "200% 200%",
+        animation: "bgShift 20s ease-in-out infinite",
+        backgroundImage:
+          "linear-gradient(135deg, #7C316D 0%, #0B0B3C 30%, #1A2E73 60%, #0B0B3C 100%)",
       }}
     >
       {/* Subtle animated ambient glow */}
@@ -193,29 +249,28 @@ export default function Hero() {
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-12 pt-32 pb-20 sm:pt-36 sm:pb-24 lg:pt-40 lg:pb-28">
         <div className="max-w-3xl">
           {/* Eyebrow */}
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="mb-5"
-            style={{
-              fontSize: ey.size,
-              fontWeight: ey.weight,
-              textTransform: ey.transform,
-              letterSpacing: ey.tracking,
-              color: "#0CF4DF",
-              ...(ey.border
-                ? {
-                    display: "inline-block",
-                    border: "1px solid rgba(12,244,223,0.3)",
-                    borderRadius: "999px",
-                    padding: "4px 12px",
-                  }
-                : {}),
-            }}
           >
-            Engagement Intelligence Platform
-          </motion.p>
+            <span style={ey.style}>
+              {ey.label === "Dot Pill" && (
+                <span
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: "50%",
+                    background: "#0CF4DF",
+                    display: "inline-block",
+                    flexShrink: 0,
+                  }}
+                />
+              )}
+              Engagement Intelligence Platform
+            </span>
+          </motion.div>
 
           {/* Headline */}
           <motion.h1

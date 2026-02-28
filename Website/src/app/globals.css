@@ -105,6 +105,13 @@ body {
   animation: drift 14s ease-in-out infinite reverse;
 }
 
+/* Subtle background gradient shift */
+@keyframes bgShift {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
 /* Ambient floating glow animations */
 @keyframes ambientFloat1 {
   0%, 100% { transform: translate(0, 0) scale(1); }
