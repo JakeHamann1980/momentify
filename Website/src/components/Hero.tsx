@@ -190,8 +190,8 @@ function TypewriterWord() {
 /* ── Hero ──────────────────────────────────────────────── */
 
 export default function Hero() {
-  const [headlineIdx, setHeadlineIdx] = useState(0);
-  const [subheadIdx, setSubheadIdx] = useState(0);
+  const [headlineIdx, setHeadlineIdx] = useState(1);
+  const [subheadIdx, setSubheadIdx] = useState(3);
   const [eyebrowIdx, setEyebrowIdx] = useState(0);
 
   const hl = headlineOptions[headlineIdx];
@@ -268,7 +268,7 @@ export default function Hero() {
                   }}
                 />
               )}
-              Engagement Intelligence Platform
+              CONTACT. CONVERSATION. CONTEXT.
             </span>
           </motion.div>
 
@@ -303,8 +303,8 @@ export default function Hero() {
               lineHeight: sh.leading,
             }}
           >
-            Stop paying for moments you cannot measure. Turn every interaction
-            into intelligence your team can act on before it disappears.
+            The operating system for in-person engagement. Built to convert
+            attention into outcomes your team can measure and prove.
           </motion.p>
 
           {/* CTAs */}
