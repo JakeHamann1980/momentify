@@ -209,7 +209,7 @@ export default function Hero() {
               lineHeight: subhead.leading,
             }}
           >
-            The operating system for in-person engagement. Built to convert attention
+            The operating system for in-person engagement. Momentify converts attention
             into outcomes your team can measure&nbsp;and&nbsp;prove.
           </motion.p>
 
