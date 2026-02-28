@@ -1132,27 +1132,37 @@
           </div>
         </div>
 
-        <!-- amber-wave — amber dark + sine wave stripes -->
+        <!-- amber-halftone — amber dark + halftone gradient dots -->
         <div class="bg-card">
           <div class="bg-card-label">
-            <span class="bg-card-name">amber-wave</span>
+            <span class="bg-card-name">amber-halftone</span>
             <div class="card-actions">
-              <button class="expand-btn" onclick="openModal('amber-wave')">
+              <button class="expand-btn" onclick="openModal('amber-halftone')">
                 <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/></svg>
                 Expand
               </button>
-              <button class="download-btn" onclick="downloadBg('amber-wave')">
+              <button class="download-btn" onclick="downloadBg('amber-halftone')">
                 <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v7M3 6l3 3 3-3M1.5 10.5h9"/></svg>
                 PNG
               </button>
             </div>
           </div>
           <div class="bg-preview-wrap">
-            <div class="bg-preview grad-amber" id="amber-wave">
+            <div class="bg-preview grad-amber" id="amber-halftone">
               <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M 0 155 C 100 95, 200 215, 300 155 C 400 95, 500 215, 600 155" stroke="white" stroke-opacity="0.13" stroke-width="1.4" fill="none"/>
-                <path d="M 0 260 C 100 320, 200 200, 300 260 C 400 320, 500 200, 600 260" stroke="white" stroke-opacity="0.08" stroke-width="1.1" fill="none"/>
-                <path d="M 0 355 C 100 295, 200 415, 300 355 C 400 295, 500 415, 600 355" stroke="white" stroke-opacity="0.05" stroke-width="0.9" fill="none"/>
+                <defs>
+                  <pattern id="ht-p-amber" patternUnits="userSpaceOnUse" width="30" height="30">
+                    <circle cx="15" cy="15" r="6" fill="white"/>
+                  </pattern>
+                  <radialGradient id="ht-g-amber" cx="1" cy="1" r="1.5" gradientUnits="objectBoundingBox">
+                    <stop offset="0%" stop-color="white" stop-opacity="1"/>
+                    <stop offset="100%" stop-color="white" stop-opacity="0"/>
+                  </radialGradient>
+                  <mask id="ht-m-amber">
+                    <rect width="600" height="500" fill="url(#ht-g-amber)"/>
+                  </mask>
+                </defs>
+                <rect width="600" height="500" fill="url(#ht-p-amber)" mask="url(#ht-m-amber)" opacity="0.2"/>
               </svg>
             </div>
           </div>
@@ -1413,28 +1423,38 @@
           </div>
         </div>
 
-        <!-- crimson-wave — crimson light + sine wave stripes -->
+        <!-- crimson-halftone — crimson light + halftone gradient dots -->
         <div class="bg-card">
           <div class="bg-card-label">
-            <span class="bg-card-name">crimson-wave</span>
+            <span class="bg-card-name">crimson-halftone</span>
             <div class="card-actions">
-              <button class="expand-btn" onclick="openModal('crimson-wave')">
+              <button class="expand-btn" onclick="openModal('crimson-halftone')">
                 <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4.5V1.5h3M8 1.5h3v3M11 7.5v3H8M4.5 11H1.5V8"/></svg>
                 Expand
               </button>
-              <button class="download-btn" onclick="downloadBg('crimson-wave')">
+              <button class="download-btn" onclick="downloadBg('crimson-halftone')">
                 <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1v7M3 6l3 3 3-3M1.5 10.5h9"/></svg>
                 PNG
               </button>
             </div>
           </div>
           <div class="bg-preview-wrap">
-            <div class="bg-preview grad-crimson-light" id="crimson-wave">
+            <div class="bg-preview grad-crimson-light" id="crimson-halftone">
               <div class="bg-color-bar" style="background: linear-gradient(90deg, #F25E3D, #8F200A);"></div>
               <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M 0 155 C 100 95, 200 215, 300 155 C 400 95, 500 215, 600 155" stroke="#8F200A" stroke-opacity="0.16" stroke-width="1.4" fill="none"/>
-                <path d="M 0 260 C 100 320, 200 200, 300 260 C 400 320, 500 200, 600 260" stroke="#F25E3D" stroke-opacity="0.11" stroke-width="1.1" fill="none"/>
-                <path d="M 0 355 C 100 295, 200 415, 300 355 C 400 295, 500 415, 600 355" stroke="#8F200A" stroke-opacity="0.07" stroke-width="0.9" fill="none"/>
+                <defs>
+                  <pattern id="ht-p-crimson" patternUnits="userSpaceOnUse" width="30" height="30">
+                    <circle cx="15" cy="15" r="6" fill="#8F200A"/>
+                  </pattern>
+                  <radialGradient id="ht-g-crimson" cx="1" cy="1" r="1.5" gradientUnits="objectBoundingBox">
+                    <stop offset="0%" stop-color="white" stop-opacity="1"/>
+                    <stop offset="100%" stop-color="white" stop-opacity="0"/>
+                  </radialGradient>
+                  <mask id="ht-m-crimson">
+                    <rect width="600" height="500" fill="url(#ht-g-crimson)"/>
+                  </mask>
+                </defs>
+                <rect width="600" height="500" fill="url(#ht-p-crimson)" mask="url(#ht-m-crimson)" opacity="0.18"/>
               </svg>
             </div>
           </div>
