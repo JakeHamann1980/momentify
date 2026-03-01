@@ -308,7 +308,7 @@ export default function Platform() {
                     className="leading-[1.05] mb-5"
                     style={{
                       fontFamily: "var(--font-inter)",
-                      fontWeight: 800,
+                      fontWeight: 500,
                       letterSpacing: "-0.02em",
                       fontSize: "clamp(24px, 3.5vw, 40px)",
                       color: "#FFFFFF",
