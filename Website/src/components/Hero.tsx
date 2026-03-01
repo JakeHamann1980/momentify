@@ -184,7 +184,7 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-12 pt-36 pb-16 sm:pt-44 sm:pb-20 lg:pt-48 lg:pb-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 lg:gap-16 items-center">
           {/* ── Left column: copy ──────────────────── */}
           <div>
             {/* Eyebrow */}
@@ -261,18 +261,43 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* ── Right column: product visual ───────── */}
+          {/* ── Right column: video placeholder ───── */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="hidden lg:flex items-center justify-center"
+            className="hidden lg:flex items-center justify-center w-[420px]"
           >
-            <img
-              src="/WhyMomentify-Product.svg"
-              alt="Momentify product overview"
-              className="w-full max-w-[560px] drop-shadow-2xl"
-            />
+            <div
+              className="relative w-full rounded-2xl overflow-hidden"
+              style={{
+                aspectRatio: "16 / 9",
+                background: "rgba(255, 255, 255, 0.06)",
+                border: "1px solid rgba(255, 255, 255, 0.1)",
+                backdropFilter: "blur(12px)",
+              }}
+            >
+              {/* Play button placeholder */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div
+                  className="w-16 h-16 rounded-full flex items-center justify-center"
+                  style={{
+                    background: "rgba(255, 255, 255, 0.12)",
+                    border: "1.5px solid rgba(255, 255, 255, 0.2)",
+                  }}
+                >
+                  <svg className="w-6 h-6 text-white/70 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+              </div>
+              <span
+                className="absolute bottom-4 left-0 right-0 text-center text-white/30 text-[11px] tracking-[0.08em] uppercase"
+                style={{ fontFamily: "var(--font-inter)" }}
+              >
+                Product video coming soon
+              </span>
+            </div>
           </motion.div>
         </div>
 
