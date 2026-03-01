@@ -137,7 +137,7 @@ export default function Problem() {
                     WebkitBackgroundClip: "text",
                   }}
                 >
-                  Most Have No Idea What Worked.
+                  Most have no idea what worked.
                 </span>
               </motion.h2>
             </motion.div>
