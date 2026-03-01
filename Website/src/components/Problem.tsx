@@ -95,7 +95,7 @@ export default function Problem() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
 
           {/* ── Left column ──────────────────────────── */}
-          <div>
+          <div className="order-2 lg:order-1">
             {/* Section label + headline */}
             <motion.div
               initial="hidden"
@@ -219,7 +219,7 @@ export default function Problem() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
-              className="mt-12 text-[20px] leading-[1.6]"
+              className="mt-12 italic text-[20px] leading-[1.6]"
               style={{
                 fontFamily: "var(--font-inter)",
                 fontWeight: 500,
@@ -236,7 +236,7 @@ export default function Problem() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.15 }}
             variants={cardContainerVariants}
-            className="flex flex-col gap-4 lg:pt-10"
+            className="flex flex-col gap-4 lg:pt-10 order-1 lg:order-2"
           >
             {quotes.map((quote) => (
               <motion.div
@@ -308,11 +308,11 @@ export default function Problem() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-          className="mt-6 text-[15px] leading-[1.7] max-w-[600px]"
+          className="mt-6 italic text-[20px] leading-[1.6] max-w-[600px]"
           style={{
             fontFamily: "var(--font-inter)",
-            fontWeight: 400,
-            color: "rgba(6, 19, 65, 0.55)",
+            fontWeight: 500,
+            color: "#061341",
           }}
         >
           But without visibility into what actually happened, every team walks away guessing.
