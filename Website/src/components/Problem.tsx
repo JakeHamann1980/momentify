@@ -65,10 +65,31 @@ const fadeIn = {
 export default function Problem() {
   return (
     <section
-      className="py-16 sm:py-24"
-      style={{ background: "linear-gradient(145deg, #EEF2FF 0%, #F5F7FF 100%)" }}
+      className="relative py-16 sm:py-24 overflow-hidden"
+      style={{ background: "linear-gradient(to right, #FFFFFF 0%, #EEF2FF 50%, #F5F7FF 100%)" }}
     >
-      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+      {/* Brand geometric pattern (main-frost) */}
+      <svg
+        className="pointer-events-none absolute inset-0 h-full w-full"
+        viewBox="0 0 1440 900"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="xMaxYMax slice"
+        aria-hidden="true"
+      >
+        <path
+          d="M1440 900 L1440 324 L1008 0 L528 0 L1056 396 L1056 900 Z"
+          fill="#254FE5"
+          fillOpacity="0.04"
+        />
+        <path
+          d="M1440 900 L1440 540 L912 144 L432 144 L912 504 L912 900 Z"
+          fill="#1F3395"
+          fillOpacity="0.03"
+        />
+      </svg>
+
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-12">
 
         {/* Two-column layout: left content + right quote cards */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
