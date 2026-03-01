@@ -2,66 +2,40 @@
 
 import { motion } from "framer-motion";
 
-/* ── Inline SVG Icons (Cyan #0CF4DF) ─────────────────── */
+/* ── Quote card data ──────────────────────────────────── */
 
-function GridIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0CF4DF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="3" width="7" height="7" rx="1" />
-      <rect x="14" y="3" width="7" height="7" rx="1" />
-      <rect x="3" y="14" width="7" height="7" rx="1" />
-      <rect x="14" y="14" width="7" height="7" rx="1" />
-    </svg>
-  );
-}
-
-function PersonIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0CF4DF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="8" r="4" />
-      <path d="M20 21a8 8 0 1 0-16 0" />
-    </svg>
-  );
-}
-
-function ChartIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0CF4DF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="12" width="4" height="9" rx="1" />
-      <rect x="10" y="7" width="4" height="14" rx="1" />
-      <rect x="17" y="3" width="4" height="18" rx="1" />
-    </svg>
-  );
-}
-
-/* ── Card data ────────────────────────────────────────── */
-
-const cards = [
+const quotes = [
   {
-    icon: GridIcon,
-    title: "A different tool at every event.",
-    body: "Your team uses five platforms across your annual event calendar. No unified view. No comparable data. Just disconnected spreadsheets after every show.",
+    color: "#6B21D4",
+    text: "We leave events with a pile of business cards and no idea which leads matter.",
   },
   {
-    icon: PersonIcon,
-    title: "You know who showed up. Not who showed interest.",
-    body: "Badge scans tell you someone stopped by. They do not tell you what they cared about, how long they stayed, or whether they are worth a follow-up call.",
+    color: "#00BBA5",
+    text: "Our booth is busy, but we cannot tie engagement to outcomes.",
   },
   {
-    icon: ChartIcon,
-    title: "Events cost real money. Proof is guesswork.",
-    body: "You invested in the booth, the team, and the travel. Leadership wants ROI. You have a lead count and a gut feeling.",
+    color: "#F25E3D",
+    text: "Our suites are full, but our data is empty. Zero follow-up clarity.",
+  },
+  {
+    color: "#F2B33D",
+    text: "Facilities tours and recruiting events are black holes. No tracking, no insight.",
   },
 ];
 
 /* ── Animation variants ───────────────────────────────── */
 
-const containerVariants = {
+const headerVariants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } },
+  visible: { transition: { staggerChildren: 0.1 } },
 };
 
-const itemVariants = {
+const cardContainerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
+
+const fadeUp = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
 };
@@ -70,111 +44,183 @@ const itemVariants = {
 
 export default function Problem() {
   return (
-    <section
-      className="relative w-full"
-      style={{ backgroundColor: "#061341" }}
-    >
-      {/* Subtle cyan top border */}
-      <div
-        className="absolute top-0 left-0 right-0 h-px"
-        style={{ backgroundColor: "rgba(12, 244, 223, 0.15)" }}
-      />
+    <section className="bg-white py-16 sm:py-24">
+      <div className="mx-auto max-w-[1200px] px-6 lg:px-12">
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-12 py-16 sm:py-24">
+        {/* Section label + headline */}
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={containerVariants}
-          className="text-center"
+          viewport={{ once: true, amount: 0.15 }}
+          variants={headerVariants}
         >
-          {/* Section label */}
           <motion.p
-            variants={itemVariants}
-            className="uppercase font-semibold text-[12px] tracking-[0.14em]"
+            variants={fadeUp}
+            className="uppercase font-semibold text-[12px] tracking-[0.14em] mb-4"
             style={{ color: "#0CF4DF", fontFamily: "var(--font-inter)" }}
           >
             The Problem
           </motion.p>
 
-          {/* Headline */}
           <motion.h2
-            variants={itemVariants}
-            className="mx-auto mt-4 text-white leading-[1.15] max-w-[720px]"
+            variants={fadeUp}
+            className="max-w-[680px] leading-[1.1]"
             style={{
               fontFamily: "var(--font-inter)",
-              fontWeight: 800,
-              fontSize: "clamp(28px, 4.5vw, 48px)",
+              fontWeight: 500,
+              fontSize: "clamp(28px, 4.5vw, 52px)",
+              letterSpacing: "-0.02em",
+              color: "#061341",
             }}
           >
-            You are doing the work.
+            Billions spent on moments.
             <br />
-            You just cannot see the return.
+            Most have no idea what worked.
           </motion.h2>
         </motion.div>
 
-        {/* Cards grid */}
+        {/* Stat row */}
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={containerVariants}
-          className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          viewport={{ once: true, amount: 0.15 }}
+          variants={headerVariants}
+          className="mt-10 flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-0"
         >
-          {cards.map((card) => {
-            const Icon = card.icon;
-            return (
-              <motion.div
-                key={card.title}
-                variants={itemVariants}
-                className="relative rounded-2xl p-8 overflow-hidden"
+          {/* Stat 1 */}
+          <motion.div variants={fadeUp} className="flex flex-col gap-3">
+            <span
+              className="leading-none"
+              style={{
+                fontFamily: "var(--font-inter)",
+                fontWeight: 600,
+                fontSize: "56px",
+                letterSpacing: "-0.02em",
+                color: "#061341",
+              }}
+            >
+              $50B
+            </span>
+            <span
+              className="max-w-[220px] leading-[1.5] text-[15px]"
+              style={{
+                fontFamily: "var(--font-inter)",
+                fontWeight: 400,
+                color: "rgba(6, 19, 65, 0.6)",
+              }}
+            >
+              Spent annually on trade shows, recruiting events, and facility visits in the US alone.
+            </span>
+          </motion.div>
+
+          {/* Vertical divider (desktop only) */}
+          <div
+            className="hidden sm:block flex-shrink-0 mx-12"
+            style={{
+              width: "1px",
+              height: "64px",
+              backgroundColor: "rgba(6, 19, 65, 0.12)",
+            }}
+          />
+
+          {/* Stat 2 */}
+          <motion.div variants={fadeUp} className="flex flex-col gap-3">
+            <span
+              className="leading-none"
+              style={{
+                fontFamily: "var(--font-inter)",
+                fontWeight: 600,
+                fontSize: "56px",
+                letterSpacing: "-0.02em",
+                color: "#00BBA5",
+              }}
+            >
+              20%
+            </span>
+            <span
+              className="max-w-[220px] leading-[1.5] text-[15px]"
+              style={{
+                fontFamily: "var(--font-inter)",
+                fontWeight: 400,
+                color: "rgba(6, 19, 65, 0.6)",
+              }}
+            >
+              Fewer than 1 in 5 organizations can tie event investment to measurable outcomes.
+            </span>
+          </motion.div>
+        </motion.div>
+
+        {/* Quote cards */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          variants={cardContainerVariants}
+          className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6"
+        >
+          {quotes.map((quote) => (
+            <motion.div
+              key={quote.text}
+              variants={fadeUp}
+              className="relative rounded-2xl p-8 bg-white overflow-hidden transition-all duration-200 hover:-translate-y-0.5"
+              style={{
+                border: "1px solid #E5E9EF",
+                boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = "0 4px 24px rgba(0,0,0,0.10)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = "0 2px 12px rgba(0,0,0,0.06)";
+              }}
+            >
+              {/* Top color bar */}
+              <div
+                className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl"
+                style={{ backgroundColor: quote.color }}
+              />
+
+              {/* Opening quote mark */}
+              <div
+                className="leading-none -mb-4"
                 style={{
-                  backgroundColor: "rgba(255, 255, 255, 0.04)",
-                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                  fontFamily: "var(--font-inter)",
+                  fontWeight: 600,
+                  fontSize: "64px",
+                  color: quote.color,
+                  opacity: 0.2,
                 }}
               >
-                {/* Left accent bar */}
-                <div
-                  className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-2xl"
-                  style={{ backgroundColor: "#0CF4DF" }}
-                />
+                &ldquo;
+              </div>
 
-                {/* Icon */}
-                <div
-                  className="w-10 h-10 rounded-lg flex items-center justify-center mb-5"
-                  style={{ backgroundColor: "rgba(12, 244, 223, 0.08)" }}
-                >
-                  <Icon />
-                </div>
-
-                {/* Title */}
-                <h3
-                  className="text-white text-[18px] mb-3"
-                  style={{ fontFamily: "var(--font-inter)", fontWeight: 700 }}
-                >
-                  {card.title}
-                </h3>
-
-                {/* Body */}
-                <p
-                  className="text-white/65 text-[15px] leading-[1.7]"
-                  style={{ fontFamily: "var(--font-inter)", fontWeight: 400 }}
-                >
-                  {card.body}
-                </p>
-              </motion.div>
-            );
-          })}
+              {/* Quote text */}
+              <p
+                className="italic text-[17px] leading-[1.7]"
+                style={{
+                  fontFamily: "var(--font-inter)",
+                  fontWeight: 400,
+                  color: "rgba(6, 19, 65, 0.85)",
+                }}
+              >
+                {quote.text}
+              </p>
+            </motion.div>
+          ))}
         </motion.div>
 
         {/* Closing line */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="mt-10 text-center text-white/45 italic text-[18px]"
-          style={{ fontFamily: "var(--font-inter)", fontWeight: 400 }}
+          className="mt-12 max-w-[560px] italic text-[18px]"
+          style={{
+            fontFamily: "var(--font-inter)",
+            fontWeight: 400,
+            color: "rgba(6, 19, 65, 0.45)",
+          }}
         >
           The problem is not effort. It is visibility.
         </motion.p>

@@ -164,7 +164,7 @@ export default function Hero() {
         </svg>
       </div>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-12 pt-36 pb-28 sm:pt-44 sm:pb-32 lg:pt-48 lg:pb-36">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-12 pt-36 pb-16 sm:pt-44 sm:pb-20 lg:pt-48 lg:pb-24">
         <div className="max-w-3xl">
           {/* Eyebrow */}
           <motion.div
@@ -222,22 +222,18 @@ export default function Hero() {
           >
             <a
               href="#platform"
-              className="inline-flex items-center justify-center font-semibold text-[14px] py-4 px-8 rounded-full transition-all duration-200 hover:brightness-110 hover:scale-[1.02]"
-              style={{
-                background: "linear-gradient(90deg, #0CF4DF 0%, #254FE5 100%)",
-                color: "#061341",
-              }}
+              className="inline-flex items-center justify-center font-semibold text-[14px] py-3.5 px-7 rounded-lg bg-white text-midnight transition-all duration-200 hover:bg-white/90 hover:scale-[1.02]"
             >
               See How It Works
             </a>
             <a
               href="#demo"
-              className="inline-flex items-center justify-center font-semibold text-[14px] text-white py-4 px-8 rounded-full transition-all duration-200 hover:bg-white/[0.08]"
+              className="inline-flex items-center justify-center font-semibold text-[14px] text-white py-3.5 px-7 rounded-lg transition-all duration-200 hover:bg-white/[0.08]"
               style={{
-                border: "1.5px solid rgba(255, 255, 255, 0.6)",
+                border: "1.5px solid rgba(255, 255, 255, 0.25)",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(255, 255, 255, 1)")}
-              onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.6)")}
+              onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.5)")}
+              onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.25)")}
             >
               Schedule a Demo
             </a>
