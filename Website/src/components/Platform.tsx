@@ -19,7 +19,6 @@ const solutions = [
   {
     tab: "Trade Shows and Exhibits",
     color: "#6B21D4",
-    useDarkText: false,
     label: "TRADE SHOWS AND EXHIBITS",
     headline: "From branded space to outcome-driven experience.",
     body: "Most booths collect badge scans. Momentify captures what visitors actually cared about. Every conversation is contextualized, every lead is scored, and your team knows exactly who to follow up with before the show ends.",
@@ -29,11 +28,18 @@ const solutions = [
       "Dealer and territory routing automated at the point of capture",
     ],
     cta: "Explore Trade Shows and Exhibits",
+    bg: "linear-gradient(135deg, #2D0770 0%, #4A0FA8 55%, #9B5FE8 100%)",
+    geoFill1: "white",
+    geoOpacity1: 0.05,
+    geoFill2: "white",
+    geoOpacity2: 0.04,
+    textLight: true,
+    bulletDotColor: "#9B5FE8",
+    ctaColor: "#C4A5F0",
   },
   {
     tab: "Technical Recruiting",
     color: "#5FD9C2",
-    useDarkText: true,
     label: "TECHNICAL RECRUITING",
     headline: "Give your recruiters the tools the role demands.",
     body: "Technical recruiting events move fast. Momentify gives your team mobile-first capture, role-specific content delivery, and engagement analytics that tell you who is worth the follow-up call and who was just picking up swag.",
@@ -43,11 +49,18 @@ const solutions = [
       "Cross-event consistency across SkillsUSA, FFA, campus visits, and dealer networks",
     ],
     cta: "Explore Technical Recruiting",
+    bg: "linear-gradient(135deg, #040E28 0%, #1A8A76 55%, #5FD9C2 100%)",
+    geoFill1: "white",
+    geoOpacity1: 0.06,
+    geoFill2: "white",
+    geoOpacity2: 0.04,
+    textLight: true,
+    bulletDotColor: "#5FD9C2",
+    ctaColor: "#5FD9C2",
   },
   {
     tab: "Field Sales Enablement",
     color: "#F2B33D",
-    useDarkText: true,
     label: "FIELD SALES ENABLEMENT",
     headline: "What happens at the job site should not stay at the job site.",
     body: "Field reps make the drive. They have the conversation. Then the insight disappears. Momentify captures what happened, delivers the right content in the moment, and syncs everything to your CRM before they get back in the truck.",
@@ -57,11 +70,18 @@ const solutions = [
       "Engagement-triggered CRM exports with conversation context intact",
     ],
     cta: "Explore Field Sales Enablement",
+    bg: "linear-gradient(135deg, #1A0A00 0%, #A86B00 55%, #F2B33D 100%)",
+    geoFill1: "white",
+    geoOpacity1: 0.06,
+    geoFill2: "white",
+    geoOpacity2: 0.04,
+    textLight: true,
+    bulletDotColor: "#F2B33D",
+    ctaColor: "#F2B33D",
   },
   {
     tab: "Facilities",
     color: "#3A2073",
-    useDarkText: false,
     label: "FACILITIES",
     headline: "Your facility is doing more work than you know. Start measuring it.",
     body: "Showrooms, training centers, and demo floors host real buyers every day. Momentify turns those visits into structured data. You will know what content resonated, what questions came up, and which visits are worth a follow-up.",
@@ -71,11 +91,18 @@ const solutions = [
       "ROX reporting that connects facility investment to pipeline",
     ],
     cta: "Explore Facilities",
+    bg: "linear-gradient(135deg, #0D0820 0%, #3A2073 55%, #5B4499 100%)",
+    geoFill1: "white",
+    geoOpacity1: 0.05,
+    geoFill2: "white",
+    geoOpacity2: 0.04,
+    textLight: true,
+    bulletDotColor: "#9B5FE8",
+    ctaColor: "#B8A0D8",
   },
   {
     tab: "Events and Venues",
     color: "#F25E3D",
-    useDarkText: false,
     label: "EVENTS AND VENUES",
     headline: "A full suite is not a strategy. Knowing what it produced is.",
     body: "Ticket sales and attendance numbers tell you who showed up. Momentify tells you what happened after they walked in. Sponsor accountability, guest engagement, and follow-up clarity in one platform.",
@@ -85,6 +112,14 @@ const solutions = [
       "Persona-based content and experiences by section, suite, and guest type",
     ],
     cta: "Explore Events and Venues",
+    bg: "linear-gradient(135deg, #1A0400 0%, #8F200A 55%, #F25E3D 100%)",
+    geoFill1: "white",
+    geoOpacity1: 0.06,
+    geoFill2: "white",
+    geoOpacity2: 0.04,
+    textLight: true,
+    bulletDotColor: "#F25E3D",
+    ctaColor: "#F9A08E",
   },
 ];
 
@@ -131,11 +166,12 @@ export default function Platform() {
 
           <motion.h2
             variants={fadeUp}
-            className="leading-[1.15]"
+            className="leading-[1.1]"
             style={{
               fontFamily: "var(--font-inter)",
-              fontWeight: 800,
-              fontSize: "clamp(28px, 4vw, 48px)",
+              fontWeight: 500,
+              letterSpacing: "-0.02em",
+              fontSize: "clamp(28px, 4.5vw, 52px)",
               color: "#061341",
             }}
           >
@@ -171,7 +207,7 @@ export default function Platform() {
               {solutions.map((s, i) => {
                 const isActive = i === activeTab;
                 const textColor = isActive
-                  ? s.useDarkText ? "#061341" : s.color
+                  ? "#FFFFFF"
                   : "rgba(6, 19, 65, 0.4)";
 
                 return (
@@ -185,7 +221,7 @@ export default function Platform() {
                     style={{
                       fontFamily: "var(--font-inter)",
                       color: textColor,
-                      backgroundColor: isActive ? `${s.color}1A` : "transparent",
+                      backgroundColor: isActive ? s.color : "transparent",
                       border: isActive ? `1.5px solid ${s.color}` : "1.5px solid transparent",
                     }}
                     onMouseEnter={(e) => {
@@ -202,192 +238,224 @@ export default function Platform() {
             </div>
           </div>
         </motion.div>
-
-        {/* ── Content panel ───────────────────────── */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-          variants={fadeUp}
-          className="mt-8"
-        >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="grid grid-cols-1 lg:grid-cols-[45%_55%] gap-12"
-            >
-              {/* ── Left column: copy ─────────────── */}
-              <div>
-                {/* Solution label */}
-                <p
-                  className="text-[13px] uppercase tracking-[0.1em] mb-3"
-                  style={{
-                    fontFamily: "var(--font-inter)",
-                    fontWeight: 700,
-                    color: sol.color,
-                  }}
-                >
-                  {sol.label}
-                </p>
-
-                {/* Headline */}
-                <h3
-                  className="leading-[1.2] mb-4"
-                  style={{
-                    fontFamily: "var(--font-inter)",
-                    fontWeight: 800,
-                    fontSize: "clamp(26px, 3vw, 32px)",
-                    color: "#061341",
-                  }}
-                >
-                  {sol.headline}
-                </h3>
-
-                {/* Body */}
-                <p
-                  className="text-[16px] leading-[1.75] max-w-[420px] mb-6"
-                  style={{
-                    fontFamily: "var(--font-inter)",
-                    fontWeight: 400,
-                    color: "rgba(6, 19, 65, 0.65)",
-                  }}
-                >
-                  {sol.body}
-                </p>
-
-                {/* Capability bullets */}
-                <ul className="space-y-3 mb-8">
-                  {sol.bullets.map((bullet) => (
-                    <li key={bullet} className="flex items-start gap-3">
-                      <span
-                        className="mt-[7px] h-[6px] w-[6px] rounded-full flex-shrink-0"
-                        style={{ backgroundColor: sol.color }}
-                      />
-                      <span
-                        className="text-[15px] font-medium leading-[1.6]"
-                        style={{
-                          fontFamily: "var(--font-inter)",
-                          color: "#061341",
-                        }}
-                      >
-                        {bullet}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* CTA link */}
-                <a
-                  href="#"
-                  className="inline-flex items-center gap-2 text-[15px] font-semibold hover:underline transition-all duration-150"
-                  style={{
-                    fontFamily: "var(--font-inter)",
-                    color: sol.color,
-                  }}
-                >
-                  {sol.cta}
-                  <ArrowRightIcon />
-                </a>
-              </div>
-
-              {/* ── Right column: mockup placeholders (desktop) */}
-              <div className="relative hidden lg:block min-h-[320px]">
-                {/* Primary mockup */}
-                <div
-                  className="rounded-2xl shadow-lg flex items-center justify-center p-6"
-                  style={{
-                    width: 380,
-                    height: 260,
-                    backgroundColor: "rgba(6, 19, 65, 0.06)",
-                    border: `1.5px dashed ${sol.color}66`,
-                  }}
-                >
-                  <p
-                    className="text-center text-[13px] italic leading-[1.6] max-w-[280px]"
-                    style={{
-                      fontFamily: "var(--font-inter)",
-                      fontWeight: 500,
-                      color: sol.color,
-                    }}
-                  >
-                    iPad or mobile mockup showing the Momentify attendee-facing experience for {sol.tab}.
-                  </p>
-                </div>
-
-                {/* Secondary mockup — overlapping */}
-                <div
-                  className="absolute rounded-xl shadow-xl flex items-center justify-center p-5"
-                  style={{
-                    width: 300,
-                    height: 200,
-                    top: 100,
-                    left: 120,
-                    backgroundColor: "#FFFFFF",
-                    border: `1px solid ${sol.color}40`,
-                  }}
-                >
-                  <p
-                    className="text-center text-[13px] italic leading-[1.6] max-w-[240px]"
-                    style={{
-                      fontFamily: "var(--font-inter)",
-                      fontWeight: 500,
-                      color: sol.color,
-                    }}
-                  >
-                    ROX analytics dashboard screenshot for {sol.tab}.
-                  </p>
-                </div>
-              </div>
-
-              {/* ── Right column: mockup placeholders (mobile) */}
-              <div className="flex flex-col gap-4 lg:hidden">
-                <div
-                  className="w-full rounded-2xl shadow-lg flex items-center justify-center p-6"
-                  style={{
-                    height: 200,
-                    backgroundColor: "rgba(6, 19, 65, 0.06)",
-                    border: `1.5px dashed ${sol.color}66`,
-                  }}
-                >
-                  <p
-                    className="text-center text-[13px] italic leading-[1.6]"
-                    style={{
-                      fontFamily: "var(--font-inter)",
-                      fontWeight: 500,
-                      color: sol.color,
-                    }}
-                  >
-                    iPad or mobile mockup for {sol.tab}.
-                  </p>
-                </div>
-                <div
-                  className="w-full rounded-xl shadow-xl flex items-center justify-center p-5"
-                  style={{
-                    height: 160,
-                    backgroundColor: "#FFFFFF",
-                    border: `1px solid ${sol.color}40`,
-                  }}
-                >
-                  <p
-                    className="text-center text-[13px] italic leading-[1.6]"
-                    style={{
-                      fontFamily: "var(--font-inter)",
-                      fontWeight: 500,
-                      color: sol.color,
-                    }}
-                  >
-                    ROX dashboard for {sol.tab}.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-        </motion.div>
       </div>
+
+      {/* ── Content panel (full-width colored background) ── */}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
+        variants={fadeUp}
+        className="mt-8"
+      >
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="relative overflow-hidden rounded-2xl mx-4 sm:mx-6 lg:mx-auto lg:max-w-7xl"
+            style={{ background: sol.bg }}
+          >
+            {/* Geometric pattern overlay */}
+            <svg
+              className="pointer-events-none absolute inset-0 h-full w-full"
+              viewBox="0 0 1440 900"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="xMaxYMax slice"
+              aria-hidden="true"
+            >
+              <path
+                d="M1440 900 L1440 270 L960 0 L480 0 L1008 360 L1008 900 Z"
+                fill={sol.geoFill1}
+                fillOpacity={sol.geoOpacity1}
+              />
+              <path
+                d="M1440 900 L1440 468 L864 108 L384 108 L864 468 L864 900 Z"
+                fill={sol.geoFill2}
+                fillOpacity={sol.geoOpacity2}
+              />
+            </svg>
+
+            {/* Content grid */}
+            <div className="relative px-8 py-12 sm:px-12 sm:py-16 lg:px-16 lg:py-20">
+              <div className="grid grid-cols-1 lg:grid-cols-[50%_50%] gap-10 lg:gap-16">
+
+                {/* ── Left column: copy ─────────────── */}
+                <div>
+                  {/* Solution label */}
+                  <p
+                    className="text-[12px] uppercase tracking-[0.14em] mb-4"
+                    style={{
+                      fontFamily: "var(--font-inter)",
+                      fontWeight: 600,
+                      color: "rgba(255, 255, 255, 0.6)",
+                    }}
+                  >
+                    {sol.label}
+                  </p>
+
+                  {/* Headline */}
+                  <h3
+                    className="leading-[1.15] mb-5"
+                    style={{
+                      fontFamily: "var(--font-inter)",
+                      fontWeight: 500,
+                      letterSpacing: "-0.02em",
+                      fontSize: "clamp(24px, 3vw, 36px)",
+                      color: "#FFFFFF",
+                    }}
+                  >
+                    {sol.headline}
+                  </h3>
+
+                  {/* Body */}
+                  <p
+                    className="text-[16px] leading-[1.75] max-w-[480px] mb-8"
+                    style={{
+                      fontFamily: "var(--font-inter)",
+                      fontWeight: 400,
+                      color: "rgba(255, 255, 255, 0.7)",
+                    }}
+                  >
+                    {sol.body}
+                  </p>
+
+                  {/* Capability bullets */}
+                  <ul className="space-y-3 mb-10">
+                    {sol.bullets.map((bullet) => (
+                      <li key={bullet} className="flex items-start gap-3">
+                        <span
+                          className="mt-[7px] h-[6px] w-[6px] rounded-full flex-shrink-0"
+                          style={{ backgroundColor: sol.bulletDotColor }}
+                        />
+                        <span
+                          className="text-[15px] leading-[1.6]"
+                          style={{
+                            fontFamily: "var(--font-inter)",
+                            fontWeight: 400,
+                            color: "rgba(255, 255, 255, 0.85)",
+                          }}
+                        >
+                          {bullet}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* CTA link */}
+                  <a
+                    href="#"
+                    className="inline-flex items-center gap-2 text-[15px] font-semibold hover:underline transition-all duration-150"
+                    style={{
+                      fontFamily: "var(--font-inter)",
+                      color: sol.ctaColor,
+                    }}
+                  >
+                    {sol.cta}
+                    <ArrowRightIcon />
+                  </a>
+                </div>
+
+                {/* ── Right column: mockup placeholders (desktop) */}
+                <div className="relative hidden lg:block min-h-[320px]">
+                  {/* Primary mockup */}
+                  <div
+                    className="rounded-2xl shadow-lg flex items-center justify-center p-6"
+                    style={{
+                      width: "100%",
+                      maxWidth: 420,
+                      height: 280,
+                      backgroundColor: "rgba(255, 255, 255, 0.08)",
+                      border: "1.5px dashed rgba(255, 255, 255, 0.25)",
+                    }}
+                  >
+                    <p
+                      className="text-center text-[13px] italic leading-[1.6] max-w-[300px]"
+                      style={{
+                        fontFamily: "var(--font-inter)",
+                        fontWeight: 500,
+                        color: "rgba(255, 255, 255, 0.4)",
+                      }}
+                    >
+                      iPad or mobile mockup showing the Momentify attendee-facing experience for {sol.tab}.
+                    </p>
+                  </div>
+
+                  {/* Secondary mockup — overlapping */}
+                  <div
+                    className="absolute rounded-xl shadow-xl flex items-center justify-center p-5"
+                    style={{
+                      width: 320,
+                      height: 210,
+                      top: 110,
+                      left: 140,
+                      backgroundColor: "rgba(255, 255, 255, 0.12)",
+                      border: "1px solid rgba(255, 255, 255, 0.2)",
+                      backdropFilter: "blur(8px)",
+                    }}
+                  >
+                    <p
+                      className="text-center text-[13px] italic leading-[1.6] max-w-[260px]"
+                      style={{
+                        fontFamily: "var(--font-inter)",
+                        fontWeight: 500,
+                        color: "rgba(255, 255, 255, 0.4)",
+                      }}
+                    >
+                      ROX analytics dashboard screenshot for {sol.tab}.
+                    </p>
+                  </div>
+                </div>
+
+                {/* ── Right column: mockup placeholders (mobile) */}
+                <div className="flex flex-col gap-4 lg:hidden">
+                  <div
+                    className="w-full rounded-2xl shadow-lg flex items-center justify-center p-6"
+                    style={{
+                      height: 200,
+                      backgroundColor: "rgba(255, 255, 255, 0.08)",
+                      border: "1.5px dashed rgba(255, 255, 255, 0.25)",
+                    }}
+                  >
+                    <p
+                      className="text-center text-[13px] italic leading-[1.6]"
+                      style={{
+                        fontFamily: "var(--font-inter)",
+                        fontWeight: 500,
+                        color: "rgba(255, 255, 255, 0.4)",
+                      }}
+                    >
+                      iPad or mobile mockup for {sol.tab}.
+                    </p>
+                  </div>
+                  <div
+                    className="w-full rounded-xl shadow-xl flex items-center justify-center p-5"
+                    style={{
+                      height: 160,
+                      backgroundColor: "rgba(255, 255, 255, 0.12)",
+                      border: "1px solid rgba(255, 255, 255, 0.2)",
+                    }}
+                  >
+                    <p
+                      className="text-center text-[13px] italic leading-[1.6]"
+                      style={{
+                        fontFamily: "var(--font-inter)",
+                        fontWeight: 500,
+                        color: "rgba(255, 255, 255, 0.4)",
+                      }}
+                    >
+                      ROX dashboard for {sol.tab}.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </motion.div>
     </section>
   );
 }
