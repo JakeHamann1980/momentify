@@ -184,78 +184,95 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-12 pt-36 pb-16 sm:pt-44 sm:pb-20 lg:pt-48 lg:pb-24">
-        <div className="max-w-3xl">
-          {/* Eyebrow */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-8"
-          >
-            <span style={eyebrowStyle}>
-              CONTACT. CONVERSATION. CONTEXT.
-            </span>
-          </motion.div>
-
-          {/* Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.08 }}
-            className="text-white leading-[1.08]"
-            style={{
-              fontFamily: "var(--font-inter)",
-              fontSize: headline.size,
-              fontWeight: headline.weight,
-              letterSpacing: headline.tracking,
-            }}
-          >
-            Empower Every
-            <br />
-            <TypewriterWord />
-          </motion.h1>
-
-          {/* Subhead */}
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-10 text-white/60 max-w-xl"
-            style={{
-              fontFamily: "var(--font-inter)",
-              fontSize: subhead.size,
-              fontWeight: subhead.weight,
-              lineHeight: subhead.leading,
-            }}
-          >
-            The operating system for in-person engagement. Momentify converts attention
-            into outcomes your team can measure&nbsp;and&nbsp;prove.
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.32 }}
-            className="mt-12 flex flex-col sm:flex-row gap-4"
-          >
-            <a
-              href="#platform"
-              className="inline-flex items-center justify-center font-semibold text-[14px] py-3.5 px-7 rounded-lg bg-white text-midnight transition-all duration-200 hover:bg-white/90 hover:scale-[1.02]"
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* ── Left column: copy ──────────────────── */}
+          <div>
+            {/* Eyebrow */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="mb-8"
             >
-              See How It Works
-            </a>
-            <a
-              href="#demo"
-              className="inline-flex items-center justify-center font-semibold text-[14px] text-white py-3.5 px-7 rounded-lg transition-all duration-200 hover:bg-white/[0.08]"
+              <span style={eyebrowStyle}>
+                CONTACT. CONVERSATION. CONTEXT.
+              </span>
+            </motion.div>
+
+            {/* Headline */}
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.08 }}
+              className="text-white leading-[1.08]"
               style={{
-                border: "1.5px solid rgba(255, 255, 255, 0.25)",
+                fontFamily: "var(--font-inter)",
+                fontSize: headline.size,
+                fontWeight: headline.weight,
+                letterSpacing: headline.tracking,
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.5)")}
-              onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.25)")}
             >
-              Schedule a Demo
-            </a>
+              Empower Every
+              <br />
+              <TypewriterWord />
+            </motion.h1>
+
+            {/* Subhead */}
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="mt-10 text-white/60 max-w-xl"
+              style={{
+                fontFamily: "var(--font-inter)",
+                fontSize: subhead.size,
+                fontWeight: subhead.weight,
+                lineHeight: subhead.leading,
+              }}
+            >
+              The operating system for in-person engagement. Momentify converts attention
+              into outcomes your team can measure&nbsp;and&nbsp;prove.
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.32 }}
+              className="mt-12 flex flex-col sm:flex-row gap-4"
+            >
+              <a
+                href="#platform"
+                className="inline-flex items-center justify-center font-semibold text-[14px] py-3.5 px-7 rounded-lg bg-white text-midnight transition-all duration-200 hover:bg-white/90 hover:scale-[1.02]"
+              >
+                See How It Works
+              </a>
+              <a
+                href="#demo"
+                className="inline-flex items-center justify-center font-semibold text-[14px] text-white py-3.5 px-7 rounded-lg transition-all duration-200 hover:bg-white/[0.08]"
+                style={{
+                  border: "1.5px solid rgba(255, 255, 255, 0.25)",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.5)")}
+                onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.25)")}
+              >
+                Schedule a Demo
+              </a>
+            </motion.div>
+          </div>
+
+          {/* ── Right column: product visual ───────── */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="hidden lg:flex items-center justify-center"
+          >
+            <img
+              src="/WhyMomentify-Product.svg"
+              alt="Momentify product overview"
+              className="w-full max-w-[560px] drop-shadow-2xl"
+            />
           </motion.div>
         </div>
 
