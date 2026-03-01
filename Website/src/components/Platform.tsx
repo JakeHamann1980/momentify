@@ -179,7 +179,7 @@ export default function Platform() {
               color: "#061341",
             }}
           >
-            One platform. Every moment.
+            One platform. Every engagement.
           </motion.h2>
 
           <motion.p
