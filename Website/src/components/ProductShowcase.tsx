@@ -132,7 +132,7 @@ export default function ProductShowcase() {
           >
             {/* Device frame with perspective */}
             <div
-              className="w-[82%] mx-auto"
+              className="w-[92%] mx-auto"
               style={{
                 transform: product.perspective,
                 filter: product.shadow,
@@ -209,7 +209,7 @@ export default function ProductShowcase() {
               <div
                 className="h-px w-8 transition-all duration-500"
                 style={{
-                  backgroundColor: i <= activeIndex ? "#0CF4DF" : "rgba(255,255,255,0.15)",
+                  background: i <= activeIndex ? "linear-gradient(135deg, #0CF4DF, #5BA8F5)" : "rgba(255,255,255,0.15)",
                 }}
               />
             )}
@@ -217,7 +217,7 @@ export default function ProductShowcase() {
               onClick={() => setActiveIndex(i)}
               className="relative flex items-center justify-center w-6 h-6 rounded-full transition-all duration-400"
               style={{
-                backgroundColor: i === activeIndex ? "#0CF4DF" : "transparent",
+                background: i === activeIndex ? "linear-gradient(135deg, #0CF4DF, #5BA8F5)" : "transparent",
                 border: `1.5px solid ${i <= activeIndex ? "#0CF4DF" : "rgba(255,255,255,0.2)"}`,
               }}
               aria-label={p.name}
