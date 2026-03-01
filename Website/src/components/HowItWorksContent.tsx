@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import ProductShowcase from "./ProductShowcase";
 
 const eyebrowStyle = {
   display: "inline-block" as const,
@@ -116,19 +117,14 @@ export default function HowItWorksContent() {
           contextualizes, and proves the value of every in-person interaction.
         </motion.p>
 
-        {/* Horizontal SVG animation */}
+        {/* Product showcase animation */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
           className="mt-16 w-full"
         >
-          <object
-            data="/how-it-works-horizontal.svg"
-            type="image/svg+xml"
-            aria-label="How Momentify works: Set up, Engage, Analyze"
-            className="w-full pointer-events-none"
-          />
+          <ProductShowcase />
         </motion.div>
       </div>
     </section>
