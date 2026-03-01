@@ -27,10 +27,10 @@ const quotes = [
 
 const roles = [
   { text: "Event managers plan.", color: "#6B21D4" },
-  { text: "Recruiters engage.", color: "#00BBA5" },
-  { text: "Field reps show up.", color: "#F25E3D" },
-  { text: "Facility teams open the doors.", color: "#F2B33D" },
-  { text: "Executives write the checks.", color: "#254FE5" },
+  { text: "Recruiters engage.", color: "#3BBFA8" },
+  { text: "Field reps show up.", color: "#D49A1F" },
+  { text: "Facility teams open the doors.", color: "#3A2073" },
+  { text: "Executives write the checks.", color: "#F25E3D" },
 ];
 
 /* ── Animation variants ───────────────────────────────── */
@@ -259,7 +259,7 @@ export default function Problem() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.15 }}
           variants={roleContainerVariants}
-          className="mt-12 flex flex-wrap gap-3"
+          className="mt-5 flex flex-wrap gap-3"
         >
           {roles.map((role) => (
             <motion.span
