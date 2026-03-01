@@ -35,53 +35,63 @@ const products = [
 
 function MacBookFrame({ color }: { color: string }) {
   return (
-    <svg viewBox="0 0 380 250" fill="none" className="w-full">
-      <rect x="30" y="10" width="320" height="195" rx="10" stroke="white" strokeOpacity="0.25" strokeWidth="1.5" />
-      <path d="M162 10 h56 v8 a4 4 0 0 1 -4 4 h-48 a4 4 0 0 1 -4 -4 Z" fill="rgba(255,255,255,0.1)" />
+    <svg viewBox="0 0 420 280" fill="none" className="w-full">
+      <rect x="50" y="20" width="320" height="195" rx="10" stroke="white" strokeOpacity="0.25" strokeWidth="1.5" />
+      <path d="M182 20 h56 v8 a4 4 0 0 1 -4 4 h-48 a4 4 0 0 1 -4 -4 Z" fill="rgba(255,255,255,0.1)" />
       <defs>
-        <linearGradient id={`scr-${color.slice(1)}`} x1="36" y1="22" x2="344" y2="200" gradientUnits="userSpaceOnUse">
+        <linearGradient id={`scr-${color.slice(1)}`} x1="56" y1="32" x2="364" y2="210" gradientUnits="userSpaceOnUse">
           <stop stopColor={color} stopOpacity="0.14" />
           <stop offset="1" stopColor={color} stopOpacity="0.03" />
         </linearGradient>
       </defs>
-      <rect x="36" y="22" width="308" height="177" rx="3" fill={`url(#scr-${color.slice(1)})`} />
-      <rect x="56" y="46" width="80" height="6" rx="3" fill="white" fillOpacity="0.08" />
-      <rect x="56" y="62" width="140" height="4" rx="2" fill="white" fillOpacity="0.05" />
-      <rect x="56" y="74" width="120" height="4" rx="2" fill="white" fillOpacity="0.05" />
-      <rect x="56" y="100" width="200" height="60" rx="6" fill="white" fillOpacity="0.04" />
-      <rect x="270" y="46" width="60" height="24" rx="4" fill={color} fillOpacity="0.15" />
-      <path d="M10 210 Q10 205 16 205 L364 205 Q370 205 370 210 L378 222 Q380 226 376 226 L4 226 Q0 226 2 222 Z" stroke="white" strokeOpacity="0.18" strokeWidth="1" fill="none" />
+      <rect x="56" y="32" width="308" height="177" rx="3" fill={`url(#scr-${color.slice(1)})`} />
+      <rect x="76" y="56" width="80" height="6" rx="3" fill="white" fillOpacity="0.08" />
+      <rect x="76" y="72" width="140" height="4" rx="2" fill="white" fillOpacity="0.05" />
+      <rect x="76" y="84" width="120" height="4" rx="2" fill="white" fillOpacity="0.05" />
+      <rect x="76" y="110" width="200" height="60" rx="6" fill="white" fillOpacity="0.04" />
+      <rect x="290" y="56" width="60" height="24" rx="4" fill={color} fillOpacity="0.15" />
+      <path d="M30 220 Q30 215 36 215 L384 215 Q390 215 390 220 L398 232 Q400 236 396 236 L24 236 Q20 236 22 232 Z" stroke="white" strokeOpacity="0.18" strokeWidth="1" fill="none" />
     </svg>
   );
 }
 
 function TabletPhoneFrame({ color }: { color: string }) {
   return (
-    <svg viewBox="0 0 380 280" fill="none" className="w-full">
-      <rect x="40" y="8" width="210" height="264" rx="14" stroke="white" strokeOpacity="0.25" strokeWidth="1.5" />
+    <svg viewBox="0 0 420 280" fill="none" className="w-full">
+      {/* iPad — landscape orientation */}
+      <rect x="40" y="50" width="260" height="180" rx="14" stroke="white" strokeOpacity="0.25" strokeWidth="1.5" />
+      {/* Camera dot (top center for landscape) */}
+      <circle cx="170" cy="57" r="2.5" fill="white" fillOpacity="0.12" />
       <defs>
-        <linearGradient id={`ipad-${color.slice(1)}`} x1="48" y1="18" x2="242" y2="262" gradientUnits="userSpaceOnUse">
+        <linearGradient id={`ipad-${color.slice(1)}`} x1="50" y1="62" x2="290" y2="222" gradientUnits="userSpaceOnUse">
           <stop stopColor={color} stopOpacity="0.14" />
           <stop offset="1" stopColor={color} stopOpacity="0.03" />
         </linearGradient>
       </defs>
-      <rect x="48" y="18" width="194" height="244" rx="4" fill={`url(#ipad-${color.slice(1)})`} />
-      <rect x="68" y="42" width="70" height="5" rx="2.5" fill="white" fillOpacity="0.08" />
-      <rect x="68" y="56" width="110" height="3" rx="1.5" fill="white" fillOpacity="0.05" />
-      <rect x="68" y="76" width="154" height="80" rx="6" fill="white" fillOpacity="0.04" />
-      <rect x="112" y="252" width="66" height="4" rx="2" fill="white" fillOpacity="0.12" />
-      <rect x="230" y="116" width="110" height="164" rx="16" stroke="white" strokeOpacity="0.3" strokeWidth="1.5" fill="rgba(11,11,60,0.85)" />
-      <rect x="264" y="122" width="42" height="10" rx="5" fill="rgba(255,255,255,0.12)" />
+      <rect x="50" y="62" width="240" height="156" rx="4" fill={`url(#ipad-${color.slice(1)})`} />
+      {/* Screen content placeholders */}
+      <rect x="66" y="82" width="90" height="5" rx="2.5" fill="white" fillOpacity="0.08" />
+      <rect x="66" y="96" width="140" height="3" rx="1.5" fill="white" fillOpacity="0.05" />
+      <rect x="66" y="114" width="200" height="70" rx="6" fill="white" fillOpacity="0.04" />
+      {/* Home indicator */}
+      <rect x="138" y="224" width="64" height="3.5" rx="1.75" fill="white" fillOpacity="0.12" />
+
+      {/* iPhone — portrait orientation, overlapping iPad bottom-right */}
+      <rect x="280" y="100" width="80" height="155" rx="16" stroke="white" strokeOpacity="0.3" strokeWidth="1.5" fill="rgba(11,11,60,0.85)" />
+      {/* Dynamic island */}
+      <rect x="304" y="108" width="32" height="9" rx="4.5" fill="rgba(255,255,255,0.12)" />
       <defs>
-        <linearGradient id={`iphone-${color.slice(1)}`} x1="236" y1="138" x2="334" y2="270" gradientUnits="userSpaceOnUse">
+        <linearGradient id={`iphone-${color.slice(1)}`} x1="286" y1="122" x2="354" y2="248" gradientUnits="userSpaceOnUse">
           <stop stopColor={color} stopOpacity="0.16" />
           <stop offset="1" stopColor={color} stopOpacity="0.04" />
         </linearGradient>
       </defs>
-      <rect x="236" y="138" width="98" height="128" rx="3" fill={`url(#iphone-${color.slice(1)})`} />
-      <rect x="248" y="156" width="50" height="4" rx="2" fill="white" fillOpacity="0.08" />
-      <rect x="248" y="168" width="74" height="40" rx="4" fill="white" fillOpacity="0.04" />
-      <rect x="262" y="272" width="46" height="3" rx="1.5" fill="white" fillOpacity="0.12" />
+      <rect x="286" y="122" width="68" height="120" rx="3" fill={`url(#iphone-${color.slice(1)})`} />
+      {/* Phone screen content */}
+      <rect x="296" y="138" width="44" height="4" rx="2" fill="white" fillOpacity="0.08" />
+      <rect x="296" y="150" width="48" height="36" rx="4" fill="white" fillOpacity="0.04" />
+      {/* Home indicator */}
+      <rect x="303" y="247" width="34" height="3" rx="1.5" fill="white" fillOpacity="0.12" />
     </svg>
   );
 }
@@ -122,7 +132,7 @@ export default function ProductShowcase() {
           >
             {/* Device frame with perspective */}
             <div
-              className="w-full"
+              className="w-[82%] mx-auto"
               style={{
                 transform: product.perspective,
                 filter: product.shadow,
