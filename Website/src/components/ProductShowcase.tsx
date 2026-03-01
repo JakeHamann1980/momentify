@@ -99,114 +99,116 @@ export default function ProductShowcase() {
   const product = products[activeIndex];
 
   return (
-    <div className="relative w-full overflow-hidden">
-      {/* Accent glow */}
-      <div
-        className="absolute inset-0 pointer-events-none transition-all duration-700"
-        style={{
-          background: `radial-gradient(ellipse at center 40%, ${product.color}18 0%, transparent 70%)`,
-        }}
-      />
+    <div className="relative w-full flex flex-col">
+      {/* Fixed-height device area */}
+      <div className="relative overflow-hidden" style={{ height: "280px" }}>
+        {/* Accent glow */}
+        <div
+          className="absolute inset-0 pointer-events-none transition-all duration-700"
+          style={{
+            background: `radial-gradient(ellipse at center 40%, ${product.color}18 0%, transparent 70%)`,
+          }}
+        />
 
-      {/* Device + overlay container */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeIndex}
-          initial={{ x: 60, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          exit={{ x: -60, opacity: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="relative"
-        >
-          {/* Device frame with perspective */}
-          <div
-            style={{
-              transform: product.perspective,
-              filter: product.shadow,
-              transformStyle: "preserve-3d",
-            }}
+        {/* Device + overlay container */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeIndex}
+            initial={{ x: 60, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -60, opacity: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="absolute inset-0 flex items-center justify-center"
           >
-            {product.device === "macbook" ? (
-              <MacBookFrame color={product.color} />
-            ) : (
-              <TabletPhoneFrame color={product.color} />
-            )}
-          </div>
-
-          {/* Text overlay */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            {/* Device frame with perspective */}
             <div
-              className="text-center px-6 py-4 rounded-xl"
+              className="w-full"
               style={{
-                background: "linear-gradient(135deg, rgba(11,11,60,0.7) 0%, rgba(11,11,60,0.5) 100%)",
-                backdropFilter: "blur(4px)",
+                transform: product.perspective,
+                filter: product.shadow,
+                transformStyle: "preserve-3d",
               }}
             >
-              {/* Step pill */}
-              <span
-                className="inline-block rounded-full px-3 py-0.5 mb-2"
-                style={{
-                  fontSize: "10px",
-                  fontWeight: 700,
-                  fontFamily: "var(--font-inter)",
-                  letterSpacing: "0.08em",
-                  color: product.color,
-                  backgroundColor: `${product.color}1A`,
-                  border: `1px solid ${product.color}30`,
-                }}
-              >
-                STEP {product.step}
-              </span>
-              {/* Product name */}
-              <p
-                style={{
-                  fontFamily: "var(--font-inter)",
-                  fontWeight: 500,
-                  fontSize: "15px",
-                  color: "rgba(255,255,255,0.9)",
-                  marginTop: "4px",
-                }}
-              >
-                {product.name}
-              </p>
-              {/* Headline */}
-              <p
-                style={{
-                  fontFamily: "var(--font-inter)",
-                  fontWeight: 500,
-                  fontSize: "19px",
-                  letterSpacing: "-0.01em",
-                  color: "white",
-                  marginTop: "4px",
-                }}
-              >
-                {product.headline}
-              </p>
+              {product.device === "macbook" ? (
+                <MacBookFrame color={product.color} />
+              ) : (
+                <TabletPhoneFrame color={product.color} />
+              )}
             </div>
-          </div>
-        </motion.div>
-      </AnimatePresence>
 
-      {/* Step progress indicator */}
+            {/* Text overlay */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div
+                className="text-center px-6 py-4 rounded-xl"
+                style={{
+                  background: "linear-gradient(135deg, rgba(11,11,60,0.7) 0%, rgba(11,11,60,0.5) 100%)",
+                  backdropFilter: "blur(4px)",
+                }}
+              >
+                {/* Step pill */}
+                <span
+                  className="inline-block rounded-full px-3 py-0.5 mb-2"
+                  style={{
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    fontFamily: "var(--font-inter)",
+                    letterSpacing: "0.08em",
+                    color: product.color,
+                    backgroundColor: `${product.color}1A`,
+                    border: `1px solid ${product.color}30`,
+                  }}
+                >
+                  STEP {product.step}
+                </span>
+                {/* Product name */}
+                <p
+                  style={{
+                    fontFamily: "var(--font-inter)",
+                    fontWeight: 500,
+                    fontSize: "15px",
+                    color: "rgba(255,255,255,0.9)",
+                    marginTop: "4px",
+                  }}
+                >
+                  {product.name}
+                </p>
+                {/* Headline */}
+                <p
+                  style={{
+                    fontFamily: "var(--font-inter)",
+                    fontWeight: 500,
+                    fontSize: "19px",
+                    letterSpacing: "-0.01em",
+                    color: "white",
+                    marginTop: "4px",
+                  }}
+                >
+                  {product.headline}
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Step progress indicator — anchored below fixed device area */}
       <div className="flex items-center justify-center gap-0 mt-5">
         {products.map((p, i) => (
           <div key={p.name} className="flex items-center">
-            {/* Connector line (before nodes 2 and 3) */}
             {i > 0 && (
               <div
                 className="h-px w-8 transition-all duration-500"
                 style={{
-                  backgroundColor: i <= activeIndex ? products[i - 1].color : "rgba(255,255,255,0.15)",
+                  backgroundColor: i <= activeIndex ? "#0CF4DF" : "rgba(255,255,255,0.15)",
                 }}
               />
             )}
-            {/* Step node */}
             <button
               onClick={() => setActiveIndex(i)}
               className="relative flex items-center justify-center w-6 h-6 rounded-full transition-all duration-400"
               style={{
-                backgroundColor: i === activeIndex ? p.color : "transparent",
-                border: `1.5px solid ${i <= activeIndex ? p.color : "rgba(255,255,255,0.2)"}`,
+                backgroundColor: i === activeIndex ? "#0CF4DF" : "transparent",
+                border: `1.5px solid ${i <= activeIndex ? "#0CF4DF" : "rgba(255,255,255,0.2)"}`,
               }}
               aria-label={p.name}
             >
@@ -214,7 +216,7 @@ export default function ProductShowcase() {
                 className="text-[10px] font-bold transition-colors duration-300"
                 style={{
                   fontFamily: "var(--font-inter)",
-                  color: i === activeIndex ? "#0B0B3C" : i < activeIndex ? p.color : "rgba(255,255,255,0.3)",
+                  color: i === activeIndex ? "#0B0B3C" : i < activeIndex ? "#0CF4DF" : "rgba(255,255,255,0.3)",
                 }}
               >
                 {p.step}
