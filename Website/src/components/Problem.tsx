@@ -64,7 +64,10 @@ const fadeIn = {
 
 export default function Problem() {
   return (
-    <section className="bg-white py-16 sm:py-24">
+    <section
+      className="py-16 sm:py-24"
+      style={{ background: "linear-gradient(145deg, #EEF2FF 0%, #F5F7FF 100%)" }}
+    >
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
 
         {/* Two-column layout: left content + right quote cards */}
