@@ -42,7 +42,7 @@ export default function Navigation() {
       }`}
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
-        <div className="flex h-[72px] items-end pb-5 justify-between">
+        <div className="flex h-[72px] items-center justify-between">
           {/* Logo */}
           <a href="/" className="flex items-center flex-shrink-0">
             <img
@@ -53,9 +53,9 @@ export default function Navigation() {
           </a>
 
           {/* Desktop nav links */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-baseline gap-8">
             <div className="relative" onMouseEnter={() => setMegaOpen(true)} onMouseLeave={() => setMegaOpen(false)}>
-              <button className={`text-[13px] font-medium transition-colors duration-300 ${linkColor}`}>Solutions</button>
+              <button className={`text-[13px] font-medium transition-colors duration-300 leading-none ${linkColor}`}>Solutions</button>
               <AnimatePresence>
                 {megaOpen && (
                   <motion.div
@@ -81,7 +81,7 @@ export default function Navigation() {
               </AnimatePresence>
             </div>
             <div className="relative" onMouseEnter={() => setPlatformOpen(true)} onMouseLeave={() => setPlatformOpen(false)}>
-              <button className={`text-[13px] font-medium transition-colors duration-300 ${linkColor}`}>Platform</button>
+              <button className={`text-[13px] font-medium transition-colors duration-300 leading-none ${linkColor}`}>Platform</button>
               <AnimatePresence>
                 {platformOpen && (
                   <motion.div
@@ -114,8 +114,8 @@ export default function Navigation() {
                 )}
               </AnimatePresence>
             </div>
-            <a href="#rox" className={`text-[13px] font-medium transition-colors duration-300 ${linkColor}`}>Case Studies</a>
-            <a href="#" className={`text-[13px] font-medium transition-colors duration-300 ${linkColor}`}>Partners</a>
+            <a href="#rox" className={`text-[13px] font-medium transition-colors duration-300 leading-none ${linkColor}`}>Case Studies</a>
+            <a href="#" className={`text-[13px] font-medium transition-colors duration-300 leading-none ${linkColor}`}>Partners</a>
           </div>
 
           {/* Desktop CTA */}
