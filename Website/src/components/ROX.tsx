@@ -66,6 +66,28 @@ const statCards = [
   },
 ];
 
+/* ── Scenarios for cycling animation ─────────────────── */
+
+const scenarios = [
+  { score: 72, cards: [78, 65, 71, 68] },
+  { score: 45, cards: [52, 38, 48, 42] },
+  { score: 89, cards: [92, 85, 88, 91] },
+];
+
+function getTierColor(value: number): string {
+  if (value >= 85) return "#0CF4DF";
+  if (value >= 70) return "#5FD9C2";
+  if (value >= 40) return "#F2B33D";
+  return "#E5484D";
+}
+
+function getTierName(value: number): string {
+  if (value >= 85) return "ELITE ROX";
+  if (value >= 70) return "HIGH ROX";
+  if (value >= 40) return "NEEDS OPTIMIZATION";
+  return "CRITICAL GAP";
+}
+
 /* ── Category rows for body copy block ───────────────── */
 
 const categories = [
@@ -197,12 +219,12 @@ function ROXGauge({ animatedScore }: { animatedScore: number }) {
 
   return (
     <svg viewBox="0 0 400 240" className="w-full mx-auto">
-      <path d={arcPath(0, 180)} stroke="rgba(255,255,255,0.08)" strokeWidth="12" fill="none" strokeLinecap="round" />
+      <path d={arcPath(0, 180)} stroke="rgba(255,255,255,0.08)" strokeWidth="18" fill="none" strokeLinecap="round" />
       {zones.map((z) => (
-        <path key={z.color} d={arcPath(z.start, z.end)} stroke={z.color} strokeWidth="12" fill="none" strokeLinecap="round" />
+        <path key={z.color} d={arcPath(z.start, z.end)} stroke={z.color} strokeWidth="18" fill="none" strokeLinecap="round" />
       ))}
-      <line x1={cx} y1={cy} x2={needleEnd.x} y2={needleEnd.y} stroke="white" strokeWidth="2" />
-      <circle cx={cx} cy={cy} r="4" fill="white" />
+      <line x1={cx} y1={cy} x2={needleEnd.x} y2={needleEnd.y} stroke="white" strokeWidth="3" />
+      <circle cx={cx} cy={cy} r="6" fill="white" />
     </svg>
   );
 }
@@ -244,28 +266,62 @@ export default function ROX() {
   useEffect(() => {
     const el = gaugeRef.current;
     if (!el) return;
+
+    let intervalId: ReturnType<typeof setInterval>;
+    const valuesRef = { score: 0, cards: [0, 0, 0, 0] };
+
+    const animateTo = (
+      toScore: number,
+      toCards: number[],
+      duration: number,
+      onComplete?: () => void
+    ) => {
+      const fromScore = valuesRef.score;
+      const fromCards = [...valuesRef.cards];
+      const start = performance.now();
+      const tick = (now: number) => {
+        const t = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - t, 3);
+        const newScore = Math.round(fromScore + eased * (toScore - fromScore));
+        const newCards = fromCards.map((from, i) =>
+          Math.round(from + eased * (toCards[i] - from))
+        );
+        valuesRef.score = newScore;
+        valuesRef.cards = newCards;
+        setScore(newScore);
+        setCardValues(newCards);
+        if (t < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          onComplete?.();
+        }
+      };
+      requestAnimationFrame(tick);
+    };
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setAnimationStarted(true);
-          const start = performance.now();
-          const duration = 1200;
-          const targets = statCards.map((c) => c.target);
-          const tick = (now: number) => {
-            const t = Math.min((now - start) / duration, 1);
-            const eased = 1 - Math.pow(1 - t, 3);
-            setScore(Math.round(eased * 72));
-            setCardValues(targets.map((target) => Math.round(eased * target)));
-            if (t < 1) requestAnimationFrame(tick);
-          };
-          requestAnimationFrame(tick);
+          const first = scenarios[0];
+          animateTo(first.score, first.cards, 1200, () => {
+            let currentIndex = 0;
+            intervalId = setInterval(() => {
+              currentIndex = (currentIndex + 1) % scenarios.length;
+              const next = scenarios[currentIndex];
+              animateTo(next.score, next.cards, 800);
+            }, 3500);
+          });
           observer.disconnect();
         }
       },
       { threshold: 0.3 }
     );
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (intervalId) clearInterval(intervalId);
+    };
   }, []);
 
   return (
@@ -390,19 +446,20 @@ export default function ROX() {
                 style={{
                   fontFamily: "var(--font-inter)",
                   fontWeight: 600,
-                  fontSize: "56px",
-                  color: "#FFFFFF",
+                  fontSize: "80px",
+                  color: getTierColor(score),
                   lineHeight: 1,
-                  letterSpacing: "-0.02em",
+                  letterSpacing: "-0.03em",
+                  transition: "color 0.3s ease",
                 }}
               >
                 {score}
               </p>
               <p
-                className="mt-2 uppercase font-semibold text-[12px] tracking-[0.14em]"
+                className="mt-3 uppercase font-semibold text-[13px] tracking-[0.14em]"
                 style={{
                   fontFamily: "var(--font-inter)",
-                  color: "#0CF4DF",
+                  color: "rgba(255, 255, 255, 0.5)",
                 }}
               >
                 ROX SCORE
@@ -411,12 +468,14 @@ export default function ROX() {
                 className="mt-1"
                 style={{
                   fontFamily: "var(--font-inter)",
-                  fontWeight: 500,
-                  fontSize: "13px",
-                  color: "#5FD9C2",
+                  fontWeight: 600,
+                  fontSize: "14px",
+                  color: getTierColor(score),
+                  letterSpacing: "0.05em",
+                  transition: "color 0.3s ease",
                 }}
               >
-                HIGH ROX
+                {getTierName(score)}
               </p>
             </div>
             <p
@@ -465,10 +524,9 @@ export default function ROX() {
                     style={{
                       fontFamily: "var(--font-inter)",
                       fontWeight: 300,
-                      fontSize: "12px",
-                      color: "rgba(255, 255, 255, 0.35)",
+                      fontSize: "13px",
+                      color: "rgba(255, 255, 255, 0.4)",
                       lineHeight: "1.5",
-                      marginBottom: "16px",
                     }}
                   >
                     {card.description}
@@ -478,10 +536,11 @@ export default function ROX() {
                   style={{
                     fontFamily: "var(--font-inter)",
                     fontWeight: 600,
-                    fontSize: "32px",
-                    color: "#FFFFFF",
+                    fontSize: "48px",
+                    color: animationStarted ? getTierColor(cardValues[i]) : "rgba(255, 255, 255, 0.3)",
                     lineHeight: 1,
                     letterSpacing: "-0.02em",
+                    transition: "color 0.3s ease",
                     ...((!animationStarted) ? { animation: "roxPulse 1.5s ease-in-out infinite" } : {}),
                   }}
                 >
