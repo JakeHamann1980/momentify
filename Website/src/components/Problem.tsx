@@ -23,6 +23,16 @@ const quotes = [
   },
 ];
 
+/* ── Role sentences mapped to solution colors ─────────── */
+
+const roles = [
+  { text: "Event managers plan.", color: "#6B21D4" },
+  { text: "Recruiters engage.", color: "#00BBA5" },
+  { text: "Field reps show up.", color: "#F25E3D" },
+  { text: "Facility teams open the doors.", color: "#F2B33D" },
+  { text: "Executives write the checks.", color: "#254FE5" },
+];
+
 /* ── Animation variants ───────────────────────────────── */
 
 const headerVariants = {
@@ -35,9 +45,19 @@ const cardContainerVariants = {
   visible: { transition: { staggerChildren: 0.08 } },
 };
 
+const roleContainerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.06 } },
+};
+
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
+};
+
+const fadeIn = {
+  hidden: { opacity: 0, y: 8 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" as const } },
 };
 
 /* ── Problem Section ──────────────────────────────────── */
@@ -45,7 +65,7 @@ const fadeUp = {
 export default function Problem() {
   return (
     <section className="bg-white py-16 sm:py-24">
-      <div className="mx-auto max-w-[1200px] px-6 lg:px-12">
+      <div className="mx-auto max-w-7xl px-6 lg:px-12">
 
         {/* Two-column layout: left content + right quote cards */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
@@ -62,7 +82,7 @@ export default function Problem() {
               <motion.p
                 variants={fadeUp}
                 className="uppercase font-semibold text-[12px] tracking-[0.14em] mb-4"
-                style={{ color: "#0CF4DF", fontFamily: "var(--font-inter)" }}
+                style={{ color: "#00BBA5", fontFamily: "var(--font-inter)" }}
               >
                 The Problem
               </motion.p>
@@ -86,11 +106,11 @@ export default function Problem() {
                   Billions spent on moments.
                 </span>
                 <span
-                  className="block"
+                  className="block text-gradient-brand"
                   style={{
-                    fontWeight: 400,
+                    fontWeight: 500,
                     fontSize: "clamp(22px, 3.5vw, 38px)",
-                    color: "rgba(6, 19, 65, 0.5)",
+                    WebkitBackgroundClip: "text",
                   }}
                 >
                   Most have no idea what worked.
@@ -169,35 +189,21 @@ export default function Problem() {
               </motion.div>
             </motion.div>
 
-            {/* Payoff statement */}
-            <motion.div
+            {/* Payoff lead-in */}
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
-              className="mt-12 max-w-[520px]"
+              className="mt-12 text-[20px] leading-[1.6]"
+              style={{
+                fontFamily: "var(--font-inter)",
+                fontWeight: 500,
+                color: "#061341",
+              }}
             >
-              <p
-                className="text-[20px] leading-[1.6]"
-                style={{
-                  fontFamily: "var(--font-inter)",
-                  fontWeight: 500,
-                  color: "#061341",
-                }}
-              >
-                The problem is not effort. It never is.
-              </p>
-              <p
-                className="mt-4 text-[15px] leading-[1.7]"
-                style={{
-                  fontFamily: "var(--font-inter)",
-                  fontWeight: 400,
-                  color: "rgba(6, 19, 65, 0.6)",
-                }}
-              >
-                Event managers plan. Recruiters engage. Field reps show up. Facility teams open the doors. Executives write the checks. But without visibility into what actually happened, every team walks away guessing.
-              </p>
-            </motion.div>
+              The problem is not effort. It never is.
+            </motion.p>
           </div>
 
           {/* ── Right column: quote cards ─────────────── */}
@@ -246,6 +252,47 @@ export default function Problem() {
           </motion.div>
 
         </div>
+
+        {/* ── Role sentences (full-width, below the grid) ─── */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          variants={roleContainerVariants}
+          className="mt-12 flex flex-wrap gap-3"
+        >
+          {roles.map((role) => (
+            <motion.span
+              key={role.text}
+              variants={fadeIn}
+              className="inline-flex items-center rounded-lg px-4 py-2 text-[14px] font-medium"
+              style={{
+                fontFamily: "var(--font-inter)",
+                color: role.color,
+                backgroundColor: `${role.color}0D`,
+                border: `1px solid ${role.color}20`,
+              }}
+            >
+              {role.text}
+            </motion.span>
+          ))}
+        </motion.div>
+
+        {/* Closing sentence */}
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+          className="mt-6 text-[15px] leading-[1.7] max-w-[600px]"
+          style={{
+            fontFamily: "var(--font-inter)",
+            fontWeight: 400,
+            color: "rgba(6, 19, 65, 0.55)",
+          }}
+        >
+          But without visibility into what actually happened, every team walks away guessing.
+        </motion.p>
       </div>
     </section>
   );
