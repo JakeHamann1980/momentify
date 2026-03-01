@@ -315,7 +315,7 @@ export default function ROX() {
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-12">
 
         {/* ── 1-3. Section header ─────────────────────── */}
-        <div className="flex items-start justify-between gap-6">
+        <div className="flex items-center justify-between gap-6">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -380,7 +380,7 @@ export default function ROX() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="hidden md:block flex-shrink-0 pt-1"
+            className="hidden md:block flex-shrink-0"
           >
             <a
               href="#"
@@ -404,7 +404,7 @@ export default function ROX() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.15 }}
           variants={stagger}
-          className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch"
+          className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch"
         >
           {/* Left: Gauge dial */}
           <motion.div
@@ -529,7 +529,51 @@ export default function ROX() {
           </motion.div>
         </motion.div>
 
-        {/* ── 5. Calculator CTA block ────────────────── */}
+        {/* ── 5. Score range strip ───────────────────── */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          variants={stagger}
+          className="mt-16 grid grid-cols-2 lg:grid-cols-4"
+          style={{ borderTop: "1px solid rgba(255, 255, 255, 0.08)" }}
+        >
+          {tiers.map((tier) => (
+            <motion.div
+              key={tier.name}
+              variants={fadeUp}
+              style={{
+                borderTop: `3px solid ${tier.color}`,
+                padding: "24px 20px",
+              }}
+            >
+              <p
+                style={{
+                  fontFamily: "var(--font-inter)",
+                  fontWeight: 500,
+                  fontSize: "17px",
+                  color: "#FFFFFF",
+                  marginBottom: "4px",
+                }}
+              >
+                {tier.name}
+              </p>
+              <p
+                style={{
+                  fontFamily: "var(--font-inter)",
+                  fontWeight: 300,
+                  fontSize: "13px",
+                  color: "rgba(255, 255, 255, 0.5)",
+                  lineHeight: "1.5",
+                }}
+              >
+                {tier.description}
+              </p>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* ── 6. Calculator CTA block ────────────────── */}
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -662,50 +706,6 @@ export default function ROX() {
             </a>{" "}
             to see ROX dashboards live.
           </motion.p>
-        </motion.div>
-
-        {/* ── 8. Score range strip ───────────────────── */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-          variants={stagger}
-          className="mt-16 grid grid-cols-2 lg:grid-cols-4"
-          style={{ borderTop: "1px solid rgba(255, 255, 255, 0.08)" }}
-        >
-          {tiers.map((tier) => (
-            <motion.div
-              key={tier.name}
-              variants={fadeUp}
-              style={{
-                borderTop: `3px solid ${tier.color}`,
-                padding: "24px 20px",
-              }}
-            >
-              <p
-                style={{
-                  fontFamily: "var(--font-inter)",
-                  fontWeight: 500,
-                  fontSize: "17px",
-                  color: "#FFFFFF",
-                  marginBottom: "4px",
-                }}
-              >
-                {tier.name}
-              </p>
-              <p
-                style={{
-                  fontFamily: "var(--font-inter)",
-                  fontWeight: 300,
-                  fontSize: "13px",
-                  color: "rgba(255, 255, 255, 0.5)",
-                  lineHeight: "1.5",
-                }}
-              >
-                {tier.description}
-              </p>
-            </motion.div>
-          ))}
         </motion.div>
       </div>
     </section>
