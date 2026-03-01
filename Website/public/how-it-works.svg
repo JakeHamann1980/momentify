@@ -1,0 +1,268 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid meet">
+<style>
+  @keyframes spineDraw {
+    0% { stroke-dashoffset: 640; }
+    33% { stroke-dashoffset: 426; }
+    66% { stroke-dashoffset: 213; }
+    100% { stroke-dashoffset: 0; }
+  }
+  @keyframes step1In {
+    0%, 2% { opacity: 0.25; }
+    8% { opacity: 1; }
+    33% { opacity: 1; }
+    38% { opacity: 0.25; }
+    100% { opacity: 0.25; }
+  }
+  @keyframes step2In {
+    0%, 33% { opacity: 0.25; }
+    38% { opacity: 1; }
+    66% { opacity: 1; }
+    71% { opacity: 0.25; }
+    100% { opacity: 0.25; }
+  }
+  @keyframes step3In {
+    0%, 66% { opacity: 0.25; }
+    71% { opacity: 1; }
+    100% { opacity: 1; }
+  }
+  @keyframes pulse1 {
+    0%, 2% { transform: scale(1); opacity: 0; }
+    8% { opacity: 0.8; }
+    15% { transform: scale(2.2); opacity: 0; }
+    33%, 100% { transform: scale(1); opacity: 0; }
+  }
+  @keyframes pulse2 {
+    0%, 33% { transform: scale(1); opacity: 0; }
+    38% { opacity: 0.8; }
+    48% { transform: scale(2.2); opacity: 0; }
+    66%, 100% { transform: scale(1); opacity: 0; }
+  }
+  @keyframes pulse3 {
+    0%, 66% { transform: scale(1); opacity: 0; }
+    71% { opacity: 0.8; }
+    82% { transform: scale(2.2); opacity: 0; }
+    100% { transform: scale(1); opacity: 0; }
+  }
+  @keyframes node1Fill {
+    0%, 2% { fill: transparent; }
+    8%, 33% { fill: #5FD9C2; }
+    38%, 100% { fill: transparent; }
+  }
+  @keyframes node2Fill {
+    0%, 33% { fill: transparent; }
+    38%, 66% { fill: #6B21D4; }
+    71%, 100% { fill: transparent; }
+  }
+  @keyframes node3Fill {
+    0%, 66% { fill: transparent; }
+    71%, 100% { fill: #F2B33D; }
+  }
+  @keyframes fadeStep1 {
+    0%, 2% { opacity: 0; transform: translateY(8px); }
+    10% { opacity: 1; transform: translateY(0); }
+    33% { opacity: 1; }
+    38% { opacity: 0; }
+    100% { opacity: 0; }
+  }
+  @keyframes fadeStep1Body {
+    0%, 5% { opacity: 0; transform: translateY(8px); }
+    13% { opacity: 1; transform: translateY(0); }
+    33% { opacity: 1; }
+    38% { opacity: 0; }
+    100% { opacity: 0; }
+  }
+  @keyframes fadeStep2 {
+    0%, 33% { opacity: 0; transform: translateY(8px); }
+    42% { opacity: 1; transform: translateY(0); }
+    66% { opacity: 1; }
+    71% { opacity: 0; }
+    100% { opacity: 0; }
+  }
+  @keyframes fadeStep2Body {
+    0%, 36% { opacity: 0; transform: translateY(8px); }
+    45% { opacity: 1; transform: translateY(0); }
+    66% { opacity: 1; }
+    71% { opacity: 0; }
+    100% { opacity: 0; }
+  }
+  @keyframes fadeStep3 {
+    0%, 66% { opacity: 0; transform: translateY(8px); }
+    75% { opacity: 1; transform: translateY(0); }
+    95% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  @keyframes fadeStep3Body {
+    0%, 69% { opacity: 0; transform: translateY(8px); }
+    78% { opacity: 1; transform: translateY(0); }
+    95% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  @keyframes bottomFade {
+    0%, 85% { opacity: 0; }
+    92%, 98% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  @keyframes iconDraw {
+    0% { stroke-dashoffset: 200; }
+    100% { stroke-dashoffset: 0; }
+  }
+  @keyframes icon1Draw {
+    0%, 2% { stroke-dashoffset: 200; }
+    16% { stroke-dashoffset: 0; }
+    33% { stroke-dashoffset: 0; }
+    38%, 100% { stroke-dashoffset: 200; }
+  }
+  @keyframes icon2Draw {
+    0%, 33% { stroke-dashoffset: 200; }
+    48% { stroke-dashoffset: 0; }
+    66% { stroke-dashoffset: 0; }
+    71%, 100% { stroke-dashoffset: 200; }
+  }
+  @keyframes icon3Draw {
+    0%, 66% { stroke-dashoffset: 200; }
+    82% { stroke-dashoffset: 0; }
+    95% { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: 200; }
+  }
+
+  .spine { stroke-dasharray: 640; animation: spineDraw 9s linear infinite; }
+  .step1-group { animation: step1In 9s ease infinite; }
+  .step2-group { animation: step2In 9s ease infinite; }
+  .step3-group { animation: step3In 9s ease infinite; }
+  .pulse1 { transform-origin: 80px 160px; animation: pulse1 9s ease infinite; }
+  .pulse2 { transform-origin: 80px 400px; animation: pulse2 9s ease infinite; }
+  .pulse3 { transform-origin: 80px 640px; animation: pulse3 9s ease infinite; }
+  .node1 { animation: node1Fill 9s ease infinite; }
+  .node2 { animation: node2Fill 9s ease infinite; }
+  .node3 { animation: node3Fill 9s ease infinite; }
+  .step1-content { animation: fadeStep1 9s ease infinite; }
+  .step1-body { animation: fadeStep1Body 9s ease infinite; }
+  .step2-content { animation: fadeStep2 9s ease infinite; }
+  .step2-body { animation: fadeStep2Body 9s ease infinite; }
+  .step3-content { animation: fadeStep3 9s ease infinite; }
+  .step3-body { animation: fadeStep3Body 9s ease infinite; }
+  .bottom-bar { animation: bottomFade 9s ease infinite; }
+  .icon1 { stroke-dasharray: 200; animation: icon1Draw 9s ease infinite; }
+  .icon2 { stroke-dasharray: 200; animation: icon2Draw 9s ease infinite; }
+  .icon3 { stroke-dasharray: 200; animation: icon3Draw 9s ease infinite; }
+
+  text { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+</style>
+
+<!-- Timeline spine base -->
+<line x1="80" y1="80" x2="80" y2="720" stroke="white" stroke-opacity="0.15" stroke-width="2"/>
+<!-- Animated spine -->
+<line x1="80" y1="80" x2="80" y2="720" stroke="white" stroke-opacity="0.6" stroke-width="2" class="spine"/>
+
+<!-- Step 1 accent bar -->
+<g class="step1-group">
+  <rect x="118" y="120" width="3" height="220" rx="1.5" fill="#5FD9C2"/>
+</g>
+<!-- Step 2 accent bar -->
+<g class="step2-group">
+  <rect x="118" y="360" width="3" height="220" rx="1.5" fill="#6B21D4"/>
+</g>
+<!-- Step 3 accent bar -->
+<g class="step3-group">
+  <rect x="118" y="600" width="3" height="140" rx="1.5" fill="#F2B33D"/>
+</g>
+
+<!-- Step 1 node -->
+<circle cx="80" cy="160" r="14" class="node1" stroke="white" stroke-width="1.5" stroke-opacity="0.25"/>
+<circle cx="80" cy="160" r="14" fill="none" stroke="#5FD9C2" stroke-width="1.5" class="pulse1"/>
+<text x="80" y="165" text-anchor="middle" fill="white" font-size="14" font-weight="700" class="step1-group">1</text>
+
+<!-- Step 2 node -->
+<circle cx="80" cy="400" r="14" class="node2" stroke="white" stroke-width="1.5" stroke-opacity="0.25"/>
+<circle cx="80" cy="400" r="14" fill="none" stroke="#6B21D4" stroke-width="1.5" class="pulse2"/>
+<text x="80" y="405" text-anchor="middle" fill="white" font-size="14" font-weight="700" class="step2-group">2</text>
+
+<!-- Step 3 node -->
+<circle cx="80" cy="640" r="14" class="node3" stroke="white" stroke-width="1.5" stroke-opacity="0.25"/>
+<circle cx="80" cy="640" r="14" fill="none" stroke="#F2B33D" stroke-width="1.5" class="pulse3"/>
+<text x="80" y="645" text-anchor="middle" fill="white" font-size="14" font-weight="700" class="step3-group">3</text>
+
+<!-- ═══ Step 1 Content ═══ -->
+<g class="step1-content">
+  <!-- Step label -->
+  <text x="140" y="148" fill="#0CF4DF" font-size="11" font-weight="600" letter-spacing="0.12em">STEP 1</text>
+  <!-- Icon: browser window -->
+  <g class="icon1" transform="translate(140, 158)">
+    <rect x="0" y="0" width="38" height="28" rx="3" stroke="#0CF4DF" stroke-width="1.8" fill="none"/>
+    <line x1="0" y1="9" x2="38" y2="9" stroke="#0CF4DF" stroke-width="1.8"/>
+    <circle cx="7" cy="4.5" r="1.5" stroke="#0CF4DF" stroke-width="1" fill="none"/>
+    <circle cx="13" cy="4.5" r="1.5" stroke="#0CF4DF" stroke-width="1" fill="none"/>
+    <circle cx="19" cy="4.5" r="1.5" stroke="#0CF4DF" stroke-width="1" fill="none"/>
+  </g>
+  <!-- Product name -->
+  <text x="140" y="210" fill="white" font-size="17" font-weight="700">Momentify Web</text>
+  <!-- Headline -->
+  <text x="140" y="236" fill="white" font-size="21" font-weight="800">Set up. Configure. Deploy.</text>
+</g>
+<!-- Body (delayed) -->
+<g class="step1-body">
+  <text x="140" y="260" fill="white" fill-opacity="0.6" font-size="13" font-weight="400">
+    <tspan x="140" dy="0">Build your events, templates, and engagement</tspan>
+    <tspan x="140" dy="21">flows ahead of time. Define your personas, map</tspan>
+    <tspan x="140" dy="21">your content, and set your team up before anyone</tspan>
+    <tspan x="140" dy="21">steps on the floor.</tspan>
+  </text>
+</g>
+
+<!-- ═══ Step 2 Content ═══ -->
+<g class="step2-content">
+  <!-- Step label -->
+  <text x="140" y="388" fill="#0CF4DF" font-size="11" font-weight="600" letter-spacing="0.12em">STEP 2</text>
+  <!-- Icon: tablet with ripple -->
+  <g class="icon2" transform="translate(140, 398)">
+    <rect x="4" y="0" width="26" height="38" rx="3" stroke="#0CF4DF" stroke-width="1.8" fill="none"/>
+    <circle cx="17" cy="19" r="4" stroke="#0CF4DF" stroke-width="1.5" fill="none"/>
+    <circle cx="17" cy="19" r="8" stroke="#0CF4DF" stroke-width="0.8" fill="none" opacity="0.5"/>
+  </g>
+  <!-- Product name -->
+  <text x="140" y="454" fill="white" font-size="17" font-weight="700">Momentify Explorer</text>
+  <!-- Headline -->
+  <text x="140" y="480" fill="white" font-size="21" font-weight="800">Engage. Capture. Contextualize.</text>
+</g>
+<!-- Body (delayed) -->
+<g class="step2-body">
+  <text x="140" y="504" fill="white" fill-opacity="0.6" font-size="13" font-weight="400">
+    <tspan x="140" dy="0">Attendees, candidates, and visitors interact</tspan>
+    <tspan x="140" dy="21">through iPads, touch displays, and mobile</tspan>
+    <tspan x="140" dy="21">devices. Every tap, every content selection, and</tspan>
+    <tspan x="140" dy="21">every conversation detail is captured in real time</tspan>
+    <tspan x="140" dy="21">with role-specific context attached.</tspan>
+  </text>
+</g>
+
+<!-- ═══ Step 3 Content ═══ -->
+<g class="step3-content">
+  <!-- Step label -->
+  <text x="140" y="628" fill="#0CF4DF" font-size="11" font-weight="600" letter-spacing="0.12em">STEP 3</text>
+  <!-- Icon: line chart -->
+  <g class="icon3" transform="translate(140, 638)">
+    <line x1="0" y1="38" x2="38" y2="38" stroke="#0CF4DF" stroke-width="1.8"/>
+    <polyline points="4,30 14,20 24,26 34,8" stroke="#0CF4DF" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="4" cy="30" r="2.5" stroke="#0CF4DF" stroke-width="1.5" fill="none"/>
+    <circle cx="14" cy="20" r="2.5" stroke="#0CF4DF" stroke-width="1.5" fill="none"/>
+    <circle cx="24" cy="26" r="2.5" stroke="#0CF4DF" stroke-width="1.5" fill="none"/>
+    <circle cx="34" cy="8" r="2.5" stroke="#0CF4DF" stroke-width="1.5" fill="none"/>
+  </g>
+  <!-- Product name -->
+  <text x="140" y="698" fill="white" font-size="17" font-weight="700">Momentify Intelligence</text>
+  <!-- Headline -->
+  <text x="140" y="724" fill="white" font-size="21" font-weight="800">Analyze. Score. Prove.</text>
+</g>
+<!-- Body (delayed) -->
+<g class="step3-body">
+  <text x="140" y="748" fill="white" fill-opacity="0.6" font-size="13" font-weight="400">
+    <tspan x="140" dy="0">Real-time ROX dashboards surface who engaged,</tspan>
+    <tspan x="140" dy="21">how deeply, and what they cared about. Leads are</tspan>
+    <tspan x="140" dy="21">scored and routed automatically. Your team acts</tspan>
+    <tspan x="140" dy="21">while the moment still matters.</tspan>
+  </text>
+</g>
+
+<!-- Bottom bar -->
+<text x="400" y="768" text-anchor="middle" fill="white" fill-opacity="0.25" font-size="12" font-weight="600" letter-spacing="0.08em" class="bottom-bar">Contact. Conversation. Context.</text>
+</svg>

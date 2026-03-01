@@ -261,28 +261,19 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* ── Right column: YouTube video ────────── */}
+          {/* ── Right column: How It Works animation ── */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
             className="hidden lg:flex items-center justify-center w-[420px]"
           >
-            <div
-              className="relative w-full rounded-2xl overflow-hidden"
-              style={{
-                aspectRatio: "16 / 9",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-              }}
-            >
-              <iframe
-                src="https://www.youtube.com/embed/rTj2GCBCDoo?rel=0"
-                title="How Momentify Works"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="absolute inset-0 w-full h-full"
-              />
-            </div>
+            <object
+              data="/how-it-works.svg"
+              type="image/svg+xml"
+              aria-label="How Momentify works: Set up, Engage, Analyze"
+              className="w-full pointer-events-none"
+            />
           </motion.div>
         </div>
 
