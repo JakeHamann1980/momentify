@@ -66,7 +66,7 @@ const solutions = [
     body: "Field reps make the drive. They have the conversation. Then the insight disappears. Momentify captures what happened, delivers the right content in the moment, and syncs everything to your CRM before they get back on the road.",
     bullets: [
       "Offline-capable capture for low-connectivity environments",
-      "Role-based content delivery on your device at the point of conversation",
+      "Role-based content delivery on any device at the point of conversation",
       "Engagement-triggered exports with conversation context intact",
     ],
     cta: "Explore Field Sales Enablement",
