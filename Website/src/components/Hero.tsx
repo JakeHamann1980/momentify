@@ -218,22 +218,79 @@ export default function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.32 }}
-            className="mt-12 flex flex-wrap gap-3"
+            className="mt-12 flex flex-col sm:flex-row gap-4"
           >
             <a
               href="#platform"
-              className="bg-white text-midnight font-medium text-[13px] py-2.5 px-6 rounded-md hover:bg-white/90 transition-colors"
+              className="inline-flex items-center justify-center font-semibold text-[14px] py-4 px-8 rounded-full transition-all duration-200 hover:brightness-110 hover:scale-[1.02]"
+              style={{
+                background: "linear-gradient(90deg, #0CF4DF 0%, #254FE5 100%)",
+                color: "#061341",
+              }}
             >
               See How It Works
             </a>
             <a
               href="#demo"
-              className="border border-white/20 text-white font-medium text-[13px] py-2.5 px-6 rounded-md hover:border-white/40 transition-colors"
+              className="inline-flex items-center justify-center font-semibold text-[14px] text-white py-4 px-8 rounded-full transition-all duration-200 hover:bg-white/[0.08]"
+              style={{
+                border: "1.5px solid rgba(255, 255, 255, 0.6)",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(255, 255, 255, 1)")}
+              onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.6)")}
             >
               Schedule a Demo
             </a>
           </motion.div>
         </div>
+
+        {/* ── Proof Bar / Logo Ticker ────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="mt-12"
+        >
+          {/* Divider */}
+          <div className="w-full h-px bg-white/[0.12]" />
+
+          <div className="flex items-center gap-8 pt-8">
+            {/* Static label */}
+            <span
+              className="flex-shrink-0 text-white/40 font-semibold text-[11px] tracking-[0.12em] uppercase"
+              style={{ fontFamily: "var(--font-inter)" }}
+            >
+              Trusted by
+            </span>
+
+            {/* Ticker wrapper */}
+            <div className="overflow-hidden flex-1">
+              <div
+                className="flex items-center gap-16"
+                style={{ animation: "tickerScroll 40s linear infinite", width: "max-content" }}
+              >
+                {/* First set */}
+                {/* ASSET NEEDED: Caterpillar logo, white SVG or PNG with transparent background */}
+                <span className="text-white/50 hover:text-white/90 transition-opacity duration-200 font-bold text-[14px] flex-shrink-0 h-7 flex items-center" style={{ fontFamily: "var(--font-inter)", maxWidth: "120px" }}>Caterpillar</span>
+                {/* ASSET NEEDED: Mustang Cat logo, white SVG or PNG with transparent background */}
+                <span className="text-white/50 hover:text-white/90 transition-opacity duration-200 font-bold text-[14px] flex-shrink-0 h-7 flex items-center" style={{ fontFamily: "var(--font-inter)", maxWidth: "120px" }}>Mustang Cat</span>
+                {/* ASSET NEEDED: Thompson Tractor logo, white SVG or PNG with transparent background */}
+                <span className="text-white/50 hover:text-white/90 transition-opacity duration-200 font-bold text-[14px] flex-shrink-0 h-7 flex items-center" style={{ fontFamily: "var(--font-inter)", maxWidth: "120px" }}>Thompson Tractor</span>
+                {/* ASSET NEEDED: Blanchard Machinery logo, white SVG or PNG with transparent background */}
+                <span className="text-white/50 hover:text-white/90 transition-opacity duration-200 font-bold text-[14px] flex-shrink-0 h-7 flex items-center" style={{ fontFamily: "var(--font-inter)", maxWidth: "120px" }}>Blanchard Machinery</span>
+                {/* ASSET NEEDED: Carter Machinery logo, white SVG or PNG with transparent background */}
+                <span className="text-white/50 hover:text-white/90 transition-opacity duration-200 font-bold text-[14px] flex-shrink-0 h-7 flex items-center" style={{ fontFamily: "var(--font-inter)", maxWidth: "120px" }}>Carter Machinery</span>
+
+                {/* Duplicate set for seamless loop */}
+                <span className="text-white/50 hover:text-white/90 transition-opacity duration-200 font-bold text-[14px] flex-shrink-0 h-7 flex items-center" style={{ fontFamily: "var(--font-inter)", maxWidth: "120px" }}>Caterpillar</span>
+                <span className="text-white/50 hover:text-white/90 transition-opacity duration-200 font-bold text-[14px] flex-shrink-0 h-7 flex items-center" style={{ fontFamily: "var(--font-inter)", maxWidth: "120px" }}>Mustang Cat</span>
+                <span className="text-white/50 hover:text-white/90 transition-opacity duration-200 font-bold text-[14px] flex-shrink-0 h-7 flex items-center" style={{ fontFamily: "var(--font-inter)", maxWidth: "120px" }}>Thompson Tractor</span>
+                <span className="text-white/50 hover:text-white/90 transition-opacity duration-200 font-bold text-[14px] flex-shrink-0 h-7 flex items-center" style={{ fontFamily: "var(--font-inter)", maxWidth: "120px" }}>Blanchard Machinery</span>
+                <span className="text-white/50 hover:text-white/90 transition-opacity duration-200 font-bold text-[14px] flex-shrink-0 h-7 flex items-center" style={{ fontFamily: "var(--font-inter)", maxWidth: "120px" }}>Carter Machinery</span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

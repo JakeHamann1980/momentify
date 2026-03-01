@@ -133,3 +133,9 @@ body {
   0%, 100% { transform: translate(0, 0) scale(1); }
   50% { transform: translate(25px, -18px) scale(1.05); }
 }
+
+/* Logo ticker scroll */
+@keyframes tickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
