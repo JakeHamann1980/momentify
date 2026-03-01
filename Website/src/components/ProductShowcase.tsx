@@ -205,9 +205,9 @@ export default function ProductShowcase() {
                     fontWeight: 700,
                     fontFamily: "var(--font-inter)",
                     letterSpacing: "0.08em",
-                    color: product.color,
-                    backgroundColor: `${product.color}1A`,
-                    border: `1px solid ${product.color}30`,
+                    color: "#0CF4DF",
+                    backgroundColor: "rgba(12,244,223,0.1)",
+                    border: "1px solid rgba(12,244,223,0.19)",
                   }}
                 >
                   STEP {product.step}
