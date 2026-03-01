@@ -42,7 +42,7 @@ export default function Navigation() {
       }`}
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
-        <div className="flex h-[72px] items-center justify-between">
+        <div className="flex h-[72px] items-end pb-5 justify-between">
           {/* Logo */}
           <a href="/" className="flex items-center flex-shrink-0">
             <img
