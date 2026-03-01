@@ -165,55 +165,23 @@ function ExplorerFrame({ color }: { color: string }) {
       <rect x="306" y="128" width="8" height="8" rx="2" fill={color} fillOpacity="0.4" />
       <rect x="294" y="140" width="52" height="3" rx="1.5" fill="white" fillOpacity="0.5" />
       <rect x="300" y="146" width="40" height="2" rx="1" fill="white" fillOpacity="0.2" />
-      {/* 4x4 trait selection grid */}
-      <rect x="290" y="154" width="14" height="14" rx="3" fill={color} fillOpacity="0.2" />
-      <rect x="291" y="157" width="12" height="3" rx="1" fill="white" fillOpacity="0.15" />
-      <rect x="293" y="163" width="8" height="1.5" rx="0.75" fill="white" fillOpacity="0.3" />
-      <rect x="306" y="154" width="14" height="14" rx="3" fill="white" fillOpacity="0.1" />
-      <rect x="307" y="157" width="12" height="3" rx="1" fill="white" fillOpacity="0.15" />
-      <rect x="309" y="163" width="8" height="1.5" rx="0.75" fill="white" fillOpacity="0.3" />
-      <rect x="322" y="154" width="14" height="14" rx="3" fill="white" fillOpacity="0.1" />
-      <rect x="323" y="157" width="12" height="3" rx="1" fill="white" fillOpacity="0.15" />
-      <rect x="325" y="163" width="8" height="1.5" rx="0.75" fill="white" fillOpacity="0.3" />
-      <rect x="338" y="154" width="14" height="14" rx="3" fill={color} fillOpacity="0.15" />
-      <rect x="339" y="157" width="12" height="3" rx="1" fill="white" fillOpacity="0.15" />
-      <rect x="341" y="163" width="8" height="1.5" rx="0.75" fill="white" fillOpacity="0.3" />
-      <rect x="290" y="170" width="14" height="14" rx="3" fill="white" fillOpacity="0.1" />
-      <rect x="291" y="173" width="12" height="3" rx="1" fill="white" fillOpacity="0.15" />
-      <rect x="293" y="179" width="8" height="1.5" rx="0.75" fill="white" fillOpacity="0.3" />
-      <rect x="306" y="170" width="14" height="14" rx="3" fill={color} fillOpacity="0.15" />
-      <rect x="307" y="173" width="12" height="3" rx="1" fill="white" fillOpacity="0.15" />
-      <rect x="309" y="179" width="8" height="1.5" rx="0.75" fill="white" fillOpacity="0.3" />
-      <rect x="322" y="170" width="14" height="14" rx="3" fill="white" fillOpacity="0.1" />
-      <rect x="323" y="173" width="12" height="3" rx="1" fill="white" fillOpacity="0.15" />
-      <rect x="325" y="179" width="8" height="1.5" rx="0.75" fill="white" fillOpacity="0.3" />
-      <rect x="338" y="170" width="14" height="14" rx="3" fill="white" fillOpacity="0.1" />
-      <rect x="339" y="173" width="12" height="3" rx="1" fill="white" fillOpacity="0.15" />
-      <rect x="341" y="179" width="8" height="1.5" rx="0.75" fill="white" fillOpacity="0.3" />
-      <rect x="290" y="186" width="14" height="14" rx="3" fill={color} fillOpacity="0.2" />
-      <rect x="291" y="189" width="12" height="3" rx="1" fill="white" fillOpacity="0.15" />
-      <rect x="293" y="195" width="8" height="1.5" rx="0.75" fill="white" fillOpacity="0.3" />
-      <rect x="306" y="186" width="14" height="14" rx="3" fill="white" fillOpacity="0.1" />
-      <rect x="307" y="189" width="12" height="3" rx="1" fill="white" fillOpacity="0.15" />
-      <rect x="309" y="195" width="8" height="1.5" rx="0.75" fill="white" fillOpacity="0.3" />
-      <rect x="322" y="186" width="14" height="14" rx="3" fill="white" fillOpacity="0.1" />
-      <rect x="323" y="189" width="12" height="3" rx="1" fill="white" fillOpacity="0.15" />
-      <rect x="325" y="195" width="8" height="1.5" rx="0.75" fill="white" fillOpacity="0.3" />
-      <rect x="338" y="186" width="14" height="14" rx="3" fill={color} fillOpacity="0.15" />
-      <rect x="339" y="189" width="12" height="3" rx="1" fill="white" fillOpacity="0.15" />
-      <rect x="341" y="195" width="8" height="1.5" rx="0.75" fill="white" fillOpacity="0.3" />
-      <rect x="290" y="202" width="14" height="14" rx="3" fill="white" fillOpacity="0.1" />
-      <rect x="291" y="205" width="12" height="3" rx="1" fill="white" fillOpacity="0.15" />
-      <rect x="293" y="211" width="8" height="1.5" rx="0.75" fill="white" fillOpacity="0.3" />
-      <rect x="306" y="202" width="14" height="14" rx="3" fill="white" fillOpacity="0.1" />
-      <rect x="307" y="205" width="12" height="3" rx="1" fill="white" fillOpacity="0.15" />
-      <rect x="309" y="211" width="8" height="1.5" rx="0.75" fill="white" fillOpacity="0.3" />
-      <rect x="322" y="202" width="14" height="14" rx="3" fill={color} fillOpacity="0.2" />
-      <rect x="323" y="205" width="12" height="3" rx="1" fill="white" fillOpacity="0.15" />
-      <rect x="325" y="211" width="8" height="1.5" rx="0.75" fill="white" fillOpacity="0.3" />
-      <rect x="338" y="202" width="14" height="14" rx="3" fill="white" fillOpacity="0.1" />
-      <rect x="339" y="205" width="12" height="3" rx="1" fill="white" fillOpacity="0.15" />
-      <rect x="341" y="211" width="8" height="1.5" rx="0.75" fill="white" fillOpacity="0.3" />
+      {/* 2x2 trait selection grid */}
+      <rect x="290" y="154" width="30" height="28" rx="4" fill={color} fillOpacity="0.2" />
+      <rect x="295" y="159" width="20" height="8" rx="2" fill="white" fillOpacity="0.15" />
+      <rect x="296" y="171" width="18" height="2" rx="1" fill="white" fillOpacity="0.3" />
+      <rect x="298" y="176" width="14" height="1.5" rx="0.75" fill="white" fillOpacity="0.2" />
+      <rect x="324" y="154" width="30" height="28" rx="4" fill="white" fillOpacity="0.1" />
+      <rect x="329" y="159" width="20" height="8" rx="2" fill="white" fillOpacity="0.15" />
+      <rect x="330" y="171" width="18" height="2" rx="1" fill="white" fillOpacity="0.3" />
+      <rect x="332" y="176" width="14" height="1.5" rx="0.75" fill="white" fillOpacity="0.2" />
+      <rect x="290" y="186" width="30" height="28" rx="4" fill="white" fillOpacity="0.1" />
+      <rect x="295" y="191" width="20" height="8" rx="2" fill="white" fillOpacity="0.15" />
+      <rect x="296" y="203" width="18" height="2" rx="1" fill="white" fillOpacity="0.3" />
+      <rect x="298" y="208" width="14" height="1.5" rx="0.75" fill="white" fillOpacity="0.2" />
+      <rect x="324" y="186" width="30" height="28" rx="4" fill={color} fillOpacity="0.15" />
+      <rect x="329" y="191" width="20" height="8" rx="2" fill="white" fillOpacity="0.15" />
+      <rect x="330" y="203" width="18" height="2" rx="1" fill="white" fillOpacity="0.3" />
+      <rect x="332" y="208" width="14" height="1.5" rx="0.75" fill="white" fillOpacity="0.2" />
       {/* Next button */}
       <rect x="300" y="222" width="40" height="10" rx="4" fill={color} fillOpacity="0.25" />
       <rect x="310" y="225" width="20" height="3" rx="1.5" fill="white" fillOpacity="0.5" />
