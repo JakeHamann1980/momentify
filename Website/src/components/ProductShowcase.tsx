@@ -13,6 +13,7 @@ const products = [
     perspective: "none",
     shadow: "drop-shadow(0 8px 24px rgba(95,217,194,0.15))",
     textOffsetY: -20,
+    screenshot: "/screenshot-momentifyweb.png",
   },
   {
     name: "Momentify Explorer",
@@ -23,6 +24,7 @@ const products = [
     perspective: "perspective(600px) rotateY(-16deg) rotateX(5deg)",
     shadow: "drop-shadow(0 12px 32px rgba(107,33,212,0.25))",
     textOffsetY: 0,
+    screenshot: "/screenshot-momentifyexplorer_ipad.png",
   },
   {
     name: "Momentify Intelligence",
@@ -33,68 +35,93 @@ const products = [
     perspective: "none",
     shadow: "drop-shadow(0 8px 24px rgba(242,179,61,0.15))",
     textOffsetY: -20,
+    screenshot: "/screenshot-momentifyintelligence.png",
   },
 ];
 
-function MacBookFrame({ color }: { color: string }) {
+function MacBookFrame({ color, screenshot }: { color: string; screenshot: string }) {
   return (
     <svg viewBox="0 0 420 280" fill="none" className="w-full">
+      {/* Lid / display shell */}
       <rect x="50" y="20" width="320" height="195" rx="10" stroke="white" strokeOpacity="0.25" strokeWidth="1.5" />
+      {/* Camera notch */}
       <path d="M182 20 h56 v8 a4 4 0 0 1 -4 4 h-48 a4 4 0 0 1 -4 -4 Z" fill="rgba(255,255,255,0.1)" />
+      {/* Screen area with screenshot */}
       <defs>
-        <linearGradient id={`scr-${color.slice(1)}`} x1="56" y1="32" x2="364" y2="210" gradientUnits="userSpaceOnUse">
-          <stop stopColor={color} stopOpacity="0.14" />
-          <stop offset="1" stopColor={color} stopOpacity="0.03" />
-        </linearGradient>
+        <clipPath id={`mac-screen-${color.slice(1)}`}>
+          <rect x="56" y="32" width="308" height="177" rx="3" />
+        </clipPath>
       </defs>
-      <rect x="56" y="32" width="308" height="177" rx="3" fill={`url(#scr-${color.slice(1)})`} />
-      <rect x="76" y="56" width="80" height="6" rx="3" fill="white" fillOpacity="0.08" />
-      <rect x="76" y="72" width="140" height="4" rx="2" fill="white" fillOpacity="0.05" />
-      <rect x="76" y="84" width="120" height="4" rx="2" fill="white" fillOpacity="0.05" />
-      <rect x="76" y="110" width="200" height="60" rx="6" fill="white" fillOpacity="0.04" />
-      <rect x="290" y="56" width="60" height="24" rx="4" fill={color} fillOpacity="0.15" />
+      <image
+        href={screenshot}
+        x="56" y="32" width="308" height="177"
+        clipPath={`url(#mac-screen-${color.slice(1)})`}
+        preserveAspectRatio="xMidYMid slice"
+      />
+      {/* Base / hinge */}
       <path d="M30 220 Q30 215 36 215 L384 215 Q390 215 390 220 L398 232 Q400 236 396 236 L24 236 Q20 236 22 232 Z" stroke="white" strokeOpacity="0.18" strokeWidth="1" fill="none" />
     </svg>
   );
 }
 
-function TabletPhoneFrame({ color }: { color: string }) {
+function TabletPhoneFrame({ color, screenshot }: { color: string; screenshot: string }) {
   return (
     <svg viewBox="0 0 420 280" fill="none" className="w-full">
       {/* iPad — landscape orientation */}
       <rect x="40" y="50" width="260" height="180" rx="14" stroke="white" strokeOpacity="0.25" strokeWidth="1.5" />
-      {/* Camera dot (top center for landscape) */}
+      {/* Camera dot */}
       <circle cx="170" cy="57" r="2.5" fill="white" fillOpacity="0.12" />
+      {/* iPad screen with screenshot */}
       <defs>
-        <linearGradient id={`ipad-${color.slice(1)}`} x1="50" y1="62" x2="290" y2="222" gradientUnits="userSpaceOnUse">
-          <stop stopColor={color} stopOpacity="0.14" />
-          <stop offset="1" stopColor={color} stopOpacity="0.03" />
-        </linearGradient>
+        <clipPath id={`ipad-screen-${color.slice(1)}`}>
+          <rect x="50" y="62" width="240" height="156" rx="4" />
+        </clipPath>
       </defs>
-      <rect x="50" y="62" width="240" height="156" rx="4" fill={`url(#ipad-${color.slice(1)})`} />
-      {/* Screen content placeholders */}
-      <rect x="66" y="82" width="90" height="5" rx="2.5" fill="white" fillOpacity="0.08" />
-      <rect x="66" y="96" width="140" height="3" rx="1.5" fill="white" fillOpacity="0.05" />
-      <rect x="66" y="114" width="200" height="70" rx="6" fill="white" fillOpacity="0.04" />
+      <image
+        href={screenshot}
+        x="50" y="62" width="240" height="156"
+        clipPath={`url(#ipad-screen-${color.slice(1)})`}
+        preserveAspectRatio="xMidYMid slice"
+      />
       {/* Home indicator */}
       <rect x="138" y="224" width="64" height="3.5" rx="1.75" fill="white" fillOpacity="0.12" />
 
-      {/* iPhone — portrait orientation, overlapping iPad bottom-right */}
+      {/* iPhone — portrait, overlapping iPad bottom-right */}
       <rect x="280" y="100" width="80" height="155" rx="16" stroke="white" strokeOpacity="0.3" strokeWidth="1.5" fill="rgba(11,11,60,0.85)" />
       {/* Dynamic island */}
       <rect x="304" y="108" width="32" height="9" rx="4.5" fill="rgba(255,255,255,0.12)" />
+      {/* Phone screen — white background with UI elements */}
       <defs>
-        <linearGradient id={`iphone-${color.slice(1)}`} x1="286" y1="122" x2="354" y2="248" gradientUnits="userSpaceOnUse">
-          <stop stopColor={color} stopOpacity="0.16" />
-          <stop offset="1" stopColor={color} stopOpacity="0.04" />
-        </linearGradient>
+        <clipPath id={`iphone-screen-${color.slice(1)}`}>
+          <rect x="286" y="122" width="68" height="120" rx="3" />
+        </clipPath>
       </defs>
-      <rect x="286" y="122" width="68" height="120" rx="3" fill={`url(#iphone-${color.slice(1)})`} />
-      {/* Phone screen content */}
-      <rect x="296" y="138" width="44" height="4" rx="2" fill="white" fillOpacity="0.08" />
-      <rect x="296" y="150" width="48" height="36" rx="4" fill="white" fillOpacity="0.04" />
+      <rect x="286" y="122" width="68" height="120" rx="3" fill="white" clipPath={`url(#iphone-screen-${color.slice(1)})`} />
+      {/* Status bar */}
+      <rect x="290" y="125" width="16" height="2" rx="1" fill="#333" fillOpacity="0.3" />
+      <rect x="336" y="125" width="14" height="2" rx="1" fill="#333" fillOpacity="0.3" />
+      {/* App header */}
+      <rect x="290" y="132" width="36" height="3" rx="1.5" fill={color} fillOpacity="0.7" />
+      {/* Card 1 */}
+      <rect x="290" y="140" width="60" height="28" rx="3" fill="#F3F4F6" />
+      <rect x="294" y="144" width="24" height="2.5" rx="1" fill="#333" fillOpacity="0.25" />
+      <rect x="294" y="150" width="40" height="2" rx="1" fill="#333" fillOpacity="0.12" />
+      <rect x="294" y="156" width="32" height="2" rx="1" fill="#333" fillOpacity="0.12" />
+      <circle cx="340" cy="152" r="5" fill={color} fillOpacity="0.15" />
+      {/* Card 2 */}
+      <rect x="290" y="172" width="60" height="28" rx="3" fill="#F3F4F6" />
+      <rect x="294" y="176" width="28" height="2.5" rx="1" fill="#333" fillOpacity="0.25" />
+      <rect x="294" y="182" width="44" height="2" rx="1" fill="#333" fillOpacity="0.12" />
+      <rect x="294" y="188" width="36" height="2" rx="1" fill="#333" fillOpacity="0.12" />
+      <circle cx="340" cy="184" r="5" fill={color} fillOpacity="0.15" />
+      {/* Card 3 */}
+      <rect x="290" y="204" width="60" height="28" rx="3" fill="#F3F4F6" />
+      <rect x="294" y="208" width="20" height="2.5" rx="1" fill="#333" fillOpacity="0.25" />
+      <rect x="294" y="214" width="38" height="2" rx="1" fill="#333" fillOpacity="0.12" />
+      <rect x="294" y="220" width="30" height="2" rx="1" fill="#333" fillOpacity="0.12" />
+      <circle cx="340" cy="216" r="5" fill={color} fillOpacity="0.15" />
       {/* Home indicator */}
-      <rect x="303" y="247" width="34" height="3" rx="1.5" fill="white" fillOpacity="0.12" />
+      <rect x="303" y="247" width="34" height="3" rx="1.5" fill="#333" fillOpacity="0.15" />
     </svg>
   );
 }
@@ -143,9 +170,9 @@ export default function ProductShowcase() {
               }}
             >
               {product.device === "macbook" ? (
-                <MacBookFrame color={product.color} />
+                <MacBookFrame color={product.color} screenshot={product.screenshot} />
               ) : (
-                <TabletPhoneFrame color={product.color} />
+                <TabletPhoneFrame color={product.color} screenshot={product.screenshot} />
               )}
             </div>
 
