@@ -11,15 +11,15 @@ const quotes = [
   },
   {
     color: "#00BBA5",
-    text: "Our booth looks busy. But we cannot tie a single conversation back to a closed deal.",
+    text: "Our team comes home with hundreds of badge scans and no idea what any of those conversations revealed.",
   },
   {
     color: "#F25E3D",
-    text: "Our suites are full, but our data is empty. Nobody can say what worked or why.",
+    text: "Every event is a room full of opportunity. We just can't tell you how much of it we actually captured.",
   },
   {
     color: "#F2B33D",
-    text: "Facility tours and recruiting events are complete black holes. No tracking, no insight, no proof.",
+    text: "We run facility tours and recruiting events all year. Nobody can tell me what any of them actually produced.",
   },
 ];
 
