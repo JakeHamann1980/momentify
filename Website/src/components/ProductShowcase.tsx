@@ -195,54 +195,81 @@ function IntelligenceDashboardFrame({ color }: { color: string }) {
       <rect x="56" y="32" width="308" height="177" rx="3" fill="url(#intel-bg)" />
       {/* Overview header */}
       <rect x="64" y="40" width="36" height="4" rx="2" fill="#333" fillOpacity="0.3" />
-      {/* Top stat cards row */}
-      <rect x="64" y="50" width="70" height="30" rx="5" fill="white" />
-      <rect x="64" y="50" width="70" height="30" rx="5" stroke="#e5e7eb" strokeWidth="0.5" fill="none" />
+      <rect x="310" y="40" width="44" height="4" rx="2" fill={color} fillOpacity="0.2" />
+      {/* Top stat cards row — 3 cards */}
+      <rect x="64" y="50" width="88" height="30" rx="5" fill="white" />
+      <rect x="64" y="50" width="88" height="30" rx="5" stroke="#e5e7eb" strokeWidth="0.5" fill="none" />
       <circle cx="74" cy="58" r="4" fill="#3B82F6" fillOpacity="0.15" />
       <rect x="82" y="56" width="30" height="2.5" rx="1" fill="#333" fillOpacity="0.2" />
       <rect x="70" y="66" width="28" height="7" rx="1" fill="#333" fillOpacity="0.5" />
-      <rect x="142" y="50" width="70" height="30" rx="5" fill="white" />
-      <rect x="142" y="50" width="70" height="30" rx="5" stroke="#e5e7eb" strokeWidth="0.5" fill="none" />
-      <circle cx="152" cy="58" r="4" fill="#3B82F6" fillOpacity="0.15" />
-      <rect x="160" y="56" width="26" height="2.5" rx="1" fill="#333" fillOpacity="0.2" />
-      <rect x="148" y="66" width="22" height="7" rx="1" fill="#333" fillOpacity="0.5" />
+      <rect x="120" y="66" width="24" height="5" rx="1" fill="#10B981" fillOpacity="0.3" />
+      <rect x="158" y="50" width="88" height="30" rx="5" fill="white" />
+      <rect x="158" y="50" width="88" height="30" rx="5" stroke="#e5e7eb" strokeWidth="0.5" fill="none" />
+      <circle cx="168" cy="58" r="4" fill={color} fillOpacity="0.2" />
+      <rect x="176" y="56" width="26" height="2.5" rx="1" fill="#333" fillOpacity="0.2" />
+      <rect x="164" y="66" width="22" height="7" rx="1" fill="#333" fillOpacity="0.5" />
+      <rect x="214" y="66" width="20" height="5" rx="1" fill="#EF4444" fillOpacity="0.25" />
+      <rect x="252" y="50" width="102" height="30" rx="5" fill="white" />
+      <rect x="252" y="50" width="102" height="30" rx="5" stroke="#e5e7eb" strokeWidth="0.5" fill="none" />
+      <circle cx="262" cy="58" r="4" fill="#8B5CF6" fillOpacity="0.15" />
+      <rect x="270" y="56" width="34" height="2.5" rx="1" fill="#333" fillOpacity="0.2" />
+      <rect x="258" y="66" width="32" height="7" rx="1" fill="#333" fillOpacity="0.5" />
+      <rect x="316" y="66" width="28" height="5" rx="1" fill={color} fillOpacity="0.3" />
       {/* Lead Temperatures card with donut chart */}
-      <rect x="64" y="86" width="110" height="68" rx="5" fill="white" />
-      <rect x="64" y="86" width="110" height="68" rx="5" stroke="#e5e7eb" strokeWidth="0.5" fill="none" />
+      <rect x="64" y="86" width="92" height="68" rx="5" fill="white" />
+      <rect x="64" y="86" width="92" height="68" rx="5" stroke="#e5e7eb" strokeWidth="0.5" fill="none" />
       <rect x="72" y="92" width="44" height="3" rx="1.5" fill="#333" fillOpacity="0.2" />
       <rect x="72" y="100" width="20" height="6" rx="1" fill="#333" fillOpacity="0.45" />
       {/* Donut chart */}
-      <circle cx="108" cy="126" r="18" stroke="#e5e7eb" strokeWidth="5" fill="none" />
-      <circle cx="108" cy="126" r="18" stroke={color} strokeWidth="5" fill="none" strokeDasharray="28 85" strokeDashoffset="0" />
-      <circle cx="108" cy="126" r="18" stroke="#EF4444" strokeWidth="5" fill="none" strokeDasharray="8 105" strokeDashoffset="-28" />
-      <circle cx="108" cy="126" r="18" stroke="#3B82F6" strokeWidth="5" fill="none" strokeDasharray="12 101" strokeDashoffset="-36" />
-      {/* Legend dots */}
-      <circle cx="140" cy="110" r="2" fill="#EF4444" />
-      <rect x="145" y="109" width="10" height="2.5" rx="1" fill="#333" fillOpacity="0.2" />
-      <circle cx="140" cy="118" r="2" fill={color} />
-      <rect x="145" y="117" width="14" height="2.5" rx="1" fill="#333" fillOpacity="0.2" />
-      <circle cx="140" cy="126" r="2" fill="#3B82F6" />
-      <rect x="145" y="125" width="10" height="2.5" rx="1" fill="#333" fillOpacity="0.2" />
+      <circle cx="108" cy="128" r="16" stroke="#e5e7eb" strokeWidth="5" fill="none" />
+      <circle cx="108" cy="128" r="16" stroke={color} strokeWidth="5" fill="none" strokeDasharray="25 76" strokeDashoffset="0" />
+      <circle cx="108" cy="128" r="16" stroke="#EF4444" strokeWidth="5" fill="none" strokeDasharray="8 93" strokeDashoffset="-25" />
+      <circle cx="108" cy="128" r="16" stroke="#3B82F6" strokeWidth="5" fill="none" strokeDasharray="10 91" strokeDashoffset="-33" />
+      {/* Legend */}
+      <circle cx="72" cy="148" r="1.5" fill={color} />
+      <rect x="76" y="147" width="10" height="2" rx="1" fill="#333" fillOpacity="0.2" />
+      <circle cx="92" cy="148" r="1.5" fill="#EF4444" />
+      <rect x="96" y="147" width="8" height="2" rx="1" fill="#333" fillOpacity="0.2" />
+      <circle cx="110" cy="148" r="1.5" fill="#3B82F6" />
+      <rect x="114" y="147" width="12" height="2" rx="1" fill="#333" fillOpacity="0.2" />
       {/* Lead Owner Assignments card with pie chart */}
-      <rect x="182" y="86" width="110" height="68" rx="5" fill="white" />
-      <rect x="182" y="86" width="110" height="68" rx="5" stroke="#e5e7eb" strokeWidth="0.5" fill="none" />
-      <rect x="190" y="92" width="52" height="3" rx="1.5" fill="#333" fillOpacity="0.2" />
-      <rect x="190" y="100" width="14" height="6" rx="1" fill="#333" fillOpacity="0.45" />
+      <rect x="162" y="86" width="92" height="68" rx="5" fill="white" />
+      <rect x="162" y="86" width="92" height="68" rx="5" stroke="#e5e7eb" strokeWidth="0.5" fill="none" />
+      <rect x="170" y="92" width="52" height="3" rx="1.5" fill="#333" fillOpacity="0.2" />
+      <rect x="170" y="100" width="14" height="6" rx="1" fill="#333" fillOpacity="0.45" />
       {/* Pie chart */}
-      <circle cx="240" cy="126" r="18" fill="#3B82F6" fillOpacity="0.15" />
-      <path d="M240 108 A18 18 0 0 1 258 126 L240 126 Z" fill="#3B82F6" fillOpacity="0.5" />
-      <path d="M258 126 A18 18 0 0 1 240 144 L240 126 Z" fill={color} fillOpacity="0.5" />
-      <path d="M240 144 A18 18 0 0 1 222 126 L240 126 Z" fill="#8B5CF6" fillOpacity="0.4" />
-      <path d="M222 126 A18 18 0 0 1 240 108 L240 126 Z" fill="#10B981" fillOpacity="0.4" />
-      {/* Average Session Duration — bottom bar chart */}
-      <rect x="64" y="160" width="228" height="44" rx="5" fill="white" />
-      <rect x="64" y="160" width="228" height="44" rx="5" stroke="#e5e7eb" strokeWidth="0.5" fill="none" />
+      <circle cx="208" cy="128" r="16" fill="#3B82F6" fillOpacity="0.15" />
+      <path d="M208 112 A16 16 0 0 1 224 128 L208 128 Z" fill="#3B82F6" fillOpacity="0.5" />
+      <path d="M224 128 A16 16 0 0 1 208 144 L208 128 Z" fill={color} fillOpacity="0.5" />
+      <path d="M208 144 A16 16 0 0 1 192 128 L208 128 Z" fill="#8B5CF6" fillOpacity="0.4" />
+      <path d="M192 128 A16 16 0 0 1 208 112 L208 128 Z" fill="#10B981" fillOpacity="0.4" />
+      {/* Conversion Funnel card with area chart */}
+      <rect x="260" y="86" width="94" height="68" rx="5" fill="white" />
+      <rect x="260" y="86" width="94" height="68" rx="5" stroke="#e5e7eb" strokeWidth="0.5" fill="none" />
+      <rect x="268" y="92" width="40" height="3" rx="1.5" fill="#333" fillOpacity="0.2" />
+      <rect x="268" y="100" width="18" height="6" rx="1" fill="#333" fillOpacity="0.45" />
+      {/* Area chart */}
+      <path d="M268 144 L278 136 L290 140 L302 128 L314 124 L326 118 L338 114 L346 110" stroke={color} strokeWidth="1.5" fill="none" strokeLinecap="round" />
+      <path d="M268 144 L278 136 L290 140 L302 128 L314 124 L326 118 L338 114 L346 110 L346 148 L268 148 Z" fill={color} fillOpacity="0.08" />
+      <path d="M268 144 L284 138 L298 142 L312 134 L328 126 L346 130" stroke="#3B82F6" strokeWidth="1" fill="none" strokeOpacity="0.4" strokeLinecap="round" />
+      {/* Grid lines */}
+      <line x1="268" y1="120" x2="346" y2="120" stroke="#e5e7eb" strokeWidth="0.3" />
+      <line x1="268" y1="132" x2="346" y2="132" stroke="#e5e7eb" strokeWidth="0.3" />
+      <line x1="268" y1="144" x2="346" y2="144" stroke="#e5e7eb" strokeWidth="0.3" />
+      {/* Average Session Duration — full-width bar chart */}
+      <rect x="64" y="160" width="290" height="44" rx="5" fill="white" />
+      <rect x="64" y="160" width="290" height="44" rx="5" stroke="#e5e7eb" strokeWidth="0.5" fill="none" />
       <rect x="72" y="166" width="56" height="3" rx="1.5" fill="#333" fillOpacity="0.2" />
       <rect x="72" y="174" width="24" height="5" rx="1" fill="#333" fillOpacity="0.45" />
-      {/* Bar chart segments */}
-      <rect x="72" y="186" width="60" height="10" rx="2" fill="#3B82F6" fillOpacity="0.4" />
-      <rect x="132" y="186" width="80" height="10" rx="2" fill={color} fillOpacity="0.5" />
-      <rect x="212" y="186" width="60" height="10" rx="2" fill="#8B5CF6" fillOpacity="0.35" />
+      {/* Stacked bar rows */}
+      <rect x="72" y="184" width="70" height="6" rx="1.5" fill="#3B82F6" fillOpacity="0.4" />
+      <rect x="142" y="184" width="95" height="6" rx="1.5" fill={color} fillOpacity="0.5" />
+      <rect x="237" y="184" width="50" height="6" rx="1.5" fill="#8B5CF6" fillOpacity="0.35" />
+      <rect x="287" y="184" width="55" height="6" rx="1.5" fill="#10B981" fillOpacity="0.3" />
+      <rect x="72" y="194" width="55" height="6" rx="1.5" fill="#3B82F6" fillOpacity="0.3" />
+      <rect x="127" y="194" width="110" height="6" rx="1.5" fill={color} fillOpacity="0.4" />
+      <rect x="237" y="194" width="65" height="6" rx="1.5" fill="#8B5CF6" fillOpacity="0.25" />
+      <rect x="302" y="194" width="40" height="6" rx="1.5" fill="#10B981" fillOpacity="0.25" />
       {/* Base / hinge */}
       <path d="M30 220 Q30 215 36 215 L384 215 Q390 215 390 220 L398 232 Q400 236 396 236 L24 236 Q20 236 22 232 Z" stroke="white" strokeOpacity="0.18" strokeWidth="1" fill="none" />
     </svg>
