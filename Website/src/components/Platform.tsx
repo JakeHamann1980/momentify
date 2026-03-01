@@ -351,13 +351,14 @@ export default function Platform() {
                     ))}
                   </ul>
 
-                  {/* CTA link */}
+                  {/* CTA button */}
                   <a
                     href="#"
-                    className="inline-flex items-center gap-2 text-[14px] font-semibold hover:underline transition-all duration-150"
+                    className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-[14px] font-semibold transition-all duration-150 hover:brightness-110"
                     style={{
                       fontFamily: "var(--font-inter)",
-                      color: sol.ctaColor,
+                      color: "#FFFFFF",
+                      background: "linear-gradient(135deg, #0CF4DF 0%, #5BA8F5 50%, #6B21D4 100%)",
                     }}
                   >
                     {sol.cta}
