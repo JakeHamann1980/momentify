@@ -88,52 +88,6 @@ function getTierName(value: number): string {
   return "CRITICAL GAP";
 }
 
-/* ── Category rows for body copy block ───────────────── */
-
-const categories = [
-  {
-    label: "Lead Capture Efficiency",
-    description: "What percentage of visitors became leads.",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0CF4DF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="3" width="7" height="7" rx="1" />
-        <rect x="14" y="3" width="7" height="7" rx="1" />
-        <rect x="3" y="14" width="7" height="7" rx="1" />
-        <rect x="14" y="14" width="7" height="7" rx="1" />
-      </svg>
-    ),
-  },
-  {
-    label: "Engagement Quality",
-    description: "How deeply each person interacted with your content.",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0CF4DF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="2 12 5 9 8 14 11 8 14 13 17 6 20 11 22 9" />
-      </svg>
-    ),
-  },
-  {
-    label: "Follow-Up Speed",
-    description: "How quickly your team responded after the event.",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0CF4DF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <polyline points="12 6 12 12 16 14" />
-      </svg>
-    ),
-  },
-  {
-    label: "Conversion Effectiveness",
-    description: "How many leads became meetings, hires, or deals.",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0CF4DF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <polygon points="12 2 2 22 22 22" />
-        <line x1="12" y1="10" x2="12" y2="15" />
-      </svg>
-    ),
-  },
-];
-
 /* ── Calculator cards ────────────────────────────────── */
 
 const calculatorCards = [
@@ -575,137 +529,7 @@ export default function ROX() {
           </motion.div>
         </motion.div>
 
-        {/* ── 5. Score range strip ───────────────────── */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-          variants={stagger}
-          className="mt-16 grid grid-cols-2 lg:grid-cols-4"
-          style={{ borderTop: "1px solid rgba(255, 255, 255, 0.08)" }}
-        >
-          {tiers.map((tier) => (
-            <motion.div
-              key={tier.name}
-              variants={fadeUp}
-              style={{
-                borderTop: `3px solid ${tier.color}`,
-                padding: "24px 20px",
-              }}
-            >
-              <p
-                style={{
-                  fontFamily: "var(--font-inter)",
-                  fontWeight: 500,
-                  fontSize: "17px",
-                  color: "#FFFFFF",
-                  marginBottom: "4px",
-                }}
-              >
-                {tier.name}
-              </p>
-              <p
-                style={{
-                  fontFamily: "var(--font-inter)",
-                  fontWeight: 300,
-                  fontSize: "13px",
-                  color: "rgba(255, 255, 255, 0.5)",
-                  lineHeight: "1.5",
-                }}
-              >
-                {tier.description}
-              </p>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* ── 6. Body copy block ─────────────────────── */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-          variants={stagger}
-          className="mt-16 grid grid-cols-1 lg:grid-cols-[45%_55%] gap-12 lg:gap-16"
-        >
-          <motion.div variants={fadeUp}>
-            <p
-              className="uppercase font-semibold text-[12px] tracking-[0.14em] mb-4"
-              style={{
-                fontFamily: "var(--font-inter)",
-                color: "#00BBA5",
-              }}
-            >
-              What ROX Measures That ROI Misses
-            </p>
-            <p
-              className="mb-4"
-              style={{
-                fontFamily: "var(--font-inter)",
-                fontWeight: 300,
-                fontSize: "15px",
-                color: "rgba(255, 255, 255, 0.6)",
-                lineHeight: "1.5",
-              }}
-            >
-              ROI tells you what you spent. ROX tells you whether it worked. Most event teams walk away with badge scan counts and a rough sense of booth traffic. They have no visibility into how deeply people engaged, which conversations revealed real intent, or how fast their team followed up. Those gaps are exactly where deals are lost and hiring pipelines stall.
-            </p>
-            <p
-              style={{
-                fontFamily: "var(--font-inter)",
-                fontWeight: 300,
-                fontSize: "15px",
-                color: "rgba(255, 255, 255, 0.6)",
-                lineHeight: "1.5",
-              }}
-            >
-              ROX fills that gap with a scored, comparable number your team can actually act on.
-            </p>
-          </motion.div>
-
-          <motion.div variants={fadeUp}>
-            {categories.map((cat, i) => (
-              <div
-                key={cat.label}
-                className="flex items-start gap-4"
-                style={{
-                  padding: "18px 0",
-                  borderBottom:
-                    i < categories.length - 1
-                      ? "1px solid rgba(255, 255, 255, 0.06)"
-                      : "none",
-                }}
-              >
-                <div className="flex-shrink-0 mt-0.5">{cat.icon}</div>
-                <div>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-inter)",
-                      fontWeight: 500,
-                      fontSize: "14px",
-                      color: "#FFFFFF",
-                      marginBottom: "2px",
-                    }}
-                  >
-                    {cat.label}
-                  </p>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-inter)",
-                      fontWeight: 300,
-                      fontSize: "13px",
-                      color: "rgba(255, 255, 255, 0.5)",
-                      lineHeight: "1.5",
-                    }}
-                  >
-                    {cat.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </motion.div>
-        </motion.div>
-
-        {/* ── 7. Calculator CTA block ────────────────── */}
+        {/* ── 5. Calculator CTA block ────────────────── */}
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -838,6 +662,50 @@ export default function ROX() {
             </a>{" "}
             to see ROX dashboards live.
           </motion.p>
+        </motion.div>
+
+        {/* ── 8. Score range strip ───────────────────── */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          variants={stagger}
+          className="mt-16 grid grid-cols-2 lg:grid-cols-4"
+          style={{ borderTop: "1px solid rgba(255, 255, 255, 0.08)" }}
+        >
+          {tiers.map((tier) => (
+            <motion.div
+              key={tier.name}
+              variants={fadeUp}
+              style={{
+                borderTop: `3px solid ${tier.color}`,
+                padding: "24px 20px",
+              }}
+            >
+              <p
+                style={{
+                  fontFamily: "var(--font-inter)",
+                  fontWeight: 500,
+                  fontSize: "17px",
+                  color: "#FFFFFF",
+                  marginBottom: "4px",
+                }}
+              >
+                {tier.name}
+              </p>
+              <p
+                style={{
+                  fontFamily: "var(--font-inter)",
+                  fontWeight: 300,
+                  fontSize: "13px",
+                  color: "rgba(255, 255, 255, 0.5)",
+                  lineHeight: "1.5",
+                }}
+              >
+                {tier.description}
+              </p>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>
