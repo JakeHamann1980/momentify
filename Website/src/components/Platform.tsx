@@ -287,7 +287,7 @@ export default function Platform() {
 
             {/* Content grid */}
             <div className="relative px-8 py-12 sm:px-12 sm:py-16 lg:px-16 lg:py-20">
-              <div className="grid grid-cols-1 lg:grid-cols-[50%_50%] gap-10 lg:gap-16">
+              <div className="grid grid-cols-1 lg:grid-cols-[50%_50%] gap-10 lg:gap-16 items-center">
 
                 {/* ── Left column: copy ─────────────── */}
                 <div>
@@ -368,58 +368,59 @@ export default function Platform() {
                 </div>
 
                 {/* ── Right column: mockup placeholders (desktop) */}
-                <div className="relative hidden lg:block min-h-[320px]">
-                  {/* Primary mockup */}
-                  <div
-                    className="rounded-2xl shadow-lg flex items-center justify-center p-6"
-                    style={{
-                      width: "100%",
-                      maxWidth: 420,
-                      height: 280,
-                      backgroundColor: "rgba(255, 255, 255, 0.08)",
-                      border: "1.5px dashed rgba(255, 255, 255, 0.25)",
-                    }}
-                  >
-                    <p
-                      className="text-center text-[13px] italic leading-[1.6] max-w-[300px]"
+                <div className="hidden lg:flex items-center justify-center min-h-[320px]">
+                  <div className="relative">
+                    {/* Primary mockup */}
+                    <div
+                      className="rounded-2xl shadow-lg flex items-center justify-center p-6"
                       style={{
-                        fontFamily: "var(--font-inter)",
-                        fontWeight: 500,
-                        color: "rgba(255, 255, 255, 0.4)",
+                        width: 420,
+                        height: 280,
+                        backgroundColor: "rgba(255, 255, 255, 0.08)",
+                        border: "1.5px dashed rgba(255, 255, 255, 0.25)",
                       }}
                     >
-                      iPad or mobile mockup showing the Momentify attendee-facing experience for {sol.tab}.
-                    </p>
-                  </div>
+                      <p
+                        className="text-center text-[13px] italic leading-[1.6] max-w-[300px]"
+                        style={{
+                          fontFamily: "var(--font-inter)",
+                          fontWeight: 500,
+                          color: "rgba(255, 255, 255, 0.4)",
+                        }}
+                      >
+                        iPad or mobile mockup showing the Momentify attendee-facing experience for {sol.tab}.
+                      </p>
+                    </div>
 
-                  {/* Secondary mockup — overlapping */}
-                  <div
-                    className="absolute rounded-xl shadow-xl flex items-center justify-center p-5"
-                    style={{
-                      width: 320,
-                      height: 210,
-                      top: 110,
-                      left: 140,
-                      backgroundColor: "rgba(255, 255, 255, 0.12)",
-                      border: "1px solid rgba(255, 255, 255, 0.2)",
-                      backdropFilter: "blur(8px)",
-                    }}
-                  >
-                    <p
-                      className="text-center text-[13px] italic leading-[1.6] max-w-[260px]"
+                    {/* Secondary mockup — overlapping */}
+                    <div
+                      className="absolute rounded-xl shadow-xl flex items-center justify-center p-5"
                       style={{
-                        fontFamily: "var(--font-inter)",
-                        fontWeight: 500,
-                        color: "rgba(255, 255, 255, 0.4)",
+                        width: 320,
+                        height: 210,
+                        top: 110,
+                        left: 140,
+                        backgroundColor: "rgba(255, 255, 255, 0.12)",
+                        border: "1px solid rgba(255, 255, 255, 0.2)",
+                        backdropFilter: "blur(8px)",
                       }}
                     >
-                      ROX analytics dashboard screenshot for {sol.tab}.
-                    </p>
+                      <p
+                        className="text-center text-[13px] italic leading-[1.6] max-w-[260px]"
+                        style={{
+                          fontFamily: "var(--font-inter)",
+                          fontWeight: 500,
+                          color: "rgba(255, 255, 255, 0.4)",
+                        }}
+                      >
+                        ROX analytics dashboard screenshot for {sol.tab}.
+                      </p>
+                    </div>
                   </div>
                 </div>
 
                 {/* ── Right column: mockup placeholders (mobile) */}
-                <div className="flex flex-col gap-4 lg:hidden">
+                <div className="flex flex-col gap-4 lg:hidden items-center justify-center">
                   <div
                     className="w-full rounded-2xl shadow-lg flex items-center justify-center p-6"
                     style={{
