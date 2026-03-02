@@ -9,7 +9,7 @@ const solutionLinks = [
 const platformLinks = [
   { label: "How It Works", href: "/platform/how-it-works" },
   { label: "Integrations", href: "/platform/integrations" },
-  { label: "Partners", href: "#" },
+  { label: "Security", href: "#" },
   { label: "Help Center", href: "/platform/help-center" },
   { label: "System Status", href: "/platform/system-status" },
 ];
