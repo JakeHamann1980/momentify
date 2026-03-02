@@ -283,13 +283,13 @@ export default function Hero() {
           {/* Divider */}
           <div className="w-full h-px bg-white/[0.12]" />
 
-          <div className="flex items-center gap-16 pt-8">
+          <div className="flex flex-wrap items-center gap-6 sm:gap-16 pt-8">
             {/* Static label */}
             <span
               className="flex-shrink-0 text-white/40 font-semibold text-[11px] tracking-[0.12em] uppercase"
               style={{ fontFamily: "var(--font-inter)" }}
             >
-              Trusted by
+              TRUSTED BY:
             </span>
 
             {/* Static logo row */}
