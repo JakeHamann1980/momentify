@@ -46,7 +46,7 @@ const solutions = [
     bullets: [
       "Mobile lead capture built for fast-moving recruiting floors",
       "Persona-based content paths by role, program, and interest level",
-      "Cross-event consistency across SkillsUSA, FFA, campus visits, and dealer networks",
+      "Cross-event consistency across job fairs, hiring events, and campus visits",
     ],
     cta: "Explore Technical Recruiting",
     bg: "linear-gradient(135deg, #040E28 0%, #1A8A76 55%, #5FD9C2 100%)",
