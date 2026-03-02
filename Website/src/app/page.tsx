@@ -3,6 +3,8 @@ import Hero from "@/components/Hero";
 import Problem from "@/components/Problem";
 import Platform from "@/components/Platform";
 import ROX from "@/components/ROX";
+import SocialProof from "@/components/SocialProof";
+import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -13,6 +15,8 @@ export default function Home() {
       <Problem />
       <Platform />
       <ROX />
+      <SocialProof />
+      <FinalCTA />
       <Footer />
     </main>
   );
