@@ -193,7 +193,7 @@ export default function Platform() {
               color: "rgba(6, 19, 65, 0.6)",
             }}
           >
-            Momentify works across every context where in-person engagement happens, but measurement has been missing.
+            Momentify works across every context where in-person engagement happens, but effective and meaningful measurement has been missing.
           </motion.p>
         </motion.div>
 
