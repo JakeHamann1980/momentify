@@ -279,6 +279,71 @@
     .logo-mark-card.dark-bg .mark-label,
     .logo-mark-card.grad-bg .mark-label { color: rgba(255,255,255,0.4); }
 
+    /* ─── App Icon / Favicon ───────────────────────────────────── */
+    .icon-section-heading {
+      font-size: 20px;
+      font-weight: 700;
+      margin-top: 56px;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .icon-section-desc {
+      font-size: 14px;
+      color: var(--text-body);
+      margin-bottom: 24px;
+      max-width: 640px;
+      line-height: 1.6;
+    }
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .icon-card {
+      border-radius: var(--radius);
+      padding: 40px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      border: 1px solid var(--border);
+    }
+    .icon-card.white-bg  { background: #fff; }
+    .icon-card.dark-bg   { background: var(--midnight); border-color: rgba(255,255,255,0.08); }
+    .icon-card.check-bg  { background: repeating-conic-gradient(rgba(0,0,0,0.06) 0% 25%, transparent 0% 50%) 0 0 / 16px 16px; border-color: var(--border); }
+    html[data-theme="dark"] .icon-card.check-bg { background: repeating-conic-gradient(rgba(255,255,255,0.04) 0% 25%, rgba(255,255,255,0.02) 0% 50%) 0 0 / 16px 16px; }
+    .icon-card img { width: 96px; height: 96px; border-radius: 20px; }
+    .icon-card .icon-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .icon-card.white-bg .icon-label { color: rgba(11,11,60,0.5); }
+    .icon-card.dark-bg .icon-label { color: rgba(255,255,255,0.4); }
+    .icon-card.check-bg .icon-label { color: var(--text-muted); }
+    .icon-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 100px;
+      margin-top: 8px;
+      transition: opacity 0.15s;
+      background: var(--accent-sec);
+      color: var(--accent);
+    }
+    .icon-download:hover { opacity: 0.75; }
+    .icon-downloads {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
     /* ─── Color Palette ─────────────────────────────────────────── */
     .palette-group { margin-bottom: 40px; }
     .palette-group-title {
@@ -965,6 +1030,7 @@
       .header-meta { text-align: left; }
       .logo-grid { grid-template-columns: 1fr; }
       .logo-mark-row { grid-template-columns: repeat(3, 1fr); }
+      .icon-grid { grid-template-columns: repeat(3, 1fr); }
       .logo-card { padding: 36px 28px; }
       .gradient-grid { grid-template-columns: 1fr 1fr; }
       .type-showcase { grid-template-columns: 1fr; }
@@ -984,6 +1050,7 @@
       .gradient-grid { grid-template-columns: 1fr; }
       .voice-grid { grid-template-columns: 1fr; }
       .logo-mark-row { grid-template-columns: 1fr 1fr; }
+      .icon-grid { grid-template-columns: 1fr 1fr; }
       .solution-header { padding: 24px 20px 20px; }
       .solution-body { padding: 20px 20px 24px; }
       .solution-gradients { grid-template-columns: 1fr; }
@@ -1164,6 +1231,29 @@
               </svg>
               <div class="mark-label">On Gradient</div>
             </div>
+          </div>
+
+          <h3 class="icon-section-heading">App Icon &amp; Favicon</h3>
+          <p class="icon-section-desc">The app icon uses the Momentify mark on a rounded-corner background. Three variants are available — Primary (gradient), Dark, and Vibrant. Use for favicons, mobile home screens, and app stores.</p>
+
+          <div class="icon-grid">
+            <div class="icon-card white-bg">
+              <img src="assets/Momentify-Icon.svg" alt="Momentify App Icon — Primary" />
+              <div class="icon-label">Primary</div>
+            </div>
+            <div class="icon-card dark-bg">
+              <img src="assets/Momentify-Icon_Dark.png" alt="Momentify App Icon — Dark" />
+              <div class="icon-label">Dark</div>
+            </div>
+            <div class="icon-card dark-bg">
+              <img src="assets/Momentify-Icon_Vibrant.png" alt="Momentify App Icon — Vibrant" />
+              <div class="icon-label">Vibrant</div>
+            </div>
+          </div>
+          <div class="icon-downloads">
+            <a class="icon-download" href="assets/Momentify-Icon.svg" download>↓ Primary SVG</a>
+            <a class="icon-download" href="assets/Momentify-Icon_Dark.png" download>↓ Dark PNG</a>
+            <a class="icon-download" href="assets/Momentify-Icon_Vibrant.png" download>↓ Vibrant PNG</a>
           </div>
         </div>
       </section>

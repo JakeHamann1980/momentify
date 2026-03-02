@@ -30,6 +30,10 @@ export const metadata: Metadata = {
   title: "Momentify | Empower Every Moment",
   description:
     "Stop paying for moments you cannot measure. Momentify captures engagement at trade shows, recruiting events, field sales, and more.",
+  icons: {
+    icon: "/Momentify-Icon.svg",
+    apple: "/Momentify-Icon.svg",
+  },
 };
 
 export default function RootLayout({
