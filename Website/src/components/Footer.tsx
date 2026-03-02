@@ -9,6 +9,7 @@ const solutionLinks = [
 const platformLinks = [
   { label: "How It Works", href: "/platform/how-it-works" },
   { label: "Integrations", href: "/platform/integrations" },
+  { label: "Partners", href: "#" },
   { label: "Help Center", href: "/platform/help-center" },
   { label: "System Status", href: "/platform/system-status" },
 ];
@@ -16,7 +17,6 @@ const platformLinks = [
 const companyLinks = [
   { label: "What is ROX?", href: "#rox" },
   { label: "Case Studies", href: "#rox" },
-  { label: "Partners", href: "#" },
   { label: "About", href: "#" },
   { label: "Contact", href: "#" },
   { label: "Schedule a Demo", href: "#demo" },
@@ -96,8 +96,13 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-black/[0.06]">
+        <div className="mt-12 pt-8 border-t border-black/[0.06] flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-charcoal/25 text-[12px]">&copy; 2026 Momentify. All rights reserved.</p>
+          <div className="flex items-center gap-4 text-[12px]">
+            <a href="#" className="text-charcoal/25 hover:text-charcoal/50 transition-colors">Privacy Policy</a>
+            <span className="text-charcoal/15">|</span>
+            <a href="#" className="text-charcoal/25 hover:text-charcoal/50 transition-colors">Terms &amp; Conditions</a>
+          </div>
         </div>
       </div>
     </footer>

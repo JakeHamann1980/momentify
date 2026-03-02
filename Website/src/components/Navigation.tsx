@@ -15,6 +15,7 @@ const solutions = [
 const platformLinks = [
   { name: "How It Works", href: "/platform/how-it-works", description: "The three-step Momentify workflow", color: "#0CF4DF", isRoute: true },
   { name: "Integrations", href: "/platform/integrations", description: "Connect with your existing tools", color: "#5BA8F5", isRoute: true },
+  { name: "Partners", href: "#", description: "Join the Momentify partner ecosystem", color: "#F2B33D", isRoute: false },
   { name: "Help Center", href: "/platform/help-center", description: "Guides, FAQs, and support resources", color: "#00BBA5", isRoute: true },
   { name: "System Status", href: "/platform/system-status", description: "Real-time platform availability", color: "#5FD9C2", isRoute: true },
 ];
@@ -116,7 +117,6 @@ export default function Navigation() {
             </div>
             <a href="#rox" className={`text-[13px] font-medium transition-colors duration-300 leading-none ${linkColor}`}>What is ROX?</a>
             <a href="#rox" className={`text-[13px] font-medium transition-colors duration-300 leading-none ${linkColor}`}>Case Studies</a>
-            <a href="#" className={`text-[13px] font-medium transition-colors duration-300 leading-none ${linkColor}`}>Partners</a>
           </div>
 
           {/* Desktop CTA */}
@@ -184,7 +184,6 @@ export default function Navigation() {
               <div className="border-t border-black/[0.06] pt-4 space-y-3">
                 <a href="#rox" className="block text-charcoal/70 text-sm" onClick={() => setMobileOpen(false)}>What is ROX?</a>
                 <a href="#rox" className="block text-charcoal/70 text-sm" onClick={() => setMobileOpen(false)}>Case Studies</a>
-                <a href="#" className="block text-charcoal/70 text-sm" onClick={() => setMobileOpen(false)}>Partners</a>
               </div>
               <a href="#demo" className="block text-center bg-charcoal text-white text-sm font-medium px-6 py-3 rounded-md">
                 Schedule a Demo
