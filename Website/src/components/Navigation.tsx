@@ -114,6 +114,7 @@ export default function Navigation() {
                 )}
               </AnimatePresence>
             </div>
+            <a href="#rox" className={`text-[13px] font-medium transition-colors duration-300 leading-none ${linkColor}`}>What is ROX?</a>
             <a href="#rox" className={`text-[13px] font-medium transition-colors duration-300 leading-none ${linkColor}`}>Case Studies</a>
             <a href="#" className={`text-[13px] font-medium transition-colors duration-300 leading-none ${linkColor}`}>Partners</a>
           </div>
@@ -181,8 +182,9 @@ export default function Navigation() {
                 )}
               </div>
               <div className="border-t border-black/[0.06] pt-4 space-y-3">
-                <a href="#rox" className="block text-charcoal/70 text-sm">Case Studies</a>
-                <a href="#" className="block text-charcoal/70 text-sm">Partners</a>
+                <a href="#rox" className="block text-charcoal/70 text-sm" onClick={() => setMobileOpen(false)}>What is ROX?</a>
+                <a href="#rox" className="block text-charcoal/70 text-sm" onClick={() => setMobileOpen(false)}>Case Studies</a>
+                <a href="#" className="block text-charcoal/70 text-sm" onClick={() => setMobileOpen(false)}>Partners</a>
               </div>
               <a href="#demo" className="block text-center bg-charcoal text-white text-sm font-medium px-6 py-3 rounded-md">
                 Schedule a Demo
