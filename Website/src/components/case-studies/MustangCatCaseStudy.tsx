@@ -302,7 +302,7 @@ export default function MustangCatCaseStudy() {
             transition={{ duration: 0.55, delay: 0.1 }}
             style={{
               fontFamily: "var(--font-inter)",
-              fontWeight: 800,
+              fontWeight: 500,
               fontSize: "clamp(32px, 4.5vw, 48px)",
               color: "#FFFFFF",
               lineHeight: 1.1,
@@ -356,7 +356,7 @@ export default function MustangCatCaseStudy() {
                   <p
                     style={{
                       fontFamily: "var(--font-inter)",
-                      fontWeight: 800,
+                      fontWeight: 500,
                       fontSize: "44px",
                       color: "#FFFFFF",
                       lineHeight: 1,
@@ -441,7 +441,7 @@ export default function MustangCatCaseStudy() {
                 variants={fadeUp}
                 style={{
                   fontFamily: "var(--font-inter)",
-                  fontWeight: 800,
+                  fontWeight: 500,
                   fontSize: "36px",
                   color: "#061341",
                   lineHeight: 1.15,
@@ -564,7 +564,7 @@ export default function MustangCatCaseStudy() {
               variants={fadeUp}
               style={{
                 fontFamily: "var(--font-inter)",
-                fontWeight: 800,
+                fontWeight: 500,
                 fontSize: "36px",
                 color: "#061341",
                 lineHeight: 1.15,
@@ -683,7 +683,7 @@ export default function MustangCatCaseStudy() {
               style={{
                 display: "block",
                 fontFamily: "var(--font-inter)",
-                fontWeight: 800,
+                fontWeight: 500,
                 fontSize: "96px",
                 color: "#0CF4DF",
                 opacity: 0.4,
@@ -793,7 +793,7 @@ export default function MustangCatCaseStudy() {
               variants={fadeUp}
               style={{
                 fontFamily: "var(--font-inter)",
-                fontWeight: 800,
+                fontWeight: 500,
                 fontSize: "42px",
                 color: "#061341",
                 lineHeight: 1.1,
@@ -829,7 +829,7 @@ export default function MustangCatCaseStudy() {
                       <span
                         style={{
                           fontFamily: "var(--font-inter)",
-                          fontWeight: 800,
+                          fontWeight: 500,
                           fontSize: "36px",
                           color: "#061341",
                         }}
@@ -839,7 +839,7 @@ export default function MustangCatCaseStudy() {
                       <span
                         style={{
                           fontFamily: "var(--font-inter)",
-                          fontWeight: 800,
+                          fontWeight: 500,
                           fontSize: "36px",
                           color: "#061341",
                           opacity: 0.3,
@@ -850,7 +850,7 @@ export default function MustangCatCaseStudy() {
                       <span
                         style={{
                           fontFamily: "var(--font-inter)",
-                          fontWeight: 800,
+                          fontWeight: 500,
                           fontSize: "36px",
                           color: "#061341",
                         }}
@@ -885,7 +885,7 @@ export default function MustangCatCaseStudy() {
                   <p
                     style={{
                       fontFamily: "var(--font-inter)",
-                      fontWeight: 800,
+                      fontWeight: 500,
                       fontSize: (cell as { numberSize?: string }).numberSize || "52px",
                       color: "#061341",
                       lineHeight: 1,
@@ -1268,7 +1268,7 @@ export default function MustangCatCaseStudy() {
               variants={fadeUp}
               style={{
                 fontFamily: "var(--font-inter)",
-                fontWeight: 800,
+                fontWeight: 500,
                 fontSize: "clamp(32px, 4vw, 44px)",
                 color: "#FFFFFF",
                 lineHeight: 1.1,
