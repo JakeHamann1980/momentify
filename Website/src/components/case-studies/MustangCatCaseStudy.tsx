@@ -693,11 +693,11 @@ export default function MustangCatCaseStudy() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.6 }}
-          className="grid grid-cols-1 md:grid-cols-3"
-          style={{ maxHeight: "360px" }}
+          className="flex overflow-x-auto md:grid md:grid-cols-3"
+          style={{ scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch" }}
         >
           {/* Sarah at the booth with tablet */}
-          <div className="relative overflow-hidden" style={{ height: "360px" }}>
+          <div className="relative overflow-hidden flex-shrink-0 w-[85vw] md:w-auto" style={{ height: "360px", scrollSnapAlign: "start" }}>
             <img
               src="/mustang1.png"
               alt="Sarah Bell at the Mustang CAT booth"
@@ -714,7 +714,7 @@ export default function MustangCatCaseStudy() {
             />
           </div>
           {/* Students engaging at the booth */}
-          <div className="relative overflow-hidden" style={{ height: "360px" }}>
+          <div className="relative overflow-hidden flex-shrink-0 w-[85vw] md:w-auto" style={{ height: "360px", scrollSnapAlign: "start" }}>
             <img
               src="/mustang2.png"
               alt="FFA students engaging with Momentify at the Mustang CAT booth"
@@ -731,7 +731,7 @@ export default function MustangCatCaseStudy() {
             />
           </div>
           {/* Sarah and the Think BIG banner */}
-          <div className="relative overflow-hidden" style={{ height: "360px" }}>
+          <div className="relative overflow-hidden flex-shrink-0 w-[85vw] md:w-auto" style={{ height: "360px", scrollSnapAlign: "start" }}>
             <img
               src="/mustang3.png"
               alt="Sarah Bell with the Mustang CAT Think BIG banner"
