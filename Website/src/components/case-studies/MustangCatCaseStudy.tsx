@@ -1407,20 +1407,6 @@ export default function MustangCatCaseStudy() {
                 Calculate Your Recruiting ROX
               </a>
             </motion.div>
-
-            {/* Trust line */}
-            <motion.p
-              variants={fadeUp}
-              style={{
-                fontFamily: "var(--font-inter)",
-                fontWeight: 400,
-                fontSize: "13px",
-                color: "rgba(255, 255, 255, 0.35)",
-                marginTop: "28px",
-              }}
-            >
-              No contracts. No IT procurement. Deploy in days.
-            </motion.p>
           </motion.div>
         </div>
       </section>
