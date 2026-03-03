@@ -1,6 +1,19 @@
 "use client";
 
 import { motion } from "framer-motion";
+import ListenToPage from "@/components/ListenToPage";
+
+/* ── Narration text ─────────────────────────────────── */
+
+const NARRATION_TEXT = `This is the story of how Mustang Cat, a Caterpillar dealer in Southeast Texas, transformed their technical recruiting process with Momentify.
+
+Before Momentify, senior recruiter Sarah Bell attended career fairs and school visits with no digital infrastructure. Candidate information was captured on paper sign-up sheets, or not at all. There was no system for follow-up, no way to score leads by interest level, and no analytics to measure which events were producing results.
+
+Momentify changed that by giving Sarah a digital capture system that works at the booth. Using iPad registration and mobile QR codes, every candidate now enters their information directly. The platform creates two separate pipelines from each event: one for students interested in Mustang Cat's Think Big technician training program, and another for school advisors and instructors who help build long-term recruiting relationships.
+
+The results speak for themselves. Since launching in June 2025, Mustang Cat has captured 611 leads across their events. 321 students and 243 advisors now sit in tracked, scored pipelines. Nine candidates were interviewed, and seven received offers, all directly attributed to Momentify touchpoints. Sarah rated her likelihood to recommend Momentify a ten out of ten.
+
+The follow-up that used to depend on memory now happens before the event floor closes. Candidates are scored by temperature, notes are attached to names, and outreach goes out the same day.`;
 
 /* ── Animation variants (match existing site pattern) ── */
 
@@ -314,11 +327,21 @@ export default function MustangCatCaseStudy() {
             Before Momentify, Mustang Cat had no digital recruiting process. Candidate information left the event on paper or not at all. There was no tracking, no analytics, and no consistent follow-up. Here is how they changed that and built a system that captures, scores, and follows up with every candidate before the event floor closes.
           </motion.p>
 
+          {/* Listen to this page */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.22 }}
+            style={{ marginBottom: "48px" }}
+          >
+            <ListenToPage narrationText={NARRATION_TEXT} />
+          </motion.div>
+
           {/* Stat row */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.26 }}
+            transition={{ duration: 0.5, delay: 0.30 }}
             className="flex flex-col sm:flex-row items-start sm:items-center gap-8 sm:gap-0"
           >
             {heroStats.map((stat, i) => (
@@ -370,7 +393,7 @@ export default function MustangCatCaseStudy() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.35 }}
+            transition={{ duration: 0.5, delay: 0.38 }}
             className="flex items-center gap-3"
             style={{ marginTop: "40px" }}
           >
@@ -395,7 +418,7 @@ export default function MustangCatCaseStudy() {
       </section>
 
       {/* ═══════════════════ 2. CHALLENGE ═══════════════ */}
-      <section style={{ background: "#FFFFFF", padding: "100px 0" }}>
+      <section style={{ background: "rgba(95, 217, 194, 0.06)", padding: "100px 0" }}>
         <div className="mx-auto px-6 lg:px-12" style={{ maxWidth: "1100px" }}>
           <motion.div
             initial="hidden"
@@ -743,7 +766,7 @@ export default function MustangCatCaseStudy() {
       </section>
 
       {/* ═══════════════════ 5. RESULTS ═════════════════ */}
-      <section style={{ background: "#FFFFFF", padding: "100px 0" }}>
+      <section style={{ background: "rgba(95, 217, 194, 0.07)", padding: "100px 0" }}>
         <div className="mx-auto px-6 lg:px-12" style={{ maxWidth: "1100px" }}>
           {/* Section header */}
           <motion.div
@@ -796,7 +819,7 @@ export default function MustangCatCaseStudy() {
                 key={cell.tag}
                 variants={fadeUp}
                 style={{
-                  background: "#F8F9FC",
+                  background: "#FFFFFF",
                   borderRadius: "16px",
                   padding: "36px 32px",
                 }}
@@ -1030,7 +1053,7 @@ export default function MustangCatCaseStudy() {
       </section>
 
       {/* ═══════════════════ 7. PODCAST CTA ═════════════ */}
-      <section style={{ background: "#F8F9FC", padding: "80px 0" }}>
+      <section style={{ background: "rgba(95, 217, 194, 0.06)", padding: "80px 0" }}>
         <div className="mx-auto px-6 lg:px-12" style={{ maxWidth: "900px" }}>
           <motion.div
             initial="hidden"
