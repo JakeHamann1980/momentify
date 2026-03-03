@@ -34,7 +34,7 @@ const outcomes = [
     logo: null,
     logoAlt: "Fortune 75 Manufacturer",
     headline: "92% more leads across three consecutive years at the same industry event.",
-    body: "The Electric Power Division used Momentify across three years at DistribuTECH. Same show. Better data every time. Engagement depth, opt-in rates, and follow-up speed all improved year over year. The results compounded because the team could finally see what was working.",
+    body: "The Electric Power Division used Momentify across three consecutive years at DistribuTECH. Same booth. Same show. Better data every time. Engagement depth, opt-in rates, and follow-up speed all improved year over year. The results compounded because the team could finally see what was working and what was not. By year three, they were generating nearly double the qualified leads with the same headcount and the same floor space.",
     tags: ["Trade Shows and Exhibits"],
   },
   {
