@@ -292,7 +292,7 @@ export default function MustangCatCaseStudy() {
               marginBottom: "24px",
             }}
           >
-            From paper sign-ups to a digital pipeline. How Mustang Cat built a recruiting process that actually follows up.
+            From paper sign-ups to a digital recruiting pipeline.
           </motion.h1>
 
           {/* Subhead */}
@@ -310,7 +310,7 @@ export default function MustangCatCaseStudy() {
               marginBottom: "48px",
             }}
           >
-            Mustang Cat had no digital recruiting process before Momentify. No tracking, no analytics, no consistent follow-up. Here is what changed.
+            Before Momentify, Mustang Cat had no digital recruiting process. Candidate information left the event on paper or not at all. There was no tracking, no analytics, and no consistent follow-up. Here is how they changed that and built a system that captures, scores, and follows up with every candidate before the event floor closes.
           </motion.p>
 
           {/* Stat row */}
@@ -376,7 +376,7 @@ export default function MustangCatCaseStudy() {
             <img
               src="/logos/mustang-cat-color.png"
               alt="Mustang Cat"
-              style={{ maxHeight: "24px", width: "auto", opacity: 0.85 }}
+              style={{ maxHeight: "48px", width: "auto", opacity: 0.85 }}
             />
             <span style={{ color: "rgba(255, 255, 255, 0.20)", fontSize: "12px" }}>·</span>
             <span
