@@ -219,7 +219,7 @@ export default function SocialProof() {
                   <img
                     src={card.logo}
                     alt={card.logoAlt}
-                    className="opacity-60 group-hover:opacity-90 transition-opacity duration-200"
+                    className=""
                     style={{ maxHeight: "32px", width: "auto" }}
                   />
                 ) : (
