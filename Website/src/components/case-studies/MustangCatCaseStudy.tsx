@@ -70,13 +70,13 @@ const solutionTiles = [
     icon: "ipad",
   },
   {
-    headline: "Double the output from every event",
+    headline: "Two pipelines from one event",
     body: "Students went into one pipeline toward Mustang CAT's Think BIG program. Advisors and instructors went into a second pipeline for ongoing school relationships. One event, two fully tracked candidate outcomes.",
     icon: "people",
   },
   {
     headline: "Same-day candidate follow-up",
-    body: "Candidates are scored by temperature, notes are attached to names, and follow-up goes out the same day the event ends. Those who showed real intent no longer wait days or weeks to hear back.",
+    body: "Candidates are scored by temperature, notes are attached to names, and follow-up goes out the same day the event ends. Those who showed real intent no longer wait days or weeks to hear back from the team.",
     icon: "clock",
   },
 ];
@@ -628,7 +628,7 @@ export default function MustangCatCaseStudy() {
                 marginBottom: "16px",
               }}
             >
-              One platform. Two pipelines. Double the output from every event.
+              One platform. Two pipelines.<br />Double the output from every event.
             </motion.h2>
 
             <motion.p
