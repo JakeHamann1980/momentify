@@ -33,22 +33,22 @@ const outcomes = [
   {
     logo: null,
     logoAlt: "Fortune 75 Manufacturer",
-    headline: "92% more leads in three years at the same event.",
-    body: "The Electric Power Division used Momentify across three consecutive years at DistribuTECH. Same show. Better data every time. Engagement depth, opt-in rates, and follow-up speed all improved year over year. The results didn't happen by accident. They compounded because the team could finally see what was working.",
+    headline: "92% more leads across three consecutive years at the same industry event.",
+    body: "The Electric Power Division used Momentify across three years at DistribuTECH. Same show. Better data every time. Engagement depth, opt-in rates, and follow-up speed all improved year over year. The results compounded because the team could finally see what was working.",
     tags: ["Trade Shows and Exhibits", "Electric Power"],
   },
   {
     logo: null,
     logoAlt: "Fortune 75 Dealer",
-    headline: "7 hires traced back to a digital-first recruiting process they didn't have a year ago.",
-    body: "Mustang Cat had no digital recruiting process before Momentify. Every candidate interaction used to leave on paper or not at all. Now every student and advisor engagement is captured through iPad and mobile, scored by fit, and followed up with context attached. The pipeline built itself because the data was finally there to build it with.",
+    headline: "7 hires traced back to a digital recruiting process that did not exist a year ago.",
+    body: "This dealer had no digital recruiting process before Momentify. Every candidate interaction left on paper or not at all. Now every student and advisor engagement is captured on iPad and mobile, scored by fit, and followed up with context attached. The pipeline built itself because the data was finally there.",
     tags: ["Technical Recruiting"],
   },
   {
     logo: null,
     logoAlt: "Fortune 75 Manufacturer",
-    headline: "40 dealers received matched candidates from a single national program.",
-    body: "The Global Dealer Learning group used Momentify at national student events to identify technician candidates and route them directly to the right dealers. Students were matched by interest and fit before anyone left the floor. What used to end with a stack of business cards ended with 40 dealers receiving qualified candidates automatically.",
+    headline: "40 dealers received matched candidates from a single national recruiting program.",
+    body: "The Global Dealer Learning group used Momentify at national student events to identify technician candidates and route them to the right dealers. Students were matched by interest and fit before anyone left the floor. What used to end with a stack of business cards ended with qualified candidates delivered automatically.",
     tags: ["Technical Recruiting", "Dealer Network"],
   },
 ];
