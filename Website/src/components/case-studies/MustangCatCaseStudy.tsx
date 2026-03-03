@@ -578,8 +578,22 @@ export default function MustangCatCaseStudy() {
       </section>
 
       {/* ═══════════════════ 3. SOLUTION ════════════════ */}
-      <section style={{ background: "#F8F9FC", padding: "100px 0" }}>
-        <div className="mx-auto px-6 lg:px-12" style={{ maxWidth: "1100px" }}>
+      <section className="relative overflow-hidden" style={{ background: "#F8F9FC", padding: "100px 0" }}>
+        {/* Subtle teal diagonal lines */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            opacity: 0.035,
+            backgroundImage: `repeating-linear-gradient(
+              -45deg,
+              transparent,
+              transparent 40px,
+              #5FD9C2 40px,
+              #5FD9C2 41px
+            )`,
+          }}
+        />
+        <div className="relative z-10 mx-auto px-6 lg:px-12" style={{ maxWidth: "1100px" }}>
           {/* Section header */}
           <motion.div
             initial="hidden"
