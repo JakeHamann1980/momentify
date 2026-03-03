@@ -419,25 +419,9 @@ export default function MustangCatCaseStudy() {
 
       {/* ═══════════════════ 2. CHALLENGE ═══════════════ */}
       <section
-        className="relative overflow-hidden"
         style={{ background: "#FFFFFF", padding: "100px 0" }}
       >
-        {/* Subtle teal diagonal lines background */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            opacity: 0.12,
-            backgroundImage: `repeating-linear-gradient(
-              -45deg,
-              transparent,
-              transparent 40px,
-              #5FD9C2 40px,
-              #5FD9C2 41px
-            )`,
-          }}
-        />
-
-        <div className="relative z-10 mx-auto px-6 lg:px-12" style={{ maxWidth: "1100px" }}>
+        <div className="mx-auto px-6 lg:px-12" style={{ maxWidth: "1100px" }}>
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -583,7 +567,7 @@ export default function MustangCatCaseStudy() {
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            opacity: 0.12,
+            opacity: 0.08,
             backgroundImage: `repeating-linear-gradient(
               -45deg,
               transparent,
