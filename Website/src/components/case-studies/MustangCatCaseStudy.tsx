@@ -5,13 +5,13 @@ import ListenToPage from "@/components/ListenToPage";
 
 /* ── Narration text ─────────────────────────────────── */
 
-const NARRATION_TEXT = `This is the story of how Mustang Cat, a Caterpillar dealer in Southeast Texas, transformed their technical recruiting process with Momentify.
+const NARRATION_TEXT = `This is the story of how Mustang CAT, a Caterpillar dealer in Southeast Texas, transformed their technical recruiting process with Momentify.
 
 Before Momentify, senior recruiter Sarah Bell attended career fairs and school visits with no digital infrastructure. Candidate information was captured on paper sign-up sheets, or not at all. There was no system for follow-up, no way to score candidates by interest level, and no analytics to measure which events were producing results.
 
-Momentify changed that by giving Sarah a digital capture system that works at the booth. Using iPad registration and mobile QR codes, every candidate now enters their information directly. The platform creates two separate pipelines from each event: one for students interested in Mustang Cat's Think Big technician training program, and another for school advisors and instructors who help build long-term recruiting relationships.
+Momentify changed that by giving Sarah a digital capture system that works at the booth. Using iPad registration and mobile QR codes, every candidate now enters their information directly. The platform creates two separate pipelines from each event: one for students interested in Mustang CAT's Think BIG technician training program, and another for school advisors and instructors who help build long-term recruiting relationships.
 
-The results speak for themselves. Since launching in June 2025, Mustang Cat has captured over 600 candidates across their events. 321 students and 243 advisors now sit in tracked, scored pipelines. Nine candidates were interviewed, and seven received offers, all directly attributed to Momentify touchpoints. Sarah rated her likelihood to recommend Momentify a ten out of ten.
+The results speak for themselves. Since launching in June 2025, Mustang CAT has captured over 600 candidates across their events. 321 students and 243 advisors now sit in tracked, scored pipelines. Nine candidates were interviewed, and seven received offers, all directly attributed to Momentify touchpoints. Sarah rated her likelihood to recommend Momentify a ten out of ten.
 
 The follow-up that used to depend on memory now happens before the event floor closes. Candidates are scored by temperature, notes are attached to names, and outreach goes out the same day.`;
 
@@ -39,7 +39,7 @@ const stagger = {
 /* ── Stats data ──────────────────────────────────────── */
 
 const heroStats = [
-  { number: "611", label: "Candidates captured since June 2025" },
+  { number: "600+", label: "Candidates captured since June 2025" },
   { number: "7", label: "Hires directly attributed to Momentify" },
   { number: "2", label: "Separate candidate pipelines built from every event" },
 ];
@@ -57,7 +57,7 @@ const challengeCards = [
   },
   {
     label: "No way to measure what worked",
-    body: "Mustang Cat attended recurring events every year with no data to tell them which ones were producing results and which ones were not.",
+    body: "Mustang CAT attended recurring events every year with no data to tell them which ones were producing results and which ones were not.",
   },
 ];
 
@@ -65,18 +65,18 @@ const challengeCards = [
 
 const solutionTiles = [
   {
-    headline: "Capture at the booth",
-    body: "iPad and mobile QR registration gave every candidate a way to enter their information. When schools restricted phones, Sarah passed the iPad. When there was no Wi-Fi, Momentify worked offline and synced later.",
+    headline: "Digital capture at the booth",
+    body: "iPad and mobile QR registration gave every candidate a way to enter their information on the spot. When schools restricted phones, Sarah passed the iPad. When there was no Wi-Fi, Momentify worked offline and synced later.",
     icon: "ipad",
   },
   {
     headline: "Two pipelines from one event",
-    body: "Students went into one pipeline toward Mustang Cat's Think Big program. Advisors and instructors went into a second pipeline for ongoing school relationships, presentations, and career fairs. One event, two fully tracked outcomes.",
+    body: "Students went into one pipeline toward Mustang CAT's Think BIG program. Advisors and instructors went into a second pipeline for ongoing school relationships. One event, two fully tracked candidate outcomes.",
     icon: "people",
   },
   {
-    headline: "Follow-up before the floor closes",
-    body: "Candidates are scored by temperature, notes are attached to names, and follow-up goes out the same day the event ends. Those who showed real intent no longer wait days to hear back.",
+    headline: "Same-day candidate follow-up",
+    body: "Candidates are scored by temperature, notes are attached to names, and follow-up goes out the same day the event ends. Those who showed real intent no longer wait days or weeks to hear back from the team.",
     icon: "clock",
   },
 ];
@@ -86,7 +86,7 @@ const solutionTiles = [
 const resultsCells = [
   {
     type: "single" as const,
-    number: "611",
+    number: "600+",
     label:
       "Total candidates captured via iPad and mobile QR code since June 2025",
     tag: "Candidate Capture",
@@ -306,7 +306,7 @@ export default function MustangCatCaseStudy() {
               marginBottom: "24px",
             }}
           >
-            Paper sign-ups out. Digital pipeline in.
+            Paper sign-ups out.<br />Digital pipeline in.
           </motion.h1>
 
           {/* Subhead */}
@@ -324,7 +324,7 @@ export default function MustangCatCaseStudy() {
               marginBottom: "48px",
             }}
           >
-            How Mustang Cat replaced clipboards with a digital recruiting system that captures, scores, and follows up with every candidate before the event floor closes.
+            How Mustang CAT replaced clipboards with a digital recruiting system that captures, scores, and follows up with every candidate before the event ends.
           </motion.p>
 
           {/* Listen to this page */}
@@ -399,7 +399,7 @@ export default function MustangCatCaseStudy() {
           >
             <img
               src="/logos/mustang-cat-color.png"
-              alt="Mustang Cat"
+              alt="Mustang CAT"
               style={{ maxHeight: "48px", width: "auto", opacity: 0.85 }}
             />
             <span style={{ color: "rgba(255, 255, 255, 0.20)", fontSize: "12px" }}>·</span>
@@ -487,7 +487,7 @@ export default function MustangCatCaseStudy() {
                     marginBottom: "20px",
                   }}
                 >
-                  Sarah Bell has been recruiting diesel technicians for Mustang Cat for years. She shows up with energy, makes intentional connections, and genuinely believes in the career she is selling. But when she walked out of a career fair, everything she had built in those conversations walked out with her.
+                  Sarah Bell has been recruiting diesel technicians for Mustang CAT for years. She shows up with energy, makes intentional connections, and genuinely believes in the career she is selling. But when she walked out of a career fair, everything she had built in those conversations walked out with her.
                 </p>
                 <p
                   style={{
@@ -510,7 +510,7 @@ export default function MustangCatCaseStudy() {
                     lineHeight: 1.75,
                   }}
                 >
-                  Mustang Cat was not doing anything wrong. They simply had no infrastructure to hold what their recruiter was building.
+                  Mustang CAT was not doing anything wrong. They simply had no infrastructure to hold what their recruiter was building.
                 </p>
               </motion.div>
 
@@ -524,7 +524,7 @@ export default function MustangCatCaseStudy() {
                 </div>
                 <div>
                   <p style={{ fontFamily: "var(--font-inter)", fontWeight: 600, fontSize: "13px", color: "#061341" }}>Sarah Bell</p>
-                  <p style={{ fontFamily: "var(--font-inter)", fontWeight: 400, fontSize: "12px", color: "rgba(6, 19, 65, 0.45)" }}>Senior Recruiter, Mustang Cat</p>
+                  <p style={{ fontFamily: "var(--font-inter)", fontWeight: 400, fontSize: "12px", color: "rgba(6, 19, 65, 0.45)" }}>Senior Recruiter, Mustang CAT</p>
                 </div>
               </motion.div>
             </div>
@@ -629,7 +629,7 @@ export default function MustangCatCaseStudy() {
                 marginBottom: "64px",
               }}
             >
-              Momentify gave Mustang Cat a way to capture candidates and advisors from the same event, score them by intent, and follow up before the competition did.
+              Momentify gave Mustang CAT a way to capture candidates and advisors from the same event, score them by intent, and follow up before the competition did.
             </motion.p>
           </motion.div>
 
@@ -792,7 +792,7 @@ export default function MustangCatCaseStudy() {
                     color: "rgba(255, 255, 255, 0.50)",
                   }}
                 >
-                  Senior Recruiter, Mustang Cat
+                  Senior Recruiter, Mustang CAT
                 </p>
               </div>
             </motion.div>
@@ -830,13 +830,14 @@ export default function MustangCatCaseStudy() {
               style={{
                 fontFamily: "var(--font-inter)",
                 fontWeight: 500,
-                fontSize: "42px",
+                fontSize: "clamp(32px, 4vw, 48px)",
                 color: "#061341",
-                lineHeight: 1.1,
+                lineHeight: 1.15,
+                letterSpacing: "-0.02em",
                 marginBottom: "64px",
               }}
             >
-              600+ candidate engagements. 7 hired. 0 clipboards.
+              <span className="text-gradient-brand" style={{ fontWeight: 600 }}>600+</span> candidate engagements. <span className="text-gradient-brand" style={{ fontWeight: 600 }}>7</span> hired. <span className="text-gradient-brand" style={{ fontWeight: 600 }}>0</span> clipboards.
             </motion.h2>
           </motion.div>
 
@@ -1038,10 +1039,9 @@ export default function MustangCatCaseStudy() {
                 fontStyle: "italic",
                 position: "relative",
                 zIndex: 1,
-                maxWidth: "800px",
               }}
             >
-              When asked what Momentify would cost Mustang Cat if it went away: &ldquo;We&apos;d go back to relying on paper sign-ups, spreadsheets, or memory at events, which risks losing high-quality prospects and creates gaps in our recruiting funnel. Candidates would wait longer for follow-up, which could mean losing them to other opportunities.&rdquo;
+              When asked what Momentify would cost Mustang CAT if it went away: &ldquo;We&apos;d go back to relying on paper sign-ups, spreadsheets, or memory at events, which risks losing high-quality prospects and creates gaps in our recruiting funnel. Candidates would wait longer for follow-up, which could mean losing them to other opportunities.&rdquo;
             </p>
           </motion.div>
         </div>
@@ -1117,7 +1117,7 @@ export default function MustangCatCaseStudy() {
                     color: "rgba(6, 19, 65, 0.50)",
                   }}
                 >
-                  Senior Recruiter, Mustang Cat
+                  Senior Recruiter, Mustang CAT
                 </p>
               </div>
             </motion.div>
@@ -1246,7 +1246,7 @@ export default function MustangCatCaseStudy() {
                   marginBottom: "20px",
                 }}
               >
-                Sarah Bell, Senior Recruiter at Mustang Cat, on what it takes to recruit diesel technicians, why candidates now have the upper hand, and how showing up with intention changes everything.
+                Sarah Bell, Senior Recruiter at Mustang CAT, on what it takes to recruit diesel technicians, why candidates now have the upper hand, and how showing up with intention changes everything.
               </p>
 
               {/* Play button */}
