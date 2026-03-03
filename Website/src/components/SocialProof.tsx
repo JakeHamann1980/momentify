@@ -35,7 +35,7 @@ const outcomes = [
     logoAlt: "Fortune 75 Manufacturer",
     headline: "92% more leads across three consecutive years at the same industry event.",
     body: "The Electric Power Division used Momentify across three years at DistribuTECH. Same show. Better data every time. Engagement depth, opt-in rates, and follow-up speed all improved year over year. The results compounded because the team could finally see what was working.",
-    tags: ["Trade Shows and Exhibits", "Electric Power"],
+    tags: ["Trade Shows and Exhibits"],
   },
   {
     logo: null,
@@ -49,10 +49,20 @@ const outcomes = [
     logoAlt: "Fortune 75 Manufacturer",
     headline: "40 dealers received matched candidates from a single national recruiting program.",
     body: "The Global Dealer Learning group used Momentify at national student events to identify technician candidates and route them to the right dealers. Students were matched by interest and fit before anyone left the floor. What used to end with a stack of business cards ended with qualified candidates delivered automatically.",
-    tags: ["Technical Recruiting", "Dealer Network"],
+    tags: ["Technical Recruiting", "Trade Shows and Exhibits"],
   },
 ];
 
+
+/* ── Tag color map (matches Platform solution colors) ── */
+
+const tagColors: Record<string, { color: string; bg: string }> = {
+  "Trade Shows and Exhibits": { color: "#6B21D4", bg: "rgba(107, 33, 212, 0.08)" },
+  "Technical Recruiting": { color: "#1A8A76", bg: "rgba(95, 217, 194, 0.10)" },
+  "Field Sales Enablement": { color: "#A86B00", bg: "rgba(242, 179, 61, 0.10)" },
+  "Facilities": { color: "#3A2073", bg: "rgba(58, 32, 115, 0.08)" },
+  "Events and Venues": { color: "#C4391E", bg: "rgba(242, 94, 61, 0.08)" },
+};
 
 /* ── Social Proof Section ──────────────────────────── */
 
@@ -271,8 +281,8 @@ export default function SocialProof() {
                       fontWeight: 600,
                       fontSize: "10px",
                       letterSpacing: "0.08em",
-                      color: "#00BBA5",
-                      background: "rgba(0, 187, 165, 0.08)",
+                      color: tagColors[tag]?.color ?? "#00BBA5",
+                      background: tagColors[tag]?.bg ?? "rgba(0, 187, 165, 0.08)",
                       borderRadius: "20px",
                       padding: "4px 10px",
                     }}
