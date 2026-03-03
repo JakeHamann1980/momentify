@@ -306,7 +306,7 @@ export default function SocialProof() {
 
               {/* Learn More */}
               <a
-                href={item.link}
+                href={card.link}
                 className="inline-flex items-center gap-1 mt-5 group/link"
                 style={{
                   fontFamily: "var(--font-inter)",
