@@ -7,11 +7,11 @@ import ListenToPage from "@/components/ListenToPage";
 
 const NARRATION_TEXT = `This is the story of how Mustang Cat, a Caterpillar dealer in Southeast Texas, transformed their technical recruiting process with Momentify.
 
-Before Momentify, senior recruiter Sarah Bell attended career fairs and school visits with no digital infrastructure. Candidate information was captured on paper sign-up sheets, or not at all. There was no system for follow-up, no way to score leads by interest level, and no analytics to measure which events were producing results.
+Before Momentify, senior recruiter Sarah Bell attended career fairs and school visits with no digital infrastructure. Candidate information was captured on paper sign-up sheets, or not at all. There was no system for follow-up, no way to score candidates by interest level, and no analytics to measure which events were producing results.
 
 Momentify changed that by giving Sarah a digital capture system that works at the booth. Using iPad registration and mobile QR codes, every candidate now enters their information directly. The platform creates two separate pipelines from each event: one for students interested in Mustang Cat's Think Big technician training program, and another for school advisors and instructors who help build long-term recruiting relationships.
 
-The results speak for themselves. Since launching in June 2025, Mustang Cat has captured 611 leads across their events. 321 students and 243 advisors now sit in tracked, scored pipelines. Nine candidates were interviewed, and seven received offers, all directly attributed to Momentify touchpoints. Sarah rated her likelihood to recommend Momentify a ten out of ten.
+The results speak for themselves. Since launching in June 2025, Mustang Cat has captured over 600 candidates across their events. 321 students and 243 advisors now sit in tracked, scored pipelines. Nine candidates were interviewed, and seven received offers, all directly attributed to Momentify touchpoints. Sarah rated her likelihood to recommend Momentify a ten out of ten.
 
 The follow-up that used to depend on memory now happens before the event floor closes. Candidates are scored by temperature, notes are attached to names, and outreach goes out the same day.`;
 
@@ -39,7 +39,7 @@ const stagger = {
 /* ── Stats data ──────────────────────────────────────── */
 
 const heroStats = [
-  { number: "611", label: "Leads captured since June 2025" },
+  { number: "611", label: "Candidates captured since June 2025" },
   { number: "7", label: "Hires directly attributed to Momentify" },
   { number: "2", label: "Separate candidate pipelines built from every event" },
 ];
@@ -76,7 +76,7 @@ const solutionTiles = [
   },
   {
     headline: "Follow-up before the floor closes",
-    body: "Leads are scored by temperature, notes are attached to names, and follow-up goes out the same day the event ends. Candidates who showed real intent no longer wait days to hear back.",
+    body: "Candidates are scored by temperature, notes are attached to names, and follow-up goes out the same day the event ends. Those who showed real intent no longer wait days to hear back.",
     icon: "clock",
   },
 ];
@@ -88,8 +88,8 @@ const resultsCells = [
     type: "single" as const,
     number: "611",
     label:
-      "Total leads captured via iPad and mobile QR code since June 2025",
-    tag: "Lead Capture",
+      "Total candidates captured via iPad and mobile QR code since June 2025",
+    tag: "Candidate Capture",
   },
   {
     type: "dual" as const,
@@ -306,7 +306,7 @@ export default function MustangCatCaseStudy() {
               marginBottom: "24px",
             }}
           >
-            From paper sign-ups to a digital recruiting pipeline.
+            Paper sign-ups out. Digital pipeline in.
           </motion.h1>
 
           {/* Subhead */}
@@ -324,7 +324,7 @@ export default function MustangCatCaseStudy() {
               marginBottom: "48px",
             }}
           >
-            Before Momentify, Mustang Cat had no digital recruiting process. Candidate information left the event on paper or not at all. There was no tracking, no analytics, and no consistent follow-up. Here is how they changed that and built a system that captures, scores, and follows up with every candidate before the event floor closes.
+            How Mustang Cat replaced clipboards with a digital recruiting system that captures, scores, and follows up with every candidate before the event floor closes.
           </motion.p>
 
           {/* Listen to this page */}
@@ -418,14 +418,32 @@ export default function MustangCatCaseStudy() {
       </section>
 
       {/* ═══════════════════ 2. CHALLENGE ═══════════════ */}
-      <section style={{ background: "rgba(95, 217, 194, 0.06)", padding: "100px 0" }}>
-        <div className="mx-auto px-6 lg:px-12" style={{ maxWidth: "1100px" }}>
+      <section
+        className="relative overflow-hidden"
+        style={{ background: "#FFFFFF", padding: "100px 0" }}
+      >
+        {/* Subtle teal diagonal lines background */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            opacity: 0.04,
+            backgroundImage: `repeating-linear-gradient(
+              -45deg,
+              transparent,
+              transparent 40px,
+              #5FD9C2 40px,
+              #5FD9C2 41px
+            )`,
+          }}
+        />
+
+        <div className="relative z-10 mx-auto px-6 lg:px-12" style={{ maxWidth: "1100px" }}>
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.15 }}
             variants={headerVariants}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
           >
             {/* Left column */}
             <div>
@@ -481,7 +499,7 @@ export default function MustangCatCaseStudy() {
                     marginBottom: "20px",
                   }}
                 >
-                  No digital capture. No notes attached to names. No way to sort hot leads from cold ones. No analytics to tell her which events were worth going back to. The follow-up happened on memory and hope.
+                  No digital capture. No notes attached to names. No way to sort hot candidates from cold ones. No analytics to tell her which events were worth going back to. The follow-up happened on memory and hope.
                 </p>
                 <p
                   style={{
@@ -495,6 +513,20 @@ export default function MustangCatCaseStudy() {
                   Mustang Cat was not doing anything wrong. They simply had no infrastructure to hold what their recruiter was building.
                 </p>
               </motion.div>
+
+              {/* Sarah Bell photo */}
+              <motion.div variants={fadeUp} className="flex items-center gap-3" style={{ marginTop: "28px" }}>
+                <div
+                  className="rounded-full overflow-hidden flex-shrink-0"
+                  style={{ width: "44px", height: "44px", border: "2px solid rgba(95, 217, 194, 0.25)" }}
+                >
+                  <img src="/sarahbell.jpeg" alt="Sarah Bell" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                </div>
+                <div>
+                  <p style={{ fontFamily: "var(--font-inter)", fontWeight: 600, fontSize: "13px", color: "#061341" }}>Sarah Bell</p>
+                  <p style={{ fontFamily: "var(--font-inter)", fontWeight: 400, fontSize: "12px", color: "rgba(6, 19, 65, 0.45)" }}>Senior Recruiter, Mustang Cat</p>
+                </div>
+              </motion.div>
             </div>
 
             {/* Right column: challenge cards */}
@@ -502,15 +534,18 @@ export default function MustangCatCaseStudy() {
               variants={stagger}
               className="flex flex-col gap-4"
             >
-              {challengeCards.map((card) => (
+              {challengeCards.map((card, i) => (
                 <motion.div
                   key={card.label}
                   variants={fadeUp}
                   style={{
-                    background: "#F8F9FC",
+                    background: "#FFFFFF",
                     borderRadius: "12px",
                     padding: "24px 28px",
-                    borderLeft: "3px solid rgba(6, 19, 65, 0.12)",
+                    borderLeft: `3px solid ${
+                      ["#5FD9C2", "#3AB8A0", "#1A8A76"][i]
+                    }`,
+                    boxShadow: "0 2px 12px rgba(95, 217, 194, 0.08)",
                   }}
                 >
                   <p
@@ -801,7 +836,7 @@ export default function MustangCatCaseStudy() {
                 marginBottom: "64px",
               }}
             >
-              611 leads captured. 7 hired. Zero clipboards.
+              600+ candidate engagements. 7 hired. 0 clipboards.
             </motion.h2>
           </motion.div>
 
@@ -812,27 +847,47 @@ export default function MustangCatCaseStudy() {
             viewport={{ once: true, amount: 0.1 }}
             variants={stagger}
             className="grid grid-cols-1 sm:grid-cols-2 gap-6"
-            style={{ maxWidth: "900px" }}
           >
-            {resultsCells.map((cell) => (
+            {resultsCells.map((cell, i) => {
+              const accentColors = ["#5FD9C2", "#3AB8A0", "#1A8A76", "#00BBA5"];
+              return (
               <motion.div
                 key={cell.tag}
                 variants={fadeUp}
                 style={{
                   background: "#FFFFFF",
                   borderRadius: "16px",
-                  padding: "36px 32px",
+                  padding: "40px 32px",
+                  borderTop: `3px solid ${accentColors[i]}`,
+                  boxShadow: "0 4px 24px rgba(6, 19, 65, 0.06)",
+                  position: "relative",
+                  overflow: "hidden",
                 }}
               >
+                {/* Decorative accent glow */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "-20px",
+                    right: "-20px",
+                    width: "100px",
+                    height: "100px",
+                    borderRadius: "50%",
+                    background: `radial-gradient(circle, ${accentColors[i]}15, transparent 70%)`,
+                    pointerEvents: "none",
+                  }}
+                />
+
                 {cell.type === "dual" ? (
                   <>
                     <div className="flex items-baseline gap-2" style={{ marginBottom: "4px" }}>
                       <span
+                        className="text-gradient-brand"
                         style={{
                           fontFamily: "var(--font-inter)",
-                          fontWeight: 500,
-                          fontSize: "36px",
-                          color: "#061341",
+                          fontWeight: 600,
+                          fontSize: "44px",
+                          lineHeight: 1,
                         }}
                       >
                         {cell.number1}
@@ -841,19 +896,20 @@ export default function MustangCatCaseStudy() {
                         style={{
                           fontFamily: "var(--font-inter)",
                           fontWeight: 500,
-                          fontSize: "36px",
+                          fontSize: "44px",
                           color: "#061341",
-                          opacity: 0.3,
+                          opacity: 0.2,
                         }}
                       >
                         +
                       </span>
                       <span
+                        className="text-gradient-brand"
                         style={{
                           fontFamily: "var(--font-inter)",
-                          fontWeight: 500,
-                          fontSize: "36px",
-                          color: "#061341",
+                          fontWeight: 600,
+                          fontSize: "44px",
+                          lineHeight: 1,
                         }}
                       >
                         {cell.number2}
@@ -884,13 +940,14 @@ export default function MustangCatCaseStudy() {
                   </>
                 ) : (
                   <p
+                    className="text-gradient-brand"
                     style={{
                       fontFamily: "var(--font-inter)",
-                      fontWeight: 500,
-                      fontSize: (cell as { numberSize?: string }).numberSize || "52px",
-                      color: "#061341",
+                      fontWeight: 600,
+                      fontSize: (cell as { numberSize?: string }).numberSize || "56px",
                       lineHeight: 1,
                       marginBottom: "12px",
+                      letterSpacing: "-0.02em",
                     }}
                   >
                     {cell.number}
@@ -902,7 +959,7 @@ export default function MustangCatCaseStudy() {
                     fontFamily: "var(--font-inter)",
                     fontWeight: 400,
                     fontSize: "14px",
-                    color: "rgba(6, 19, 65, 0.50)",
+                    color: "rgba(6, 19, 65, 0.55)",
                     lineHeight: 1.5,
                     marginBottom: "16px",
                   }}
@@ -918,33 +975,44 @@ export default function MustangCatCaseStudy() {
                     fontWeight: 600,
                     fontSize: "10px",
                     letterSpacing: "0.08em",
-                    color: "#5FD9C2",
-                    background: "rgba(95, 217, 194, 0.10)",
+                    color: accentColors[i],
+                    background: `${accentColors[i]}14`,
                     borderRadius: "20px",
-                    padding: "4px 10px",
+                    padding: "5px 12px",
                   }}
                 >
                   {cell.tag}
                 </span>
               </motion.div>
-            ))}
+              );
+            })}
           </motion.div>
 
-          {/* Pilot survey callout */}
+          {/* Pilot survey callout — full width */}
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.15 }}
             variants={fadeUp}
             style={{
-              marginTop: "48px",
-              maxWidth: "820px",
-              background: "rgba(95, 217, 194, 0.08)",
-              border: "1px solid rgba(95, 217, 194, 0.15)",
-              borderRadius: "12px",
-              padding: "28px 32px",
+              marginTop: "24px",
+              background: "linear-gradient(135deg, #040E28 0%, #0B0B3C 50%, #1A8A76 100%)",
+              borderRadius: "16px",
+              padding: "40px 40px",
+              position: "relative",
+              overflow: "hidden",
             }}
           >
+            {/* Decorative arc */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{ opacity: 0.06 }}
+            >
+              <svg viewBox="0 0 800 200" fill="none" className="absolute w-full h-full" preserveAspectRatio="xMaxYMax meet">
+                <path d="M 800 100 A 200 200 0 0 0 600 200" stroke="white" strokeWidth="1.5" fill="none" />
+                <path d="M 800 0 A 300 300 0 0 0 500 200" stroke="white" strokeWidth="1" fill="none" />
+              </svg>
+            </div>
             <p
               style={{
                 fontFamily: "var(--font-inter)",
@@ -954,6 +1022,8 @@ export default function MustangCatCaseStudy() {
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
                 marginBottom: "12px",
+                position: "relative",
+                zIndex: 1,
               }}
             >
               From the Pilot Survey
@@ -962,10 +1032,13 @@ export default function MustangCatCaseStudy() {
               style={{
                 fontFamily: "var(--font-inter)",
                 fontWeight: 400,
-                fontSize: "15px",
-                color: "rgba(6, 19, 65, 0.65)",
+                fontSize: "16px",
+                color: "rgba(255, 255, 255, 0.70)",
                 lineHeight: 1.7,
                 fontStyle: "italic",
+                position: "relative",
+                zIndex: 1,
+                maxWidth: "800px",
               }}
             >
               When asked what Momentify would cost Mustang Cat if it went away: &ldquo;We&apos;d go back to relying on paper sign-ups, spreadsheets, or memory at events, which risks losing high-quality prospects and creates gaps in our recruiting funnel. Candidates would wait longer for follow-up, which could mean losing them to other opportunities.&rdquo;
