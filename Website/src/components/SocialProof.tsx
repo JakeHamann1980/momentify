@@ -45,8 +45,8 @@ const outcomes = [
     tags: ["Technical Recruiting"],
   },
   {
-    logo: null,
-    logoAlt: "Fortune 75 Manufacturer",
+    logo: "/logos/caterpillar-logo_black.png",
+    logoAlt: "Caterpillar",
     headline: "40 dealers received matched candidates from a single national recruiting program.",
     body: "The Global Dealer Learning group used Momentify at national student events to identify technician candidates and route them to the right dealers. Students were matched by interest and fit before anyone left the floor. What used to end with a stack of business cards ended with qualified candidates delivered automatically.",
     tags: ["Technical Recruiting", "Trade Shows and Exhibits"],
