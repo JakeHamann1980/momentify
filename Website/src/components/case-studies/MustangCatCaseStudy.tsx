@@ -259,29 +259,11 @@ export default function MustangCatCaseStudy() {
         </div>
 
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-12" style={{ paddingTop: "140px", paddingBottom: "100px" }}>
-          {/* Breadcrumb */}
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            style={{
-              fontFamily: "var(--font-inter)",
-              fontWeight: 500,
-              fontSize: "13px",
-              color: "rgba(255, 255, 255, 0.4)",
-              marginBottom: "24px",
-            }}
-          >
-            <a href="/#proof" className="hover:text-white/60 transition-colors duration-200">Case Studies</a>
-            {" / "}
-            Mustang Cat
-          </motion.p>
-
           {/* Eyebrow */}
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.05 }}
+            transition={{ duration: 0.5 }}
             style={{
               fontFamily: "var(--font-inter)",
               fontWeight: 600,
@@ -292,7 +274,7 @@ export default function MustangCatCaseStudy() {
               marginBottom: "16px",
             }}
           >
-            Technical Recruiting
+            Case Study / Technical Recruiting
           </motion.p>
 
           {/* Headline */}
@@ -354,12 +336,13 @@ export default function MustangCatCaseStudy() {
                 )}
                 <div>
                   <p
+                    className="text-gradient-hero"
                     style={{
                       fontFamily: "var(--font-inter)",
                       fontWeight: 500,
-                      fontSize: "44px",
-                      color: "#FFFFFF",
+                      fontSize: "clamp(44px, 5vw, 64px)",
                       lineHeight: 1,
+                      letterSpacing: "-0.02em",
                       marginBottom: "6px",
                     }}
                   >
@@ -372,7 +355,7 @@ export default function MustangCatCaseStudy() {
                       fontSize: "13px",
                       color: "rgba(255, 255, 255, 0.50)",
                       lineHeight: 1.4,
-                      maxWidth: "120px",
+                      maxWidth: "200px",
                     }}
                   >
                     {stat.label}
@@ -391,9 +374,9 @@ export default function MustangCatCaseStudy() {
             style={{ marginTop: "40px" }}
           >
             <img
-              src="/logos/mustang-cat.png"
+              src="/logos/mustang-cat-color.png"
               alt="Mustang Cat"
-              style={{ maxHeight: "20px", width: "auto", opacity: 0.7, filter: "brightness(0) invert(1)" }}
+              style={{ maxHeight: "24px", width: "auto", opacity: 0.85 }}
             />
             <span style={{ color: "rgba(255, 255, 255, 0.20)", fontSize: "12px" }}>·</span>
             <span
