@@ -168,7 +168,7 @@ export default function SocialProof() {
                   style={{
                     fontFamily: "var(--font-inter)",
                     fontWeight: 500,
-                    fontSize: "clamp(36px, 4vw, 48px)",
+                    fontSize: "clamp(44px, 5vw, 64px)",
                     lineHeight: 1,
                     letterSpacing: "-0.02em",
                     marginBottom: "6px",
