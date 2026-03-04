@@ -26,7 +26,7 @@ const words = [
 
 const headline = { weight: 500, size: "clamp(36px,5.5vw,72px)", tracking: "-0.02em" };
 
-const subhead = { weight: 300, size: "15px", leading: "1.5" };
+const subhead = { weight: 400, size: "15px", leading: "1.5" };
 
 const eyebrowStyle = {
   display: "inline-block" as const,

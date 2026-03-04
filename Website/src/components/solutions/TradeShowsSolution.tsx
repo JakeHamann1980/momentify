@@ -581,16 +581,34 @@ export default function TradeShowsSolution() {
                   {testimonials[activeTestimonial].role}
                 </p>
               </div>
-              <div className="flex items-center gap-2 flex-shrink-0">
-                {testimonials.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setActiveTestimonial(i)}
-                    className="transition-all duration-200 cursor-pointer"
-                    style={{ width: i === activeTestimonial ? "20px" : "8px", height: "8px", borderRadius: "4px", background: i === activeTestimonial ? "#6B21D4" : "rgba(107, 33, 212, 0.2)", border: "none", padding: 0 }}
-                    aria-label={`View testimonial ${i + 1}`}
-                  />
-                ))}
+              <div className="flex items-center gap-3 flex-shrink-0">
+                <button
+                  onClick={() => setActiveTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
+                  className="transition-all duration-200 cursor-pointer hover:bg-[rgba(107,33,212,0.08)] rounded-full"
+                  style={{ width: "28px", height: "28px", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid rgba(107, 33, 212, 0.2)", background: "transparent", padding: 0 }}
+                  aria-label="Previous testimonial"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6B21D4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
+                </button>
+                <div className="flex items-center gap-2">
+                  {testimonials.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setActiveTestimonial(i)}
+                      className="transition-all duration-200 cursor-pointer"
+                      style={{ width: i === activeTestimonial ? "20px" : "8px", height: "8px", borderRadius: "4px", background: i === activeTestimonial ? "#6B21D4" : "rgba(107, 33, 212, 0.2)", border: "none", padding: 0 }}
+                      aria-label={`View testimonial ${i + 1}`}
+                    />
+                  ))}
+                </div>
+                <button
+                  onClick={() => setActiveTestimonial((prev) => (prev + 1) % testimonials.length)}
+                  className="transition-all duration-200 cursor-pointer hover:bg-[rgba(107,33,212,0.08)] rounded-full"
+                  style={{ width: "28px", height: "28px", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid rgba(107, 33, 212, 0.2)", background: "transparent", padding: 0 }}
+                  aria-label="Next testimonial"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6B21D4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6" /></svg>
+                </button>
               </div>
             </div>
           </motion.div>
