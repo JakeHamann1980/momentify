@@ -180,7 +180,7 @@ export default function Platform() {
               color: "#061341",
             }}
           >
-            One Platform. Every Interaction.
+            One Platform.<br className="sm:hidden" />{" "}Every Interaction.
           </motion.h2>
 
           <motion.p

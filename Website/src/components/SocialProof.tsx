@@ -125,7 +125,7 @@ export default function SocialProof() {
               color: "#061341",
             }}
           >
-            Real teams. Real interactions. Real outcomes.
+            Real Teams.<br className="sm:hidden" />{" "}Real Interactions.<br className="sm:hidden" />{" "}Real Outcomes.
           </motion.h2>
 
           <motion.p

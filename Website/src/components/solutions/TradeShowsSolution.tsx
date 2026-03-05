@@ -449,7 +449,7 @@ export default function TradeShowsSolution() {
           {/* ROX header */}
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={headerVariants} style={{ textAlign: "center", marginBottom: "48px" }}>
             <motion.p variants={fadeUp} className="uppercase font-semibold text-[12px] tracking-[0.14em] mb-4" style={{ color: "rgba(255, 255, 255, 0.6)", fontFamily: "var(--font-inter)" }}>
-              Trade Shows &amp; Exhibits Return on Experience (ROX)
+              Trade Shows &amp; Exhibits Return on Experience (ROX)™
             </motion.p>
             <motion.h2 variants={fadeUp} className="leading-[1.1] mx-auto" style={{ fontFamily: "var(--font-inter)", fontWeight: 500, letterSpacing: "-0.02em", fontSize: "clamp(31px, 5vw, 46px)", color: "#FFFFFF", maxWidth: "770px" }}>
               Do you know your
@@ -675,29 +675,65 @@ export default function TradeShowsSolution() {
           backgroundSize: "200% 200%",
           animation: "bgShift 16s ease-in-out infinite",
           backgroundImage: "linear-gradient(135deg, #2D0770 0%, #4A0FA8 55%, #9B5FE8 100%)",
-          padding: "120px 0",
+          padding: "96px 0",
         }}
       >
         <VioletBracketDark />
 
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-12">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={headerVariants} style={{ maxWidth: "640px" }}>
-            <motion.p variants={fadeUp} className="uppercase font-semibold text-[12px] tracking-[0.14em] mb-4" style={{ color: "rgba(255, 255, 255, 0.6)", fontFamily: "var(--font-inter)" }}>Get Started</motion.p>
-            <motion.h2 variants={fadeUp} className="leading-[1.08]" style={{ fontFamily: "var(--font-inter)", fontWeight: 500, letterSpacing: "-0.02em", fontSize: "clamp(32px, 4.5vw, 44px)", color: "#FFFFFF", marginBottom: "20px" }}>
-              Make every booth moment measurable.
-            </motion.h2>
-            <motion.p variants={fadeUp} className="max-w-[560px]" style={{ fontFamily: "var(--font-inter)", fontWeight: 300, fontSize: "15px", color: "rgba(255, 255, 255, 0.60)", lineHeight: 1.5, marginBottom: "40px" }}>
-              Discover how Momentify turns trade show and exhibit chaos into clarity, with better tools, better data, and better outcomes.
-            </motion.p>
-            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-start gap-4">
-              <a href="/rox/trade-shows" className="inline-flex items-center justify-center font-semibold text-[14px] py-3.5 px-7 rounded-lg transition-all duration-200 hover:opacity-90 hover:scale-[1.02]" style={{ fontFamily: "var(--font-inter)", color: "#FFFFFF", background: "linear-gradient(135deg, rgba(155, 95, 232, 0.5), rgba(196, 165, 240, 0.4))", border: "1.5px solid rgba(196, 165, 240, 0.35)" }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(196, 165, 240, 0.6)"; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(196, 165, 240, 0.35)"; }}>
-                Calculate Your Trade Show ROX
-              </a>
-              <a href="#demo" className="inline-flex items-center justify-center font-semibold text-[14px] text-white py-3.5 px-7 rounded-lg transition-all duration-200 hover:bg-white/[0.08]" style={{ fontFamily: "var(--font-inter)", border: "1.5px solid rgba(255, 255, 255, 0.35)", background: "transparent" }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.6)"; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.35)"; }}>
-                Schedule a Demo
-              </a>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={headerVariants} style={{ maxWidth: "640px" }}>
+              <motion.p variants={fadeUp} className="uppercase font-semibold text-[12px] tracking-[0.14em] mb-4" style={{ color: "rgba(255, 255, 255, 0.6)", fontFamily: "var(--font-inter)" }}>Get Started</motion.p>
+              <motion.h2 variants={fadeUp} className="leading-[1.08]" style={{ fontFamily: "var(--font-inter)", fontWeight: 500, letterSpacing: "-0.02em", fontSize: "clamp(32px, 4.5vw, 44px)", color: "#FFFFFF", marginBottom: "20px" }}>
+                Make every booth moment measurable.
+              </motion.h2>
+              <motion.p variants={fadeUp} className="max-w-[560px]" style={{ fontFamily: "var(--font-inter)", fontWeight: 300, fontSize: "15px", color: "rgba(255, 255, 255, 0.60)", lineHeight: 1.5, marginBottom: "40px" }}>
+                Discover how Momentify turns trade show and exhibit chaos into clarity, with better tools, better data, and better outcomes.
+              </motion.p>
+              <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-start gap-4">
+                <a href="/rox/trade-shows" className="inline-flex items-center justify-center font-semibold text-[14px] py-3.5 px-7 rounded-lg transition-all duration-200 hover:opacity-90 hover:scale-[1.02]" style={{ fontFamily: "var(--font-inter)", color: "#FFFFFF", background: "linear-gradient(135deg, rgba(155, 95, 232, 0.5), rgba(196, 165, 240, 0.4))", border: "1.5px solid rgba(196, 165, 240, 0.35)" }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(196, 165, 240, 0.6)"; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(196, 165, 240, 0.35)"; }}>
+                  Calculate Your Trade Show ROX
+                </a>
+                <a href="#demo" className="inline-flex items-center justify-center font-semibold text-[14px] text-white py-3.5 px-7 rounded-lg transition-all duration-200 hover:bg-white/[0.08]" style={{ fontFamily: "var(--font-inter)", border: "1.5px solid rgba(255, 255, 255, 0.35)", background: "transparent" }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.6)"; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.35)"; }}>
+                  Schedule a Demo
+                </a>
+              </motion.div>
             </motion.div>
-          </motion.div>
+
+            {/* Placeholder graphic */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="hidden lg:flex items-center justify-center"
+            >
+              <div
+                style={{
+                  width: "100%",
+                  maxWidth: "340px",
+                  aspectRatio: "1 / 1",
+                  borderRadius: "20px",
+                  background: "rgba(255, 255, 255, 0.06)",
+                  border: "1.5px solid rgba(255, 255, 255, 0.12)",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "16px",
+                }}
+              >
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(196,165,240,0.5)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <polyline points="21 15 16 10 5 21" />
+                </svg>
+                <p style={{ fontFamily: "var(--font-inter)", fontWeight: 500, fontSize: "13px", color: "rgba(255, 255, 255, 0.35)" }}>
+                  Graphic or Screenshot
+                </p>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
     </>

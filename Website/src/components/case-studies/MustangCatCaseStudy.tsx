@@ -1468,7 +1468,7 @@ export default function MustangCatCaseStudy() {
                   e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.20)";
                 }}
               >
-                Calculate Your Recruiting ROX
+                Calculate Your Recruiting ROX™
               </a>
             </motion.div>
           </motion.div>

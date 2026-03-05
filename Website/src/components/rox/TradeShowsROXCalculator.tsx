@@ -715,7 +715,7 @@ export default function TradeShowsROXCalculator() {
       pdf.setFont("helvetica", "bold");
       pdf.setFontSize(11);
       pdf.setTextColor(255, 255, 255);
-      pdf.text("MOMENTIFY  |  Trade Show ROX Scorecard", 24, 26);
+      pdf.text("MOMENTIFY  |  Trade Show ROX\u2122 Scorecard", 24, 26);
       pdf.setFontSize(9);
       pdf.setTextColor(180, 180, 220);
       pdf.text("momentify.com/rox/trade-shows", pdfWidth - 24, 26, { align: "right" });
@@ -744,7 +744,7 @@ export default function TradeShowsROXCalculator() {
             </p>
             <h2 style={{ fontFamily: "var(--font-inter)", fontWeight: 600, fontSize: "clamp(26px, 3.5vw, 40px)", lineHeight: 1.15, letterSpacing: "-0.02em" }}>
               <span style={{ color: "#FFFFFF" }}>Trade Show</span>{" "}
-              <span style={{ background: "linear-gradient(135deg, #0CF4DF, #254FE5)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>ROX Scorecard</span>
+              <span style={{ background: "linear-gradient(135deg, #0CF4DF, #254FE5)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>ROX™ Scorecard</span>
             </h2>
           </div>
           <div className="flex items-center gap-3">
@@ -1165,10 +1165,11 @@ export default function TradeShowsROXCalculator() {
                         }}
                       >
                         You&apos;re spending thousands
+                        <br className="hidden sm:block" />
+                        <br className="sm:hidden" />{" "}
+                        (if not more) on events,
                         <br />
-                        (if not more) on events, do you
-                        <br />
-                        know what&apos;s working?
+                        do you know what&apos;s working?
                       </motion.h2>
                       <motion.p
                         variants={fadeUp}
@@ -1194,7 +1195,7 @@ export default function TradeShowsROXCalculator() {
                           marginBottom: "28px",
                         }}
                       >
-                        Use our free Trade Show ROX Calculator to measure the true return on your event investments. Go beyond cost-per-lead and measure ROX (Return on Experience) with data points that reflect real impact:
+                        Use our free Trade Show ROX™ Calculator to measure the true return on your event investments. Go beyond cost-per-lead and measure Return on Experience™ with data points that reflect real impact:
                       </motion.p>
 
                       {/* Bullet points — 2×2 grid */}

@@ -256,7 +256,7 @@ export default function Hero() {
                 onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.5)")}
                 onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.25)")}
               >
-                Calculate Your ROX
+                Calculate Your ROX™
               </a>
             </motion.div>
           </div>

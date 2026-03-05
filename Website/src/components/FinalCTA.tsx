@@ -78,9 +78,9 @@ export default function FinalCTA() {
               color: "#FFFFFF",
             }}
           >
-            Stop guessing.
+            Stop Guessing.
             <br />
-            <span className="text-gradient-brand">Start measuring.</span>
+            <span className="text-gradient-brand">Start Measuring.</span>
           </motion.h2>
 
           {/* Subhead */}
@@ -142,7 +142,7 @@ export default function FinalCTA() {
                 e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.20)";
               }}
             >
-              Calculate Your ROX
+              Calculate Your ROX™
             </a>
           </motion.div>
 

@@ -329,7 +329,7 @@ export default function ROX() {
               className="uppercase font-semibold text-[12px] tracking-[0.14em] mb-4"
               style={{ color: "#00BBA5", fontFamily: "var(--font-inter)" }}
             >
-              Return on Experience (ROX)
+              Return on Experience (ROX)™
             </motion.p>
 
             <motion.h2
@@ -348,7 +348,7 @@ export default function ROX() {
                   color: "#FFFFFF",
                 }}
               >
-                Your Moments Have a Score.
+                Your Moments<br className="sm:hidden" />{" "}Have a Score.
               </span>
               <span
                 className="block text-gradient-brand"
@@ -358,7 +358,7 @@ export default function ROX() {
                   WebkitBackgroundClip: "text",
                 }}
               >
-                Do You Know What It Is?
+                Do you know what it is?
               </span>
             </motion.h2>
 
