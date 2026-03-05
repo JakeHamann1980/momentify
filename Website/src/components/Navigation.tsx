@@ -13,7 +13,7 @@ const solutions = [
 ];
 
 const platformLinks = [
-  { name: "How It Works", href: "/platform/how-it-works", description: "The three-step Momentify workflow", color: "#0CF4DF", isRoute: true },
+  { name: "How It Works", href: "/platform/how-it-works", description: "The four-step Momentify workflow", color: "#0CF4DF", isRoute: true },
   { name: "Integrations", href: "/platform/integrations", description: "Connect with your existing tools", color: "#5BA8F5", isRoute: true },
   { name: "Security", href: "#", description: "Enterprise-grade data protection", color: "#F2B33D", isRoute: false },
   { name: "Help Center", href: "/platform/help-center", description: "Guides, FAQs, and support resources", color: "#00BBA5", isRoute: true },

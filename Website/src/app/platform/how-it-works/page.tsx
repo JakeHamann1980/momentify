@@ -1,12 +1,20 @@
 import type { Metadata } from "next";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 import HowItWorksContent from "@/components/HowItWorksContent";
 
 export const metadata: Metadata = {
   title: "How It Works | Momentify Platform",
   description:
-    "Three steps from setup to intelligence. See how Momentify captures, contextualizes, and proves the value of every in-person interaction.",
+    "Four steps. One platform. Every interaction measured. See how Momentify Web, Explorer, Intelligence, and Engage work together to capture, score, and prove the value of every in-person interaction.",
 };
 
 export default function HowItWorksPage() {
-  return <HowItWorksContent />;
+  return (
+    <main>
+      <Navigation />
+      <HowItWorksContent />
+      <Footer />
+    </main>
+  );
 }

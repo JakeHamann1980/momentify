@@ -151,9 +151,11 @@ function ROXGauge({ animatedScore }: { animatedScore: number }) {
   const cy = 200;
   const r = 140;
 
+  const rnd = (n: number) => Math.round(n * 1000) / 1000;
+
   const polarToCart = (angleDeg: number) => {
     const rad = (Math.PI * (180 - angleDeg)) / 180;
-    return { x: cx + r * Math.cos(rad), y: cy - r * Math.sin(rad) };
+    return { x: rnd(cx + r * Math.cos(rad)), y: rnd(cy - r * Math.sin(rad)) };
   };
 
   const arcPath = (startDeg: number, endDeg: number) => {

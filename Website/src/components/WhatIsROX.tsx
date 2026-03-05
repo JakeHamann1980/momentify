@@ -149,8 +149,23 @@ const verticals = [
 const depthGradient =
   "linear-gradient(135deg, #1A0533 0%, #070E2B 40%, #061341 70%, #070E2B 100%)";
 
-const heroGradient =
-  "linear-gradient(135deg, #1E0A3D 0%, #0C1740 35%, #0E1F5A 60%, #0C1740 100%)";
+const mainMinimal =
+  "linear-gradient(135deg, #7C316D 0%, #0B0B3C 55%, #1A2E73 100%)";
+
+const MainMinimalOverlay = () => (
+  <svg
+    className="pointer-events-none absolute inset-0 h-full w-full"
+    viewBox="0 0 600 500"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="xMaxYMax slice"
+    aria-hidden="true"
+  >
+    <path d="M600 500 L600 180 L420 0 L220 0 L440 220 L440 500 Z" fill="white" fillOpacity="0.05" />
+    <path d="M600 500 L600 300 L380 80 L180 80 L380 280 L380 500 Z" fill="white" fillOpacity="0.04" />
+    <path d="M600 500 L600 420 L510 330 L350 330 L510 500 Z" fill="white" fillOpacity="0.03" />
+  </svg>
+);
 
 /* ════════════════════════════════════════════════════════
    WHAT IS ROX? PAGE
@@ -165,22 +180,12 @@ export default function WhatIsROX() {
         style={{
           backgroundSize: "200% 200%",
           animation: "bgShift 16s ease-in-out infinite",
-          backgroundImage: heroGradient,
+          backgroundImage: mainMinimal,
           minHeight: "500px",
         }}
       >
-        {/* Geometric SVG overlay */}
-        <svg
-          className="pointer-events-none absolute inset-0 h-full w-full"
-          viewBox="0 0 1440 900"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="xMaxYMax slice"
-          aria-hidden="true"
-        >
-          <path d="M1440 900 L1440 324 L1008 0 L528 0 L1056 396 L1056 900 Z" fill="white" fillOpacity="0.03" />
-          <path d="M1440 900 L1440 540 L912 144 L432 144 L912 504 L912 900 Z" fill="white" fillOpacity="0.02" />
-        </svg>
+        {/* Geometric SVG overlay (main-minimal) */}
+        <MainMinimalOverlay />
 
         {/* Ambient glow orbs */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -191,106 +196,185 @@ export default function WhatIsROX() {
         </div>
 
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-12" style={{ paddingTop: "160px", paddingBottom: "120px" }}>
-          {/* Eyebrow */}
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            style={{
-              fontFamily: "var(--font-inter)",
-              fontWeight: 600,
-              fontSize: "11px",
-              color: "#00BBA5",
-              letterSpacing: "0.14em",
-              textTransform: "uppercase" as const,
-              marginBottom: "16px",
-            }}
-          >
-            Return on Experience (ROX)
-          </motion.p>
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between lg:gap-16">
 
-          {/* Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.18 }}
-            className="leading-[1.05]"
-            style={{
-              fontFamily: "var(--font-inter)",
-              fontWeight: 500,
-              fontSize: "clamp(34px, 5vw, 52px)",
-              color: "#FFFFFF",
-              letterSpacing: "-0.02em",
-              maxWidth: "860px",
-              marginBottom: "32px",
-            }}
-          >
-            ROI tells you what you spent.
-            <br />
-            ROX tells you whether it worked.
-          </motion.h1>
-
-          {/* Subhead */}
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.24 }}
-            style={{
-              fontFamily: "var(--font-inter)",
-              fontWeight: 400,
-              fontSize: "15px",
-              color: "rgba(255, 255, 255, 0.55)",
-              lineHeight: 1.5,
-              maxWidth: "660px",
-              marginBottom: "56px",
-            }}
-          >
-            Return on Experience (ROX)™ is our proprietary measurement standard for in-person engagement. It scores the quality of every interaction, not just the count.
-            <br /><br />
-            Momentify built ROX because badge scans were never enough.
-          </motion.p>
-
-          {/* CTA line + 5 vertical quick-links */}
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.28 }}
-            style={{
-              fontFamily: "var(--font-inter)",
-              fontWeight: 500,
-              fontSize: "14px",
-              color: "rgba(255, 255, 255, 0.45)",
-              marginBottom: "16px",
-            }}
-          >
-            Calculate your ROX score by vertical:
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.34 }}
-            className="flex flex-wrap items-center gap-3 sm:gap-3"
-          >
-            {verticals.map((v) => (
-              <a
-                key={v.name}
-                href={v.active ? v.href : "#verticals"}
-                className="inline-flex items-center gap-2 transition-all duration-200 hover:opacity-85 hover:-translate-y-0.5"
+            {/* Left column: text + buttons */}
+            <div className="flex-1 min-w-0">
+              {/* Eyebrow */}
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
                 style={{
                   fontFamily: "var(--font-inter)",
                   fontWeight: 600,
-                  fontSize: "13px",
-                  color: "#FFFFFF",
-                  padding: "10px 18px",
-                  borderRadius: "8px",
-                  background: v.color,
+                  fontSize: "11px",
+                  color: "#00BBA5",
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase" as const,
+                  marginBottom: "16px",
                 }}
               >
-                {v.name}
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="M12 5l7 7-7 7" /></svg>
-              </a>
-            ))}
-          </motion.div>
+                Return on Experience (ROX)
+              </motion.p>
+
+              {/* Headline */}
+              <motion.h1
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.18 }}
+                className="leading-[1.05]"
+                style={{
+                  fontFamily: "var(--font-inter)",
+                  fontWeight: 500,
+                  fontSize: "clamp(34px, 5vw, 52px)",
+                  color: "#FFFFFF",
+                  letterSpacing: "-0.02em",
+                  maxWidth: "860px",
+                  marginBottom: "32px",
+                }}
+              >
+                ROI tells you what you spent.
+                <br />
+                ROX tells you whether it worked.
+              </motion.h1>
+
+              {/* Subhead */}
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.24 }}
+                style={{
+                  fontFamily: "var(--font-inter)",
+                  fontWeight: 400,
+                  fontSize: "15px",
+                  color: "rgba(255, 255, 255, 0.55)",
+                  lineHeight: 1.5,
+                  maxWidth: "660px",
+                  marginBottom: "56px",
+                }}
+              >
+                Return on Experience (ROX)™ is our proprietary measurement standard for in-person engagement. It scores the quality of every interaction, not just the count.
+                <br /><br />
+                Momentify built ROX because badge scans were never enough.
+              </motion.p>
+
+              {/* CTA line + 5 vertical quick-links */}
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.28 }}
+                style={{
+                  fontFamily: "var(--font-inter)",
+                  fontWeight: 500,
+                  fontSize: "14px",
+                  color: "rgba(255, 255, 255, 0.45)",
+                  marginBottom: "16px",
+                }}
+              >
+                Calculate your ROX score by vertical:
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.34 }}
+                className="flex flex-col gap-3"
+              >
+                <div className="flex flex-wrap items-center gap-3">
+                  {verticals.slice(0, 3).map((v) => (
+                    <a
+                      key={v.name}
+                      href={v.active ? v.href : "#verticals"}
+                      className="inline-flex items-center gap-2 transition-all duration-200 hover:opacity-85 hover:-translate-y-0.5"
+                      style={{
+                        fontFamily: "var(--font-inter)",
+                        fontWeight: 600,
+                        fontSize: "13px",
+                        color: "#FFFFFF",
+                        padding: "10px 18px",
+                        borderRadius: "8px",
+                        background: v.color,
+                      }}
+                    >
+                      {v.name}
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="M12 5l7 7-7 7" /></svg>
+                    </a>
+                  ))}
+                </div>
+                <div className="flex flex-wrap items-center gap-3">
+                  {verticals.slice(3).map((v) => (
+                    <a
+                      key={v.name}
+                      href={v.active ? v.href : "#verticals"}
+                      className="inline-flex items-center gap-2 transition-all duration-200 hover:opacity-85 hover:-translate-y-0.5"
+                      style={{
+                        fontFamily: "var(--font-inter)",
+                        fontWeight: 600,
+                        fontSize: "13px",
+                        color: "#FFFFFF",
+                        padding: "10px 18px",
+                        borderRadius: "8px",
+                        background: v.color,
+                      }}
+                    >
+                      {v.name}
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="M12 5l7 7-7 7" /></svg>
+                    </a>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Right column: Video placeholder */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className="hidden lg:flex items-center justify-center cursor-pointer group mt-12 lg:mt-0"
+              style={{ width: "380px", flexShrink: 0 }}
+            >
+              <div
+                className="relative w-full"
+                style={{
+                  aspectRatio: "1 / 1",
+                  background: "rgba(6, 19, 65, 0.4)",
+                  border: "1px solid rgba(196, 165, 240, 0.15)",
+                  borderRadius: "16px",
+                  overflow: "hidden",
+                  backdropFilter: "blur(12px)",
+                }}
+              >
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
+                  <div
+                    className="flex items-center justify-center transition-transform duration-200 group-hover:scale-110"
+                    style={{
+                      width: "64px",
+                      height: "64px",
+                      borderRadius: "50%",
+                      background: "rgba(255, 255, 255, 0.12)",
+                      border: "1.5px solid rgba(255, 255, 255, 0.20)",
+                    }}
+                  >
+                    <svg width="24" height="28" viewBox="0 0 24 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M4 2L22 14L4 26V2Z" fill="white" fillOpacity="0.9" />
+                    </svg>
+                  </div>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-inter)",
+                      fontWeight: 500,
+                      fontSize: "13px",
+                      color: "rgba(255, 255, 255, 0.60)",
+                      letterSpacing: "0.02em",
+                    }}
+                  >
+                    What is ROX? Video
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+          </div>
         </div>
       </section>
 
@@ -522,22 +606,12 @@ export default function WhatIsROX() {
         style={{
           backgroundSize: "200% 200%",
           animation: "bgShift 16s ease-in-out infinite",
-          backgroundImage: depthGradient,
+          backgroundImage: mainMinimal,
           padding: "100px 0",
         }}
       >
-        {/* Geometric SVG overlay */}
-        <svg
-          className="pointer-events-none absolute inset-0 h-full w-full"
-          viewBox="0 0 1440 900"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="xMaxYMax slice"
-          aria-hidden="true"
-        >
-          <path d="M1440 900 L1440 324 L1008 0 L528 0 L1056 396 L1056 900 Z" fill="white" fillOpacity="0.02" />
-          <path d="M1440 900 L1440 540 L912 144 L432 144 L912 504 L912 900 Z" fill="white" fillOpacity="0.015" />
-        </svg>
+        {/* Geometric SVG overlay (main-minimal) */}
+        <MainMinimalOverlay />
 
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-12">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={headerVariants}>
@@ -709,22 +783,12 @@ export default function WhatIsROX() {
         style={{
           backgroundSize: "200% 200%",
           animation: "bgShift 16s ease-in-out infinite",
-          backgroundImage: depthGradient,
+          backgroundImage: mainMinimal,
           padding: "120px 0",
         }}
       >
-        {/* Geometric SVG overlay */}
-        <svg
-          className="pointer-events-none absolute inset-0 h-full w-full"
-          viewBox="0 0 1440 900"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="xMaxYMax slice"
-          aria-hidden="true"
-        >
-          <path d="M1440 900 L1440 324 L1008 0 L528 0 L1056 396 L1056 900 Z" fill="white" fillOpacity="0.02" />
-          <path d="M1440 900 L1440 540 L912 144 L432 144 L912 504 L912 900 Z" fill="white" fillOpacity="0.015" />
-        </svg>
+        {/* Geometric SVG overlay (main-minimal) */}
+        <MainMinimalOverlay />
 
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-12">
           <motion.div
