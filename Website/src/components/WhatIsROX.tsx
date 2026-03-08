@@ -529,7 +529,7 @@ export default function WhatIsROX() {
                 marginBottom: "48px",
               }}
             >
-              Most teams measure what they spent. Almost none measure what happened after they paid for it.
+              Most event and customer experience teams measure what they spent. Almost none measure what happened after they paid for it.
             </motion.h2>
           </motion.div>
 

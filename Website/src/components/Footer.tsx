@@ -18,7 +18,7 @@ const companyLinks = [
   { label: "What is ROX?", href: "/what-is-rox" },
   { label: "Case Studies", href: "/case-studies" },
   { label: "About", href: "#" },
-  { label: "Contact", href: "#" },
+  { label: "Contact", href: "/contact" },
   { label: "Schedule a Demo", href: "/demo" },
 ];
 
@@ -103,9 +103,9 @@ export default function Footer() {
         <div className="mt-12 pt-8 border-t border-black/[0.06] flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-charcoal/25 text-[12px]">&copy; 2026 Momentify. All rights reserved.</p>
           <div className="flex items-center gap-4 text-[12px]">
-            <a href="#" className="text-charcoal/25 hover:text-charcoal/50 transition-colors">Privacy Policy</a>
+            <a href="/privacy" className="text-charcoal/25 hover:text-charcoal/50 transition-colors">Privacy Policy</a>
             <span className="text-charcoal/15">|</span>
-            <a href="#" className="text-charcoal/25 hover:text-charcoal/50 transition-colors">Terms &amp; Conditions</a>
+            <a href="/terms" className="text-charcoal/25 hover:text-charcoal/50 transition-colors">Terms &amp; Conditions</a>
           </div>
         </div>
       </div>
