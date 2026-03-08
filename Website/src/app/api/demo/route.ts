@@ -12,11 +12,18 @@ interface DemoFormData {
   referral: string;
   sourcePage: string;
   message: string;
+  website?: string;
 }
 
 export async function POST(request: Request) {
   try {
     const data: DemoFormData = await request.json();
+
+    // Honeypot: if the hidden "website" field has a value, it's a bot
+    if (data.website) {
+      // Return success to avoid tipping off the bot, but don't submit
+      return NextResponse.json({ success: true });
+    }
 
     // Validate required fields
     if (!data.firstName || !data.lastName || !data.email || !data.company || !data.solution) {

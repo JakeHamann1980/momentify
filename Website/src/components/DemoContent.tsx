@@ -157,6 +157,7 @@ export default function DemoContent() {
     referral: "",
     sourcePage: sourceParam,
     message: "",
+    website: "",
   });
 
   useEffect(() => {
@@ -629,6 +630,20 @@ export default function DemoContent() {
 
                   {/* Hidden: source page from URL param */}
                   <input type="hidden" name="sourcePage" value={formData.sourcePage} />
+
+                  {/* Honeypot: hidden from real users, bots will fill it */}
+                  <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", top: "-9999px", opacity: 0, height: 0, overflow: "hidden", tabIndex: -1 } as React.CSSProperties}>
+                    <label htmlFor="website">Website</label>
+                    <input
+                      type="text"
+                      id="website"
+                      name="website"
+                      autoComplete="off"
+                      tabIndex={-1}
+                      value={formData.website}
+                      onChange={(e) => updateField("website", e.target.value)}
+                    />
+                  </div>
 
                   {/* Message */}
                   <div>

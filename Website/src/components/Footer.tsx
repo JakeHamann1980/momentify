@@ -3,7 +3,7 @@ const solutionLinks = [
   { label: "Technical Recruiting", href: "/solutions/technical-recruiting" },
   { label: "Field Sales Enablement", href: "/solutions/field-sales" },
   { label: "Facilities", href: "/solutions/facilities" },
-  { label: "Venues & Events", href: "#" },
+  { label: "Venues & Events", href: "/solutions/venues" },
 ];
 
 const platformLinks = [
