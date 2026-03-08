@@ -36,17 +36,26 @@ export const metadata: Metadata = {
     template: "%s | Momentify",
   },
   description:
-    "Stop paying for moments you cannot measure. Momentify captures engagement at trade shows, recruiting events, field sales, and more.",
+    "Stop paying for moments you cannot measure. Momentify captures and scores every in-person interaction with ROX (Return on Experience) across trade shows, recruiting events, field sales, facilities, and venues.",
   keywords: [
-    "event engagement platform",
-    "trade show lead capture",
+    "Momentify",
+    "Momentify platform",
     "ROX",
     "return on experience",
-    "field sales enablement",
-    "technical recruiting events",
+    "ROX score",
+    "ROX calculator",
+    "in-person engagement platform",
+    "event engagement software",
+    "trade show lead capture",
+    "event ROI measurement",
     "badge scanning alternative",
-    "event analytics",
-    "Momentify",
+    "event analytics platform",
+    "lead capture and scoring",
+    "event follow-up automation",
+    "field sales enablement software",
+    "recruiting event technology",
+    "facility visitor tracking",
+    "venue engagement analytics",
   ],
   authors: [{ name: "Momentify" }],
   creator: "Momentify",
@@ -65,7 +74,7 @@ export const metadata: Metadata = {
       "Stop paying for moments you cannot measure. Momentify captures engagement at trade shows, recruiting events, field sales, and more.",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og/og-default.png",
         width: 1200,
         height: 630,
         alt: "Momentify - Empower Every Moment",
@@ -77,7 +86,7 @@ export const metadata: Metadata = {
     title: "Momentify | Empower Every Moment",
     description:
       "Stop paying for moments you cannot measure. Momentify captures engagement at trade shows, recruiting events, field sales, and more.",
-    images: ["/og-image.png"],
+    images: ["/og/og-default.png"],
     creator: "@mymomentify",
   },
   robots: {
@@ -99,33 +108,79 @@ export const metadata: Metadata = {
 /* JSON-LD structured data for rich search results */
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "Momentify",
-  applicationCategory: "BusinessApplication",
-  description:
-    "Enterprise engagement platform that captures, scores, and converts in-person interactions at trade shows, recruiting events, field sales, and facilities.",
-  url: "https://momentifyapp.com",
-  logo: "https://momentifyapp.com/Momentify-Icon.svg",
-  sameAs: [
-    "https://linkedin.com/company/mymomentify",
-    "https://instagram.com/mymomentify",
-    "https://x.com/mymomentify",
-  ],
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "USD",
-    description: "Schedule a demo for personalized pricing",
-    url: "https://momentifyapp.com/demo",
-  },
-  publisher: {
-    "@type": "Organization",
-    name: "Momentify",
-    logo: {
-      "@type": "ImageObject",
-      url: "https://momentifyapp.com/Momentify-Icon.svg",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://momentifyapp.com/#organization",
+      name: "Momentify",
+      url: "https://momentifyapp.com",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://momentifyapp.com/Momentify-Icon.svg",
+      },
+      sameAs: [
+        "https://linkedin.com/company/mymomentify",
+        "https://instagram.com/mymomentify",
+        "https://x.com/mymomentify",
+      ],
+      description:
+        "Momentify is the operating system for in-person engagement. Capture, score, and convert every interaction at trade shows, recruiting events, field sales, and facilities with ROX (Return on Experience) scoring.",
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "sales",
+        url: "https://momentifyapp.com/demo",
+      },
+      knowsAbout: [
+        "Return on Experience (ROX)",
+        "ROX scoring methodology",
+        "trade show lead capture and analytics",
+        "event engagement measurement",
+        "in-person interaction scoring",
+        "technical recruiting event technology",
+        "field sales enablement",
+        "facility visitor engagement tracking",
+        "venue and event sponsor analytics",
+      ],
     },
-  },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://momentifyapp.com/#software",
+      name: "Momentify",
+      applicationCategory: "BusinessApplication",
+      applicationSubCategory: "Event Engagement Platform",
+      operatingSystem: "Web, iOS, Android",
+      description:
+        "Enterprise engagement platform that captures, scores, and converts in-person interactions using ROX (Return on Experience) scoring across trade shows, recruiting events, field sales, facilities, and venues.",
+      url: "https://momentifyapp.com",
+      featureList: [
+        "Lead capture with intent scoring",
+        "ROX (Return on Experience) calculator",
+        "Real-time engagement analytics",
+        "CRM and ATS integrations",
+        "Offline-capable mobile capture",
+        "Persona-based content delivery",
+        "Multi-event performance comparison",
+        "Automated follow-up workflows",
+        "Zone-level engagement tracking",
+        "Sponsor attribution reporting",
+      ],
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+        description: "Schedule a demo for personalized pricing",
+        url: "https://momentifyapp.com/demo",
+      },
+      publisher: { "@id": "https://momentifyapp.com/#organization" },
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://momentifyapp.com/#website",
+      name: "Momentify",
+      url: "https://momentifyapp.com",
+      publisher: { "@id": "https://momentifyapp.com/#organization" },
+    },
+  ],
 };
 
 export default function RootLayout({

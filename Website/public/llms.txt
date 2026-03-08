@@ -1,0 +1,92 @@
+# Momentify
+
+> The operating system for in-person engagement. Capture, score, and convert every interaction.
+
+Momentify is an enterprise engagement platform that helps teams at trade shows, recruiting events, field sales visits, facilities, and venues capture in-person interactions, score them with ROX (Return on Experience), and convert them into measurable pipeline.
+
+## What is ROX (Return on Experience)?
+
+ROX is a measurement standard for in-person engagement created by Momentify. It scores the quality of every interaction across four categories:
+
+1. Lead Capture Efficiency: The percentage of real visitors captured with enough context to act on.
+2. Engagement Quality: How deeply visitors interacted with content, demos, or conversations.
+3. Follow-Up Speed: How quickly your team responded after the event or interaction.
+4. Conversion Effectiveness: How many captured leads became meetings, hires, or closed deals.
+
+ROX scores range from 0 to 100 with four tiers:
+- Critical Gap (0-39): Events are costing more than they deliver.
+- Needs Optimization (40-69): Capturing some value but leaving results on the table.
+- High ROX (70-84): Above average performance with room to fine-tune.
+- Elite ROX (85-100): Highly optimized across every category.
+
+## How ROX Differs from ROI
+
+ROI measures financial return. ROX measures the quality and effectiveness of in-person interactions. Traditional ROI cannot tell you which conversations mattered, which leads had real intent, or how fast your team followed up. ROX scores these dimensions so teams can optimize the full lifecycle from conversation to conversion.
+
+## Solutions
+
+### Trade Shows and Exhibits
+Lead capture beyond badge scans. Intent scoring, prioritized follow-up, and multi-event performance comparison.
+Target personas: Event marketing managers, trade show directors, exhibit managers.
+URL: https://momentifyapp.com/solutions/trade-shows
+
+### Technical Recruiting
+Mobile candidate capture, role-based scoring, and cross-event consistency for career fairs, hiring events, and campus visits.
+Target personas: Recruiting coordinators, talent acquisition managers, campus recruiting leads.
+URL: https://momentifyapp.com/solutions/technical-recruiting
+
+### Field Sales Enablement
+Offline-capable interaction capture, content delivery at the point of conversation, and CRM sync before the drive back.
+Target personas: Field sales managers, VPs of sales, outside sales directors.
+URL: https://momentifyapp.com/solutions/field-sales
+
+### Facilities
+Zone-level visitor engagement tracking for showrooms, training centers, and demo floors. Connect facility investment to pipeline.
+Target personas: Facility managers, showroom directors, training center coordinators.
+URL: https://momentifyapp.com/solutions/facilities
+
+### Venues and Events
+Multi-zone attendee capture, sponsor attribution with exportable ROX reports, and post-event engagement clarity.
+Target personas: Venue managers, event directors, sponsorship managers.
+URL: https://momentifyapp.com/solutions/venues
+
+## Free ROX Calculators
+
+Score your team's performance in under 3 minutes. No login required.
+
+- Trade Shows ROX Calculator: https://momentifyapp.com/rox/trade-shows
+- Technical Recruiting ROX Calculator: https://momentifyapp.com/rox/recruiting
+- Field Sales ROX Calculator: https://momentifyapp.com/rox/field-sales
+- Facilities ROX Calculator: https://momentifyapp.com/rox/facilities
+- Venues and Events ROX Calculator: https://momentifyapp.com/rox/venues
+
+## Proof Points
+
+- DistribuTECH (trade shows): 92% lead growth over three consecutive years, 1,952 companies captured, 544 follow-ups generated.
+- Mustang CAT (technical recruiting): 600+ candidates captured across career fairs and school visits, 7 direct hires, 10/10 NPS from recruiting team.
+- Global Dealer Learning (recruiting): 5,400+ candidate opt-ins, routed to 40 dealers in real time, zero lost candidates.
+
+## Platform Components
+
+- Momentify Web: Event configuration and content management.
+- Momentify Explorer: Mobile-first engagement capture on iPad and tablet.
+- Momentify Intelligence: Analytics dashboard with ROX scoring and reporting.
+- Momentify Engage: Automated follow-up and content delivery workflows.
+
+## Integrations
+
+Connects with CRM systems (Salesforce, HubSpot), ATS platforms, data tools, productivity suites, and automation platforms.
+
+## Security
+
+AES-256 encryption at rest and in transit, role-based access controls, multi-factor authentication, SSO support, SOC 2 compliance, 99.9% uptime SLA, automated backups.
+
+## Links
+
+- Home: https://momentifyapp.com
+- What is ROX: https://momentifyapp.com/what-is-rox
+- How It Works: https://momentifyapp.com/platform/how-it-works
+- Integrations: https://momentifyapp.com/platform/integrations
+- Security: https://momentifyapp.com/platform/security
+- Case Studies: https://momentifyapp.com/case-studies
+- Schedule a Demo: https://momentifyapp.com/demo
