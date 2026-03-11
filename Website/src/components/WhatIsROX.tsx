@@ -399,8 +399,8 @@ export default function WhatIsROX() {
                     </a>
                   ))}
                 </div>
-                {/* Mobile: 2-col grid, 5th item spans full width */}
-                <div className="grid sm:hidden grid-cols-2 gap-2">
+                {/* Mobile: single-column, full-width buttons */}
+                <div className="grid sm:hidden grid-cols-1 gap-2">
                   {verticals.map((v, i) => (
                     <a
                       key={v.name}
