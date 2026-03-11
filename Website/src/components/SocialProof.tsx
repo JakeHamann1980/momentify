@@ -149,13 +149,13 @@ export default function SocialProof() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.15 }}
           variants={fadeUp}
-          className="mt-16 flex flex-col sm:flex-row items-start sm:items-center gap-8 sm:gap-0"
+          className="mt-16 stat-row"
         >
           {stats.map((stat, i) => (
             <div key={stat.number} className="flex items-center">
               {i > 0 && (
                 <div
-                  className="hidden sm:block"
+                  className="stat-divider"
                   style={{
                     width: "1px",
                     height: "48px",

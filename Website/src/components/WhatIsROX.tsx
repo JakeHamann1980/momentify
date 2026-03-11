@@ -262,7 +262,7 @@ export default function WhatIsROX() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.28 }}
-                className="flex lg:hidden flex-col items-center my-8 mx-auto w-full"
+                className="gauge-mobile-only flex-col items-center my-8 mx-auto w-full"
               >
                 <svg viewBox="0 0 400 270" className="w-full">
                   {(() => {
@@ -430,7 +430,7 @@ export default function WhatIsROX() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3 }}
-              className="hidden lg:flex items-center justify-center mt-12 lg:mt-0 overflow-visible"
+              className="gauge-desktop-only items-center justify-center mt-0 overflow-visible"
               style={{ width: "360px", flexShrink: 0, marginTop: "-50px" }}
             >
               <div className="flex flex-col items-center overflow-visible" style={{ width: "440px" }}>

@@ -149,3 +149,45 @@ p, h1, h2, h3, h4, h5, h6, span, li {
 /* Hide scrollbar for horizontal scroll containers */
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Responsive stat row — column on mobile, row on sm+ */
+.stat-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+@media (min-width: 640px) {
+  .stat-row {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0;
+  }
+}
+
+/* Stat divider — hidden on mobile, visible on sm+ */
+.stat-divider {
+  display: none;
+}
+@media (min-width: 640px) {
+  .stat-divider {
+    display: block;
+  }
+}
+
+/* Gauge visibility — mobile gauge visible below lg, desktop gauge visible at lg+ */
+.gauge-mobile-only {
+  display: flex;
+}
+@media (min-width: 1024px) {
+  .gauge-mobile-only {
+    display: none;
+  }
+}
+.gauge-desktop-only {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .gauge-desktop-only {
+    display: flex;
+  }
+}

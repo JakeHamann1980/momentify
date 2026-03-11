@@ -148,7 +148,7 @@ export default function Problem() {
               whileInView="visible"
               viewport={{ once: true, amount: 0.15 }}
               variants={headerVariants}
-              className="mt-10 flex flex-col sm:flex-row sm:items-start gap-6 sm:gap-0"
+              className="mt-10 stat-row"
             >
               {/* Stat 1 */}
               <motion.div variants={fadeUp} className="flex flex-col gap-3">
@@ -178,7 +178,7 @@ export default function Problem() {
 
               {/* Vertical divider (desktop only) */}
               <div
-                className="hidden sm:block flex-shrink-0 mx-12"
+                className="stat-divider flex-shrink-0 mx-12"
                 style={{
                   width: "1px",
                   height: "64px",
