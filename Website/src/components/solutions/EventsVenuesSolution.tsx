@@ -312,7 +312,7 @@ export default function EventsVenuesSolution() {
           </motion.p>
 
           {/* CTA pair */}
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.30 }} className="flex flex-col sm:flex-row items-start gap-4" style={{ marginTop: "48px" }}>
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.30 }} className="btn-row" style={{ marginTop: "48px" }}>
             <a href="/rox/venues" className="inline-flex items-center justify-center font-semibold text-[14px] py-3.5 px-7 rounded-lg transition-all duration-200 hover:opacity-90 hover:scale-[1.02]" style={{ fontFamily: "var(--font-inter)", color: "#FFFFFF", background: "linear-gradient(135deg, rgba(242, 94, 61, 0.5), rgba(249, 160, 142, 0.4))", border: "1.5px solid rgba(249, 160, 142, 0.35)" }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(249, 160, 142, 0.6)"; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(249, 160, 142, 0.35)"; }}>
               Calculate Your Events ROX
             </a>
@@ -556,7 +556,7 @@ export default function EventsVenuesSolution() {
               marginBottom: "64px",
             }}
           >
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+            <div className="btn-row-center">
               <div className="flex-1 min-w-0">
                 <p style={{ fontFamily: "var(--font-inter)", fontWeight: 400, fontSize: "16px", color: "#061341", lineHeight: 1.7, marginBottom: "8px" }}>
                   &ldquo;{testimonials[activeTestimonial].quote}&rdquo;
@@ -668,7 +668,7 @@ export default function EventsVenuesSolution() {
               <motion.p variants={fadeUp} className="max-w-[560px]" style={{ fontFamily: "var(--font-inter)", fontWeight: 300, fontSize: "15px", color: "rgba(255, 255, 255, 0.60)", lineHeight: 1.5, marginBottom: "40px" }}>
                 Discover how Momentify turns event chaos into clarity, with better tools, better data, and better outcomes.
               </motion.p>
-              <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-start gap-4">
+              <motion.div variants={fadeUp} className="btn-row">
                 <a href="/rox/venues" className="inline-flex items-center justify-center font-semibold text-[14px] py-3.5 px-7 rounded-lg transition-all duration-200 hover:opacity-90 hover:scale-[1.02]" style={{ fontFamily: "var(--font-inter)", color: "#FFFFFF", background: "linear-gradient(135deg, rgba(242, 94, 61, 0.5), rgba(249, 160, 142, 0.4))", border: "1.5px solid rgba(249, 160, 142, 0.35)" }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(249, 160, 142, 0.6)"; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(249, 160, 142, 0.35)"; }}>
                   Calculate Your Events ROX
                 </a>

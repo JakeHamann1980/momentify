@@ -276,7 +276,7 @@ export default function DemoContent() {
 
       {/* ── Split: Trust bullets + Form ────────────── */}
       <div className="px-6 lg:px-12">
-      <div className="relative flex flex-col lg:flex-row mx-auto max-w-7xl py-12 lg:py-20 gap-12 lg:gap-20">
+      <div className="relative hero-two-col mx-auto max-w-7xl py-12 gap-12">
         {/* ── Left: Trust bullets ─────────────────── */}
         <motion.div
           initial="hidden"

@@ -389,7 +389,7 @@ export default function GlobalDealerLearningCaseStudy() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.26 }}
-            className="flex flex-col sm:flex-row items-start sm:items-center gap-8 sm:gap-0"
+            className="stat-row"
           >
             {heroStats.map((stat, i) => (
               <div key={stat.number} className="flex items-center">

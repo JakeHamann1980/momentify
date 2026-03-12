@@ -737,7 +737,7 @@ export default function EventsVenuesROXCalculator() {
     return (
       <div style={{ maxWidth: "900px", margin: "0 auto", padding: "48px 0 64px" }}>
         {/* Results header */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+        <div className="btn-row-center justify-between mb-8">
           <div>
             <p style={{ fontFamily: "var(--font-inter)", fontWeight: 600, fontSize: "11px", color: "rgba(255,255,255,0.5)", letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "8px" }}>
               YOUR RESULTS

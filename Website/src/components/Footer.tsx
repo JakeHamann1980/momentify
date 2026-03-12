@@ -100,7 +100,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-black/[0.06] flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="mt-12 pt-8 border-t border-black/[0.06] btn-row-center justify-between">
           <p className="text-charcoal/25 text-[12px]">&copy; 2026 Momentify. All rights reserved.</p>
           <div className="flex items-center gap-4 text-[12px]">
             <a href="/privacy" className="text-charcoal/25 hover:text-charcoal/50 transition-colors">Privacy Policy</a>
