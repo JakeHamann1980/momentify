@@ -1534,29 +1534,31 @@
       text-overflow: ellipsis;
     }
     [data-theme="light"] .browser-url { background: rgba(6,19,65,0.05); }
-    .browser-body {
-      padding: 16px;
-      min-height: 160px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+    .browser-iframe-wrap {
+      position: relative;
+      width: 100%;
+      height: 180px;
+      overflow: hidden;
     }
-    .browser-line {
-      height: 4px;
-      background: var(--teal);
-      border-radius: 2px;
-      opacity: 0.12;
+    .browser-iframe-thumb {
+      width: 1366px;
+      height: 1024px;
+      border: none;
+      transform: scale(0.205);
+      transform-origin: top left;
+      pointer-events: none;
+      background: #fff;
     }
-    .browser-line:nth-child(1) { width: 45%; height: 8px; opacity: 0.18; }
-    .browser-line:nth-child(2) { width: 100%; }
-    .browser-line:nth-child(3) { width: 88%; }
-    .browser-line:nth-child(4) { width: 70%; }
-    .browser-line:nth-child(5) { width: 95%; }
-    .browser-line:nth-child(6) { width: 60%; }
-    .browser-line:nth-child(7) { width: 82%; }
-    .browser-line:nth-child(8) { width: 50%; }
-    [data-theme="light"] .browser-line { background: var(--text-3); opacity: 0.18; }
-    [data-theme="light"] .browser-line:nth-child(1) { opacity: 0.25; }
+    .browser-iframe-fs-wrap {
+      flex: 1;
+      overflow: hidden;
+    }
+    .browser-iframe-fs {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #fff;
+    }
     .browser-expand-btn {
       position: absolute;
       top: 36px;
@@ -1599,6 +1601,8 @@
       width: 90%;
       max-width: 1100px;
       height: calc(100vh - 120px);
+      display: flex;
+      flex-direction: column;
     }
     .browser-fullscreen .browser-toolbar {
       padding: 12px 16px;
@@ -1609,14 +1613,6 @@
       font-size: 13px;
       padding: 6px 14px;
     }
-    .browser-fullscreen .browser-body {
-      padding: 32px 40px;
-      min-height: 0;
-      flex: 1;
-      gap: 12px;
-    }
-    .browser-fullscreen .browser-line { height: 6px; }
-    .browser-fullscreen .browser-line:nth-child(1) { height: 12px; }
     .browser-fullscreen-close {
       position: absolute;
       top: 20px;
@@ -3078,7 +3074,7 @@
                       </div>
                       <div class="card-desc">Industry experts on the latest in event technology</div>
                     </div>
-                    <div class="result-card" data-card-type="learn" data-type="website" data-title="Momentify Platform" data-url="momentify.com/platform" data-desc="Explore the full Momentify platform overview including lead capture workflows, real-time analytics dashboards, and CRM integration capabilities." onclick="openCardOverlay(this)">
+                    <div class="result-card" data-card-type="learn" data-type="website" data-title="Momentify Platform" data-url="https://momentifyapp.com/platform/how-it-works" data-desc="Explore the full Momentify platform overview including lead capture workflows, real-time analytics dashboards, and CRM integration capabilities." onclick="openCardOverlay(this)">
                       <div class="card-top">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="card-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" /></svg>
                         <div class="card-title">Momentify Platform</div>
@@ -3086,7 +3082,7 @@
                       </div>
                       <div class="card-desc">Explore the full platform overview and capabilities</div>
                     </div>
-                    <div class="result-card" data-card-type="learn" data-type="website" data-title="Integration Hub" data-url="momentify.com/integrations" data-desc="Browse all available integrations including Salesforce, HubSpot, Marketo, and 50+ other CRM and marketing automation platforms." onclick="openCardOverlay(this)">
+                    <div class="result-card" data-card-type="learn" data-type="website" data-title="Integration Hub" data-url="https://momentifyapp.com/platform/integrations" data-desc="Browse all available integrations including Salesforce, HubSpot, Marketo, and 50+ other CRM and marketing automation platforms." onclick="openCardOverlay(this)">
                       <div class="card-top">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="card-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" /></svg>
                         <div class="card-title">Integration Hub</div>
@@ -3094,13 +3090,13 @@
                       </div>
                       <div class="card-desc">Browse 50+ CRM and marketing integrations</div>
                     </div>
-                    <div class="result-card" data-card-type="learn" data-type="website" data-title="ROI Calculator" data-url="momentify.com/roi-calculator" data-desc="Calculate your projected return on experience with our interactive ROI tool. Input your event metrics and see estimated cost savings and lead capture improvements." onclick="openCardOverlay(this)">
+                    <div class="result-card" data-card-type="learn" data-type="website" data-title="ROX Calculator" data-url="https://momentifyapp.com/what-is-rox" data-desc="Calculate your projected return on experience with our interactive ROX tool. Input your event metrics and see estimated cost savings and lead capture improvements." onclick="openCardOverlay(this)">
                       <div class="card-top">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="card-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" /></svg>
-                        <div class="card-title">ROI Calculator</div>
+                        <div class="card-title">ROX Calculator</div>
                       <button class="btn-save" onclick="event.stopPropagation();toggleSave(this)"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" /></svg></button>
                       </div>
-                      <div class="card-desc">Calculate your projected return on experience</div>
+                      <div class="card-desc">Understand and calculate your return on experience</div>
                     </div>
                   </div>
                 </div>
@@ -3579,6 +3575,7 @@
           desc: card.dataset.desc || '',
           type: card.dataset.cardType || 'outcome',
           mediaType: card.dataset.type || '',
+          url: card.dataset.url || '',
           iconHtml: iconEl ? iconEl.outerHTML : '',
           isSaved: card.querySelector('.btn-save.saved') !== null
         });
@@ -3609,14 +3606,14 @@
         document.getElementById('cl-body').innerHTML = sorted.length ? html : '<div class="summary-empty"><div class="summary-empty-text">No matching content found.</div></div>';
       } else if (clSortMode === 'type') {
         const types = {};
-        const typeLabels = { video: 'Videos', pdf: 'Documents', podcast: 'Podcasts', '': 'Other' };
+        const typeLabels = { video: 'Videos', pdf: 'Documents', podcast: 'Podcasts', website: 'Websites', '': 'Other' };
         filtered.forEach(c => {
           const t = c.mediaType || (c.type === 'learn' ? '' : c.type);
           if (!types[t]) types[t] = [];
           types[t].push(c);
         });
         let html = '';
-        ['video', 'pdf', 'podcast', 'outcome', 'solution', ''].forEach(t => {
+        ['video', 'pdf', 'podcast', 'website', 'outcome', 'solution', ''].forEach(t => {
           if (!types[t] || types[t].length === 0) return;
           const label = typeLabels[t] || t.charAt(0).toUpperCase() + t.slice(1) + 's';
           html += `<div class="summary-section"><div class="summary-section-label">${label}</div><div class="summary-grid">`;
@@ -3628,7 +3625,7 @@
     }
 
     function clCardHtml(c) {
-      return `<div class="result-card" data-title="${c.title}" data-desc="${c.desc}" data-card-type="${c.type}" data-type="${c.mediaType}" onclick="openCardOverlay(this)">
+      return `<div class="result-card" data-title="${c.title}" data-desc="${c.desc}" data-card-type="${c.type}" data-type="${c.mediaType}"${c.url ? ` data-url="${c.url}"` : ``} onclick="openCardOverlay(this)">
         <div class="card-top">
           ${c.iconHtml}
           <div class="card-title">${c.title}</div>
@@ -3830,23 +3827,17 @@
             <span class="video-time">24:12</span>
           </div>`;
         } else if (mediaType === 'website') {
-          const siteUrl = card.dataset.url || 'momentify.com';
+          const siteUrl = card.dataset.url || 'https://momentifyapp.com';
+          const displayUrl = siteUrl.replace('https://www.', '').replace('https://', '');
           heroHtml = `<div class="overlay-preview-browser">
             <div class="browser-thumbnail" onclick="openBrowserFullscreen('${siteUrl}')">
               <div class="browser-frame">
                 <div class="browser-toolbar">
                   <div class="browser-dots"><span></span><span></span><span></span></div>
-                  <div class="browser-url">${siteUrl}</div>
+                  <div class="browser-url">${displayUrl}</div>
                 </div>
-                <div class="browser-body">
-                  <div class="browser-line"></div>
-                  <div class="browser-line"></div>
-                  <div class="browser-line"></div>
-                  <div class="browser-line"></div>
-                  <div class="browser-line"></div>
-                  <div class="browser-line"></div>
-                  <div class="browser-line"></div>
-                  <div class="browser-line"></div>
+                <div class="browser-iframe-wrap">
+                  <iframe src="${siteUrl}" class="browser-iframe-thumb"></iframe>
                 </div>
               </div>
               <button class="browser-expand-btn" title="Expand">
@@ -3978,11 +3969,14 @@
 
     // ── Browser fullscreen ──
     function openBrowserFullscreen(url) {
-      document.getElementById('browser-fs-url').textContent = url;
+      const displayUrl = url.replace('https://www.', '').replace('https://', '');
+      document.getElementById('browser-fs-url').textContent = displayUrl;
+      document.getElementById('browser-fs-iframe').src = url;
       document.getElementById('browser-fullscreen').classList.add('open');
     }
     function closeBrowserFullscreen() {
       document.getElementById('browser-fullscreen').classList.remove('open');
+      document.getElementById('browser-fs-iframe').src = 'about:blank';
     }
 
     // ── Save system ──
@@ -4281,17 +4275,10 @@
     <div class="browser-frame">
       <div class="browser-toolbar">
         <div class="browser-dots"><span></span><span></span><span></span></div>
-        <div class="browser-url" id="browser-fs-url">momentify.com</div>
+        <div class="browser-url" id="browser-fs-url">momentifyapp.com</div>
       </div>
-      <div class="browser-body">
-        <div class="browser-line"></div>
-        <div class="browser-line"></div>
-        <div class="browser-line"></div>
-        <div class="browser-line"></div>
-        <div class="browser-line"></div>
-        <div class="browser-line"></div>
-        <div class="browser-line"></div>
-        <div class="browser-line"></div>
+      <div class="browser-iframe-fs-wrap">
+        <iframe id="browser-fs-iframe" src="about:blank" class="browser-iframe-fs"></iframe>
       </div>
     </div>
   </div>
