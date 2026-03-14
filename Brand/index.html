@@ -6,204 +6,14 @@
   <title>Momentify — Brand Kit</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Apply saved theme before CSS renders to avoid flash -->
+  <script>
+    (function(){var t=localStorage.getItem('mk-theme');if(t)document.documentElement.dataset.theme=t;})();
+  </script>
+  <link rel="stylesheet" href="brand-nav.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
-    /* ─── Reset & Base ──────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { overflow-x: clip; }
-
-    /* ─── Dark Theme (default) ──────────────────────────────────── */
-    :root {
-      /* Brand Colors — fixed */
-      --cyan:       #0CF4DF;
-      --teal:       #00BBA5;
-      --blue:       #254FE5;
-      --deep-blue:  #1F3395;
-      --cobalt:     #3257D9;
-      --navy:       #1A2E73;
-      --deep-navy:  #061341;
-      --midnight:   #0B0B3C;
-      --plum:       #7C316D;
-
-      /* Gradients */
-      --grad-primary: linear-gradient(135deg, #0CF4DF 0%, #1F3395 100%);
-      --grad-dark:    linear-gradient(135deg, #7C316D 0%, #0B0B3C 55%, #1A2E73 100%);
-      --grad-light:   linear-gradient(135deg, #FFFFFF 0%, #A8BDF8 100%);
-
-      /* UI tokens — dark */
-      --bg:           #07081F;
-      --bg-card:      #0E0F2E;
-      --bg-card-2:    #12143A;
-      --border:       rgba(12, 244, 223, 0.12);
-      --text:         #FFFFFF;
-      --text-muted:   rgba(255, 255, 255, 0.45);
-      --text-body:    rgba(255, 255, 255, 0.72);
-      --text-caption: rgba(255, 255, 255, 0.42);
-      --accent:       #0CF4DF;
-      --accent-sec:   rgba(12, 244, 223, 0.08);
-      --scale-header-bg: rgba(12, 244, 223, 0.04);
-      --nav-bg:       #07081F;
-      --nav-border:   rgba(12, 244, 223, 0.12);
-      --nav-link:     rgba(255, 255, 255, 0.45);
-      --footer-bg:    #0B0B3C;
-      --footer-border: rgba(12, 244, 223, 0.12);
-      --do-border:    rgba(12, 244, 223, 0.2);
-      --do-title:     #0CF4DF;
-      --do-marker:    #0CF4DF;
-      --list-text:    rgba(255, 255, 255, 0.7);
-      --toggle-bg:    rgba(255, 255, 255, 0.1);
-      --toggle-border: rgba(255, 255, 255, 0.18);
-      --toggle-text:  rgba(255, 255, 255, 0.8);
-
-      --radius: 16px;
-      --radius-sm: 8px;
-
-      /* transitions */
-      --t: 0.22s ease;
-    }
-
-    /* ─── Light Theme ───────────────────────────────────────────── */
-    html[data-theme="light"] {
-      --bg:           #F4F5FA;
-      --bg-card:      #FFFFFF;
-      --bg-card-2:    #ECEEF6;
-      --border:       rgba(31, 51, 149, 0.12);
-      --text:         #0B0B3C;
-      --text-muted:   rgba(11, 11, 60, 0.48);
-      --text-body:    rgba(11, 11, 60, 0.68);
-      --text-caption: rgba(11, 11, 60, 0.38);
-      --accent:       #1F3395;
-      --accent-sec:   rgba(31, 51, 149, 0.06);
-      --scale-header-bg: rgba(31, 51, 149, 0.04);
-      --nav-bg:       #FFFFFF;
-      --nav-border:   rgba(11, 11, 60, 0.1);
-      --nav-link:     rgba(11, 11, 60, 0.48);
-      --footer-bg:    #ECEEF6;
-      --footer-border: rgba(11, 11, 60, 0.1);
-      --do-border:    rgba(31, 51, 149, 0.18);
-      --do-title:     #1F3395;
-      --do-marker:    #1F3395;
-      --list-text:    rgba(11, 11, 60, 0.65);
-      --toggle-bg:    rgba(11, 11, 60, 0.06);
-      --toggle-border: rgba(11, 11, 60, 0.14);
-      --toggle-text:  rgba(11, 11, 60, 0.7);
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      transition: background var(--t), color var(--t);
-    }
-
-    /* ─── Layout ────────────────────────────────────────────────── */
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
-    section { padding: 80px 0; }
-    section + section { border-top: 1px solid var(--border); }
-
-    /* ─── Theme Toggle Button ────────────────────────────────────── */
-    .theme-toggle {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: var(--toggle-bg);
-      border: 1px solid var(--toggle-border);
-      border-radius: 100px;
-      padding: 7px 16px;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--toggle-text);
-      font-family: 'Inter', sans-serif;
-      transition: background 0.15s, border-color 0.15s, color 0.15s, opacity 0.15s;
-      white-space: nowrap;
-    }
-    .theme-toggle:hover { opacity: 0.75; }
-    .theme-toggle svg { width: 14px; height: 14px; flex-shrink: 0; }
-
-    /* icon visibility */
-    .icon-sun  { display: none; }
-    .icon-moon { display: block; }
-    html[data-theme="light"] .icon-sun  { display: block; }
-    html[data-theme="light"] .icon-moon { display: none; }
-
-    /* ─── Header ────────────────────────────────────────────────── */
-    header {
-      background: var(--grad-dark);
-      padding: 72px 0 64px;
-      position: relative;
-      overflow: hidden;
-    }
-    header::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(12,244,223,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .header-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-    .header-logo img { height: 48px; width: auto; }
-    .header-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 12px;
-    }
-    .header-meta { text-align: right; }
-    .header-meta .label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      margin-bottom: 4px;
-    }
-    .header-meta h1 {
-      font-size: 14px;
-      font-weight: 500;
-      color: rgba(255,255,255,0.55);
-    }
-    /* header toggle always appears on dark gradient bg */
-    header .theme-toggle {
-      background: rgba(255,255,255,0.1);
-      border-color: rgba(255,255,255,0.18);
-      color: rgba(255,255,255,0.8);
-    }
-    header .theme-toggle:hover { background: rgba(255,255,255,0.18); opacity: 1; }
-
-    /* ─── Section Headers ───────────────────────────────────────── */
-    .section-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 10px;
-      transition: color var(--t);
-    }
-    .section-title {
-      font-size: 32px;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 12px;
-    }
-    .section-desc {
-      font-size: 15px;
-      color: var(--text-muted);
-      max-width: 560px;
-      margin-bottom: 48px;
-      line-height: 1.7;
-    }
+    /* ─── Brand Guidelines — Page-Specific Styles ──────────────── */
 
     /* ─── Logo Section ──────────────────────────────────────────── */
     .logo-grid {
@@ -613,112 +423,6 @@
     .rule-content h4 { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
     .rule-content p { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
 
-    /* ─── Footer ────────────────────────────────────────────────── */
-    footer {
-      background: var(--footer-bg);
-      border-top: 1px solid var(--footer-border);
-      padding: 40px 0;
-      transition: background var(--t), border-color var(--t);
-    }
-    .footer-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-    .footer-inner .logo-dark,
-    .footer-inner .logo-light { height: 28px; width: auto; opacity: 0.6; }
-    .footer-text { font-size: 12px; color: var(--text-muted); }
-    .footer-version {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      opacity: 0.7;
-      transition: color var(--t);
-    }
-
-    /* ─── Side Nav ──────────────────────────────────────────────── */
-    .page-layout {
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 0;
-      /* default stretch: side-nav column fills full page height */
-    }
-    .side-nav {
-      background: var(--nav-bg);
-      border-right: 1px solid var(--nav-border);
-      transition: background var(--t), border-color var(--t);
-    }
-    /* Sticky inner container — keeps nav visible while bg extends full height */
-    .side-nav-inner {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      width: 220px;
-    }
-    /* Scrollable middle area for nav links */
-    .side-nav-scroll {
-      flex: 1;
-      overflow-y: auto;
-      padding: 40px 0 16px 40px;
-      scrollbar-width: none;
-    }
-    .side-nav-scroll::-webkit-scrollbar { display: none; }
-    .side-nav-logo { margin-bottom: 32px; }
-    .side-nav-logo img { height: 26px; }
-    .side-nav-title {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-    }
-    .side-nav ul { list-style: none; display: flex; flex-direction: column; gap: 2px; }
-    .side-nav a {
-      display: block;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--nav-link);
-      text-decoration: none;
-      padding: 7px 0;
-      transition: color 0.15s;
-      border-left: 2px solid transparent;
-      padding-left: 12px;
-      margin-left: -12px;
-    }
-    .side-nav a:hover,
-    .side-nav a.active { color: var(--accent); border-left-color: var(--accent); }
-
-    /* Toggle pinned at bottom — always visible regardless of nav scroll */
-    .nav-toggle-wrap {
-      flex-shrink: 0;
-      padding: 16px 40px 24px 40px;
-      border-top: 1px solid var(--nav-border);
-      transition: border-color var(--t);
-    }
-    .nav-toggle-wrap .theme-toggle {
-      width: 100%;
-      justify-content: center;
-      background: var(--toggle-bg);
-      border-color: var(--toggle-border);
-      color: var(--toggle-text);
-    }
-
-    .main-content { padding: 0; min-width: 0; }
-
-    /* ─── Logo show/hide by theme ───────────────────────────────── */
-    .logo-light { display: none; }
-    .logo-dark  { display: block; }
-    html[data-theme="light"] .logo-light { display: block; }
-    html[data-theme="light"] .logo-dark  { display: none; }
-
     /* ─── Solutions ─────────────────────────────────────────────── */
     .solution-card {
       border: 1px solid var(--border);
@@ -877,25 +581,6 @@
       color: var(--text-muted);
     }
 
-    /* ─── Toast ─────────────────────────────────────────────────── */
-    #copy-toast {
-      position: fixed;
-      bottom: 32px;
-      left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      background: var(--cyan);
-      color: var(--midnight);
-      font-size: 13px;
-      font-weight: 700;
-      padding: 10px 22px;
-      border-radius: 100px;
-      opacity: 0;
-      transition: opacity 0.2s, transform 0.2s;
-      pointer-events: none;
-      z-index: 999;
-    }
-    #copy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
     /* ─── Headlines Section ─────────────────────────────────────── */
     .ht-grid {
       display: grid;
@@ -1035,51 +720,10 @@
       height: 4px;
     }
 
-    /* ─── Mobile Nav ────────────────────────────────────────────── */
-    .mobile-nav {
-      display: none;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: var(--nav-bg);
-      border-bottom: 1px solid var(--nav-border);
-      overflow-x: auto;
-      scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
-      transition: background var(--t), border-color var(--t);
-    }
-    .mobile-nav::-webkit-scrollbar { display: none; }
-    .mobile-nav-inner {
-      display: flex;
-      gap: 6px;
-      padding: 10px 20px;
-      white-space: nowrap;
-    }
-    .mobile-nav a {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--nav-link);
-      text-decoration: none;
-      padding: 6px 14px;
-      border-radius: 100px;
-      border: 1px solid var(--border);
-      white-space: nowrap;
-      flex-shrink: 0;
-      transition: color 0.15s, background 0.15s, border-color 0.15s;
-    }
-    .mobile-nav a:hover,
-    .mobile-nav a.active { color: var(--accent); background: var(--accent-sec); border-color: var(--accent); }
-
     /* ─── Responsive ────────────────────────────────────────────── */
     @media (max-width: 640px) { .ht-pair { grid-template-columns: 1fr; } }
 
     @media (max-width: 900px) {
-      .mobile-nav { display: block; }
-      .page-layout { grid-template-columns: 1fr; }
-      .side-nav { display: none; }
-      header { padding: 44px 0 36px; }
-      .header-right { align-items: flex-start; }
-      .header-meta { text-align: left; }
       .logo-grid { grid-template-columns: 1fr; }
       .logo-mark-row { grid-template-columns: repeat(3, 1fr); }
       .icon-grid { grid-template-columns: repeat(3, 1fr); }
@@ -1087,14 +731,11 @@
       .gradient-grid { grid-template-columns: 1fr 1fr; }
       .type-showcase { grid-template-columns: 1fr; }
       .type-sample-h1 { font-size: clamp(28px, 6vw, 48px); }
-      .section-title { font-size: clamp(22px, 5vw, 32px); }
       .type-scale { overflow-x: auto; -webkit-overflow-scrolling: touch; }
       .type-scale-row { min-width: 580px; }
       .voice-grid { grid-template-columns: 1fr 1fr; }
       .rules-grid { grid-template-columns: 1fr; }
       .do-dont { grid-template-columns: 1fr; }
-      .container { padding: 0 24px; }
-      section { padding: 56px 0; }
       .ht-grid { grid-template-columns: 1fr 1fr; }
       .og-grid { grid-template-columns: 1fr 1fr; }
     }
@@ -1114,58 +755,21 @@
     }
 
     @media (max-width: 480px) {
-      .container { padding: 0 16px; }
-      section { padding: 40px 0; }
-      header { padding: 32px 0 28px; }
-      .header-logo img { height: 36px; }
       .logo-mark-row { grid-template-columns: 1fr 1fr; }
       .logo-card { padding: 28px 20px; }
       .swatch-block { width: 80px; height: 76px; }
       .swatch-info { width: 80px; }
       .swatch-name { font-size: 11px; }
       .swatch-hex { font-size: 10px; }
-      .section-title { font-size: clamp(20px, 6vw, 28px); }
       .solution-name { font-size: 18px; }
-      .mobile-nav-inner { padding: 8px 16px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <div class="container">
-      <div class="header-inner">
-        <div class="header-logo">
-          <!-- Header is always on dark gradient — always use reverse logo -->
-          <img src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" style="height:48px;" />
-        </div>
-        <div class="header-right">
-          <button class="theme-toggle" id="header-toggle" onclick="toggleTheme()">
-            <!-- Moon icon (shown in dark mode) -->
-            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/>
-            </svg>
-            <!-- Sun icon (shown in light mode) -->
-            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="5"/>
-              <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-              <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-            </svg>
-            <span id="header-toggle-label">Light Mode</span>
-          </button>
-          <div class="header-meta">
-            <div class="label">Brand Identity System</div>
-            <h1>Brand Kit v1.0 — February 2026</h1>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
+  <div id="brand-topnav-mount"></div>
 
-  <!-- Mobile Nav (hidden on desktop) -->
+  <!-- Mobile Section Nav (hidden on desktop) -->
   <nav class="mobile-nav" id="mobile-nav">
     <div class="mobile-nav-inner">
       <a href="#logo">Logo</a>
@@ -1177,7 +781,6 @@
       <a href="#solutions">Solutions</a>
       <a href="#headlines">Headlines</a>
       <a href="#og-images">OG Images</a>
-      <a href="backgrounds.html">Backgrounds</a>
     </div>
   </nav>
 
@@ -1188,11 +791,7 @@
     <nav class="side-nav">
       <div class="side-nav-inner">
         <div class="side-nav-scroll">
-          <div class="side-nav-logo">
-            <img class="logo-dark"  src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
-            <img class="logo-light" src="assets/Momentify-Logo.svg" alt="Momentify" />
-          </div>
-          <div class="side-nav-title">Brand Kit</div>
+          <div class="side-nav-title">Brand Guidelines</div>
           <ul>
             <li><a href="#logo">Logo</a></li>
             <li><a href="#colors">Color Palette</a></li>
@@ -1203,24 +802,8 @@
             <li><a href="#solutions">Solutions</a></li>
             <li><a href="#headlines">Headlines</a></li>
             <li><a href="#og-images">OG Images</a></li>
-            <li><a href="backgrounds.html">Backgrounds</a></li>
           </ul>
         </div>
-        <div class="nav-toggle-wrap">
-          <button class="theme-toggle" id="nav-toggle" onclick="toggleTheme()">
-          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/>
-          </svg>
-          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="5"/>
-            <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-          </svg>
-          <span id="nav-toggle-label">Light Mode</span>
-        </button>
-        </div><!-- /.nav-toggle-wrap -->
       </div><!-- /.side-nav-inner -->
     </nav>
 
@@ -2202,40 +1785,19 @@
   </div>
 
   <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div class="footer-inner">
-        <img class="logo-dark"  src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
-        <img class="logo-light" src="assets/Momentify-Logo.svg" alt="Momentify" />
-        <div class="footer-text">© 2026 Momentify. All brand assets are proprietary and confidential.</div>
-        <div class="footer-version">Brand Kit v1.0</div>
-      </div>
+  <footer class="brand-footer">
+    <div class="brand-footer-inner">
+      <img class="logo-dark"  src="assets/Momentify-Logo_Reverse.svg" alt="Momentify" />
+      <img class="logo-light" src="assets/Momentify-Logo.svg" alt="Momentify" />
+      <div class="brand-footer-text">&copy; 2026 Momentify. All brand assets are proprietary and confidential.</div>
+      <div class="brand-footer-version">Brand Kit v1.0</div>
     </div>
   </footer>
 
   <div id="copy-toast">Copied!</div>
 
+  <script src="brand-nav.js"></script>
   <script>
-    // ── Theme toggle ──────────────────────────────────────────────
-    const html = document.documentElement;
-
-    function setTheme(theme) {
-      html.setAttribute('data-theme', theme);
-      localStorage.setItem('mk-theme', theme);
-      const isDark = theme === 'dark';
-      document.getElementById('header-toggle-label').textContent = isDark ? 'Light Mode' : 'Dark Mode';
-      document.getElementById('nav-toggle-label').textContent    = isDark ? 'Light Mode' : 'Dark Mode';
-    }
-
-    function toggleTheme() {
-      const current = html.getAttribute('data-theme');
-      setTheme(current === 'dark' ? 'light' : 'dark');
-    }
-
-    // Restore saved preference
-    const saved = localStorage.getItem('mk-theme');
-    if (saved) setTheme(saved);
-
     // ── Copy CSS snippet ─────────────────────────────────────────
     const ht = (c1, c2, base) => `.headline {\n  font-family: 'Inter', sans-serif;\n  font-size: clamp(28px, 8vw, 72px);\n  font-weight: 500;\n  line-height: 1.0;\n  letter-spacing: -0.03em;\n}\n.headline-base { display: block; color: ${base}; }\n.headline-accent {\n  display: block;\n  background: linear-gradient(135deg, ${c1} 0%, ${c2} 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}`;
     const cssSnippets = {
