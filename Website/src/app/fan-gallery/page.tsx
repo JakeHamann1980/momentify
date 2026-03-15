@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import FanGalleryContent from "@/components/FanGalleryContent";
+import { DEFAULT_CONFIG } from "@/lib/fan-gallery/defaults";
 
 export const metadata: Metadata = {
   title: "Fan Photo Gallery | Momentify",
@@ -9,5 +10,5 @@ export const metadata: Metadata = {
 };
 
 export default function FanGalleryPage() {
-  return <FanGalleryContent />;
+  return <FanGalleryContent config={DEFAULT_CONFIG} />;
 }

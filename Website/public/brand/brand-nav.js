@@ -16,7 +16,7 @@
 
   var prototypes = [
     { label: 'Web Dashboard',       href: '/dashboard',                  external: true },
-    { label: 'Fan Gallery',         href: '/fan-gallery',                external: true },
+    { label: 'Fan Gallery',         href: '/fan-gallery/admin',          external: true },
     { label: 'Explorer Prototype',  href: 'explorer-prototype.html' },
     { label: 'Explorer (CAT)',      href: 'explorer-prototype_cat.html' },
     { label: 'Email Signature',     href: 'email-signature.html' },
