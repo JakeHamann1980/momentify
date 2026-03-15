@@ -417,7 +417,7 @@ export default function FanGalleryContent({ config = DEFAULT_CONFIG }: { config?
 
   /* Hidden file input */
   const fileInput = (
-    <input ref={fileRef} type="file" accept="image/*" capture="environment" onChange={handleFile} style={{ display: "none" }} />
+    <input ref={fileRef} type="file" accept="image/*" onChange={handleFile} style={{ display: "none" }} />
   );
 
   /* ═══════════════════════════════════════
