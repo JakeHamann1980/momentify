@@ -4982,6 +4982,7 @@
       document.querySelectorAll('.result.selected').forEach(r => r.classList.remove('selected'));
       document.querySelectorAll('.btn-save.saved').forEach(b => b.classList.remove('saved'));
       savedCount = 0;
+      savedCalcResult = null;
       document.getElementById('briefcase-count').textContent = '0';
       document.getElementById('briefcase-count').classList.remove('visible');
       // Reset learn filters
@@ -5737,6 +5738,7 @@
 
     // ── Save system ──
     let savedCount = 0;
+    let savedCalcResult = null;
     let registeredEmail = '';
     let registeredPhone = '';
 
@@ -5746,7 +5748,7 @@
     }
 
     function updateSavedCount() {
-      savedCount = document.querySelectorAll('.step-5 .btn-save.saved').length;
+      savedCount = document.querySelectorAll('.step-5 .btn-save.saved').length + (savedCalcResult ? 1 : 0);
       const badge = document.getElementById('briefcase-count');
       badge.textContent = savedCount;
       badge.classList.toggle('visible', savedCount > 0);
@@ -5774,7 +5776,8 @@
 
       // Enable/disable share buttons based on saved items
       const shareBtns = document.querySelectorAll('.summary-share-btn');
-      if (savedBtns.length === 0) {
+      const totalSaved = savedBtns.length + (savedCalcResult ? 1 : 0);
+      if (totalSaved === 0) {
         shareBtns.forEach(btn => { btn.disabled = true; btn.classList.add('disabled'); });
         body.innerHTML = `<div class="summary-empty">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" /></svg>
@@ -5783,7 +5786,7 @@
         subtitle.textContent = '0 items saved';
       } else {
         shareBtns.forEach(btn => { btn.disabled = false; btn.classList.remove('disabled'); });
-        subtitle.textContent = savedBtns.length + ' item' + (savedBtns.length > 1 ? 's' : '') + ' saved';
+        subtitle.textContent = totalSaved + ' item' + (totalSaved > 1 ? 's' : '') + ' saved';
         // Subtle glow animation to encourage sharing
         const shareGroup = document.querySelector('.summary-share-group');
         shareGroup.classList.remove('attention');
@@ -5797,24 +5800,42 @@
           if (categories[type]) categories[type].push(card);
         });
 
+        // Include calculator results in solutions category
+        if (savedCalcResult) {
+          categories.solution.unshift({ _isCalc: true, ...savedCalcResult });
+        }
+
         let html = '';
         const catLabels = { outcome: 'Outcomes', learn: 'Learn', solution: 'Solutions' };
         Object.keys(categories).forEach(cat => {
           if (categories[cat].length === 0) return;
           html += `<div class="summary-section"><div class="summary-section-label">${catLabels[cat]}</div><div class="summary-grid">`;
-          categories[cat].forEach(card => {
-            const title = card.dataset.title || '';
-            const desc = card.dataset.desc || '';
-            const cardId = card.dataset.cardId || title.replace(/\s+/g, '-').toLowerCase();
-            const iconSvg = card.querySelector('.card-icon').outerHTML;
-            html += `<div class="result-card summary-card" data-source-id="${cardId}" data-title="${title}" data-desc="${desc}" data-card-type="${card.dataset.cardType || ''}" data-type="${card.dataset.type || ''}" data-stat="${card.dataset.stat || ''}" onclick="openCardOverlay(this)">
-              <div class="card-top">
-                ${iconSvg}
-                <div class="card-title">${title}</div>
-                <button class="btn-save saved" onclick="event.stopPropagation();unsaveFromStep5(this.closest('.summary-card'))"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.547 0 0111.186 0z" /></svg></button>
-              </div>
-              <div class="card-desc">${desc.substring(0, 80)}${desc.length > 80 ? '...' : ''}</div>
-            </div>`;
+          categories[cat].forEach(item => {
+            if (item._isCalc) {
+              // Calculator result card
+              html += `<div class="result-card summary-card calc-summary-card" data-title="${item.title}" data-desc="${item.desc}" data-card-type="solution">
+                <div class="card-top">
+                  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><rect x="7" y="5" width="10" height="4" rx="1"/><circle cx="8.5" cy="12.5" r="0.8"/><circle cx="12" cy="12.5" r="0.8"/><circle cx="15.5" cy="12.5" r="0.8"/><circle cx="8.5" cy="15.5" r="0.8"/><circle cx="12" cy="15.5" r="0.8"/><circle cx="15.5" cy="15.5" r="0.8"/><circle cx="8.5" cy="18.5" r="0.8"/><circle cx="12" cy="18.5" r="0.8"/><circle cx="15.5" cy="18.5" r="0.8"/></svg></div>
+                  <div class="card-title">${item.title}</div>
+                  <button class="btn-save saved" onclick="event.stopPropagation();unsaveCalcFromStep5(this.closest('.summary-card'))"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.547 0 0111.186 0z" /></svg></button>
+                </div>
+                <div class="card-desc">${item.desc}</div>
+              </div>`;
+            } else {
+              const card = item;
+              const title = card.dataset.title || '';
+              const desc = card.dataset.desc || '';
+              const cardId = card.dataset.cardId || title.replace(/\s+/g, '-').toLowerCase();
+              const iconSvg = card.querySelector('.card-icon').outerHTML;
+              html += `<div class="result-card summary-card" data-source-id="${cardId}" data-title="${title}" data-desc="${desc}" data-card-type="${card.dataset.cardType || ''}" data-type="${card.dataset.type || ''}" data-stat="${card.dataset.stat || ''}" onclick="openCardOverlay(this)">
+                <div class="card-top">
+                  ${iconSvg}
+                  <div class="card-title">${title}</div>
+                  <button class="btn-save saved" onclick="event.stopPropagation();unsaveFromStep5(this.closest('.summary-card'))"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.547 0 0111.186 0z" /></svg></button>
+                </div>
+                <div class="card-desc">${desc.substring(0, 80)}${desc.length > 80 ? '...' : ''}</div>
+              </div>`;
+            }
           });
           html += '</div></div>';
         });
@@ -5848,6 +5869,29 @@
           if (sec.querySelectorAll('.summary-card').length === 0) sec.remove();
         });
         // Show empty state and disable share buttons if nothing left
+        if (remaining === 0) {
+          document.getElementById('summary-body').innerHTML = `<div class="summary-empty">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" /></svg>
+            <div class="summary-empty-text">No items saved yet. Tap the bookmark on any card to save it.</div>
+          </div>`;
+          document.querySelectorAll('.summary-share-btn').forEach(btn => { btn.disabled = true; btn.classList.add('disabled'); });
+        }
+      }, 200);
+    }
+
+    function unsaveCalcFromStep5(summaryCard) {
+      savedCalcResult = null;
+      summaryCard.style.transition = 'opacity 0.2s, transform 0.2s';
+      summaryCard.style.opacity = '0';
+      summaryCard.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        summaryCard.remove();
+        updateSavedCount();
+        const remaining = document.querySelectorAll('.summary-card').length;
+        document.getElementById('s6-subtitle').textContent = remaining + ' item' + (remaining !== 1 ? 's' : '') + ' saved';
+        document.querySelectorAll('.summary-section').forEach(sec => {
+          if (sec.querySelectorAll('.summary-card').length === 0) sec.remove();
+        });
         if (remaining === 0) {
           document.getElementById('summary-body').innerHTML = `<div class="summary-empty">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" /></svg>
@@ -6079,21 +6123,21 @@
 
     function saveCalcToBriefcase() {
       const total = document.getElementById('calc-total').textContent;
-      // Add to saved items
-      const calcCard = {
+      // Store calculator results globally
+      savedCalcResult = {
         type: 'solution',
         title: 'Tailgate Savings: ' + total + '/year',
-        desc: 'Calculator results - Spillage savings: ' + document.getElementById('calc-savings').textContent +
-              ', Payload revenue: ' + document.getElementById('calc-payload-increase').textContent +
-              ', Road savings: ' + document.getElementById('calc-road-savings').textContent
+        desc: 'Spillage savings: ' + document.getElementById('calc-savings').textContent +
+              ' | Payload revenue: ' + document.getElementById('calc-payload-increase').textContent +
+              ' | Road savings: ' + document.getElementById('calc-road-savings').textContent,
+        stat: total + '/yr'
       };
       // Flash briefcase button to confirm
       const btn = document.getElementById('btn-briefcase');
       btn.style.color = '#F16A21';
       setTimeout(() => { btn.style.color = ''; }, 1500);
       // Update count
-      const countEl = document.getElementById('briefcase-count');
-      countEl.textContent = parseInt(countEl.textContent) + 1;
+      updateSavedCount();
       closeCalculator();
     }
 
