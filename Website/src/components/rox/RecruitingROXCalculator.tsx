@@ -450,6 +450,11 @@ export default function RecruitingROXCalculator() {
   // Engagement quality toggle: false = Option B (default), true = Option A
   const [engagementOptionA, setEngagementOptionA] = useState(false);
 
+  // Event Investment fields (Category 0)
+  const [inv_boothCost, setInvBoothCost] = useState<FieldState>({ value: "", skipped: false });
+  const [inv_sqFootage, setInvSqFootage] = useState<FieldState>({ value: "", skipped: false });
+  const [inv_totalAttendees, setInvTotalAttendees] = useState<FieldState>({ value: "", skipped: false });
+
   // Category 1 fields
   const [c1_visitors, setC1Visitors] = useState<FieldState>({ value: "", skipped: false });
   const [c1_leads, setC1Leads] = useState<FieldState>({ value: "", skipped: false });
@@ -483,6 +488,22 @@ export default function RecruitingROXCalculator() {
     phone: "",
     eventsPerYear: "",
   });
+
+  // Auto-populate Category 1 attendees from Event Investment
+  const lastAutoC1Visitors = useRef("");
+  useEffect(() => {
+    const attendees = parseFloat(inv_totalAttendees.value);
+    const sqft = parseFloat(inv_sqFootage.value);
+    if (!attendees || attendees <= 0 || inv_totalAttendees.skipped) return;
+    const estimated = sqft && sqft > 0 && !inv_sqFootage.skipped
+      ? Math.round(attendees * (sqft / 10000))
+      : Math.round(attendees);
+    const estStr = String(estimated);
+    if (!c1_visitors.skipped && (c1_visitors.value === "" || c1_visitors.value === lastAutoC1Visitors.current)) {
+      setC1Visitors((prev) => ({ ...prev, value: estStr }));
+      lastAutoC1Visitors.current = estStr;
+    }
+  }, [inv_totalAttendees.value, inv_totalAttendees.skipped, inv_sqFootage.value, inv_sqFootage.skipped, c1_visitors.value, c1_visitors.skipped]);
 
   // Auto-populate total leads from Category 1 to Category 2B and 4
   const lastAutoC2b = useRef("");
@@ -560,6 +581,14 @@ export default function RecruitingROXCalculator() {
     const fields = [c1_visitors, c1_leads, c2a_avgTime, c2a_targetTime, c2b_meaningful, c2b_totalLeads, c3_days, c4_conversions, c4_totalLeads];
     return fields.filter((f) => f.skipped).length;
   }, [c1_visitors, c1_leads, c2a_avgTime, c2a_targetTime, c2b_meaningful, c2b_totalLeads, c3_days, c4_conversions, c4_totalLeads]);
+
+  // Per-lead cost calculation
+  const perLeadCost = useMemo(() => {
+    const cost = parseFloat(inv_boothCost.value);
+    const leads = parseFloat(c1_leads.value);
+    if (!cost || !leads || cost <= 0 || leads <= 0 || inv_boothCost.skipped || c1_leads.skipped) return null;
+    return Math.round(cost / leads);
+  }, [inv_boothCost.value, inv_boothCost.skipped, c1_leads.value, c1_leads.skipped]);
 
   // Bonus calculation
   const bonusValue = useMemo(() => {
@@ -726,6 +755,7 @@ export default function RecruitingROXCalculator() {
       const body = encodeURIComponent(
         `My Technical Recruiting ROX Score: ${displayScore} / 100\nTier: ${tierName}\n\n` +
         categoryNames.map((name, i) => `${name}: ${categoryScores[i] !== null ? Math.round(categoryScores[i]!) : "--"}`).join("\n") +
+        (perLeadCost !== null ? `\n\nCost Per Candidate: $${perLeadCost.toLocaleString()}` : "") +
         (bonusValue ? `\n\nPotential Value Generated: $${bonusValue.toLocaleString()}` : "") +
         `\n\nCalculate your own ROX score: ${typeof window !== "undefined" ? window.location.href : ""}`
       );
@@ -873,6 +903,32 @@ export default function RecruitingROXCalculator() {
             );
           })}
         </div>
+
+        {/* Per-Candidate Cost callout (conditional) */}
+        {perLeadCost !== null && (
+          <div
+            className="mb-8"
+            style={{
+              background: "rgba(255,255,255,0.9)",
+              border: "1px solid rgba(26,138,118,0.15)",
+              borderRadius: "16px",
+              padding: "24px 28px",
+            }}
+          >
+            <p style={{ fontFamily: "var(--font-inter)", fontWeight: 600, fontSize: "10px", color: "#1A8A76", letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "12px" }}>
+              COST PER CANDIDATE
+            </p>
+            <p style={{ fontFamily: "var(--font-inter)", fontWeight: 600, fontSize: "56px", color: "#1A8A76", lineHeight: 1, marginBottom: "8px" }}>
+              ${perLeadCost.toLocaleString()}
+            </p>
+            <p style={{ fontFamily: "var(--font-inter)", fontWeight: 400, fontSize: "14px", color: "rgba(6,19,65,0.5)", marginBottom: "16px" }}>
+              Based on ${parseFloat(inv_boothCost.value).toLocaleString()} total event cost and {c1_leads.value} candidates captured.
+            </p>
+            <p style={{ fontFamily: "var(--font-inter)", fontWeight: 400, fontSize: "14px", color: "rgba(6,19,65,0.55)", lineHeight: 1.7 }}>
+              This is what each captured candidate costs before qualification. Pair this with your ROX score to understand whether your recruiting event investment is translating into real pipeline or just foot traffic.
+            </p>
+          </div>
+        )}
 
         {/* Potential Value callout (conditional) */}
         {bonusValue && (
@@ -1232,6 +1288,9 @@ export default function RecruitingROXCalculator() {
                       <button
                         type="button"
                         onClick={() => {
+                          setInvBoothCost({ value: "", skipped: false });
+                          setInvSqFootage({ value: "", skipped: false });
+                          setInvTotalAttendees({ value: "", skipped: false });
                           setC1Visitors({ value: "", skipped: false });
                           setC1Leads({ value: "", skipped: false });
                           setC2aAvgTime({ value: "", skipped: false });
@@ -1244,6 +1303,7 @@ export default function RecruitingROXCalculator() {
                           setBonusQualifiedLeads({ value: "", skipped: false });
                           setBonusValuePerLead({ value: "", skipped: false });
                           setEngagementOptionA(false);
+                          lastAutoC1Visitors.current = "";
                           lastAutoC2b.current = "";
                           lastAutoC4.current = "";
                         }}
@@ -1257,6 +1317,32 @@ export default function RecruitingROXCalculator() {
 
                     {/* Calculator inputs */}
                     <div className="space-y-6">
+                    {/* Event Investment (Category 0) */}
+                    <CategoryCard num="00" name="Event Investment" weight="Sets context for your ROX calculation" score={null}>
+                      {renderField("Total Event Cost", "Your all-in cost including booth/table space, build-out, travel, staffing, swag, and sponsorships.", inv_boothCost, setInvBoothCost, "e.g. 25000", "$")}
+                      {renderField("Booth/Table Square Footage", "Total square footage of your booth or table space. Used with event attendance to estimate potential traffic.", inv_sqFootage, setInvSqFootage, "e.g. 100")}
+                      {renderField("Total Event Attendees", "Total registered or expected attendees for the event. Used to estimate traffic potential for your space.", inv_totalAttendees, setInvTotalAttendees, "e.g. 2000")}
+                      {/* Estimated traffic indicator */}
+                      {(() => {
+                        const attendees = parseFloat(inv_totalAttendees.value);
+                        const sqft = parseFloat(inv_sqFootage.value);
+                        if (!attendees || attendees <= 0 || inv_totalAttendees.skipped) return null;
+                        const estimated = sqft && sqft > 0 && !inv_sqFootage.skipped
+                          ? Math.round(attendees * (sqft / 10000))
+                          : null;
+                        return estimated ? (
+                          <div className="mt-2" style={{ background: "rgba(26,138,118,0.06)", borderRadius: "8px", padding: "10px 14px" }}>
+                            <p style={{ fontFamily: "var(--font-inter)", fontWeight: 500, fontSize: "13px", color: "#1A8A76" }}>
+                              Estimated Booth Traffic: ~{estimated.toLocaleString()} visitors
+                            </p>
+                            <p style={{ fontFamily: "var(--font-inter)", fontWeight: 400, fontSize: "11px", color: "rgba(6,19,65,0.35)", marginTop: "2px" }}>
+                              Based on {sqft.toLocaleString()} sq ft space at a {attendees.toLocaleString()}-attendee event
+                            </p>
+                          </div>
+                        ) : null;
+                      })()}
+                    </CategoryCard>
+
                     {/* Category 1 */}
                     <CategoryCard num="01" name="Candidate Capture Rate" weight="Worth 25% of your total score" score={categoryScores[0]}>
                       {renderField("Total Event Attendees", "Estimated total number of candidates who visited your booth or attended your recruiting session. Use event organizer attendance counts if available.", c1_visitors, setC1Visitors, "e.g. 300")}

@@ -450,6 +450,11 @@ export default function TradeShowsROXCalculator() {
   // Engagement quality toggle: false = Option B (default), true = Option A
   const [engagementOptionA, setEngagementOptionA] = useState(false);
 
+  // Event Investment fields (Category 0)
+  const [inv_boothCost, setInvBoothCost] = useState<FieldState>({ value: "", skipped: false });
+  const [inv_sqFootage, setInvSqFootage] = useState<FieldState>({ value: "", skipped: false });
+  const [inv_totalAttendees, setInvTotalAttendees] = useState<FieldState>({ value: "", skipped: false });
+
   // Category 1 fields
   const [c1_visitors, setC1Visitors] = useState<FieldState>({ value: "", skipped: false });
   const [c1_leads, setC1Leads] = useState<FieldState>({ value: "", skipped: false });
@@ -483,6 +488,23 @@ export default function TradeShowsROXCalculator() {
     phone: "",
     showsPerYear: "",
   });
+
+  // Auto-populate Category 1 visitors from Event Investment
+  const lastAutoC1Visitors = useRef("");
+  useEffect(() => {
+    const attendees = parseFloat(inv_totalAttendees.value);
+    const sqft = parseFloat(inv_sqFootage.value);
+    if (!attendees || attendees <= 0 || inv_totalAttendees.skipped) return;
+    // Estimate booth traffic: if sq footage provided, scale by booth size relative to 10,000 sqft venue floor
+    const estimated = sqft && sqft > 0 && !inv_sqFootage.skipped
+      ? Math.round(attendees * (sqft / 10000))
+      : Math.round(attendees);
+    const estStr = String(estimated);
+    if (!c1_visitors.skipped && (c1_visitors.value === "" || c1_visitors.value === lastAutoC1Visitors.current)) {
+      setC1Visitors((prev) => ({ ...prev, value: estStr }));
+      lastAutoC1Visitors.current = estStr;
+    }
+  }, [inv_totalAttendees.value, inv_totalAttendees.skipped, inv_sqFootage.value, inv_sqFootage.skipped, c1_visitors.value, c1_visitors.skipped]);
 
   // Auto-populate total leads from Category 1 to Category 2B and 4
   const lastAutoC2b = useRef("");
@@ -560,6 +582,14 @@ export default function TradeShowsROXCalculator() {
     const fields = [c1_visitors, c1_leads, c2a_avgTime, c2a_targetTime, c2b_meaningful, c2b_totalLeads, c3_days, c4_conversions, c4_totalLeads];
     return fields.filter((f) => f.skipped).length;
   }, [c1_visitors, c1_leads, c2a_avgTime, c2a_targetTime, c2b_meaningful, c2b_totalLeads, c3_days, c4_conversions, c4_totalLeads]);
+
+  // Per-lead cost calculation
+  const perLeadCost = useMemo(() => {
+    const cost = parseFloat(inv_boothCost.value);
+    const leads = parseFloat(c1_leads.value);
+    if (!cost || !leads || cost <= 0 || leads <= 0 || inv_boothCost.skipped || c1_leads.skipped) return null;
+    return Math.round(cost / leads);
+  }, [inv_boothCost.value, inv_boothCost.skipped, c1_leads.value, c1_leads.skipped]);
 
   // Bonus calculation
   const bonusValue = useMemo(() => {
@@ -728,6 +758,7 @@ export default function TradeShowsROXCalculator() {
       const body = encodeURIComponent(
         `My Trade Show ROX Score: ${displayScore} / 100\nTier: ${tierName}\n\n` +
         categoryNames.map((name, i) => `${name}: ${categoryScores[i] !== null ? Math.round(categoryScores[i]!) : "--"}`).join("\n") +
+        (perLeadCost !== null ? `\n\nCost Per Lead: $${perLeadCost.toLocaleString()}` : "") +
         (bonusValue ? `\n\nPotential Value Generated: $${bonusValue.toLocaleString()}` : "") +
         `\n\nCalculate your own ROX score: ${typeof window !== "undefined" ? window.location.href : ""}`
       );
@@ -875,6 +906,32 @@ export default function TradeShowsROXCalculator() {
             );
           })}
         </div>
+
+        {/* Per-Lead Cost callout (conditional) */}
+        {perLeadCost !== null && (
+          <div
+            className="mb-8"
+            style={{
+              background: "rgba(255,255,255,0.9)",
+              border: "1px solid rgba(107,33,212,0.15)",
+              borderRadius: "16px",
+              padding: "24px 28px",
+            }}
+          >
+            <p style={{ fontFamily: "var(--font-inter)", fontWeight: 600, fontSize: "10px", color: "#6B21D4", letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "12px" }}>
+              COST PER LEAD
+            </p>
+            <p style={{ fontFamily: "var(--font-inter)", fontWeight: 600, fontSize: "56px", color: "#6B21D4", lineHeight: 1, marginBottom: "8px" }}>
+              ${perLeadCost.toLocaleString()}
+            </p>
+            <p style={{ fontFamily: "var(--font-inter)", fontWeight: 400, fontSize: "14px", color: "rgba(6,19,65,0.5)", marginBottom: "16px" }}>
+              Based on ${parseFloat(inv_boothCost.value).toLocaleString()} total booth cost and {c1_leads.value} leads captured.
+            </p>
+            <p style={{ fontFamily: "var(--font-inter)", fontWeight: 400, fontSize: "14px", color: "rgba(6,19,65,0.55)", lineHeight: 1.7 }}>
+              This is what each captured lead costs before qualification. Pair this with your ROX score to understand whether your booth investment is translating into real pipeline or just traffic.
+            </p>
+          </div>
+        )}
 
         {/* Potential Value callout (conditional) */}
         {bonusValue && (
@@ -1246,6 +1303,9 @@ export default function TradeShowsROXCalculator() {
                       <button
                         type="button"
                         onClick={() => {
+                          setInvBoothCost({ value: "", skipped: false });
+                          setInvSqFootage({ value: "", skipped: false });
+                          setInvTotalAttendees({ value: "", skipped: false });
                           setC1Visitors({ value: "", skipped: false });
                           setC1Leads({ value: "", skipped: false });
                           setC2aAvgTime({ value: "", skipped: false });
@@ -1258,6 +1318,7 @@ export default function TradeShowsROXCalculator() {
                           setBonusQualifiedLeads({ value: "", skipped: false });
                           setBonusValuePerLead({ value: "", skipped: false });
                           setEngagementOptionA(false);
+                          lastAutoC1Visitors.current = "";
                           lastAutoC2b.current = "";
                           lastAutoC4.current = "";
                         }}
@@ -1271,6 +1332,32 @@ export default function TradeShowsROXCalculator() {
 
                     {/* Calculator inputs */}
                     <div className="space-y-6">
+                    {/* Event Investment (Category 0) */}
+                    <CategoryCard num="00" name="Event Investment" weight="Sets context for your ROX calculation" score={null}>
+                      {renderField("Total Booth Cost", "Your all-in cost including booth space, drayage, build-out, travel, staffing, and sponsorships.", inv_boothCost, setInvBoothCost, "e.g. 50000", "$")}
+                      {renderField("Booth Square Footage", "Total square footage of your booth space. Used with event attendance to estimate potential traffic.", inv_sqFootage, setInvSqFootage, "e.g. 400")}
+                      {renderField("Total Event Attendees", "Total registered or expected attendees for the event. Used to estimate traffic potential for your booth size.", inv_totalAttendees, setInvTotalAttendees, "e.g. 5000")}
+                      {/* Estimated traffic indicator */}
+                      {(() => {
+                        const attendees = parseFloat(inv_totalAttendees.value);
+                        const sqft = parseFloat(inv_sqFootage.value);
+                        if (!attendees || attendees <= 0 || inv_totalAttendees.skipped) return null;
+                        const estimated = sqft && sqft > 0 && !inv_sqFootage.skipped
+                          ? Math.round(attendees * (sqft / 10000))
+                          : null;
+                        return estimated ? (
+                          <div className="mt-2" style={{ background: "rgba(107,33,212,0.04)", borderRadius: "8px", padding: "10px 14px" }}>
+                            <p style={{ fontFamily: "var(--font-inter)", fontWeight: 500, fontSize: "13px", color: "#6B21D4" }}>
+                              Estimated Booth Traffic: ~{estimated.toLocaleString()} visitors
+                            </p>
+                            <p style={{ fontFamily: "var(--font-inter)", fontWeight: 400, fontSize: "11px", color: "rgba(6,19,65,0.35)", marginTop: "2px" }}>
+                              Based on {sqft.toLocaleString()} sq ft booth at a {attendees.toLocaleString()}-attendee event
+                            </p>
+                          </div>
+                        ) : null;
+                      })()}
+                    </CategoryCard>
+
                     {/* Category 1 */}
                     <CategoryCard num="01" name="Lead Capture Efficiency" weight="Worth 25% of your total score" score={categoryScores[0]}>
                       {renderField("Total Booth Visitors", "Estimated total number of people who stopped at or walked through your booth. Use event organizer traffic count if available.", c1_visitors, setC1Visitors, "e.g. 500")}
