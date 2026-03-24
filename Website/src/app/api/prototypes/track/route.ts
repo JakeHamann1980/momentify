@@ -1,24 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { readFile, writeFile } from "fs/promises";
-import { join } from "path";
+import { kv } from "@vercel/kv";
 
-const DATA_PATH = join("/tmp", "prototype-views.json");
+const KV_KEY = "prototype-views";
 
+interface ViewEntry {
+  views: number;
+  lastViewed: string;
+}
 interface ViewData {
-  [slug: string]: { views: number; lastViewed: string };
-}
-
-async function readData(): Promise<ViewData> {
-  try {
-    const raw = await readFile(DATA_PATH, "utf-8");
-    return JSON.parse(raw);
-  } catch {
-    return {};
-  }
-}
-
-async function writeData(data: ViewData) {
-  await writeFile(DATA_PATH, JSON.stringify(data, null, 2));
+  [slug: string]: ViewEntry;
 }
 
 export async function POST(req: NextRequest) {
@@ -27,18 +17,27 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Missing slug" }, { status: 400 });
   }
 
-  const data = await readData();
-  if (!data[slug]) {
-    data[slug] = { views: 0, lastViewed: "" };
+  try {
+    const data: ViewData = (await kv.get(KV_KEY)) || {};
+    if (!data[slug]) {
+      data[slug] = { views: 0, lastViewed: "" };
+    }
+    data[slug].views += 1;
+    data[slug].lastViewed = new Date().toISOString();
+    await kv.set(KV_KEY, data);
+    return NextResponse.json({ slug, views: data[slug].views });
+  } catch (e) {
+    // Fallback for local dev without KV
+    console.error("KV error:", e);
+    return NextResponse.json({ slug, views: 1 });
   }
-  data[slug].views += 1;
-  data[slug].lastViewed = new Date().toISOString();
-  await writeData(data);
-
-  return NextResponse.json({ slug, views: data[slug].views });
 }
 
 export async function GET() {
-  const data = await readData();
-  return NextResponse.json(data);
+  try {
+    const data: ViewData = (await kv.get(KV_KEY)) || {};
+    return NextResponse.json(data);
+  } catch {
+    return NextResponse.json({});
+  }
 }

@@ -7,6 +7,14 @@ interface ViewData {
   [slug: string]: { views: number; lastViewed: string };
 }
 
+function trackView(slug: string) {
+  fetch("/api/prototypes/track", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ slug }),
+  }).catch(() => {});
+}
+
 function formatDate(iso: string) {
   if (!iso) return "--";
   return new Date(iso).toLocaleDateString("en-US", {
@@ -26,7 +34,10 @@ function InstanceCard({
 }) {
   return (
     <a
-      href={`/prototypes/explorer/${instance.slug}`}
+      href={instance.prototypeFile}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={() => trackView(instance.slug)}
       style={{ textDecoration: "none", display: "flex", height: "100%" }}
     >
       <div
@@ -173,8 +184,7 @@ function InstanceCard({
                 e.preventDefault();
                 e.stopPropagation();
                 const base = window.location.origin;
-                const pw = instance.password ? `?pw=${instance.password}` : "";
-                const url = `${base}/prototypes/explorer/${instance.slug}${pw}`;
+                const url = `${base}${instance.prototypeFile}`;
                 navigator.clipboard.writeText(url);
                 const btn = e.currentTarget;
                 const orig = btn.textContent;
