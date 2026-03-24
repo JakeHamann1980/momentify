@@ -26,9 +26,7 @@ function InstanceCard({
 }) {
   return (
     <a
-      href={instance.prototypeFile}
-      target="_blank"
-      rel="noopener noreferrer"
+      href={`/prototypes/explorer/${instance.slug}`}
       style={{ textDecoration: "none", display: "flex", height: "100%" }}
     >
       <div
