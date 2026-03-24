@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { kv } from "@vercel/kv";
+import { put, head } from "@vercel/blob";
 
-const KV_KEY = "prototype-views";
+const BLOB_PATH = "prototype-views.json";
 
 interface ViewEntry {
   views: number;
@@ -11,6 +11,24 @@ interface ViewData {
   [slug: string]: ViewEntry;
 }
 
+async function readData(): Promise<ViewData> {
+  try {
+    const blob = await head(BLOB_PATH);
+    if (blob?.url) {
+      const res = await fetch(blob.url);
+      return await res.json();
+    }
+  } catch {}
+  return {};
+}
+
+async function writeData(data: ViewData) {
+  await put(BLOB_PATH, JSON.stringify(data), {
+    access: "public",
+    addRandomSuffix: false,
+  });
+}
+
 export async function POST(req: NextRequest) {
   const { slug } = await req.json();
   if (!slug || typeof slug !== "string") {
@@ -18,24 +36,23 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const data: ViewData = (await kv.get(KV_KEY)) || {};
+    const data = await readData();
     if (!data[slug]) {
       data[slug] = { views: 0, lastViewed: "" };
     }
     data[slug].views += 1;
     data[slug].lastViewed = new Date().toISOString();
-    await kv.set(KV_KEY, data);
+    await writeData(data);
     return NextResponse.json({ slug, views: data[slug].views });
   } catch (e) {
-    // Fallback for local dev without KV
-    console.error("KV error:", e);
+    console.error("Blob error:", e);
     return NextResponse.json({ slug, views: 1 });
   }
 }
 
 export async function GET() {
   try {
-    const data: ViewData = (await kv.get(KV_KEY)) || {};
+    const data = await readData();
     return NextResponse.json(data);
   } catch {
     return NextResponse.json({});
