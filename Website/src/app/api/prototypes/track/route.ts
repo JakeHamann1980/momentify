@@ -15,7 +15,7 @@ async function readData(): Promise<ViewData> {
   try {
     const { blobs } = await list({ prefix: BLOB_NAME, token });
     if (blobs.length > 0) {
-      const res = await fetch(blobs[0].url);
+      const res = await fetch(blobs[0].downloadUrl);
       return await res.json();
     }
   } catch (e) {
@@ -26,7 +26,7 @@ async function readData(): Promise<ViewData> {
 
 async function writeData(data: ViewData) {
   await put(BLOB_NAME, JSON.stringify(data), {
-    access: "public",
+    access: "private",
     addRandomSuffix: false,
     token,
   });
