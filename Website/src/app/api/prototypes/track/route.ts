@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { put, head } from "@vercel/blob";
+import { put, list } from "@vercel/blob";
 
-const BLOB_PATH = "prototype-views.json";
+const BLOB_NAME = "prototype-views.json";
 
 interface ViewEntry {
   views: number;
@@ -13,17 +13,19 @@ interface ViewData {
 
 async function readData(): Promise<ViewData> {
   try {
-    const blob = await head(BLOB_PATH);
-    if (blob?.url) {
-      const res = await fetch(blob.url);
+    const { blobs } = await list({ prefix: BLOB_NAME });
+    if (blobs.length > 0) {
+      const res = await fetch(blobs[0].url);
       return await res.json();
     }
-  } catch {}
+  } catch (e) {
+    console.error("Blob read error:", e);
+  }
   return {};
 }
 
 async function writeData(data: ViewData) {
-  await put(BLOB_PATH, JSON.stringify(data), {
+  await put(BLOB_NAME, JSON.stringify(data), {
     access: "public",
     addRandomSuffix: false,
   });
@@ -45,8 +47,8 @@ export async function POST(req: NextRequest) {
     await writeData(data);
     return NextResponse.json({ slug, views: data[slug].views });
   } catch (e) {
-    console.error("Blob error:", e);
-    return NextResponse.json({ slug, views: 1 });
+    console.error("Blob write error:", e);
+    return NextResponse.json({ error: "Storage error" }, { status: 500 });
   }
 }
 

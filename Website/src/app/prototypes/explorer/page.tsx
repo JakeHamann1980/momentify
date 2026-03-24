@@ -34,7 +34,7 @@ function InstanceCard({
 }) {
   return (
     <a
-      href={instance.prototypeFile}
+      href={`/prototypes/explorer/${instance.slug}`}
       target="_blank"
       rel="noopener noreferrer"
       onClick={() => trackView(instance.slug)}
@@ -184,7 +184,8 @@ function InstanceCard({
                 e.preventDefault();
                 e.stopPropagation();
                 const base = window.location.origin;
-                const url = `${base}${instance.prototypeFile}`;
+                const pw = instance.password ? `?pw=${instance.password}` : "";
+                const url = `${base}/prototypes/explorer/${instance.slug}${pw}`;
                 navigator.clipboard.writeText(url);
                 const btn = e.currentTarget;
                 const orig = btn.textContent;
