@@ -20,12 +20,12 @@ import {
 
 const navItems = [
   { label: "Dashboard", href: "/gtm", icon: LayoutGrid, color: "#0CF4DF" },
+  { label: "Execution Calendar", href: "/gtm/calendar", icon: CalendarDays, color: "#0CF4DF" },
   { label: "Trade Shows", href: "/gtm/trade-shows", icon: Building2, color: "#9B5FE8" },
   { label: "Technical Recruiting", href: "/gtm/recruiting", icon: Target, color: "#5FD9C2" },
   { label: "Field Sales", href: "/gtm/field-sales", icon: MapPin, color: "#F2B33D" },
   { label: "Facilities", href: "/gtm/facilities", icon: Layers, color: "#7B62C9" },
   { label: "Events & Venues", href: "/gtm/events-venues", icon: Ticket, color: "#F25E3D" },
-  { label: "Execution Calendar", href: "/gtm/calendar", icon: CalendarDays, color: "#0CF4DF" },
 ]
 
 function Sidebar({
