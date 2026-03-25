@@ -74,8 +74,8 @@ export default function ExplorerInstancePage() {
               src={instance.logo}
               alt={instance.company}
               style={{
-                width: 64,
-                height: 64,
+                maxWidth: 180,
+                maxHeight: 64,
                 objectFit: "contain",
                 marginBottom: 16,
               }}
