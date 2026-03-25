@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { instances, type ExplorerInstance } from "./instances";
+import { AnalyticsModal } from "./analytics-modal";
 
 interface ViewData {
   [slug: string]: { views: number; lastViewed: string };
@@ -28,9 +29,11 @@ function formatDate(iso: string) {
 function InstanceCard({
   instance,
   viewData,
+  onAnalyticsClick,
 }: {
   instance: ExplorerInstance;
   viewData?: { views: number; lastViewed: string };
+  onAnalyticsClick: (slug: string) => void;
 }) {
   return (
     <a
@@ -210,6 +213,38 @@ function InstanceCard({
             >
               Copy Link
             </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onAnalyticsClick(instance.slug);
+              }}
+              style={{
+                padding: "6px 12px",
+                borderRadius: 6,
+                border: "1px solid var(--border)",
+                background: "transparent",
+                color: "var(--text-muted)",
+                fontSize: 11,
+                fontWeight: 600,
+                fontFamily: "inherit",
+                cursor: "pointer",
+                textTransform: "uppercase",
+                letterSpacing: "0.04em",
+                whiteSpace: "nowrap",
+                transition: "all 0.15s",
+                display: "flex",
+                alignItems: "center",
+                gap: 6,
+              }}
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10" />
+                <line x1="12" y1="20" x2="12" y2="4" />
+                <line x1="6" y1="20" x2="6" y2="14" />
+              </svg>
+              Analytics
+            </button>
           </div>
           <div
             style={{
@@ -273,6 +308,7 @@ function InstanceCard({
 
 export default function ExplorerDashboard() {
   const [viewData, setViewData] = useState<ViewData>({});
+  const [analyticsSlug, setAnalyticsSlug] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/prototypes/track", { cache: "no-store" })
@@ -324,9 +360,18 @@ export default function ExplorerDashboard() {
             key={instance.slug}
             instance={instance}
             viewData={viewData[instance.slug]}
+            onAnalyticsClick={setAnalyticsSlug}
           />
         ))}
       </div>
+
+      {analyticsSlug && (
+        <AnalyticsModal
+          slug={analyticsSlug}
+          instance={instances.find((i) => i.slug === analyticsSlug)!}
+          onClose={() => setAnalyticsSlug(null)}
+        />
+      )}
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams, notFound } from "next/navigation";
 import { instances } from "../instances";
+import { useSessionTracker } from "../use-session-tracker";
 
 export default function ExplorerInstancePage() {
   const params = useParams();
@@ -40,6 +41,8 @@ export default function ExplorerInstancePage() {
       body: JSON.stringify({ slug }),
     }).catch(() => {});
   }, [slug, instance, authorized]);
+
+  useSessionTracker(slug, authorized);
 
   if (!instance) {
     notFound();
