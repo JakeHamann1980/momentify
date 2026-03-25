@@ -75,6 +75,7 @@ export const instances: ExplorerInstance[] = [
     company: "Pacific Aerospace Consulting",
     industry: "Defense & Aerospace",
     prototypeFile: "/brand/explorer-prototype_pac.html",
+    logo: "/brand/assets/pac-icon.svg",
     accentColor: "#4db8ff",
     createdAt: "2025-03-25",
     password: "pac2026",
