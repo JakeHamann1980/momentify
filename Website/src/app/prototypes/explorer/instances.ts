@@ -87,7 +87,7 @@ export const instances: ExplorerInstance[] = [
     name: "The Trade Group Explorer",
     company: "The Trade Group",
     industry: "Exhibits & Events",
-    prototypeFile: "/brand/explorer-prototype_tradegroup.html",
+    prototypeFile: "/brand/explorer-prototype_tradegroup_explorer.html",
     logo: "/brand/assets/tradegroup-icon.svg",
     gateLogo: "/brand/assets/tradegroup-logo.svg",
     accentColor: "#CD9F26",
