@@ -126,6 +126,7 @@
     }
 
     .theme-btn {
+      display: none !important;
       width: 36px;
       height: 36px;
       border-radius: 9px;
@@ -4186,11 +4187,8 @@
     document.addEventListener('DOMContentLoaded', applyZoom);
 
     function toggleTheme() {
-      const html = document.documentElement;
-      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-theme', next);
-      document.querySelector('.icon-sun').style.display = next === 'dark' ? 'block' : 'none';
-      document.querySelector('.icon-moon').style.display = next === 'light' ? 'block' : 'none';
+      // Light mode disabled for this prototype
+      return;
     }
 
     function handleSearch(v) {
