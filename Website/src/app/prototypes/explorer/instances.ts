@@ -69,4 +69,15 @@ export const instances: ExplorerInstance[] = [
     password: "freeman2026",
     bezel: "ipad-landscape",
   },
+  {
+    slug: "pac",
+    name: "PAC Explorer",
+    company: "Pacific Aerospace Consulting",
+    industry: "Defense & Aerospace",
+    prototypeFile: "/brand/explorer-prototype_pac.html",
+    accentColor: "#4db8ff",
+    createdAt: "2025-03-25",
+    password: "pac2026",
+    bezel: "ipad-landscape",
+  },
 ];
