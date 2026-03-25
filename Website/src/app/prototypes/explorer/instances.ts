@@ -54,4 +54,15 @@ export const instances: ExplorerInstance[] = [
     createdAt: "2025-03-23",
     password: "skillsusaIPEX",
   },
+  {
+    slug: "freeman",
+    name: "Freeman Explorer",
+    company: "Freeman",
+    industry: "Event Services",
+    prototypeFile: "/brand/explorer-prototype_freeman_explorer.html",
+    logo: "/brand/assets/freeman-icon.svg",
+    accentColor: "#5ED6FF",
+    createdAt: "2025-03-24",
+    password: "freeman2026",
+  },
 ];
