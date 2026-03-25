@@ -41,8 +41,8 @@
 
     /* ─── Light ───────────────────────────────── */
     [data-theme="light"] {
-      --bg: #F0F2F8;
-      --bg-gradient: linear-gradient(160deg, #ECEEF6 0%, #F0F2F8 40%, #EAECF5 100%);
+      --bg: #F8F9FC;
+      --bg-gradient: linear-gradient(160deg, #F6F7FB 0%, #F8F9FC 40%, #F5F6FA 100%);
       --surface: rgba(255,255,255,0.55);
       --surface-hover: rgba(255,255,255,0.75);
       --border: rgba(0,26,61,0.08);
@@ -533,6 +533,10 @@
       background: rgba(230,0,110,0.12);
     }
 
+    .result.selected .result-name {
+      color: var(--pink);
+    }
+
     .result-initials {
       width: 36px;
       height: 36px;
@@ -690,7 +694,7 @@
     }
 
     .trait-card.selected .trait-card-label {
-      color: #FFFFFF;
+      color: var(--pink);
       font-weight: 500;
     }
 
