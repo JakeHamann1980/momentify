@@ -69,9 +69,9 @@ export default function ExplorerInstancePage() {
         }}
       >
         <div style={{ textAlign: "center", maxWidth: 360, padding: "0 24px" }}>
-          {instance.logo && (
+          {(instance.gateLogo || instance.logo) && (
             <img
-              src={instance.logo}
+              src={instance.gateLogo || instance.logo}
               alt={instance.company}
               style={{
                 maxWidth: 180,

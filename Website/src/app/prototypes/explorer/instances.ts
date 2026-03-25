@@ -9,6 +9,7 @@ export interface ExplorerInstance {
   createdAt: string;
   password?: string;
   bezel?: "ipad-landscape";
+  gateLogo?: string;
 }
 
 export const instances: ExplorerInstance[] = [
@@ -61,7 +62,8 @@ export const instances: ExplorerInstance[] = [
     company: "Freeman",
     industry: "Event Services",
     prototypeFile: "/brand/explorer-prototype_freeman_explorer.html",
-    logo: "/brand/assets/freeman-logo.svg",
+    logo: "/brand/assets/freeman-icon.png",
+    gateLogo: "/brand/assets/freeman-logo.svg",
     accentColor: "#5ED6FF",
     createdAt: "2025-03-24",
     password: "freeman2026",
