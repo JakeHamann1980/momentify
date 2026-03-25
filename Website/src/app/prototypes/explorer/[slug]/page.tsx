@@ -202,7 +202,7 @@ function IPadBezel({ src }: { src: string }) {
   useEffect(() => {
     function resize() {
       const w = window.innerWidth;
-      const h = window.innerHeight - 32;
+      const h = window.innerHeight - 48;
       const sx = w / 1398;
       const sy = h / 1056;
       setScale(Math.min(sx, sy, 1));
@@ -215,62 +215,71 @@ function IPadBezel({ src }: { src: string }) {
   return (
     <div
       style={{
-        flex: 1,
+        position: "absolute",
+        inset: 0,
+        overflow: "hidden",
+        background: "#000E1F",
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        flexDirection: "column",
-        gap: 12,
-        background: "#000E1F",
       }}
     >
       <div
         style={{
-          position: "relative",
-          width: 1398,
-          height: 1056,
-          background: "#0a1628",
-          borderRadius: 22,
-          border: "1.5px solid rgba(255,255,255,0.1)",
-          boxShadow:
-            "0 0 0 1px rgba(255,255,255,0.03), 0 30px 100px rgba(0,0,0,0.65), 0 6px 24px rgba(0,0,0,0.4), inset 0 0.5px 0 rgba(255,255,255,0.08)",
-          padding: 16,
-          transform: `scale(${scale})`,
-          transformOrigin: "center center",
+          width: 1398 * scale,
+          height: 1056 * scale,
+          flexShrink: 0,
         }}
       >
-        {/* Camera dot (landscape = right edge) */}
         <div
           style={{
-            position: "absolute",
-            top: "50%",
-            right: 5,
-            transform: "translateY(-50%)",
-            width: 6,
-            height: 6,
-            borderRadius: "50%",
+            position: "relative",
+            width: 1398,
+            height: 1056,
             background: "#0a1628",
-            border: "0.5px solid rgba(255,255,255,0.06)",
-          }}
-        />
-        <div
-          style={{
-            width: 1366,
-            height: 1024,
-            borderRadius: 6,
-            overflow: "hidden",
-            background: "#000E1F",
+            borderRadius: 22,
+            border: "1.5px solid rgba(255,255,255,0.1)",
+            boxShadow:
+              "0 0 0 1px rgba(255,255,255,0.03), 0 30px 100px rgba(0,0,0,0.65), 0 6px 24px rgba(0,0,0,0.4), inset 0 0.5px 0 rgba(255,255,255,0.08)",
+            padding: 16,
+            transform: `scale(${scale})`,
+            transformOrigin: "top left",
           }}
         >
-          <iframe
-            src={src}
+          {/* Camera dot (landscape = right edge) */}
+          <div
+            style={{
+              position: "absolute",
+              top: "50%",
+              right: 5,
+              transform: "translateY(-50%)",
+              width: 6,
+              height: 6,
+              borderRadius: "50%",
+              background: "#0a1628",
+              border: "0.5px solid rgba(255,255,255,0.06)",
+            }}
+          />
+          <div
             style={{
               width: 1366,
               height: 1024,
-              border: "none",
-              display: "block",
+              borderRadius: 6,
+              overflow: "hidden",
+              background: "#000E1F",
             }}
-          />
+          >
+            <iframe
+              src={src}
+              style={{
+                width: 1366,
+                height: 1024,
+                border: "none",
+                display: "block",
+              }}
+            />
+          </div>
         </div>
       </div>
       <div
@@ -281,6 +290,8 @@ function IPadBezel({ src }: { src: string }) {
           whiteSpace: "nowrap",
           textAlign: "center",
           fontFamily: "'Inter', sans-serif",
+          marginTop: 12,
+          flexShrink: 0,
         }}
       >
         Prototype preview &mdash; best viewed in landscape on desktop
