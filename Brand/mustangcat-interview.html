@@ -1282,7 +1282,8 @@
       <div class="step step-question" id="step-7">
         <div class="question-header">
           <div class="question-step-label">Question 6 of 6</div>
-          <div class="question-title">Which Mustang Cat location are you most interested in?</div>
+          <div class="question-title">Which Mustang Cat locations are you most interested in?</div>
+          <div class="question-subtitle" style="color: rgba(255,255,255,0.5); font-size: 14px; margin-top: 4px;">Select all that apply</div>
         </div>
         <div class="location-grid" data-question="q6">
           <div class="location-section-label">Service Locations</div>
@@ -1791,11 +1792,15 @@
       if (e.data.question === 'q5b') showReferral(e.data.value === 'yes');
     }
     if (e.data && e.data.type === 'selectLocation') {
+      var vals = e.data.values || [];
       document.querySelectorAll('.location-card').forEach(function(c) {
-        c.classList.remove('selected');
-        if (c.dataset.value === e.data.value) c.classList.add('selected');
+        if (vals.indexOf(c.dataset.value) !== -1) {
+          c.classList.add('selected');
+        } else {
+          c.classList.remove('selected');
+        }
       });
-      answers.location = e.data.value;
+      answers.location = vals.length > 0 ? vals : null;
     }
     if (e.data && e.data.type === 'syncForm') {
       if (e.data.name) document.getElementById('field-name').value = e.data.name;
@@ -1827,18 +1832,21 @@
   }
 
   function selectLocation(el) {
-    // Deselect all
-    document.querySelectorAll('.location-card').forEach(function(c) {
-      c.classList.remove('selected');
+    // Toggle this card
+    el.classList.toggle('selected');
+
+    // Collect all selected locations
+    var selected = [];
+    document.querySelectorAll('.location-card.selected').forEach(function(c) {
+      selected.push(c.dataset.value);
     });
-    el.classList.add('selected');
-    answers.location = el.dataset.value;
+    answers.location = selected.length > 0 ? selected : null;
 
     // Clear error
     clearAllErrors();
 
     // Sync
-    broadcastSync('selectLocation', { value: el.dataset.value });
+    broadcastSync('selectLocation', { values: selected });
   }
 
   function showReferral(show) {
