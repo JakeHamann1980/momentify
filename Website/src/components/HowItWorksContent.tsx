@@ -1,5 +1,6 @@
 "use client";
 
+import { FireIcon } from "@heroicons/react/24/solid";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
@@ -33,6 +34,9 @@ const mainMinimal =
   "linear-gradient(135deg, #7C316D 0%, #0B0B3C 55%, #1A2E73 100%)";
 
 const TEAL = "#00BBA5";
+
+/** Heroicons Fire solid — temperature / intent indicator */
+const FIRE_SOLID_RED = "rgb(232, 58, 90)";
 const DEEP_NAVY = "#061341";
 const AMBER = "#F2B33D";
 
@@ -1195,7 +1199,7 @@ export default function HowItWorksContent() {
                   marginBottom: "16px",
                 }}
               >
-                Where We&apos;re Headed
+                Momentify Intelligence
               </motion.p>
               <motion.h2
                 variants={fadeUp}
@@ -1263,24 +1267,6 @@ export default function HowItWorksContent() {
                     Ranked list of who to contact first, based on engagement signals and intent data.
                   </p>
                 </div>
-              </motion.div>
-
-              {/* Coming Soon pill */}
-              <motion.div variants={fadeUp} style={{ marginTop: "24px" }}>
-                <span
-                  style={{
-                    display: "inline-block",
-                    fontFamily: "var(--font-inter)",
-                    fontWeight: 600,
-                    fontSize: "11px",
-                    color: AMBER,
-                    background: "rgba(242,179,61,0.15)",
-                    borderRadius: "20px",
-                    padding: "4px 12px",
-                  }}
-                >
-                  Coming Soon
-                </span>
               </motion.div>
             </motion.div>
 
@@ -1357,9 +1343,9 @@ export default function HowItWorksContent() {
                 </p>
                 <div className="space-y-3">
                   {[
-                    { name: "Sarah M.", time: "Day 1, 10:42 AM", temp: "#5FD9C2" },
-                    { name: "James R.", time: "Day 1, 2:18 PM", temp: "#5FD9C2" },
-                    { name: "Lisa K.", time: "Day 2, 9:05 AM", temp: "#F2B33D" },
+                    { name: "Sarah M.", time: "Day 1, 10:42 AM" },
+                    { name: "James R.", time: "Day 1, 2:18 PM" },
+                    { name: "Lisa K.", time: "Day 2, 9:05 AM" },
                   ].map((lead) => (
                     <div key={lead.name} className="flex items-center justify-between">
                       <span style={{ fontFamily: "var(--font-inter)", fontWeight: 400, fontSize: "13px", color: "rgba(6,19,65,0.5)" }}>
@@ -1369,7 +1355,7 @@ export default function HowItWorksContent() {
                         <span style={{ fontFamily: "var(--font-inter)", fontWeight: 400, fontSize: "11px", color: "rgba(6,19,65,0.3)" }}>
                           {lead.time}
                         </span>
-                        <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: lead.temp }} />
+                        <FireIcon aria-hidden className="h-4 w-4 flex-shrink-0" style={{ color: FIRE_SOLID_RED }} />
                       </div>
                     </div>
                   ))}
