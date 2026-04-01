@@ -1,6 +1,7 @@
 "use client";
 
 import { FireIcon } from "@heroicons/react/24/solid";
+import { ScanBarcode } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
@@ -38,6 +39,8 @@ const TEAL = "#00BBA5";
 /** Heroicons Fire solid — temperature / intent indicator */
 const FIRE_SOLID_RED = "rgb(232, 58, 90)";
 const DEEP_NAVY = "#061341";
+/** Primary Momentify blue — solid surfaces, CTAs */
+const MOMENTIFY_BLUE = "#254FE5";
 const AMBER = "#F2B33D";
 
 /* ── Step colors (from brand palette) ──────────────── */
@@ -170,13 +173,7 @@ function IconBadge() {
 
 function IconCapture() {
   return (
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M4 10V6a2 2 0 012-6h4" stroke={TEAL} strokeWidth="1.8" strokeLinecap="round" />
-      <path d="M22 4h4a2 2 0 012 2v4" stroke={TEAL} strokeWidth="1.8" strokeLinecap="round" />
-      <path d="M28 22v4a2 2 0 01-2 2h-4" stroke={TEAL} strokeWidth="1.8" strokeLinecap="round" />
-      <path d="M10 28H6a2 2 0 01-2-2v-4" stroke={TEAL} strokeWidth="1.8" strokeLinecap="round" />
-      <circle cx="16" cy="16" r="5" stroke={TEAL} strokeWidth="1.8" />
-    </svg>
+    <ScanBarcode aria-hidden width={32} height={32} className="shrink-0" color={TEAL} strokeWidth={1.8} />
   );
 }
 
@@ -1297,16 +1294,27 @@ export default function HowItWorksContent() {
                     </span>
                   </div>
                   <span
+                    className="inline-flex items-center gap-1.5"
                     style={{
                       fontFamily: "var(--font-inter)",
                       fontWeight: 600,
                       fontSize: "10px",
-                      color: AMBER,
-                      background: "rgba(242,179,61,0.12)",
-                      borderRadius: "10px",
-                      padding: "3px 8px",
+                      color: "#FFFFFF",
+                      letterSpacing: "0.02em",
+                      borderRadius: "9999px",
+                      padding: "5px 12px 5px 10px",
+                      background: MOMENTIFY_BLUE,
+                      boxShadow: "0 1px 3px rgba(6, 19, 65, 0.12)",
                     }}
                   >
+                    <img
+                      src="/icons/crown-pro-filled.png"
+                      alt=""
+                      width={14}
+                      height={14}
+                      className="shrink-0 size-[14px]"
+                      aria-hidden
+                    />
                     Pro Plan
                   </span>
                 </div>
