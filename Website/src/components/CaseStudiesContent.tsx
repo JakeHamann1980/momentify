@@ -132,27 +132,6 @@ const CASE_STUDIES: CaseStudy[] = [
     href: "/case-studies/global-dealer-learning",
     published: true,
   },
-  {
-    name: "Venues & Events",
-    category: "venues",
-    headline: "Case study coming soon.",
-    description: "A detailed look at how Momentify powers engagement capture for venues and events teams.",
-    published: false,
-  },
-  {
-    name: "Field Sales",
-    category: "field-sales",
-    headline: "Case study coming soon.",
-    description: "A detailed look at how Momentify powers engagement capture for field sales teams.",
-    published: false,
-  },
-  {
-    name: "Facilities",
-    category: "facilities",
-    headline: "Case study coming soon.",
-    description: "A detailed look at how Momentify powers engagement capture for facility teams.",
-    published: false,
-  },
 ];
 
 /* ── Hero graphic: abstract stat cards ──────────────── */
