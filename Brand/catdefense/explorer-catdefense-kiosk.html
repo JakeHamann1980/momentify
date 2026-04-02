@@ -4790,7 +4790,8 @@
         const vName = document.getElementById('visitor-name').textContent;
         if (vName && vName !== 'Guest') btnNext.disabled = false;
       } else if (step === 5) {
-        btnNext.childNodes[0].textContent = 'Results\n';
+        btnNext.childNodes[0].textContent = 'Finish\n';
+        btnNext.disabled = false;
       } else {
         btnNext.childNodes[0].textContent = 'Next\n';
       }
@@ -6534,6 +6535,7 @@
     }
 
     function nextStep() {
+      if (currentStep === 5) { endSession(); return; }
       if (currentStep === 1) {
         const emailInput = document.querySelector('.view-form input[type="email"]');
         const phoneInput = document.querySelector('.view-form input[type="tel"]');
