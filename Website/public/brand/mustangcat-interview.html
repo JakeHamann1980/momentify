@@ -1130,7 +1130,7 @@
       <!-- Step 0: Welcome -->
       <div class="step step-welcome active" id="step-0">
         <div class="welcome-title">Welcome to<br><span class="gradient-word">Open Interviews.</span></div>
-        <div class="welcome-subtitle">Thank you for coming in today. Please complete the information below before meeting with our hiring team.</div>
+        <div class="welcome-subtitle">Thank you for coming in today. Please click "Begin" below to get started.</div>
         <button class="btn-begin" onclick="goToStep(1)">
           Tap to Begin
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
@@ -1204,7 +1204,7 @@
       <div class="step step-question" id="step-4">
         <div class="question-header">
           <div class="question-step-label">Question 3 of 6</div>
-          <div class="question-title">Are you aware that today's in-person interviews are for Technician positions only?</div>
+          <div class="question-title">Are you applying for a technician/mechanic position?</div>
         </div>
         <div class="answer-grid" data-question="q3">
           <div class="answer-card" onclick="selectAnswer(this, 'q3')" data-value="yes">
@@ -1286,43 +1286,66 @@
           <div class="question-subtitle" style="color: rgba(255,255,255,0.5); font-size: 14px; margin-top: 4px;">Select all that apply</div>
         </div>
         <div class="location-grid" data-question="q6">
-          <div class="location-section-label">Service Locations</div>
           <div class="location-card" onclick="selectLocation(this)" data-value="houston">
             <div class="location-card-icon"></div>
             <div class="location-card-text">
               <div class="location-card-name">Houston</div>
+              <div class="location-card-type">Machinery, Rental, Power</div>
             </div>
           </div>
           <div class="location-card" onclick="selectLocation(this)" data-value="beaumont">
             <div class="location-card-icon"></div>
             <div class="location-card-text">
               <div class="location-card-name">Beaumont</div>
+              <div class="location-card-type">Machinery, Rental</div>
             </div>
           </div>
           <div class="location-card" onclick="selectLocation(this)" data-value="bryan">
             <div class="location-card-icon"></div>
             <div class="location-card-text">
               <div class="location-card-name">Bryan</div>
+              <div class="location-card-type">Machinery, Rental</div>
             </div>
           </div>
           <div class="location-card" onclick="selectLocation(this)" data-value="elcampo">
             <div class="location-card-icon"></div>
             <div class="location-card-text">
               <div class="location-card-name">El Campo</div>
+              <div class="location-card-type">Machinery, Rental</div>
             </div>
           </div>
           <div class="location-card" onclick="selectLocation(this)" data-value="lufkin">
             <div class="location-card-icon"></div>
             <div class="location-card-text">
               <div class="location-card-name">Lufkin</div>
+              <div class="location-card-type">Machinery, Rental</div>
             </div>
           </div>
-
-          <div class="location-section-label">Rental Locations</div>
-          <div class="location-card" onclick="selectLocation(this)" data-value="channel-view">
+          <div class="location-card" onclick="selectLocation(this)" data-value="hempstead">
             <div class="location-card-icon"></div>
             <div class="location-card-text">
-              <div class="location-card-name">Channel View</div>
+              <div class="location-card-name">Hempstead</div>
+              <div class="location-card-type">Machinery, Power</div>
+            </div>
+          </div>
+          <div class="location-card" onclick="selectLocation(this)" data-value="tomball">
+            <div class="location-card-icon"></div>
+            <div class="location-card-text">
+              <div class="location-card-name">Tomball</div>
+              <div class="location-card-type">Power</div>
+            </div>
+          </div>
+          <div class="location-card" onclick="selectLocation(this)" data-value="waller">
+            <div class="location-card-icon"></div>
+            <div class="location-card-text">
+              <div class="location-card-name">Waller</div>
+              <div class="location-card-type">Power</div>
+            </div>
+          </div>
+          <div class="location-card" onclick="selectLocation(this)" data-value="channelview">
+            <div class="location-card-icon"></div>
+            <div class="location-card-text">
+              <div class="location-card-name">Channelview</div>
               <div class="location-card-type">Rental</div>
             </div>
           </div>
@@ -1361,10 +1384,10 @@
               <div class="location-card-type">Rental</div>
             </div>
           </div>
-          <div class="location-card" onclick="selectLocation(this)" data-value="longdrive">
+          <div class="location-card" onclick="selectLocation(this)" data-value="long-drive">
             <div class="location-card-icon"></div>
             <div class="location-card-text">
-              <div class="location-card-name">Longdrive</div>
+              <div class="location-card-name">Long Drive</div>
               <div class="location-card-type">Rental</div>
             </div>
           </div>
