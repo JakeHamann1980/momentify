@@ -131,6 +131,28 @@ export default function ExplorerShell() {
           background: var(--exp-card-bg);
           border-color: var(--exp-card-border);
         }
+        .explorer-shell .exp-bottom-bar {
+          max-width: 860px;
+          margin-left: auto;
+          margin-right: auto;
+          padding: 20px 24px;
+        }
+        .explorer-shell .exp-results-tab-bar {
+          padding: 20px 0;
+        }
+        .explorer-shell .exp-results-view .exp-trait-header {
+          height: auto;
+          min-height: 100px;
+        }
+        .explorer-shell .exp-view-small .exp-paginated-wrapper {
+          display: flex;
+          flex-direction: column;
+        }
+        .explorer-shell .exp-view-small .exp-card-grid {
+          flex: 1;
+          min-height: 0;
+          grid-template-rows: 1fr 1fr;
+        }
         .explorer-shell .exp-card-overlay-inner {
           background: var(--exp-dialog-bg) !important;
           border-color: var(--exp-dialog-border) !important;

@@ -90,9 +90,9 @@ export function generateThemeVars(
       ? '0 2px 8px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.05)'
       : '0 1px 4px rgba(0,0,0,0.04)',
 
-    // Dialog & overlay (overrides locked CSS hardcoded values)
+    // Dialog & overlay (derived from brand midnight/navy)
     '--exp-dialog-bg': theme === 'dark'
-      ? 'rgba(15, 20, 55, 0.92)'
+      ? hexToRgba(branding.colors.midnight, 0.92)
       : '#FFFFFF',
     '--exp-dialog-border': theme === 'dark'
       ? 'rgba(255,255,255,0.14)'
@@ -101,8 +101,8 @@ export function generateThemeVars(
       ? '0 24px 80px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.10)'
       : '0 24px 80px rgba(0,0,0,0.08)',
     '--exp-dialog-overlay-bg': theme === 'dark'
-      ? 'rgba(6, 19, 65, 0.60)'
-      : 'rgba(6, 19, 65, 0.18)',
+      ? hexToRgba(branding.colors.navy, 0.60)
+      : hexToRgba(branding.colors.navy, 0.18),
 
     // Transition
     '--exp-transition': '0.3s cubic-bezier(0.4, 0, 0.2, 1)',

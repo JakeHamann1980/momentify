@@ -132,4 +132,16 @@ export const instances: ExplorerInstance[] = [
     createdAt: "2026-04-07",
     password: "clarium2026",
   },
+  {
+    slug: "maven-fp",
+    name: "Maven Financial Partners Explorer",
+    company: "Maven Financial Partners",
+    industry: "Financial Advisory",
+    prototypeFile: "/explorer/maven-fp",
+    logo: "/brand/assets/maven-fp-icon.png",
+    gateLogo: "/brand/assets/maven-fp-logo-reverse.png",
+    accentColor: "#7B9DAE",
+    createdAt: "2026-04-07",
+    password: "mavenfp2026",
+  },
 ];
