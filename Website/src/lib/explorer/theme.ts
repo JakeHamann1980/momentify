@@ -58,16 +58,51 @@ export function generateThemeVars(
     '--exp-cyan-15': hexToRgba(branding.colors.primary, 0.15),
 
     // Card selection states (derived from accent)
-    '--exp-card-active-border': hexToRgba(branding.colors.teal, 0.3),
-    '--exp-card-active-bg': 'rgba(255,255,255,0.08)',
-    '--exp-card-selected-border': hexToRgba(branding.colors.teal, 0.5),
+    '--exp-card-active-border': hexToRgba(branding.colors.teal, theme === 'dark' ? 0.3 : 0.4),
+    '--exp-card-active-bg': theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.95)',
+    '--exp-card-selected-border': hexToRgba(branding.colors.teal, theme === 'dark' ? 0.5 : 0.7),
+    '--exp-card-selected-bg': hexToRgba(branding.colors.teal, theme === 'dark' ? 0.1 : 0.12),
     '--exp-card-saved-bg': hexToRgba(branding.colors.teal, 0.1),
+    // Locked CSS fallback vars for .exp-trait-card.selected
+    '--exp-selected-border': theme === 'dark'
+      ? hexToRgba(branding.colors.teal, 0.6)
+      : branding.colors.teal,
+    '--exp-selected-bg': theme === 'dark'
+      ? hexToRgba(branding.colors.teal, 0.18)
+      : hexToRgba(branding.colors.teal, 0.14),
+    '--exp-selected-glow': hexToRgba(branding.colors.primary, theme === 'dark' ? 0.25 : 0.15),
+    '--exp-selected-inset': hexToRgba(branding.colors.teal, theme === 'dark' ? 0.15 : 0.06),
 
     // Alert
     '--exp-alert': '#E5484D',
     '--exp-alert-border': 'rgba(229,72,77,0.25)',
     '--exp-alert-active': 'rgba(229,72,77,0.4)',
     '--exp-alert-bg': 'rgba(229,72,77,0.08)',
+
+    // Cards (overrides locked CSS hardcoded dark-mode values)
+    '--exp-card-bg': theme === 'dark'
+      ? 'rgba(255,255,255,0.04)'
+      : 'rgba(255,255,255,0.65)',
+    '--exp-card-border': theme === 'dark'
+      ? 'rgba(255,255,255,0.08)'
+      : 'rgba(15,23,42,0.06)',
+    '--exp-card-shadow': theme === 'dark'
+      ? '0 2px 8px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.05)'
+      : '0 1px 4px rgba(0,0,0,0.04)',
+
+    // Dialog & overlay (overrides locked CSS hardcoded values)
+    '--exp-dialog-bg': theme === 'dark'
+      ? 'rgba(15, 20, 55, 0.92)'
+      : '#FFFFFF',
+    '--exp-dialog-border': theme === 'dark'
+      ? 'rgba(255,255,255,0.14)'
+      : 'rgba(15,23,42,0.10)',
+    '--exp-dialog-shadow': theme === 'dark'
+      ? '0 24px 80px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.10)'
+      : '0 24px 80px rgba(0,0,0,0.08)',
+    '--exp-dialog-overlay-bg': theme === 'dark'
+      ? 'rgba(6, 19, 65, 0.60)'
+      : 'rgba(6, 19, 65, 0.18)',
 
     // Transition
     '--exp-transition': '0.3s cubic-bezier(0.4, 0, 0.2, 1)',

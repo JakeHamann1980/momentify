@@ -56,8 +56,8 @@ export default function VoiceCaptureDialog({ open, onClose }: VoiceCaptureDialog
   };
 
   return (
-    <div className={`exp-dialog-overlay ${open ? 'open' : ''}`} onClick={onClose}>
-      <div className="exp-dialog" style={{ maxWidth: 520, padding: '52px 64px', textAlign: 'center' }} onClick={e => e.stopPropagation()}>
+    <div className={`exp-dialog-overlay ${open ? 'open' : ''}`} onClick={onClose} style={{ background: 'var(--exp-dialog-overlay-bg)' }}>
+      <div className="exp-dialog" style={{ maxWidth: 520, padding: '52px 64px', textAlign: 'center', background: 'var(--exp-dialog-bg)', backdropFilter: 'blur(32px)', border: '1px solid var(--exp-dialog-border)', boxShadow: 'var(--exp-dialog-shadow)' }} onClick={e => e.stopPropagation()}>
         <div className="exp-dialog-icon teal">
           <Mic />
         </div>

@@ -148,21 +148,21 @@ const colors = {
     focusRing: 'rgba(ACCENT_R, ACCENT_G, ACCENT_B, 0.15)',
   },
 
-  // Light theme
+  // Light theme -- aim for clean, white, crisp feel
   light: {
-    bg: '#F0F2F8',
-    bgGradient: 'linear-gradient(160deg, #ECEEF6 0%, #F0F2F8 40%, #EAECF5 100%)',
-    surface: 'rgba(255,255,255,0.55)',
-    surfaceHover: 'rgba(255,255,255,0.75)',
-    border: 'rgba(6,19,65,0.08)',
+    bg: '#F4F5F9',                            // Light gray, not pure white
+    bgGradient: 'linear-gradient(180deg, #F4F5F9 0%, #F2F3F8 100%)',  // Very subtle gradient
+    surface: 'rgba(255,255,255,0.85)',         // Mostly white cards
+    surfaceHover: 'rgba(255,255,255,0.95)',    // Near-white on hover
+    border: 'rgba(15,23,42,0.10)',             // Subtle dark border
     borderFocus: '#BRAND_ACCENT_DARKER',
-    text1: '#061341',
-    text2: 'rgba(6,19,65,0.60)',
-    text3: 'rgba(6,19,65,0.42)',
-    inputBg: 'rgba(255,255,255,0.8)',
-    inputText: '#061341',
-    inputPlaceholder: 'rgba(6,19,65,0.35)',
-    logoText: '#061341',
+    text1: '#0F172A',                          // Near-black text
+    text2: 'rgba(15,23,42,0.65)',
+    text3: 'rgba(15,23,42,0.45)',
+    inputBg: '#FFFFFF',                        // Solid white inputs
+    inputText: '#0F172A',
+    inputPlaceholder: 'rgba(15,23,42,0.35)',
+    logoText: '#0F172A',
     focusRing: 'rgba(ACCENT_R, ACCENT_G, ACCENT_B, 0.12)',
   },
 };
@@ -339,8 +339,8 @@ After creating all files:
 5. **Content descriptions MUST have all four sizes** (small, medium, large, overlay)
 6. **Trait options MUST use valid Lucide icon names** (check lucide.dev/icons)
 7. **The steps array order is sacred** - splash, registration, trait selections, results, summary, content-library, thank-you
-8. **Role backgrounds MUST use the exact radial-gradient pattern** from the Momentify default
-9. **Aurora orbs MUST use rgba values with low opacity** (0.10-0.20) derived from brand colors
+8. **Role backgrounds MUST use the exact radial-gradient pattern** from the Momentify default. Keep opacity subtle (0.08-0.20 range). In light mode, ExplorerShell reduces role bg opacity to 0.45 automatically.
+9. **Aurora orbs MUST use rgba values with low opacity** (0.10-0.20) derived from brand colors. In light mode, ExplorerShell reduces orb opacity to 0.5 automatically.
 10. **Do NOT automatically push to git** - only commit/push when asked
 11. **Screensaver is OFF by default** - only enable if user explicitly provides a screensaver asset
 12. **Calculator is OFF by default** - only enable if user provides a calculator URL or requests a custom-built calculator. Calculator MUST be presented in a popup modal overlay, not embedded inline
@@ -349,6 +349,16 @@ After creating all files:
 15. **Next button is disabled on trait-selection steps** until at least one selection is made (single-select: role selected; multi-select: at least one interest). This is built into BottomBar.tsx and requires no config.
 16. **Gate logo must be the reverse/white version** -- the password gate has a dark background. Never use a dark-on-light logo for `gateLogo`.
 17. **Do NOT set `bezel` on React-route instances** -- React explorer routes (`/explorer/{slug}`) already render their own `ExplorerBezelWrapper`. Setting `bezel: 'ipad-landscape'` on the instance causes a double bezel. Only use `bezel` for static HTML prototypes.
+18. **Light/dark mode theming is handled by ExplorerShell.tsx via a `<style>` block** that overrides locked CSS hardcoded dark-mode values using theme-aware CSS variables from `theme.ts`:
+    - **Cards** (`exp-result-card`, `exp-trait-card`): `--exp-card-bg` (dark: `rgba(255,255,255,0.04)`, light: `rgba(255,255,255,0.65)`), `--exp-card-border`, `--exp-card-shadow`
+    - **Selected trait cards**: `--exp-selected-bg`, `--exp-selected-border` (light: full-opacity accent border for clear contrast)
+    - **Dialogs & card overlays**: `--exp-dialog-bg` (dark: `rgba(15,20,55,0.92)`, light: solid `#FFFFFF`), `--exp-dialog-border`, `--exp-dialog-shadow`
+    - **Overlay backdrops**: `--exp-dialog-overlay-bg` (dark: `rgba(6,19,65,0.60)`, light: `rgba(6,19,65,0.18)`)
+    - **Summary chips**: same as card bg/border
+    - **Separator lines removed**: `exp-results-tab-bar` border-top set to none
+    - **Overflow hidden** on `exp-center` to prevent cards bleeding into bottom bar
+19. **No separator lines** -- The results tab bar separator and any other divider lines have been removed. Do not add `border-top`, `border-bottom`, or `<hr>` elements to any explorer components.
+20. **Light mode must feel clean, white, and crisp** -- Unselected cards should be translucent white (0.65), selected cards must have clear accent-colored border contrast. Card overlays and dialogs must be solid white. Avoid heavy gradients or strong orb colors in light mode.
 
 ## Reference Files
 

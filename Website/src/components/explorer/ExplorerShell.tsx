@@ -104,16 +104,60 @@ export default function ExplorerShell() {
         height: 1024,
       }}
     >
+      {/* Theme-aware overrides for locked CSS hardcoded dark-mode values */}
+      <style>{`
+        .explorer-shell .exp-result-card {
+          background: var(--exp-card-bg);
+          border-color: var(--exp-card-border);
+          box-shadow: var(--exp-card-shadow);
+        }
+        .explorer-shell .exp-trait-card {
+          background: var(--exp-card-bg);
+          border-color: var(--exp-card-border);
+          box-shadow: var(--exp-card-shadow);
+        }
+        .explorer-shell .exp-trait-card.selected {
+          background: var(--exp-selected-bg);
+          border-color: var(--exp-selected-border);
+          box-shadow: 0 2px 16px var(--exp-selected-glow), inset 0 1px 0 var(--exp-selected-inset);
+        }
+        .explorer-shell .exp-center {
+          overflow: hidden;
+        }
+        .explorer-shell .exp-results-tab-bar {
+          border-top: none;
+        }
+        .explorer-shell .exp-summary-chip {
+          background: var(--exp-card-bg);
+          border-color: var(--exp-card-border);
+        }
+        .explorer-shell .exp-card-overlay-inner {
+          background: var(--exp-dialog-bg) !important;
+          border-color: var(--exp-dialog-border) !important;
+          box-shadow: var(--exp-dialog-shadow) !important;
+        }
+        .explorer-shell .exp-card-overlay {
+          background: var(--exp-dialog-overlay-bg) !important;
+        }
+        .explorer-shell .exp-dialog {
+          background: var(--exp-dialog-bg) !important;
+          border-color: var(--exp-dialog-border) !important;
+          box-shadow: var(--exp-dialog-shadow) !important;
+        }
+        .explorer-shell .exp-dialog-overlay.open {
+          background: var(--exp-dialog-overlay-bg) !important;
+        }
+      `}</style>
       <div className="exp-shell-inner">
         {/* Role background overlay */}
         <div
           className={`exp-role-bg${session.selectedRole && !isSplash && !isThankYou ? ' active' : ''}`}
-          style={roleGradient ? { background: roleGradient } : undefined}
+          style={roleGradient ? { background: roleGradient, ...(session.theme === 'light' ? { opacity: 0.45 } : {}) } : undefined}
         />
 
         {/* Aurora orbs on splash and thank you */}
         {(isSplash || isThankYou) && auroraOrbs && (
-          <div className="exp-aurora-orbs">
+          <div className="exp-aurora-orbs" style={session.theme === 'light' ? { opacity: 0.5 } : undefined}>
             <div className="exp-aurora-orb exp-aurora-orb-1" style={{ background: auroraOrbs.orb1 }} />
             <div className="exp-aurora-orb exp-aurora-orb-2" style={{ background: auroraOrbs.orb2 }} />
             <div className="exp-aurora-orb exp-aurora-orb-3" style={{ background: auroraOrbs.orb3 }} />

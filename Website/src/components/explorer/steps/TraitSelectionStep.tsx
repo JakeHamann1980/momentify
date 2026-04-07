@@ -48,7 +48,11 @@ export default function TraitSelectionStep({ step }: { step: TraitSelectionStepC
     if (isSingle) {
       selectRole(value);
     } else {
-      toggleInterest(value);
+      const current = selectedValues;
+      const next = current.includes(value)
+        ? current.filter(v => v !== value)
+        : [...current, value];
+      setSelectedTraits(step.id, next);
     }
   }
 

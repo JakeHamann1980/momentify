@@ -42,10 +42,11 @@ export default function NotesDialog({ open, onClose }: NotesDialogProps) {
   };
 
   return (
-    <div className={`exp-dialog-overlay ${open ? 'open' : ''}`} onClick={onClose}>
+    <div className={`exp-dialog-overlay ${open ? 'open' : ''}`} onClick={onClose} style={{ background: 'var(--exp-dialog-overlay-bg)' }}>
       <div
         className="exp-dialog exp-notes-inner"
         onClick={e => e.stopPropagation()}
+        style={{ background: 'var(--exp-dialog-bg)', backdropFilter: 'blur(32px)', border: '1px solid var(--exp-dialog-border)', boxShadow: 'var(--exp-dialog-shadow)' }}
       >
         <div className="exp-dialog-title" style={{ textAlign: 'center', marginBottom: 38, fontSize: 31 }}>
           Session Notes
