@@ -1,9 +1,8 @@
 import { NextResponse } from 'next/server';
-import { writeFile, mkdir } from 'fs/promises';
-import { join } from 'path';
+import { put, list } from '@vercel/blob';
 
-const ASSETS_DIR = join(process.cwd(), 'public', 'brand', 'assets');
-const INTAKE_DIR = join(process.cwd(), '.explorer-intake');
+const token = process.env.BLOB_READ_WRITE_TOKEN || '';
+const INTAKE_PREFIX = 'explorer-intake/';
 
 export async function POST(request: Request) {
   try {
@@ -20,12 +19,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing slug' }, { status: 400 });
     }
 
-    // Create directories
-    await mkdir(ASSETS_DIR, { recursive: true });
-    const intakeDir = join(INTAKE_DIR, slug);
-    await mkdir(intakeDir, { recursive: true });
-
-    // Save logo files
+    // Save logo files to blob storage
     const logoKeys = ['logo-dark', 'logo-light', 'logo-icon'] as const;
     const logoPaths: Record<string, string> = {};
 
@@ -34,22 +28,31 @@ export async function POST(request: Request) {
       if (file && file instanceof File && file.size > 0) {
         const ext = file.name.split('.').pop() ?? 'png';
         const suffix = key.replace('logo-', '');
-        const filename = `${slug}-${suffix}.${ext}`;
+        const blobName = `${INTAKE_PREFIX}${slug}/logos/${slug}-${suffix}.${ext}`;
         const buffer = Buffer.from(await file.arrayBuffer());
-        await writeFile(join(ASSETS_DIR, filename), buffer);
-        logoPaths[key] = `/brand/assets/${filename}`;
+        const blob = await put(blobName, buffer, {
+          access: 'private',
+          addRandomSuffix: false,
+          allowOverwrite: true,
+          token,
+        });
+        logoPaths[key] = blob.url;
       }
     }
 
-    // Save content files to intake directory
+    // Save content files to blob storage
     const contentPaths: string[] = [];
     for (const [key, value] of formData.entries()) {
       if (key.startsWith('content-') && value instanceof File && value.size > 0) {
-        const filename = value.name;
+        const blobName = `${INTAKE_PREFIX}${slug}/content/${value.name}`;
         const buffer = Buffer.from(await value.arrayBuffer());
-        const filePath = join(intakeDir, filename);
-        await writeFile(filePath, buffer);
-        contentPaths.push(filePath);
+        const blob = await put(blobName, buffer, {
+          access: 'private',
+          addRandomSuffix: false,
+          allowOverwrite: true,
+          token,
+        });
+        contentPaths.push(blob.url);
       }
     }
 
@@ -62,9 +65,15 @@ export async function POST(request: Request) {
       createdAt: new Date().toISOString(),
     };
 
-    await writeFile(
-      join(intakeDir, 'intake.json'),
+    await put(
+      `${INTAKE_PREFIX}${slug}/intake.json`,
       JSON.stringify(intakeRecord, null, 2),
+      {
+        access: 'private',
+        addRandomSuffix: false,
+        allowOverwrite: true,
+        token,
+      },
     );
 
     return NextResponse.json({
@@ -72,7 +81,6 @@ export async function POST(request: Request) {
       intakeId: slug,
       slug,
       password: intake.password,
-      intakePath: intakeDir,
     });
   } catch (error) {
     console.error('Explorer intake error:', error);
@@ -86,14 +94,18 @@ export async function POST(request: Request) {
 // GET: List all pending intakes
 export async function GET() {
   try {
-    const { readdir, readFile } = await import('fs/promises');
-    const dirs = await readdir(INTAKE_DIR).catch(() => [] as string[]);
+    const { blobs } = await list({ prefix: INTAKE_PREFIX, token });
+    const intakeBlobs = blobs.filter(b => b.pathname.endsWith('/intake.json'));
     const intakes = [];
 
-    for (const dir of dirs) {
+    for (const blob of intakeBlobs) {
       try {
-        const raw = await readFile(join(INTAKE_DIR, dir, 'intake.json'), 'utf8');
-        intakes.push(JSON.parse(raw));
+        const res = await fetch(blob.url, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (res.ok) {
+          intakes.push(await res.json());
+        }
       } catch {
         // skip invalid entries
       }

@@ -74,12 +74,12 @@ Steps, content cards, registration fields, feature toggles, tab config, trait op
 There are two ways to provide inputs:
 
 ### Option A: Intake Form (preferred)
-The user fills out the intake form at `/brand/explorer-builder`. This saves a JSON file to `.explorer-intake/{slug}/intake.json` along with uploaded logos and content files. To use a saved intake:
+The user fills out the intake form at `/brand/explorer-builder`. This saves intake data to Vercel Blob storage at `explorer-intake/{slug}/intake.json` along with logos and content files. To use a saved intake:
 
-1. Read the intake file: `.explorer-intake/{slug}/intake.json`
-2. It contains: companyName, industry, websiteUrl, contentFiles (paths), logos (paths), colors, password, screensaver, calculator, quickLinks
-3. Read any uploaded content files listed in `contentFiles` to extract content
-4. Logos are already saved to `Website/public/brand/assets/`
+1. Fetch all intakes via GET `/api/explorer/intake` -- returns `{ intakes: [...] }`
+2. Each intake contains: companyName, industry, websiteUrl, contentFiles (blob URLs), logos (blob URLs), colors, password, screensaver, calculator, quickLinks
+3. Fetch content files from their blob URLs to extract content (requires `Authorization: Bearer $BLOB_READ_WRITE_TOKEN` header for private blobs)
+4. Logo blob URLs can be used to download logos for placement in `Website/public/brand/assets/`
 
 ### Option B: Manual (prompt for missing info)
 If no intake exists, prompt the user for the following:
@@ -125,8 +125,8 @@ const colors = {
   teal: '#...',                  // Teal variant
   blue: '#...',                  // Blue variant
   deepBlue: '#...',              // Deep blue
-  navy: '#...',                  // Navy
-  midnight: '#...',              // Near-black
+  navy: '#...',                  // Dark UI tone derived from brand (drives dialog overlay backdrop)
+  midnight: '#...',              // Near-black UI tone derived from brand (drives dialog background)
   plum: '#...',                  // Warm accent (used in gradients)
   bgDark: '#...',                // Dark mode background base
 
@@ -352,11 +352,16 @@ After creating all files:
 18. **Light/dark mode theming is handled by ExplorerShell.tsx via a `<style>` block** that overrides locked CSS hardcoded dark-mode values using theme-aware CSS variables from `theme.ts`:
     - **Cards** (`exp-result-card`, `exp-trait-card`): `--exp-card-bg` (dark: `rgba(255,255,255,0.04)`, light: `rgba(255,255,255,0.65)`), `--exp-card-border`, `--exp-card-shadow`
     - **Selected trait cards**: `--exp-selected-bg`, `--exp-selected-border` (light: full-opacity accent border for clear contrast)
-    - **Dialogs & card overlays**: `--exp-dialog-bg` (dark: `rgba(15,20,55,0.92)`, light: solid `#FFFFFF`), `--exp-dialog-border`, `--exp-dialog-shadow`
-    - **Overlay backdrops**: `--exp-dialog-overlay-bg` (dark: `rgba(6,19,65,0.60)`, light: `rgba(6,19,65,0.18)`)
+    - **Dialogs & card overlays**: `--exp-dialog-bg` (dark: derived from `branding.colors.midnight` at 0.92 opacity, light: solid `#FFFFFF`), `--exp-dialog-border`, `--exp-dialog-shadow`. `midnight` and `navy` are dark UI tones you derive from the brand palette (not client-provided colors) -- theme.ts uses `hexToRgba()` on them to generate dialog/overlay backgrounds per brand.
+    - **Overlay backdrops**: `--exp-dialog-overlay-bg` (dark: derived from `branding.colors.navy` at 0.60, light: same navy at 0.18).
     - **Summary chips**: same as card bg/border
     - **Separator lines removed**: `exp-results-tab-bar` border-top set to none
     - **Overflow hidden** on `exp-center` to prevent cards bleeding into bottom bar
+    - **BottomBar alignment**: constrained to `max-width: 860px; margin: auto; padding: 20px 24px` so buttons align with card edges across all steps
+    - **Results tab bar**: `padding: 20px 0` to match button alignment with BottomBar
+    - **Results header**: `.exp-results-view .exp-trait-header` uses `height: auto; min-height: 100px` to accommodate chips without overflow
+    - **Small card grid**: `.exp-view-small .exp-paginated-wrapper` uses flex column layout, `.exp-card-grid` uses `flex: 1; min-height: 0; grid-template-rows: 1fr 1fr` to fill vertical space
+    - **CardOverlay media preview**: uses `var(--exp-card-bg)` and `var(--exp-card-border)` instead of hardcoded rgba values
 19. **No separator lines** -- The results tab bar separator and any other divider lines have been removed. Do not add `border-top`, `border-bottom`, or `<hr>` elements to any explorer components.
 20. **Light mode must feel clean, white, and crisp** -- Unselected cards should be translucent white (0.65), selected cards must have clear accent-colored border contrast. Card overlays and dialogs must be solid white. Avoid heavy gradients or strong orb colors in light mode.
 
@@ -365,6 +370,8 @@ After creating all files:
 Read these files to understand the system before generating:
 - `Website/src/lib/explorer/types.ts` - Full TypeScript interfaces
 - `Website/src/lib/explorer/defaults.ts` - Reference implementation (Momentify)
+- `Website/src/lib/explorer/configs/clarium.ts` - Reference config (Clarium Health)
+- `Website/src/lib/explorer/configs/maven-fp.ts` - Reference config (Maven Financial Partners)
 - `Website/src/lib/explorer/theme.ts` - Theme color system
 - `Website/src/components/explorer/ExplorerShell.tsx` - Shell layout
 - `Website/src/components/explorer/ExplorerContext.tsx` - State management

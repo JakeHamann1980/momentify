@@ -115,6 +115,7 @@ export default function ExplorerIntakePage() {
   const [activeColorPicker, setActiveColorPicker] = useState<'primary' | 'secondary' | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [extracting, setExtracting] = useState(false);
 
   const update = useCallback(<K extends keyof IntakeForm>(key: K, value: IntakeForm[K]) => {
@@ -463,6 +464,7 @@ export default function ExplorerIntakePage() {
   const handleSubmit = async () => {
     if (!form.companyName.trim()) return;
     setSubmitting(true);
+    setSubmitError(null);
 
     try {
       const formData = new FormData();
@@ -490,10 +492,15 @@ export default function ExplorerIntakePage() {
         formData.append(`content-${i}`, file);
       });
 
-      await fetch('/api/explorer/intake', { method: 'POST', body: formData });
+      const res = await fetch('/api/explorer/intake', { method: 'POST', body: formData });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({ error: 'Unknown error' }));
+        throw new Error(body.error || `Server error (${res.status})`);
+      }
       setSubmitted(true);
     } catch (err) {
       console.error('Intake submission failed:', err);
+      setSubmitError(err instanceof Error ? err.message : 'Failed to save intake. Please try again.');
     } finally {
       setSubmitting(false);
     }
@@ -1017,6 +1024,21 @@ export default function ExplorerIntakePage() {
             </>
           )}
         </button>
+
+        {submitError && (
+          <div style={{
+            marginTop: 12,
+            padding: '12px 16px',
+            borderRadius: 10,
+            background: 'rgba(229,72,77,0.08)',
+            border: '1px solid rgba(229,72,77,0.2)',
+            color: '#E5484D',
+            fontSize: 14,
+            lineHeight: 1.5,
+          }}>
+            {submitError}
+          </div>
+        )}
       </main>
 
       {/* Spinner animation */}
