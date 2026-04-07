@@ -424,26 +424,54 @@ export default function ExplorerDashboard() {
         width: "100%",
       }}
     >
-      <div style={{ marginBottom: 32 }}>
-        <h1
+      <div style={{ marginBottom: 32, display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16 }}>
+        <div>
+          <h1
+            style={{
+              color: "var(--text)",
+              fontSize: 26,
+              fontWeight: 500,
+              marginBottom: 6,
+            }}
+          >
+            Explorer Instances
+          </h1>
+          <p
+            style={{
+              color: "var(--text-muted)",
+              fontSize: 14,
+              fontWeight: 300,
+            }}
+          >
+            Personalized product discovery experiences for each client
+          </p>
+        </div>
+        <a
+          href="/brand/explorer-builder"
           style={{
-            color: "var(--text)",
-            fontSize: 26,
-            fontWeight: 500,
-            marginBottom: 6,
-          }}
-        >
-          Explorer Instances
-        </h1>
-        <p
-          style={{
-            color: "var(--text-muted)",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 8,
+            padding: "10px 20px",
+            borderRadius: 10,
+            border: "none",
+            background: "linear-gradient(135deg, #00BBA5, #1A56DB)",
+            color: "#fff",
             fontSize: 14,
-            fontWeight: 300,
+            fontWeight: 500,
+            fontFamily: "inherit",
+            textDecoration: "none",
+            whiteSpace: "nowrap",
+            cursor: "pointer",
+            flexShrink: 0,
           }}
         >
-          Personalized product discovery experiences for each client
-        </p>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+          New Explorer
+        </a>
       </div>
 
       <div
