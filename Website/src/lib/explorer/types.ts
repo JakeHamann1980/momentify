@@ -47,6 +47,7 @@ export interface BrandingConfig {
   ctaGradient: string;
   ctaTextColor: string;
   gradientWord: string;
+  gradientWordLight?: string;
 }
 
 // ─── Registration ────────────────────────────────────

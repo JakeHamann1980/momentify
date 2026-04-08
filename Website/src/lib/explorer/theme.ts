@@ -49,7 +49,7 @@ export function generateThemeVars(
     // CTA
     '--exp-cta-gradient': branding.ctaGradient,
     '--exp-cta-text': branding.ctaTextColor,
-    '--exp-gradient-word': branding.gradientWord,
+    '--exp-gradient-word': (theme === 'light' && branding.gradientWordLight) ? branding.gradientWordLight : branding.gradientWord,
 
     // Accent tints (10% opacity versions for backgrounds)
     '--exp-teal-10': hexToRgba(branding.colors.teal, 0.1),

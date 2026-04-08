@@ -28,8 +28,8 @@ const CDK_LIGHT: ThemeColors = {
   border: 'rgba(0,0,0,0.10)',
   borderFocus: '#000000',
   text1: '#0F172A',
-  text2: 'rgba(15,23,42,0.65)',
-  text3: 'rgba(15,23,42,0.45)',
+  text2: 'rgba(15,23,42,0.92)',
+  text3: 'rgba(15,23,42,0.55)',
   inputBg: '#FFFFFF',
   inputText: '#0F172A',
   inputPlaceholder: 'rgba(15,23,42,0.35)',
@@ -73,6 +73,7 @@ export const CDK_CONFIG: ExplorerConfig = {
     ctaGradient: 'linear-gradient(135deg, #333333, #000000)',
     ctaTextColor: '#FFFFFF',
     gradientWord: 'linear-gradient(135deg, #FFFFFF, #CCCCCC)',
+    gradientWordLight: 'linear-gradient(135deg, #333333, #000000)',
     roleBackgrounds: {
       'dealer-principal': 'radial-gradient(ellipse 90% 70% at 50% 70%, rgba(255,255,255,0.08) 0%, transparent 65%), radial-gradient(ellipse 70% 60% at 15% 15%, rgba(204,204,204,0.06) 0%, transparent 55%)',
       'general-manager': 'radial-gradient(ellipse 90% 70% at 50% 70%, rgba(204,204,204,0.08) 0%, transparent 65%), radial-gradient(ellipse 70% 60% at 85% 15%, rgba(255,255,255,0.05) 0%, transparent 55%)',
