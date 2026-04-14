@@ -13,10 +13,11 @@ export async function POST(request: Request) {
       )
     }
 
-    const apiKey = process.env.GTM_ANTHROPIC_KEY
+    const apiKey = process.env.GTM_ANTHROPIC_KEY || process.env.ANTHROPIC_API_KEY
     if (!apiKey) {
+      console.error("Missing API key. GTM_ANTHROPIC_KEY:", !!process.env.GTM_ANTHROPIC_KEY, "ANTHROPIC_API_KEY:", !!process.env.ANTHROPIC_API_KEY)
       return NextResponse.json(
-        { error: "Generation is not configured." },
+        { error: "Generation is not configured. No API key found." },
         { status: 500 }
       )
     }
