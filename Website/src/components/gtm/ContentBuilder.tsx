@@ -1448,8 +1448,60 @@ export default function ContentBuilder({
             )}
 
             {/* Carousel viewer: grid of square social graphics with navigation and series caption */}
-            {isCarousel && slides.length > 0 && (
-              <div style={{ marginTop: 20 }}>
+            {isCarousel && output && (
+              <>
+                {/* Generate Now button */}
+                <div style={{
+                  marginTop: 20,
+                  padding: 16,
+                  borderRadius: 10,
+                  border: "1px solid var(--gtm-border)",
+                  background: "var(--gtm-bg-card)",
+                }}>
+                  <button
+                    onClick={() => handleGenerateAssetHtml("carousel")}
+                    disabled={generatingAsset === "carousel"}
+                    aria-label="Generate carousel"
+                    style={{
+                      width: "100%",
+                      padding: "12px 16px",
+                      borderRadius: 6,
+                      border: "none",
+                      background: "var(--gtm-accent)",
+                      fontSize: 14,
+                      fontWeight: 600,
+                      fontFamily: font,
+                      color: "#fff",
+                      cursor: generatingAsset === "carousel" ? "not-allowed" : "pointer",
+                      opacity: generatingAsset === "carousel" ? 0.6 : 1,
+                      transition: "all 150ms ease",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: 8,
+                    }}
+                  >
+                    {generatingAsset === "carousel" ? (
+                      <>
+                        <RotateCw size={14} style={{ animation: "spin 1s linear infinite" }} />
+                        Generating...
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles size={14} />
+                        Generate Now
+                      </>
+                    )}
+                  </button>
+                  {assetGenerationError && (
+                    <p style={{ color: "var(--gtm-error)", fontSize: 12, margin: "8px 0 0 0" }}>
+                      {assetGenerationError}
+                    </p>
+                  )}
+                </div>
+
+                {/* Canvas preview and Build with Claude Code - carousel section */}
+                <div style={{ marginTop: 20 }}>
                 <div
                   style={{
                     background: "var(--gtm-bg-card)",
@@ -1604,6 +1656,7 @@ export default function ContentBuilder({
                   )}
                 </div>
               </div>
+              </>
             )}
 
             {/* Feedback row */}
