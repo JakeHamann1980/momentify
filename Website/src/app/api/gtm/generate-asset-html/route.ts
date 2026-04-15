@@ -1,0 +1,107 @@
+import { NextResponse } from "next/server"
+import fs from "fs"
+import path from "path"
+
+const assetPrompts: Record<string, (brief: string, solution: string) => string> = {
+  infographic: (brief, solution) => `Build an infographic HTML page at Brand/gtm/${solution}-infographic.html using the rox-infographic.html reference implementation at Brand/rox-infographic.html. Follow the same structure: self-contained HTML, inline CSS, no build tools. Use the brand tokens from the brief below. Render as a single-page infographic with all sections (title, eyebrow, headline, subhead, gauge section, categories grid, footer CTA) laid out vertically.\n\nHere is the generated brief:\n\n${brief}`,
+
+  microsite: (brief, solution) => `Build a microsite HTML page at Brand/gtm/${solution}-microsite.html using the panelmatic.html reference implementation at Brand/gtm/panelmatic.html. Follow the same structure: self-contained HTML, inline CSS, no build tools. Use the brand tokens from the brief below. Include all sections (Hero, Problem, Approach, Proof, How It Works, CTA + Form). Add scroll-reveal animations and responsive mobile styles.\n\nHere is the generated brief:\n\n${brief}`,
+
+  carousel: (brief, solution) => `Build a carousel HTML page at Brand/gtm/${solution}-carousel.html with 5-6 swipeable cards. Create self-contained HTML with inline CSS and vanilla JavaScript for carousel functionality. Each card should be a tip or insight. Use the solution's brand colors and tokens from the brief below. Make it responsive and mobile-optimized.\n\nHere is the generated brief:\n\n${brief}`,
+
+  "pitch-deck": (brief, solution) => `Build a pitch deck HTML page at Brand/gtm/${solution}-pitch-deck.html with 8 slides in 16:9 aspect ratio. Create self-contained HTML with inline CSS and vanilla JavaScript for slide navigation. Use the solution's brand colors and tokens from the brief below. Each slide should be a full-page section with branded header, content, and footer. Make it presentation-ready with keyboard navigation.\n\nHere is the generated brief:\n\n${brief}`,
+
+  "one-pager": (brief, solution) => `Build a one-pager HTML page at Brand/gtm/${solution}-one-pager.html as a single-page sales leave-behind. Create self-contained HTML with inline CSS. Use the solution's brand colors and tokens from the brief below. Include sections for headline, value prop, 3-4 key benefits, social proof, and CTA. Optimize for printing and screen viewing.\n\nHere is the generated brief:\n\n${brief}`,
+}
+
+export async function POST(request: Request) {
+  try {
+    const { brief, assetType, solution } = await request.json()
+
+    if (!brief || !assetType || !solution) {
+      return NextResponse.json(
+        { error: "Missing brief, assetType, or solution" },
+        { status: 400 }
+      )
+    }
+
+    if (!assetPrompts[assetType]) {
+      return NextResponse.json(
+        { error: "Unsupported asset type" },
+        { status: 400 }
+      )
+    }
+
+    const apiKey = process.env.GTM_ANTHROPIC_KEY || process.env.ANTHROPIC_API_KEY
+    if (!apiKey) {
+      console.error(
+        "Missing API key. GTM_ANTHROPIC_KEY:",
+        !!process.env.GTM_ANTHROPIC_KEY,
+        "ANTHROPIC_API_KEY:",
+        !!process.env.ANTHROPIC_API_KEY
+      )
+      return NextResponse.json(
+        { error: "Generation is not configured. No API key found." },
+        { status: 500 }
+      )
+    }
+
+    const prompt = assetPrompts[assetType](brief, solution)
+
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01",
+      },
+      body: JSON.stringify({
+        model: "claude-opus-4-1",
+        max_tokens: 4096,
+        messages: [{ role: "user", content: prompt }],
+      }),
+    })
+
+    if (!response.ok) {
+      const err = await response.text()
+      console.error("Anthropic API error:", err)
+      return NextResponse.json(
+        { error: "Generation failed. Please try again." },
+        { status: 500 }
+      )
+    }
+
+    const data = await response.json()
+    const htmlContent =
+      data.content?.[0]?.type === "text" ? data.content[0].text : ""
+
+    if (!htmlContent.includes("<!DOCTYPE") && !htmlContent.includes("<html")) {
+      return NextResponse.json(
+        { error: "Generated content does not appear to be valid HTML" },
+        { status: 400 }
+      )
+    }
+
+    // Save to /public/gtm/
+    const dir = path.join(process.cwd(), "public/gtm")
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true })
+    }
+
+    const filename = `${solution}-${assetType}.html`
+    const filePath = path.join(dir, filename)
+    fs.writeFileSync(filePath, htmlContent, "utf-8")
+
+    return NextResponse.json({
+      success: true,
+      url: `/api/gtm/infographic-preview?solution=${solution}`,
+      filename,
+    })
+  } catch (error) {
+    console.error("Error generating asset HTML:", error)
+    return NextResponse.json(
+      { error: "Failed to generate asset" },
+      { status: 500 }
+    )
+  }
+}
