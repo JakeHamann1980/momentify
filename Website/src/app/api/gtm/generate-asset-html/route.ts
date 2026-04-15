@@ -2,6 +2,9 @@ import { NextResponse } from "next/server"
 import fs from "fs"
 import path from "path"
 
+// Fix #1: Parameter validation function
+const isValidParameter = (param: string): boolean => /^[a-zA-Z0-9_-]+$/.test(param)
+
 const assetPrompts: Record<string, (brief: string, solution: string) => string> = {
   infographic: (brief, solution) => `Build an infographic HTML page at Brand/gtm/${solution}-infographic.html using the rox-infographic.html reference implementation at Brand/rox-infographic.html. Follow the same structure: self-contained HTML, inline CSS, no build tools. Use the brand tokens from the brief below. Render as a single-page infographic with all sections (title, eyebrow, headline, subhead, gauge section, categories grid, footer CTA) laid out vertically.\n\nHere is the generated brief:\n\n${brief}`,
 
@@ -21,6 +24,14 @@ export async function POST(request: Request) {
     if (!brief || !assetType || !solution) {
       return NextResponse.json(
         { error: "Missing brief, assetType, or solution" },
+        { status: 400 }
+      )
+    }
+
+    // Fix #1: Path traversal vulnerability - sanitize parameters
+    if (!isValidParameter(solution) || !isValidParameter(assetType)) {
+      return NextResponse.json(
+        { error: "Invalid solution or assetType format" },
         { status: 400 }
       )
     }
@@ -46,6 +57,9 @@ export async function POST(request: Request) {
       )
     }
 
+    // Fix #3: Hardcoded model name - use environment variable with fallback
+    const MODEL = process.env.CLAUDE_MODEL || "claude-opus-4-1"
+
     const prompt = assetPrompts[assetType](brief, solution)
 
     const response = await fetch("https://api.anthropic.com/v1/messages", {
@@ -56,7 +70,7 @@ export async function POST(request: Request) {
         "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: "claude-opus-4-1",
+        model: MODEL,
         max_tokens: 4096,
         messages: [{ role: "user", content: prompt }],
       }),
@@ -72,12 +86,35 @@ export async function POST(request: Request) {
     }
 
     const data = await response.json()
-    const htmlContent =
-      data.content?.[0]?.type === "text" ? data.content[0].text : ""
 
+    // Fix #4: Missing type guards - validate response structure
+    if (!data.content || !Array.isArray(data.content) || !data.content.length) {
+      return NextResponse.json(
+        { error: "Empty response from Claude" },
+        { status: 500 }
+      )
+    }
+
+    const content = data.content[0]
+    if (content.type !== "text") {
+      return NextResponse.json(
+        { error: "Expected text response from Claude" },
+        { status: 500 }
+      )
+    }
+
+    const htmlContent = content.text
+
+    // Fix #5: Weak HTML validation - upgrade validation checks
     if (!htmlContent.includes("<!DOCTYPE") && !htmlContent.includes("<html")) {
       return NextResponse.json(
-        { error: "Generated content does not appear to be valid HTML" },
+        { error: "Invalid HTML: missing DOCTYPE or html tag" },
+        { status: 400 }
+      )
+    }
+    if (!htmlContent.includes("</html>")) {
+      return NextResponse.json(
+        { error: "Invalid HTML: missing closing html tag" },
         { status: 400 }
       )
     }
@@ -92,9 +129,11 @@ export async function POST(request: Request) {
     const filePath = path.join(dir, filename)
     fs.writeFileSync(filePath, htmlContent, "utf-8")
 
+    // Fix #2: Hardcoded preview URL - return asset-type-specific URL
+    const previewUrl = `/${solution}-${assetType}.html`
     return NextResponse.json({
       success: true,
-      url: `/api/gtm/infographic-preview?solution=${solution}`,
+      url: previewUrl,
       filename,
     })
   } catch (error) {
