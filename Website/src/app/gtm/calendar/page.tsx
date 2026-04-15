@@ -28,21 +28,21 @@ import TaskCard from "@/components/gtm/calendar/TaskCard"
 
 const font = "'Inter', system-ui, -apple-system, sans-serif"
 
-const STORAGE_KEY = "gtm_calendar_tasks"
-
-function loadTasks(): CalendarTask[] {
-  if (typeof window === "undefined") return defaultCalendarTasks
+async function fetchTasks(): Promise<CalendarTask[]> {
   try {
-    const stored = localStorage.getItem(STORAGE_KEY)
-    if (stored) return JSON.parse(stored)
-  } catch { /* ignore */ }
-  return defaultCalendarTasks
-}
-
-function saveTasks(tasks: CalendarTask[]) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks))
-  } catch { /* ignore */ }
+    const res = await fetch("/api/gtm/calendar")
+    if (!res.ok) return defaultCalendarTasks
+    const data = await res.json()
+    if (!data.tasks || data.tasks.length === 0) return defaultCalendarTasks
+    // Merge any default tasks that might be missing
+    const existingIds = new Set(data.tasks.map((t: CalendarTask) => t.id))
+    for (const dt of defaultCalendarTasks) {
+      if (!existingIds.has(dt.id)) data.tasks.push(dt)
+    }
+    return data.tasks
+  } catch {
+    return defaultCalendarTasks
+  }
 }
 
 export default function CalendarPage() {
@@ -54,15 +54,15 @@ export default function CalendarPage() {
   const [selectedTask, setSelectedTask] = useState<CalendarTask | null>(null)
   const [activeId, setActiveId] = useState<string | null>(null)
   const [mounted, setMounted] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    setTasks(loadTasks())
-    setMounted(true)
+    fetchTasks().then((loaded) => {
+      setTasks(loaded)
+      setMounted(true)
+      setLoading(false)
+    })
   }, [])
-
-  useEffect(() => {
-    if (mounted) saveTasks(tasks)
-  }, [tasks, mounted])
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
@@ -81,9 +81,20 @@ export default function CalendarPage() {
   }
 
   const handleToggleComplete = useCallback((taskId: string) => {
-    setTasks((prev) =>
-      prev.map((t) => (t.id === taskId ? { ...t, completed: !t.completed } : t))
-    )
+    setTasks((prev) => {
+      const updated = prev.map((t) =>
+        t.id === taskId ? { ...t, completed: !t.completed } : t
+      )
+      const task = updated.find((t) => t.id === taskId)
+      if (task) {
+        fetch(`/api/gtm/calendar/${taskId}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(task),
+        }).catch(() => {})
+      }
+      return updated
+    })
   }, [])
 
   const handleTaskClick = useCallback((task: CalendarTask) => {
@@ -125,9 +136,20 @@ export default function CalendarPage() {
   }, [])
 
   const handleResetTasks = useCallback(() => {
+    // Delete all current tasks from KV
+    for (const task of tasks) {
+      fetch(`/api/gtm/calendar/${task.id}`, { method: "DELETE" }).catch(() => {})
+    }
+    // Re-seed with defaults
     setTasks(defaultCalendarTasks)
-    localStorage.removeItem(STORAGE_KEY)
-  }, [])
+    for (const task of defaultCalendarTasks) {
+      fetch("/api/gtm/calendar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(task),
+      }).catch(() => {})
+    }
+  }, [tasks])
 
   function handleDragStart(event: DragStartEvent) {
     setActiveId(event.active.id as string)
@@ -149,6 +171,15 @@ export default function CalendarPage() {
           t.id === activeTaskId ? { ...t, date: newDate } : t
         )
       )
+      // Persist date change
+      const task = tasks.find((t) => t.id === activeTaskId)
+      if (task) {
+        fetch(`/api/gtm/calendar/${activeTaskId}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...task, date: newDate }),
+        }).catch(() => {})
+      }
       return
     }
 
@@ -164,6 +195,11 @@ export default function CalendarPage() {
             t.id === activeTaskId ? { ...t, date: overTask.date } : t
           )
         )
+        fetch(`/api/gtm/calendar/${activeTaskId}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...activeTask, date: overTask.date }),
+        }).catch(() => {})
       } else {
         // Reorder within same day
         const dayTasks = tasks
@@ -179,12 +215,38 @@ export default function CalendarPage() {
               orderMap.has(t.id) ? { ...t, sortOrder: orderMap.get(t.id)! } : t
             )
           )
+          // Bulk update reordered tasks
+          const reorderedTasks = reordered.map((t, i) => ({ ...t, sortOrder: i }))
+          fetch("/api/gtm/calendar", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(reorderedTasks),
+          }).catch(() => {})
         }
       }
     }
   }
 
   const activeTask = activeId ? tasks.find((t) => t.id === activeId) : null
+
+  if (loading) {
+    return (
+      <div style={{
+        maxWidth: 1200,
+        margin: "0 auto",
+        padding: "120px 48px",
+        textAlign: "center",
+      }}>
+        <p style={{
+          fontSize: 14,
+          color: "var(--gtm-text-muted)",
+          fontFamily: font,
+        }}>
+          Loading calendar...
+        </p>
+      </div>
+    )
+  }
 
   return (
     <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 48px 48px" }}>
