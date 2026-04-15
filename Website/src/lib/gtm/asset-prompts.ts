@@ -207,6 +207,80 @@ Design a discovery call reference card for Momentify sales reps using the ${pale
 
 ${content}`
 
+    case "pitch-deck":
+      return `${BRAND_DIRECTIVE}${BRAND_CONTEXT}
+
+## Task
+Design a pitch deck (8 slides, 16:9) for Momentify using the ${palette.name} palette (${solution}).
+
+**Solution palette:** Primary ${palette.primary}, Light ${palette.light}, Gradient ${palette.gradient}
+
+**Requirements:**
+- 16:9 aspect ratio (1200x675), presentation-ready
+- Slide 1 (Title): Solution gradient background, white headline (weight 500), white subhead (weight 300), Momentify logo top-left
+- Slide 2 (Problem): White background, headline in ${palette.primary}, bullet points in #061341 at 70% opacity
+- Slide 3 (Cost/Stat): Dark background #070E2B, large stat number (weight 800, 72px), white subhead
+- Slide 4 (Solution): Light tinted background ${palette.light} at 5% opacity, headline in ${palette.primary}, feature bullets
+- Slide 5 (How It Works): White background, 3 numbered steps with ${palette.primary} number circles
+- Slide 6 (ROX Framework): White background, 4 ROX dimensions in a 2x2 grid with ${palette.primary} icons
+- Slide 7 (Proof): Solution gradient background, large white stat, context subhead
+- Slide 8 (CTA): Solution gradient background, white headline, subhead with next step CTA
+- All typography uses Inter. Headlines weight 500, body weight 400
+- Consistent padding (60px), Momentify logo on title and CTA slides
+- Minimal text per slide. Visual-first, not document-style
+
+**Content brief to design from:**
+
+${content}`
+
+    case "infographic":
+      return `${BRAND_DIRECTIVE}${BRAND_CONTEXT}
+
+## Task
+Design a vertical infographic (6 panels, 16:9 each) for Momentify using the ${palette.name} palette (${solution}).
+
+**Solution palette:** Primary ${palette.primary}, Light ${palette.light}, Gradient ${palette.gradient}
+
+**Requirements:**
+- 6 stacked panels, each 1200x675 (16:9), forming a vertical data story
+- Panel 1 (Title): Solution gradient background, white headline (weight 500), Momentify logo
+- Panel 2 (Problem): White background, data-driven headline in ${palette.primary}, supporting bullet points
+- Panel 3 (Key Stat): Dark background #070E2B, large stat number (weight 800, 72px), white context text
+- Panel 4 (Solution): Light tinted background, feature bullets with ${palette.primary} accent icons
+- Panel 5 (ROX Impact): Solution gradient background, large white proof metric
+- Panel 6 (CTA): Solution gradient background, clear next step CTA
+- All typography uses Inter. Stats should be visually dominant
+- Data visualization elements where appropriate (simple bar/progress indicators using ${palette.primary})
+- Consistent padding (60px), clean visual hierarchy
+
+**Content brief to design from:**
+
+${content}`
+
+    case "carousel":
+      return `${BRAND_DIRECTIVE}${BRAND_CONTEXT}
+
+## Task
+Design a social carousel (6 swipeable cards, 16:9 each) for Momentify using the ${palette.name} palette (${solution}).
+
+**Solution palette:** Primary ${palette.primary}, Light ${palette.light}, Gradient ${palette.gradient}
+
+**Requirements:**
+- 6 cards at 1200x675 (16:9), optimized for LinkedIn/social carousel posts
+- Card 1 (Cover): Solution gradient background, bold white headline, hook subhead, Momentify logo
+- Cards 2-5 (Tips): Alternate between dark (#070E2B) and light backgrounds for visual rhythm
+  - Tip number indicator using ${palette.primary} (e.g., "01" large and faded behind text)
+  - Headline in white (dark cards) or ${palette.primary} (light cards), weight 600
+  - Supporting text in body weight 300, high readability
+- Card 6 (CTA): Solution gradient background, wrap-up headline, CTA subhead, Momentify logo
+- All typography uses Inter. Headlines weight 600, body weight 300
+- Each card should be visually complete and scannable in under 3 seconds
+- Consistent padding (60px), swipe-indicator dots at bottom of each card
+
+**Content brief to design from:**
+
+${content}`
+
     case "microsite":
       return `${BRAND_DIRECTIVE}${BRAND_CONTEXT}
 
