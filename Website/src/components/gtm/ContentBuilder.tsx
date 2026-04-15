@@ -70,76 +70,88 @@ interface GraphicState {
 
 export const contentTypes = [
   {
-    key: "cold-emails",
-    label: "Cold Outreach Emails",
-    desc: "3-touch sequence, Day 0/4/9",
-    icon: FileText,
+    key: "carousel",
+    label: "Social Carousel",
+    desc: "5-6 swipeable tip cards for social",
+    icon: GalleryHorizontalEnd,
+    category: "Social & Visual",
   },
   {
     key: "social-post",
     label: "Social Post",
     desc: "3 platform versions with branded graphic",
     icon: Share2,
-  },
-  {
-    key: "linkedin-dm",
-    label: "LinkedIn DM Script",
-    desc: "3-message sequence",
-    icon: MessageSquare,
-  },
-  {
-    key: "lead-magnet",
-    label: "Lead Magnet Outline",
-    desc: "Full content brief for designer/writer",
-    icon: BookOpen,
-  },
-  {
-    key: "discovery-script",
-    label: "Discovery Call Script",
-    desc: "Questions, objections, soft close",
-    icon: Phone,
-  },
-  {
-    key: "partner-pitch",
-    label: "Partner Pitch Narrative",
-    desc: "Co-sell model pitch",
-    icon: Handshake,
-  },
-  {
-    key: "battle-card",
-    label: "Competitive Battle Card",
-    desc: "Kill sheet vs Cvent, Whova, or Hopin",
-    icon: Shield,
-  },
-  {
-    key: "microsite",
-    label: "Microsite Brief",
-    desc: "Landing page structure and copy framework",
-    icon: Globe,
-  },
-  {
-    key: "one-pager",
-    label: "One Pager",
-    desc: "Single-page sales leave-behind",
-    icon: FileBarChart,
-  },
-  {
-    key: "pitch-deck",
-    label: "Pitch Deck",
-    desc: "8-slide branded deck with 16:9 graphics",
-    icon: Presentation,
+    category: "Social & Visual",
   },
   {
     key: "infographic",
     label: "Infographic",
     desc: "Vertical data story with branded panels",
     icon: BarChart3,
+    category: "Social & Visual",
   },
   {
-    key: "carousel",
-    label: "Social Carousel",
-    desc: "5-6 swipeable tip cards for social",
-    icon: GalleryHorizontalEnd,
+    key: "pitch-deck",
+    label: "Pitch Deck",
+    desc: "8-slide branded deck with 16:9 graphics",
+    icon: Presentation,
+    category: "Sales Tools",
+  },
+  {
+    key: "one-pager",
+    label: "One Pager",
+    desc: "Single-page sales leave-behind",
+    icon: FileBarChart,
+    category: "Sales Tools",
+  },
+  {
+    key: "battle-card",
+    label: "Competitive Battle Card",
+    desc: "Kill sheet vs Cvent, Whova, or Hopin",
+    icon: Shield,
+    category: "Sales Tools",
+  },
+  {
+    key: "partner-pitch",
+    label: "Partner Pitch Narrative",
+    desc: "Co-sell model pitch",
+    icon: Handshake,
+    category: "Sales Tools",
+  },
+  {
+    key: "cold-emails",
+    label: "Cold Outreach Emails",
+    desc: "3-touch sequence, Day 0/4/9",
+    icon: FileText,
+    category: "Outreach Sequences",
+  },
+  {
+    key: "linkedin-dm",
+    label: "LinkedIn DM Script",
+    desc: "3-message sequence",
+    icon: MessageSquare,
+    category: "Outreach Sequences",
+  },
+  {
+    key: "discovery-script",
+    label: "Discovery Call Script",
+    desc: "Questions, objections, soft close",
+    icon: Phone,
+    category: "Outreach Sequences",
+  },
+  {
+    key: "lead-magnet",
+    label: "Lead Magnet Outline",
+    desc: "Full content brief for designer/writer",
+    icon: BookOpen,
+    category: "Lead Capture",
+  },
+  {
+    key: "microsite",
+    label: "Microsite Brief",
+    desc: "Landing page structure and copy framework",
+    icon: Globe,
+    category: "Lead Capture",
   },
 ]
 
@@ -638,137 +650,158 @@ export default function ContentBuilder({
         {/* Content Type */}
         <div style={{ marginBottom: 24 }}>
           <FieldLabel label="Content Type" />
-          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-            {contentTypes.map((ct) => {
-              const selected = selectedContent === ct.key
-              const Icon = ct.icon
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {Array.from(new Set(contentTypes.map(ct => ct.category))).map((category) => {
+              const itemsInCategory = contentTypes.filter(ct => ct.category === category)
               return (
-                <React.Fragment key={ct.key}>
-                  <button
-                    onClick={() => {
-                      setSelectedContent(ct.key)
-                      if (ct.key !== "battle-card") setCompetitor(null)
-                      // Clear previous content when switching types
-                      setOutput("")
-                      setPlatformContent(null)
-                      setGraphicStage("none")
-                      setShowAssetPrompt(false)
-                      setError("")
-                      setFeedback(null)
-                      setSaved(false)
-                      setScheduled(false)
-                      setShowScheduler(false)
-                      platformGraphicsRef.current = {}
-                      setSlides([])
-                      setCurrentSlide(0)
-                      setSlideBgIndices([])
-                    }}
-                    style={{
-                      display: "flex",
-                      alignItems: "flex-start",
-                      gap: 10,
-                      padding: "12px 14px",
-                      borderRadius: 8,
-                      textAlign: "left",
-                      cursor: "pointer",
-                      border: selected
-                        ? "1px solid var(--gtm-border)"
-                        : "1px solid var(--gtm-border)",
-                      borderLeft: selected
-                        ? "2px solid var(--gtm-accent)"
-                        : "1px solid var(--gtm-border)",
-                      background: selected
-                        ? "var(--gtm-accent-bg)"
-                        : "transparent",
-                      transition: "all 150ms ease",
-                    }}
-                  >
-                    <Icon
-                      size={16}
-                      style={{
-                        color: "var(--gtm-accent)",
-                        marginTop: 1,
-                        flexShrink: 0,
-                      }}
-                    />
-                    <div>
-                      <p
-                        style={{
-                          fontSize: 13,
-                          fontWeight: 700,
-                          color: "var(--gtm-text-primary)",
-                          fontFamily: font,
-                          margin: 0,
-                          transition: "color 200ms ease",
-                        }}
-                      >
-                        {ct.label}
-                      </p>
-                      <p
-                        style={{
-                          fontSize: 11,
-                          color: "var(--gtm-text-muted)",
-                          fontFamily: font,
-                          margin: "2px 0 0",
-                          transition: "color 200ms ease",
-                        }}
-                      >
-                        {ct.desc}
-                      </p>
-                    </div>
-                  </button>
-
-                  {/* Platform sub-selector inline under Social Post */}
-                  {ct.key === "social-post" && selected && (
-                    <div style={{ marginLeft: 26, marginTop: -2, marginBottom: 2 }}>
-                      <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-                        {(Object.keys(platformConfig) as Platform[]).map((p) => {
-                          const active = selectedPlatform === p
-                          const cfg = platformConfig[p]
-                          const charNote = p === "linkedin" ? "150-250 words" : p === "instagram" ? "80-150 words" : "280 chars max"
-                          return (
-                            <button
-                              key={p}
-                              onClick={() => setSelectedPlatform(p)}
+                <div key={category} style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                  <p style={{
+                    fontSize: 10,
+                    fontWeight: 700,
+                    color: "var(--gtm-text-faint)",
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    fontFamily: font,
+                    margin: 0,
+                    paddingLeft: 4,
+                  }}>
+                    {category}
+                  </p>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                    {itemsInCategory.map((ct) => {
+                      const selected = selectedContent === ct.key
+                      const Icon = ct.icon
+                      return (
+                        <React.Fragment key={ct.key}>
+                          <button
+                            onClick={() => {
+                              setSelectedContent(ct.key)
+                              if (ct.key !== "battle-card") setCompetitor(null)
+                              // Clear previous content when switching types
+                              setOutput("")
+                              setPlatformContent(null)
+                              setGraphicStage("none")
+                              setShowAssetPrompt(false)
+                              setError("")
+                              setFeedback(null)
+                              setSaved(false)
+                              setScheduled(false)
+                              setShowScheduler(false)
+                              platformGraphicsRef.current = {}
+                              setSlides([])
+                              setCurrentSlide(0)
+                              setSlideBgIndices([])
+                            }}
+                            style={{
+                              display: "flex",
+                              alignItems: "flex-start",
+                              gap: 10,
+                              padding: "12px 14px",
+                              borderRadius: 8,
+                              textAlign: "left",
+                              cursor: "pointer",
+                              border: selected
+                                ? "1px solid var(--gtm-border)"
+                                : "1px solid var(--gtm-border)",
+                              borderLeft: selected
+                                ? "2px solid var(--gtm-accent)"
+                                : "1px solid var(--gtm-border)",
+                              background: selected
+                                ? "var(--gtm-accent-bg)"
+                                : "transparent",
+                              transition: "all 150ms ease",
+                            }}
+                          >
+                            <Icon
+                              size={16}
                               style={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                padding: "5px 10px",
-                                borderRadius: 6,
-                                fontSize: 11,
-                                fontWeight: 600,
-                                fontFamily: font,
-                                cursor: "pointer",
-                                border: active
-                                  ? "1px solid var(--gtm-accent)"
-                                  : "1px solid var(--gtm-border)",
-                                background: active
-                                  ? "var(--gtm-accent-bg)"
-                                  : "transparent",
-                                color: active
-                                  ? "var(--gtm-accent)"
-                                  : "var(--gtm-text-muted)",
-                                transition: "all 150ms ease",
+                                color: "var(--gtm-accent)",
+                                marginTop: 1,
+                                flexShrink: 0,
                               }}
-                            >
-                              <span>{cfg.label}</span>
-                              <span style={{ fontSize: 10, fontWeight: 400, opacity: 0.7 }}>
-                                {charNote} / {cfg.aspect}
-                              </span>
-                            </button>
-                          )
-                        })}
-                      </div>
-                      <p style={{
-                        fontSize: 10, color: "var(--gtm-text-faint)", fontFamily: font,
-                        marginTop: 4, lineHeight: 1.4, marginBottom: 0,
-                      }}>
-                        All 3 generate together. This sets the default view.
-                      </p>
-                    </div>
-                  )}
-                </React.Fragment>
+                            />
+                            <div>
+                              <p
+                                style={{
+                                  fontSize: 13,
+                                  fontWeight: 700,
+                                  color: "var(--gtm-text-primary)",
+                                  fontFamily: font,
+                                  margin: 0,
+                                  transition: "color 200ms ease",
+                                }}
+                              >
+                                {ct.label}
+                              </p>
+                              <p
+                                style={{
+                                  fontSize: 11,
+                                  color: "var(--gtm-text-muted)",
+                                  fontFamily: font,
+                                  margin: "2px 0 0",
+                                  transition: "color 200ms ease",
+                                }}
+                              >
+                                {ct.desc}
+                              </p>
+                            </div>
+                          </button>
+
+                          {/* Platform sub-selector inline under Social Post */}
+                          {ct.key === "social-post" && selected && (
+                            <div style={{ marginLeft: 26, marginTop: -2, marginBottom: 2 }}>
+                              <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                                {(Object.keys(platformConfig) as Platform[]).map((p) => {
+                                  const active = selectedPlatform === p
+                                  const cfg = platformConfig[p]
+                                  const charNote = p === "linkedin" ? "150-250 words" : p === "instagram" ? "80-150 words" : "280 chars max"
+                                  return (
+                                    <button
+                                      key={p}
+                                      onClick={() => setSelectedPlatform(p)}
+                                      style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "space-between",
+                                        padding: "5px 10px",
+                                        borderRadius: 6,
+                                        fontSize: 11,
+                                        fontWeight: 600,
+                                        fontFamily: font,
+                                        cursor: "pointer",
+                                        border: active
+                                          ? "1px solid var(--gtm-accent)"
+                                          : "1px solid var(--gtm-border)",
+                                        background: active
+                                          ? "var(--gtm-accent-bg)"
+                                          : "transparent",
+                                        color: active
+                                          ? "var(--gtm-accent)"
+                                          : "var(--gtm-text-muted)",
+                                        transition: "all 150ms ease",
+                                      }}
+                                    >
+                                      <span>{cfg.label}</span>
+                                      <span style={{ fontSize: 10, fontWeight: 400, opacity: 0.7 }}>
+                                        {charNote} / {cfg.aspect}
+                                      </span>
+                                    </button>
+                                  )
+                                })}
+                              </div>
+                              <p style={{
+                                fontSize: 10, color: "var(--gtm-text-faint)", fontFamily: font,
+                                marginTop: 4, lineHeight: 1.4, marginBottom: 0,
+                              }}>
+                                All 3 generate together. This sets the default view.
+                              </p>
+                            </div>
+                          )}
+                        </React.Fragment>
+                      )
+                    })}
+                  </div>
+                </div>
               )
             })}
           </div>
