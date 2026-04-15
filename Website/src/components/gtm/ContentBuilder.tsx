@@ -532,6 +532,17 @@ export default function ContentBuilder({
                     onClick={() => {
                       setSelectedContent(ct.key)
                       if (ct.key !== "battle-card") setCompetitor(null)
+                      // Clear previous content when switching types
+                      setOutput("")
+                      setPlatformContent(null)
+                      setGraphicStage("none")
+                      setShowAssetPrompt(false)
+                      setError("")
+                      setFeedback(null)
+                      setSaved(false)
+                      setScheduled(false)
+                      setShowScheduler(false)
+                      platformGraphicsRef.current = {}
                     }}
                     style={{
                       display: "flex",
@@ -1374,7 +1385,7 @@ export default function ContentBuilder({
             </div>
 
             {/* Claude Code prompt for microsites */}
-            {selectedContent === "microsite" && (
+            {selectedContent === "microsite" && output && (
               <div style={{
                 marginTop: 20,
                 padding: 20,
