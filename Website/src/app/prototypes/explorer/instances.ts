@@ -168,4 +168,17 @@ export const instances: ExplorerInstance[] = [
     createdAt: "2026-04-14",
     password: "salesflowiq2026",
   },
+  {
+    slug: "empire-jobfair",
+    name: "Empire CAT Job Fair",
+    company: "Empire CAT",
+    industry: "Heavy Equipment",
+    prototypeFile: "/brand/explorer-prototype_empire-jobfair.html",
+    logo: "/brand/assets/empire-cat-logo.png",
+    gateLogo: "/brand/assets/empire-cat-logo.png",
+    accentColor: "#FFCC00",
+    createdAt: "2026-04-15",
+    password: "empirecat2026",
+    bezel: "ipad-landscape",
+  },
 ];
