@@ -542,7 +542,7 @@ export default function WhatIsROX() {
                 background: "#F8F9FC",
                 borderRadius: "16px",
                 padding: "36px 32px",
-                borderTop: "3px solid rgba(6,19,65,0.15)",
+                borderTop: "none",
               }}
             >
               <p style={{ fontFamily: "var(--font-inter)", fontWeight: 600, fontSize: "10px", color: "rgba(6,19,65,0.4)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "16px" }}>
@@ -573,7 +573,7 @@ export default function WhatIsROX() {
                 background: "#061341",
                 borderRadius: "16px",
                 padding: "36px 32px",
-                borderTop: "3px solid #00BBA5",
+                borderTop: "none",
               }}
             >
               <p style={{ fontFamily: "var(--font-inter)", fontWeight: 600, fontSize: "10px", color: "#00BBA5", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "16px" }}>
@@ -673,7 +673,7 @@ export default function WhatIsROX() {
                 style={{
                   background: "#FFFFFF",
                   border: "1px solid rgba(6,19,65,0.08)",
-                  borderLeft: `3px solid ${cat.accent}`,
+                  borderLeft: "1px solid rgba(6,19,65,0.08)",
                   borderRadius: "16px",
                   padding: "36px 32px",
                   boxShadow: "0 2px 12px rgba(6,19,65,0.06)",
@@ -862,7 +862,6 @@ export default function WhatIsROX() {
                 style={{
                   background: v.bgTint,
                   border: `1px solid ${v.borderColor}`,
-                  borderLeft: `3px solid ${v.color}`,
                   borderRadius: "16px",
                   padding: "32px 28px",
                 }}
