@@ -18,6 +18,8 @@ import {
   RotateCw,
   ThumbsUp,
   ThumbsDown,
+  BookmarkCheck,
+  CalendarPlus,
 } from "lucide-react"
 
 const font = "'Inter', system-ui, -apple-system, sans-serif"
@@ -115,10 +117,12 @@ export default function ContentBuilder({
   solution,
   solutionLabel,
   verticals = defaultVerticals,
+  onLibraryChange,
 }: {
   solution: string
   solutionLabel: string
   verticals?: { key: string; label: string }[]
+  onLibraryChange?: () => void
 }) {
   const [motion, setMotion] = useState<"direct" | "partner" | null>(null)
   const [vertical, setVertical] = useState<string | null>(null)
@@ -130,6 +134,10 @@ export default function ContentBuilder({
   const [error, setError] = useState("")
   const [copied, setCopied] = useState(false)
   const [feedback, setFeedback] = useState<"up" | "down" | null>(null)
+  const [saved, setSaved] = useState(false)
+  const [showScheduler, setShowScheduler] = useState(false)
+  const [scheduleDate, setScheduleDate] = useState("")
+  const [scheduled, setScheduled] = useState(false)
 
   const canGenerate =
     motion !== null &&
@@ -177,6 +185,88 @@ export default function ContentBuilder({
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }, [output])
+
+  const handleSave = useCallback(async () => {
+    if (!output || !motion || !selectedContent) return
+
+    const tags = [motion, ...(vertical ? [vertical] : []), selectedContent]
+
+    const newItem = {
+      id: `content-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      contentType: selectedContent,
+      motion,
+      solution,
+      content: output,
+      createdAt: new Date().toISOString(),
+      tags,
+    }
+
+    try {
+      const res = await fetch("/api/gtm/content", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newItem),
+      })
+      if (res.ok) {
+        setSaved(true)
+        setTimeout(() => setSaved(false), 2000)
+        onLibraryChange?.()
+      }
+    } catch {
+      // Fall through silently
+    }
+  }, [output, motion, vertical, selectedContent, solution, onLibraryChange])
+
+  const handleSchedule = useCallback(async () => {
+    if (!scheduleDate || !output || !motion || !selectedContent) return
+
+    const dtParts = scheduleDate.split("T")
+    const dateOnly = dtParts[0]
+    const hour = dtParts[1] ? parseInt(dtParts[1].split(":")[0], 10) : 9
+    const timeSlot: "morning" | "afternoon" = hour < 12 ? "morning" : "afternoon"
+
+    const ct = contentTypes.find((c) => c.key === selectedContent)
+    const categoryMap: Record<string, string> = {
+      "social-post": "linkedin-post",
+      "cold-emails": "cold-email",
+      "linkedin-dm": "cold-email",
+      "lead-magnet": "lead-magnet",
+      "discovery-script": "discovery-call",
+      "partner-pitch": "partner-outreach",
+      "battle-card": "content-creation",
+      "microsite": "content-creation",
+      "one-pager": "content-creation",
+    }
+
+    const newTask = {
+      id: `task-scheduled-${crypto.randomUUID().slice(0, 8)}`,
+      title: `${ct?.label || selectedContent}: ${output.slice(0, 60).replace(/\n/g, " ")}...`,
+      category: categoryMap[selectedContent] || "content-creation",
+      solution,
+      date: dateOnly,
+      timeSlot,
+      duration: 30,
+      completed: false,
+      description: output.slice(0, 500),
+      sortOrder: 99,
+      roxTouchpoint: "Engagement Quality",
+    }
+
+    try {
+      const res = await fetch("/api/gtm/calendar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newTask),
+      })
+      if (res.ok) {
+        setScheduled(true)
+        setShowScheduler(false)
+        setTimeout(() => setScheduled(false), 3000)
+      }
+    } catch {
+      // Fall through silently
+    }
+  }, [scheduleDate, output, motion, selectedContent, solution])
 
   const contentTypeLabel =
     contentTypes.find((c) => c.key === selectedContent)?.label || ""
@@ -728,6 +818,104 @@ export default function ContentBuilder({
               >
                 Review all content before sending.
               </span>
+            </div>
+
+            {/* Save & Schedule actions */}
+            <div style={{ display: "flex", gap: 8, marginTop: 16 }}>
+              <button
+                onClick={handleSave}
+                disabled={saved}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                  padding: "8px 14px",
+                  borderRadius: 6,
+                  border: saved ? "1px solid var(--gtm-accent)" : "1px solid var(--gtm-border)",
+                  background: saved ? "var(--gtm-accent-bg)" : "transparent",
+                  fontSize: 12,
+                  fontWeight: 600,
+                  fontFamily: font,
+                  color: saved ? "var(--gtm-accent)" : "var(--gtm-text-muted)",
+                  cursor: saved ? "default" : "pointer",
+                  transition: "all 150ms ease",
+                }}
+              >
+                {saved ? <><BookmarkCheck size={14} /> Saved to Library</> : <><BookmarkCheck size={14} /> Save to Library</>}
+              </button>
+
+              {!showScheduler && !scheduled && (
+                <button
+                  onClick={() => setShowScheduler(true)}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                    padding: "8px 14px",
+                    borderRadius: 6,
+                    border: "1px solid var(--gtm-border)",
+                    background: "transparent",
+                    fontSize: 12,
+                    fontWeight: 600,
+                    fontFamily: font,
+                    color: "var(--gtm-text-muted)",
+                    cursor: "pointer",
+                    transition: "all 150ms ease",
+                  }}
+                >
+                  <CalendarPlus size={14} /> Schedule to Calendar
+                </button>
+              )}
+              {showScheduler && (
+                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                  <input
+                    type="datetime-local"
+                    value={scheduleDate}
+                    onChange={(e) => setScheduleDate(e.target.value)}
+                    style={{
+                      padding: "6px 10px",
+                      borderRadius: 6,
+                      border: "1px solid var(--gtm-border)",
+                      background: "var(--gtm-bg-card)",
+                      color: "var(--gtm-text-primary)",
+                      fontSize: 12,
+                      fontFamily: font,
+                    }}
+                  />
+                  <button
+                    onClick={handleSchedule}
+                    disabled={!scheduleDate}
+                    style={{
+                      padding: "6px 12px",
+                      borderRadius: 6,
+                      fontSize: 12,
+                      fontWeight: 600,
+                      fontFamily: font,
+                      background: scheduleDate ? "var(--gtm-accent-bg)" : "transparent",
+                      border: scheduleDate ? "1px solid var(--gtm-accent)" : "1px solid var(--gtm-border)",
+                      color: scheduleDate ? "var(--gtm-accent)" : "var(--gtm-text-faint)",
+                      opacity: scheduleDate ? 1 : 0.5,
+                      cursor: scheduleDate ? "pointer" : "not-allowed",
+                      transition: "all 150ms ease",
+                    }}
+                  >
+                    Confirm
+                  </button>
+                </div>
+              )}
+              {scheduled && (
+                <span style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                  fontSize: 12,
+                  fontWeight: 600,
+                  fontFamily: font,
+                  color: "var(--gtm-accent)",
+                }}>
+                  <CalendarPlus size={14} /> Scheduled to Execution Calendar
+                </span>
+              )}
             </div>
           </div>
         ) : (
