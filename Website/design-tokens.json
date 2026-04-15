@@ -1,0 +1,221 @@
+{
+  "$schema": "https://design-tokens.org/schema.json",
+  "color": {
+    "brand": {
+      "cyan":       { "value": "#0CF4DF", "type": "color", "description": "Primary accent on dark surfaces" },
+      "teal":       { "value": "#00BBA5", "type": "color", "description": "Eyebrows, interactive accents" },
+      "blue":       { "value": "#254FE5", "type": "color", "description": "Action gradient endpoint" },
+      "deep-blue":  { "value": "#1F3395", "type": "color", "description": "Accent on light surfaces" },
+      "cobalt":     { "value": "#3257D9", "type": "color", "description": "Secondary blue" },
+      "navy":       { "value": "#1A2E73", "type": "color", "description": "Dark section tones" },
+      "deep-navy":  { "value": "#061341", "type": "color", "description": "Dark text on light backgrounds" },
+      "midnight":   { "value": "#0B0B3C", "type": "color", "description": "Deepest background" },
+      "plum":       { "value": "#7C316D", "type": "color", "description": "Warm gradient anchor" }
+    },
+    "solution": {
+      "violet":     { "value": "#6B21D4", "type": "color", "description": "Trade Shows" },
+      "sol-teal":   { "value": "#5FD9C2", "type": "color", "description": "Tech Recruiting" },
+      "amber":      { "value": "#F2B33D", "type": "color", "description": "Field Sales" },
+      "indigo":     { "value": "#3A2073", "type": "color", "description": "Facilities" },
+      "crimson":    { "value": "#F25E3D", "type": "color", "description": "Venues & Events" }
+    },
+    "neutral": {
+      "white":      { "value": "#FFFFFF", "type": "color" },
+      "light-bg":   { "value": "#F8F9FB", "type": "color", "description": "Page background light" },
+      "light-blue": { "value": "#EEF3FD", "type": "color", "description": "Alternate section bg" },
+      "card-dark":  { "value": "#0F1629", "type": "color", "description": "Card bg on dark surfaces" },
+      "charcoal":   { "value": "#181818", "type": "color", "description": "Body text" },
+      "gray-body":  { "value": "#555555", "type": "color", "description": "Secondary body text" },
+      "black":      { "value": "#000000", "type": "color" }
+    },
+    "semantic": {
+      "success":       { "value": "#0CF4DF", "type": "color", "description": "Positive state, elite ROX" },
+      "success-muted": { "value": "#5FD9C2", "type": "color", "description": "High ROX tier" },
+      "warning":       { "value": "#F2B33D", "type": "color", "description": "Optimization needed, caution" },
+      "error":         { "value": "#E5484D", "type": "color", "description": "Critical state, destructive actions" },
+      "info":          { "value": "#3257D9", "type": "color", "description": "Informational callouts" }
+    },
+    "dark-mode": {
+      "bg":         { "value": "#07081F", "type": "color" },
+      "surface":    { "value": "#0F1035", "type": "color" },
+      "surface-2":  { "value": "#161840", "type": "color" },
+      "border":     { "value": "rgba(255,255,255,0.08)", "type": "color" },
+      "text":       { "value": "#E8EAF6", "type": "color" },
+      "text-muted": { "value": "rgba(232,234,246,0.5)", "type": "color" },
+      "accent":     { "value": "#0CF4DF", "type": "color" },
+      "header-bg":  { "value": "rgba(7,8,31,0.94)", "type": "color" }
+    },
+    "light-mode": {
+      "bg":         { "value": "#F4F5FA", "type": "color" },
+      "surface":    { "value": "#FFFFFF", "type": "color" },
+      "surface-2":  { "value": "#ECEEF6", "type": "color" },
+      "border":     { "value": "rgba(11,11,60,0.1)", "type": "color" },
+      "text":       { "value": "#0B0B3C", "type": "color" },
+      "text-muted": { "value": "rgba(11,11,60,0.5)", "type": "color" },
+      "accent":     { "value": "#1F3395", "type": "color" },
+      "header-bg":  { "value": "rgba(244,245,250,0.96)", "type": "color" }
+    }
+  },
+  "gradient": {
+    "action":         { "value": "linear-gradient(135deg, #0CF4DF 0%, #254FE5 100%)", "type": "gradient", "description": "Primary CTA backgrounds, accent text" },
+    "brand":          { "value": "linear-gradient(135deg, #00BBA5 0%, #254FE5 100%)", "type": "gradient", "description": "Softer action gradient for light backgrounds" },
+    "hero":           { "value": "linear-gradient(135deg, #0CF4DF, #5BA8F5)", "type": "gradient", "description": "Hero headline gradient text" },
+    "depth":          { "value": "linear-gradient(180deg, #7C316D 0%, #0B0B3C 45%, #1A2E73 100%)", "type": "gradient", "description": "Dark section backgrounds" },
+    "depth-reversed": { "value": "linear-gradient(0deg, #7C316D 0%, #0B0B3C 45%, #1A2E73 100%)", "type": "gradient", "description": "Inverted dark sections" },
+    "solution-violet":  { "value": "linear-gradient(135deg, #2D0770 0%, #4A0FA8 55%, #9B5FE8 100%)", "type": "gradient" },
+    "solution-teal":    { "value": "linear-gradient(135deg, #040E28 0%, #1A8A76 55%, #5FD9C2 100%)", "type": "gradient" },
+    "solution-amber":   { "value": "linear-gradient(135deg, #1A0A00 0%, #A86B00 55%, #F2B33D 100%)", "type": "gradient" },
+    "solution-indigo":  { "value": "linear-gradient(135deg, #0D0820 0%, #3A2073 55%, #5B4499 100%)", "type": "gradient" },
+    "solution-crimson": { "value": "linear-gradient(135deg, #1A0400 0%, #8F200A 55%, #F25E3D 100%)", "type": "gradient" },
+    "solution-violet-light":  { "value": "linear-gradient(145deg, #F8F4FF 0%, #EDE6FF 100%)", "type": "gradient" },
+    "solution-teal-light":    { "value": "linear-gradient(145deg, #E8FDF8 0%, #F0FFFC 100%)", "type": "gradient" },
+    "solution-amber-light":   { "value": "linear-gradient(145deg, #FFF9E8 0%, #FFFCF0 100%)", "type": "gradient" },
+    "solution-indigo-light":  { "value": "linear-gradient(145deg, #EEF0FF 0%, #F4F5FF 100%)", "type": "gradient" },
+    "solution-crimson-light": { "value": "linear-gradient(145deg, #FFF2EE 0%, #FFF7F5 100%)", "type": "gradient" },
+    "solution-violet-accent":  { "value": "linear-gradient(135deg, #6B21D4 0%, #9B5FE8 100%)", "type": "gradient", "description": "Trade Shows card accent" },
+    "solution-teal-accent":    { "value": "linear-gradient(135deg, #1A8A76 0%, #5FD9C2 100%)", "type": "gradient", "description": "Tech Recruiting card accent" },
+    "solution-amber-accent":   { "value": "linear-gradient(135deg, #A86B00 0%, #F2B33D 100%)", "type": "gradient", "description": "Field Sales card accent" },
+    "solution-indigo-accent":  { "value": "linear-gradient(135deg, #3A2073 0%, #5B4499 100%)", "type": "gradient", "description": "Facilities card accent" },
+    "solution-crimson-accent": { "value": "linear-gradient(135deg, #8F200A 0%, #F25E3D 100%)", "type": "gradient", "description": "Venues & Events card accent" },
+    "solution-violet-cinematic":  { "value": "linear-gradient(135deg, #040E28 0%, #0B0B3C 30%, #5B2E91 60%, #040E28 100%)", "type": "gradient", "description": "Trade Shows case study cinematic" },
+    "solution-teal-cinematic":    { "value": "linear-gradient(135deg, #040E28 0%, #0B0B3C 30%, #1A8A76 60%, #040E28 100%)", "type": "gradient", "description": "Tech Recruiting case study cinematic" },
+    "solution-amber-cinematic":   { "value": "linear-gradient(135deg, #040E28 0%, #0B0B3C 30%, #A86B00 60%, #040E28 100%)", "type": "gradient", "description": "Field Sales case study cinematic" },
+    "solution-indigo-cinematic":  { "value": "linear-gradient(135deg, #040E28 0%, #0B0B3C 30%, #3A2073 60%, #040E28 100%)", "type": "gradient", "description": "Facilities case study cinematic" },
+    "solution-crimson-cinematic": { "value": "linear-gradient(135deg, #040E28 0%, #0B0B3C 30%, #8F200A 60%, #040E28 100%)", "type": "gradient", "description": "Venues & Events case study cinematic" }
+  },
+  "typography": {
+    "font-family": {
+      "primary":   { "value": "'Inter', sans-serif", "type": "fontFamily" },
+      "secondary": { "value": "'Archivo', sans-serif", "type": "fontFamily" },
+      "tertiary":  { "value": "'Manrope', sans-serif", "type": "fontFamily" },
+      "mono":      { "value": "'Space Grotesk', sans-serif", "type": "fontFamily" }
+    },
+    "font-weight": {
+      "thin":       { "value": 100, "type": "fontWeight" },
+      "light":      { "value": 300, "type": "fontWeight" },
+      "regular":    { "value": 400, "type": "fontWeight" },
+      "medium":     { "value": 500, "type": "fontWeight" },
+      "semibold":   { "value": 600, "type": "fontWeight" },
+      "bold":       { "value": 700, "type": "fontWeight" },
+      "extrabold":  { "value": 800, "type": "fontWeight" }
+    },
+    "font-size": {
+      "micro":      { "value": "10px", "type": "fontSize" },
+      "label":      { "value": "11px", "type": "fontSize" },
+      "eyebrow":    { "value": "12px", "type": "fontSize" },
+      "caption":    { "value": "13px", "type": "fontSize" },
+      "body-sm":    { "value": "14px", "type": "fontSize" },
+      "body":       { "value": "15px", "type": "fontSize" },
+      "body-lg":    { "value": "16px", "type": "fontSize" },
+      "h5":         { "value": "16px", "type": "fontSize" },
+      "h4":         { "value": "20px", "type": "fontSize" },
+      "h3":         { "value": "24px", "type": "fontSize" },
+      "h2":         { "value": "clamp(24px, 3.5vw, 40px)", "type": "fontSize" },
+      "h1":         { "value": "clamp(28px, 4.5vw, 52px)", "type": "fontSize" },
+      "display":    { "value": "clamp(36px, 5vw, 72px)", "type": "fontSize" }
+    },
+    "line-height": {
+      "tight":    { "value": 1.05, "type": "lineHeight" },
+      "snug":     { "value": 1.15, "type": "lineHeight" },
+      "heading":  { "value": 1.25, "type": "lineHeight" },
+      "compact":  { "value": 1.35, "type": "lineHeight" },
+      "body":     { "value": 1.6, "type": "lineHeight" },
+      "relaxed":  { "value": 1.7, "type": "lineHeight" }
+    },
+    "letter-spacing": {
+      "tight":     { "value": "-0.025em", "type": "letterSpacing" },
+      "snug":      { "value": "-0.02em", "type": "letterSpacing" },
+      "normal":    { "value": "0", "type": "letterSpacing" },
+      "wide":      { "value": "0.08em", "type": "letterSpacing" },
+      "wider":     { "value": "0.10em", "type": "letterSpacing" },
+      "widest":    { "value": "0.14em", "type": "letterSpacing" }
+    }
+  },
+  "spacing": {
+    "0":   { "value": "0px",  "type": "spacing" },
+    "1":   { "value": "4px",  "type": "spacing" },
+    "2":   { "value": "8px",  "type": "spacing" },
+    "3":   { "value": "12px", "type": "spacing" },
+    "4":   { "value": "16px", "type": "spacing" },
+    "5":   { "value": "20px", "type": "spacing" },
+    "6":   { "value": "24px", "type": "spacing" },
+    "7":   { "value": "28px", "type": "spacing" },
+    "8":   { "value": "32px", "type": "spacing" },
+    "10":  { "value": "40px", "type": "spacing" },
+    "12":  { "value": "48px", "type": "spacing" },
+    "16":  { "value": "64px", "type": "spacing" },
+    "20":  { "value": "80px", "type": "spacing" },
+    "24":  { "value": "96px", "type": "spacing" }
+  },
+  "radius": {
+    "sm":    { "value": "4px",    "type": "borderRadius" },
+    "md":    { "value": "6px",    "type": "borderRadius" },
+    "lg":    { "value": "8px",    "type": "borderRadius" },
+    "xl":    { "value": "12px",   "type": "borderRadius" },
+    "2xl":   { "value": "16px",   "type": "borderRadius" },
+    "full":  { "value": "9999px", "type": "borderRadius" }
+  },
+  "elevation": {
+    "0":       { "value": "none", "type": "boxShadow" },
+    "1":       { "value": "0 1px 0 rgba(0,0,0,0.06)", "type": "boxShadow" },
+    "2":       { "value": "0 4px 12px rgba(0,0,0,0.06)", "type": "boxShadow" },
+    "3":       { "value": "0 10px 15px -3px rgba(0,0,0,0.1)", "type": "boxShadow" },
+    "4":       { "value": "0 20px 25px -5px rgba(0,0,0,0.1)", "type": "boxShadow" },
+    "overlay": { "value": "0 25px 50px -12px rgba(0,0,0,0.25)", "type": "boxShadow" }
+  },
+  "motion": {
+    "duration": {
+      "instant":   { "value": "100ms", "type": "duration" },
+      "fast":      { "value": "150ms", "type": "duration" },
+      "normal":    { "value": "220ms", "type": "duration" },
+      "moderate":  { "value": "350ms", "type": "duration" },
+      "slow":      { "value": "500ms", "type": "duration" },
+      "slower":    { "value": "700ms", "type": "duration" }
+    },
+    "easing": {
+      "default":  { "value": "ease", "type": "cubicBezier" },
+      "out":      { "value": "cubic-bezier(0.0, 0.0, 0.2, 1)", "type": "cubicBezier" },
+      "in":       { "value": "cubic-bezier(0.4, 0.0, 1, 1)", "type": "cubicBezier" },
+      "in-out":   { "value": "cubic-bezier(0.4, 0.0, 0.2, 1)", "type": "cubicBezier" },
+      "bounce":   { "value": "cubic-bezier(0.34, 1.56, 0.64, 1)", "type": "cubicBezier" }
+    }
+  },
+  "border": {
+    "width": {
+      "thin":    { "value": "1px",   "type": "borderWidth" },
+      "default": { "value": "1.5px", "type": "borderWidth" },
+      "thick":   { "value": "2px",   "type": "borderWidth" }
+    },
+    "color": {
+      "light":      { "value": "rgba(0,0,0,0.06)",      "type": "color" },
+      "default":    { "value": "rgba(0,0,0,0.10)",      "type": "color" },
+      "dark":       { "value": "rgba(255,255,255,0.08)", "type": "color" },
+      "dark-hover": { "value": "rgba(255,255,255,0.20)", "type": "color" },
+      "focus":      { "value": "rgba(12,244,223,0.5)",   "type": "color" },
+      "error":      { "value": "#E5484D",                "type": "color" }
+    }
+  },
+  "opacity": {
+    "disabled": { "value": 0.4,  "type": "opacity" },
+    "muted":    { "value": 0.5,  "type": "opacity" },
+    "subtle":   { "value": 0.65, "type": "opacity" },
+    "hover":    { "value": 0.9,  "type": "opacity" },
+    "full":     { "value": 1.0,  "type": "opacity" }
+  },
+  "z-index": {
+    "base":     { "value": 0,  "type": "other" },
+    "dropdown": { "value": 10, "type": "other" },
+    "sticky":   { "value": 20, "type": "other" },
+    "overlay":  { "value": 30, "type": "other" },
+    "modal":    { "value": 40, "type": "other" },
+    "navbar":   { "value": 50, "type": "other" },
+    "toast":    { "value": 60, "type": "other" }
+  },
+  "breakpoint": {
+    "sm":  { "value": "640px",  "type": "dimension", "description": "Tablet" },
+    "md":  { "value": "768px",  "type": "dimension", "description": "Tablet landscape" },
+    "lg":  { "value": "1024px", "type": "dimension", "description": "Desktop" },
+    "xl":  { "value": "1280px", "type": "dimension", "description": "Wide desktop" },
+    "2xl": { "value": "1536px", "type": "dimension", "description": "Ultra-wide" }
+  }
+}

@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Momentify Explorer - Skill Workflow</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #07081F;
+    --text: #FFFFFF;
+    --text-muted: rgba(255,255,255,0.5);
+    --text-dim: rgba(255,255,255,0.35);
+    --text-body: rgba(255,255,255,0.7);
+    --text-caption: rgba(255,255,255,0.25);
+    --surface: rgba(255,255,255,0.03);
+    --border: rgba(255,255,255,0.08);
+    --border-subtle: rgba(255,255,255,0.04);
+    --border-arrow: rgba(255,255,255,0.15);
+    --arrow-head: rgba(255,255,255,0.2);
+    --phase-1-bg: linear-gradient(135deg, rgba(0,187,165,0.08) 0%, rgba(255,255,255,0.03) 100%);
+    --phase-2-bg: linear-gradient(135deg, rgba(37,79,229,0.10) 0%, rgba(255,255,255,0.03) 100%);
+    --phase-3-bg: linear-gradient(135deg, rgba(124,49,109,0.10) 0%, rgba(255,255,255,0.03) 100%);
+    --phase-1-icon-bg: rgba(0,187,165,0.12);
+    --phase-2-icon-bg: rgba(37,79,229,0.12);
+    --phase-3-icon-bg: rgba(124,49,109,0.12);
+    --file-color: #0CF4DF;
+    --layer-file: rgba(255,255,255,0.35);
+    --layer-text: rgba(255,255,255,0.5);
+    --locked-bg: rgba(229,72,77,0.1);
+    --locked-border: rgba(229,72,77,0.15);
+    --config-bg: rgba(0,187,165,0.08);
+    --config-border: rgba(0,187,165,0.12);
+    --toggle-bg: rgba(255,255,255,0.06);
+    --toggle-border: rgba(255,255,255,0.12);
+    --toggle-hover: rgba(255,255,255,0.10);
+  }
+
+  [data-theme="light"] {
+    --bg: #F5F6FA;
+    --text: #0F172A;
+    --text-muted: rgba(15,23,42,0.50);
+    --text-dim: rgba(15,23,42,0.35);
+    --text-body: rgba(15,23,42,0.65);
+    --text-caption: rgba(15,23,42,0.30);
+    --surface: rgba(255,255,255,0.85);
+    --border: rgba(15,23,42,0.08);
+    --border-subtle: rgba(15,23,42,0.05);
+    --border-arrow: rgba(15,23,42,0.12);
+    --arrow-head: rgba(15,23,42,0.18);
+    --phase-1-bg: linear-gradient(135deg, rgba(0,187,165,0.06) 0%, rgba(255,255,255,0.7) 100%);
+    --phase-2-bg: linear-gradient(135deg, rgba(37,79,229,0.06) 0%, rgba(255,255,255,0.7) 100%);
+    --phase-3-bg: linear-gradient(135deg, rgba(124,49,109,0.06) 0%, rgba(255,255,255,0.7) 100%);
+    --phase-1-icon-bg: rgba(0,187,165,0.10);
+    --phase-2-icon-bg: rgba(37,79,229,0.10);
+    --phase-3-icon-bg: rgba(124,49,109,0.10);
+    --file-color: #00897A;
+    --layer-file: rgba(15,23,42,0.40);
+    --layer-text: rgba(15,23,42,0.50);
+    --locked-bg: rgba(229,72,77,0.06);
+    --locked-border: rgba(229,72,77,0.12);
+    --config-bg: rgba(0,187,165,0.06);
+    --config-border: rgba(0,187,165,0.10);
+    --toggle-bg: rgba(15,23,42,0.04);
+    --toggle-border: rgba(15,23,42,0.10);
+    --toggle-hover: rgba(15,23,42,0.07);
+  }
+
+  body {
+    background: var(--bg);
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 32px;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  /* ── Theme toggle ── */
+  .theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 24px;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid var(--toggle-border);
+    background: var(--toggle-bg);
+    color: var(--text-dim);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    z-index: 100;
+  }
+  .theme-toggle:hover { background: var(--toggle-hover); }
+  .theme-toggle svg { width: 18px; height: 18px; }
+  .icon-sun, .icon-moon { display: none; }
+  [data-theme="dark"] .icon-sun { display: block; }
+  [data-theme="light"] .icon-moon { display: block; }
+
+  h1 {
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+  .subtitle {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text-muted);
+    margin-bottom: 56px;
+    text-align: center;
+  }
+
+  .flow {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    max-width: 1100px;
+    width: 100%;
+  }
+
+  .phase {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  .phase-number {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+  }
+
+  .phase-box {
+    width: 100%;
+    max-width: 280px;
+    border-radius: 16px;
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .phase-box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    pointer-events: none;
+    transition: border-color 0.3s;
+  }
+
+  .phase-1 .phase-box { background: var(--phase-1-bg); }
+  .phase-2 .phase-box { background: var(--phase-2-bg); }
+  .phase-3 .phase-box { background: var(--phase-3-bg); }
+
+  .phase-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    transition: background 0.3s;
+  }
+  .phase-1 .phase-icon { background: var(--phase-1-icon-bg); }
+  .phase-2 .phase-icon { background: var(--phase-2-icon-bg); }
+  .phase-3 .phase-icon { background: var(--phase-3-icon-bg); }
+
+  .phase-icon svg { width: 24px; height: 24px; }
+  .phase-1 .phase-icon svg { color: #0CF4DF; }
+  .phase-2 .phase-icon svg { color: #5B8DEF; }
+  .phase-3 .phase-icon svg { color: #C76DB5; }
+  [data-theme="light"] .phase-1 .phase-icon svg { color: #00897A; }
+  [data-theme="light"] .phase-2 .phase-icon svg { color: #3B5FC0; }
+  [data-theme="light"] .phase-3 .phase-icon svg { color: #9B3A8D; }
+
+  .phase-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .phase-role {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+  }
+
+  .phase-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .phase-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--text-body);
+    line-height: 1.4;
+  }
+  .phase-item .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  .phase-1 .dot { background: #00BBA5; }
+  .phase-2 .dot { background: #5B8DEF; }
+  .phase-3 .dot { background: #C76DB5; }
+  [data-theme="light"] .phase-2 .dot { background: #3B5FC0; }
+  [data-theme="light"] .phase-3 .dot { background: #9B3A8D; }
+
+  /* ── Arrow ── */
+  .arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    flex-shrink: 0;
+    padding-top: 80px;
+  }
+
+  .arrow-line {
+    width: 48px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--border-arrow), transparent);
+    position: relative;
+  }
+  .arrow-line::after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 7px solid var(--arrow-head);
+  }
+
+  .arrow-label {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 8px;
+    white-space: nowrap;
+  }
+
+  /* ── Outputs ── */
+  .outputs {
+    margin-top: 56px;
+    max-width: 1100px;
+    width: 100%;
+  }
+
+  .outputs-title, .layers-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-caption);
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .output-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .output-card {
+    padding: 16px 18px;
+    border-radius: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    transition: background 0.3s, border-color 0.3s;
+  }
+
+  .output-card .file {
+    font-size: 12px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    color: var(--file-color);
+    margin-bottom: 4px;
+    word-break: break-all;
+  }
+
+  .output-card .desc {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* ── Layers ── */
+  .layers {
+    margin-top: 48px;
+    max-width: 1100px;
+    width: 100%;
+  }
+
+  .layer-row {
+    display: grid;
+    grid-template-columns: 120px 140px 1fr;
+    gap: 0;
+    align-items: center;
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .layer-row:first-of-type { border-top: 1px solid var(--border-subtle); }
+
+  .layer-name {
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .layer-changes {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--layer-text);
+  }
+  .layer-file {
+    font-size: 12px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    color: var(--layer-file);
+  }
+
+  .layer-locked {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: var(--locked-bg);
+    border: 1px solid var(--locked-border);
+    color: #E5484D;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .layer-config {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: var(--config-bg);
+    border: 1px solid var(--config-border);
+    color: #00BBA5;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .footer {
+    margin-top: 48px;
+    font-size: 11px;
+    color: var(--text-caption);
+    text-align: center;
+  }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Theme toggle -->
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+  <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+  <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" /></svg>
+</button>
+
+<h1>Momentify Explorer Workflow</h1>
+<p class="subtitle">How a new branded Explorer prototype goes from intake to live preview</p>
+
+<!-- ── Flow ── -->
+<div class="flow">
+
+  <!-- Phase 1 -->
+  <div class="phase phase-1">
+    <div class="phase-number">Phase 1</div>
+    <div class="phase-box">
+      <div class="phase-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" /></svg>
+      </div>
+      <div class="phase-title">Prototype Builder</div>
+      <div class="phase-role">/brand/explorer-builder</div>
+      <div class="phase-items">
+        <div class="phase-item"><span class="dot"></span> Company name, industry, solution type</div>
+        <div class="phase-item"><span class="dot"></span> Website URL (auto-extracts brand colors + logos)</div>
+        <div class="phase-item"><span class="dot"></span> Upload logos (dark, light, icon)</div>
+        <div class="phase-item"><span class="dot"></span> Pick primary + secondary colors</div>
+        <div class="phase-item"><span class="dot"></span> Upload content files (PDFs, docs)</div>
+        <div class="phase-item"><span class="dot"></span> Password, screensaver, calculator, links</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arrow 1 -->
+  <div class="arrow">
+    <div class="arrow-line"></div>
+    <div class="arrow-label">Intake JSON</div>
+  </div>
+
+  <!-- Phase 2 -->
+  <div class="phase phase-2">
+    <div class="phase-number">Phase 2</div>
+    <div class="phase-box">
+      <div class="phase-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" /></svg>
+      </div>
+      <div class="phase-title">momentify-explorer</div>
+      <div class="phase-role">Claude Code Skill</div>
+      <div class="phase-items">
+        <div class="phase-item"><span class="dot"></span> Reads intake data + content files</div>
+        <div class="phase-item"><span class="dot"></span> Fetches website for content extraction</div>
+        <div class="phase-item"><span class="dot"></span> Generates full color theme (dark + light)</div>
+        <div class="phase-item"><span class="dot"></span> Creates trait steps (roles, interests)</div>
+        <div class="phase-item"><span class="dot"></span> Generates 18+ content cards (4 depths)</div>
+        <div class="phase-item"><span class="dot"></span> Writes ExplorerConfig to configs/{slug}.ts</div>
+        <div class="phase-item"><span class="dot"></span> Registers route + instance card</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arrow 2 -->
+  <div class="arrow">
+    <div class="arrow-line"></div>
+    <div class="arrow-label">Config + Assets</div>
+  </div>
+
+  <!-- Phase 3 -->
+  <div class="phase phase-3">
+    <div class="phase-number">Phase 3</div>
+    <div class="phase-box">
+      <div class="phase-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25h-13.5A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25h-13.5A2.25 2.25 0 013 12V5.25" /></svg>
+      </div>
+      <div class="phase-title">Explorer Instance</div>
+      <div class="phase-role">/explorer/{slug}</div>
+      <div class="phase-items">
+        <div class="phase-item"><span class="dot"></span> Password gate (reverse logo + accent)</div>
+        <div class="phase-item"><span class="dot"></span> iPad Pro 12.9" bezel wrapper</div>
+        <div class="phase-item"><span class="dot"></span> Splash, registration, trait selection</div>
+        <div class="phase-item"><span class="dot"></span> Personalized results (outcomes, learn, solutions)</div>
+        <div class="phase-item"><span class="dot"></span> Summary, share, notes, thank-you</div>
+        <div class="phase-item"><span class="dot"></span> Browser title + OG preview image</div>
+        <div class="phase-item"><span class="dot"></span> Listed on prototype dashboard</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── Files generated ── -->
+<div class="outputs">
+  <div class="outputs-title">Files Created / Modified by the Skill</div>
+  <div class="output-cards">
+    <div class="output-card">
+      <div class="file">configs/{slug}.ts</div>
+      <div class="desc">Full ExplorerConfig with branding, steps, 18+ content cards, registration, and features</div>
+    </div>
+    <div class="output-card">
+      <div class="file">explorer/[id]/page.tsx</div>
+      <div class="desc">Import added to CONFIGS map + generateStaticParams for the new slug</div>
+    </div>
+    <div class="output-card">
+      <div class="file">instances.ts</div>
+      <div class="desc">New instance card on the prototype dashboard with logo, password, accent color</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Three-layer architecture ── -->
+<div class="layers">
+  <div class="layers-title">Three-Layer Architecture</div>
+  <div class="layer-row">
+    <div class="layer-name">Layout</div>
+    <div class="layer-changes"><span class="layer-locked">Locked v1.0.0</span></div>
+    <div class="layer-file">explorer.css -- all positioning, sizing, typography, animations</div>
+  </div>
+  <div class="layer-row">
+    <div class="layer-name">Brand</div>
+    <div class="layer-changes"><span class="layer-config">Per client</span></div>
+    <div class="layer-file">theme.ts generates --exp-* CSS vars from ExplorerConfig.branding</div>
+  </div>
+  <div class="layer-row">
+    <div class="layer-name">Content</div>
+    <div class="layer-changes"><span class="layer-config">Per experience</span></div>
+    <div class="layer-file">ExplorerConfig.steps[] + content[] in configs/{slug}.ts</div>
+  </div>
+</div>
+
+<div class="footer">Momentify Explorer Skill Workflow -- April 2026</div>
+
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+}
+</script>
+
+</body>
+</html>

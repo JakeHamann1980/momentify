@@ -3,6 +3,8 @@
    ═══════════════════════════════════════════════════════════════ */
 
 const verticalLabels: Record<string, string> = {
+  // Channel Partners (industry-agnostic)
+  "channel-partners": "Trade Show & Exhibit Channel Partners",
   // Trade Shows
   "heavy-equipment": "Heavy Equipment",
   "energy-infrastructure": "Energy, Infrastructure & Power",
@@ -24,6 +26,9 @@ const verticalLabels: Record<string, string> = {
 }
 
 const verticalICPs: Record<string, string> = {
+  // Channel Partners (industry-agnostic)
+  "channel-partners":
+    "VP of Business Development, Director of Client Services, or Managing Partner at a trade show agency, exhibit house, or conference management company (Freeman, The Trade Group, etc.) that manages events across multiple industries",
   // Trade Shows
   "heavy-equipment":
     "VP of Marketing or VP of Sales at an OEM, large dealer group, or equipment dealer ($50M+ revenue, exhibits at 5+ shows per year)",

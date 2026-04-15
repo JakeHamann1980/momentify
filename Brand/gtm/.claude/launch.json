@@ -1,0 +1,18 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dev",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "cd /Users/jakehamann/Development/Momentify/Website && npx next dev"],
+      "port": 3000,
+      "autoPort": true
+    },
+    {
+      "name": "brand-static",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "/Users/jakehamann/Development/Momentify/Brand", "-l", "3001"],
+      "port": 3001
+    }
+  ]
+}
