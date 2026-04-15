@@ -192,7 +192,7 @@ const ADMIN_LIGHT: AdminTokens = {
 /* ── Preview presets ── */
 const PREVIEW_PRESETS = [
   { label: "Mobile", w: 375, h: 812 },
-  { label: "Tablet", w: 768, h: 1024 },
+  { label: "Tablet", w: 1024, h: 768 },
   { label: "Desktop", w: 1280, h: 800 },
 ];
 
@@ -296,12 +296,11 @@ export default function FanGalleryAdmin() {
     window.addEventListener("storage", handleStorage);
     return () => window.removeEventListener("storage", handleStorage);
   }, []);
-  const [previewScale, setPreviewScale] = useState(50);
-  const [previewDevice, setPreviewDevice] = useState(0); // index into PREVIEW_PRESETS
+  const [previewDevice, setPreviewDevice] = useState(0);
   const previewAreaRef = useRef<HTMLDivElement>(null);
+  const [urlCopied, setUrlCopied] = useState(false);
 
   const t = adminTheme === "dark" ? ADMIN_DARK : ADMIN_LIGHT;
-  const device = PREVIEW_PRESETS[previewDevice];
 
   /* ── Fetch teams ── */
   const fetchTeams = useCallback(async () => {
@@ -437,30 +436,7 @@ export default function FanGalleryAdmin() {
     });
   };
 
-  /* ── Auto-fit preview scale to available height ── */
-  const computeAutoScale = useCallback(() => {
-    if (!previewAreaRef.current) return 50;
-    // Available height minus toolbar (~80px) and size indicator (~30px)
-    const availH = previewAreaRef.current.clientHeight;
-    const availW = previewAreaRef.current.clientWidth;
-    const d = PREVIEW_PRESETS[previewDevice];
-    const scaleH = (availH / d.h) * 100;
-    const scaleW = (availW / d.w) * 100;
-    return Math.min(Math.floor(Math.min(scaleH, scaleW)), 100);
-  }, [previewDevice]);
-
-  // Auto-fit on mount, device change, and window resize
-  useEffect(() => {
-    const fit = () => setPreviewScale(computeAutoScale());
-    const timer = setTimeout(fit, 50);
-    window.addEventListener("resize", fit);
-    return () => { clearTimeout(timer); window.removeEventListener("resize", fit); };
-  }, [computeAutoScale]);
-
-  /* ── Computed preview dimensions ── */
-  const scaleFactor = previewScale / 100;
-  const previewW = device.w * scaleFactor;
-  const previewH = device.h * scaleFactor;
+  const previewUrl = config.slug ? `/fan-gallery/${config.slug}` : "/fan-gallery";
 
   /* ── Button styles ── */
   const btnBase: React.CSSProperties = {
@@ -487,8 +463,6 @@ export default function FanGalleryAdmin() {
         .admin-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: ${DS.color.teal}; cursor: pointer; border: 2px solid ${t.surface}; box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
         .color-swatch { border: 2px solid ${t.border}; border-radius: ${DS.radius.lg}px; overflow: hidden; cursor: pointer; transition: border-color 150ms ease; }
         .color-swatch:hover { border-color: ${t.borderHover}; }
-        .preview-device-frame { overflow: hidden; }
-        .preview-device-frame > div { height: 100% !important; max-height: 100% !important; width: 100% !important; }
       `}</style>
       <div className="admin-layout" style={{
         display: "flex",
@@ -567,8 +541,29 @@ export default function FanGalleryAdmin() {
             <Label t={t}>Event Date</Label>
             <input type="date" className="admin-input" style={inputStyle(t)} value={config.eventDate || ""} onChange={(e) => set("eventDate", e.target.value)} />
 
-            <Label t={t}>Gallery Title</Label>
-            <input className="admin-input" style={inputStyle(t)} value={config.galleryTitle} onChange={(e) => set("galleryTitle", e.target.value)} placeholder="Suite 214 Gallery" />
+            <Label t={t}>Select Suite</Label>
+            <select
+              className="admin-input"
+              style={{ ...inputStyle(t), cursor: "pointer", appearance: "none", WebkitAppearance: "none", background: `${t.inputBg} url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 5l3 3 3-3' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 14px center`, paddingRight: 36 }}
+              value={config.galleryTitle}
+              onChange={(e) => {
+                const val = e.target.value;
+                if (!val) { set("galleryTitle", ""); return; }
+                const suiteName = val.replace(" Gallery", "");
+                const suiteNum = suiteName.replace("Suite ", "");
+                setConfig(prev => ({
+                  ...prev,
+                  galleryTitle: val,
+                  locationLabel: suiteName,
+                  hashtags: prev.hashtags.map(h => h.match(/^#Suite\d+$/) ? `#Suite${suiteNum}` : h),
+                }));
+              }}
+            >
+              <option value="">Select Suite</option>
+              {["Suite 100", "Suite 200", "Suite 300", "Suite 410", "Suite 520", "Suite 615", "Suite 700", "Suite 812"].map((s) => (
+                <option key={s} value={`${s} Gallery`}>{s}</option>
+              ))}
+            </select>
 
             <Label t={t}>Gallery Subtitle</Label>
             <textarea className="admin-input" style={textareaStyle(t)} value={config.gallerySubtitle} onChange={(e) => set("gallerySubtitle", e.target.value)} placeholder="Add your photo for a chance to win 2 Club Seats." />
@@ -912,111 +907,206 @@ export default function FanGalleryAdmin() {
           display: "flex",
           flexDirection: "column",
         }}>
-          {/* Preview toolbar */}
+          {/* Preview URL bar */}
           <div style={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: DS.spacing[4],
+            gap: 8,
+            marginBottom: DS.spacing[5],
             flexShrink: 0,
           }}>
-            <div style={{ fontSize: 12, fontWeight: 500, color: t.textMuted }}>
-              Preview{config.slug ? ` -- /fan-gallery/${config.slug}` : ""}
+            <div style={{
+              flex: 1,
+              display: "flex",
+              alignItems: "center",
+              background: t.surface,
+              border: `1px solid ${t.border}`,
+              borderRadius: DS.radius.md,
+              padding: "8px 12px",
+              fontSize: 12,
+              fontFamily: "monospace",
+              color: t.textMuted,
+              overflow: "hidden",
+            }}>
+              <span style={{ opacity: 0.5, marginRight: 4 }}>momentify.com</span>
+              <span style={{ color: t.text, fontWeight: 500 }}>{previewUrl}</span>
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: DS.spacing[3] }}>
-              {/* Device presets */}
-              <div style={{
-                display: "flex",
-                borderRadius: DS.radius.md,
-                overflow: "hidden",
+            <button
+              onClick={() => {
+                const full = `${window.location.origin}${previewUrl}`;
+                navigator.clipboard.writeText(full);
+                setUrlCopied(true);
+                setTimeout(() => setUrlCopied(false), 2000);
+              }}
+              style={{
+                padding: "8px 12px",
+                fontSize: 11,
+                fontWeight: 500,
+                fontFamily: DS.font,
                 border: `1px solid ${t.border}`,
-              }}>
-                {PREVIEW_PRESETS.map((preset, i) => (
-                  <button
-                    key={preset.label}
-                    onClick={() => setPreviewDevice(i)}
-                    style={{
-                      padding: "6px 12px",
-                      fontSize: 11,
-                      fontWeight: 500,
-                      fontFamily: DS.font,
-                      border: "none",
-                      cursor: "pointer",
-                      background: previewDevice === i ? DS.color.teal : "transparent",
-                      color: previewDevice === i ? "#fff" : t.textMuted,
-                      borderRight: i < PREVIEW_PRESETS.length - 1 ? `1px solid ${t.border}` : "none",
-                      transition: "all 150ms ease",
-                    }}
-                  >
-                    {preset.label}
-                  </button>
-                ))}
-              </div>
-            </div>
+                borderRadius: DS.radius.md,
+                background: urlCopied ? DS.color.teal : "transparent",
+                color: urlCopied ? "#fff" : t.textMuted,
+                cursor: "pointer",
+                whiteSpace: "nowrap",
+                transition: "all 150ms ease",
+              }}
+            >
+              {urlCopied ? "Copied!" : "Copy URL"}
+            </button>
+            <button
+              onClick={() => window.open(`/fan-gallery/preview?slug=${config.slug || "demo"}`, "_blank")}
+              style={{
+                padding: "8px",
+                fontSize: 11,
+                fontFamily: DS.font,
+                border: `1px solid ${t.border}`,
+                borderRadius: DS.radius.md,
+                background: "transparent",
+                color: t.textMuted,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                transition: "all 150ms ease",
+              }}
+              title="Open in new window"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
+            </button>
           </div>
 
-          {/* Scale slider */}
+          {/* Device switcher */}
           <div style={{
             display: "flex",
             alignItems: "center",
-            gap: DS.spacing[3],
+            justifyContent: "center",
             marginBottom: DS.spacing[4],
             flexShrink: 0,
           }}>
-            <span style={{ fontSize: 11, color: t.textFaint, whiteSpace: "nowrap" }}>Scale</span>
-            <input
-              className="admin-slider"
-              type="range"
-              min={25}
-              max={100}
-              value={previewScale}
-              onChange={(e) => setPreviewScale(Number(e.target.value))}
-              style={{ flex: 1 }}
-            />
-            <span style={{ fontSize: 11, color: t.textMuted, fontVariantNumeric: "tabular-nums", minWidth: 36, textAlign: "right" }}>
-              {previewScale}%
-            </span>
+            <div style={{
+              display: "flex",
+              borderRadius: DS.radius.md,
+              overflow: "hidden",
+              border: `1px solid ${t.border}`,
+            }}>
+              {PREVIEW_PRESETS.map((preset, i) => (
+                <button
+                  key={preset.label}
+                  onClick={() => setPreviewDevice(i)}
+                  style={{
+                    padding: "6px 14px",
+                    fontSize: 11,
+                    fontWeight: 500,
+                    fontFamily: DS.font,
+                    border: "none",
+                    cursor: "pointer",
+                    background: previewDevice === i ? DS.color.teal : "transparent",
+                    color: previewDevice === i ? "#fff" : t.textMuted,
+                    borderRight: i < PREVIEW_PRESETS.length - 1 ? `1px solid ${t.border}` : "none",
+                    transition: "all 150ms ease",
+                  }}
+                >
+                  {preset.label}
+                </button>
+              ))}
+            </div>
           </div>
 
-          {/* Preview container */}
+          {/* Device preview with bezel */}
           <div ref={previewAreaRef} style={{
             flex: 1,
             display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "center",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "flex-start",
             overflow: "auto",
           }}>
-            <div style={{
-              width: previewW,
-              height: previewH,
-              borderRadius: DS.radius["2xl"],
-              overflow: "hidden",
-              border: `1px solid ${t.border}`,
-              boxShadow: "0 20px 50px rgba(0,0,0,0.2)",
-              flexShrink: 0,
-              position: "relative",
-              background: "#000",
-            }}>
-              <div className="preview-device-frame" style={{
-                transform: `scale(${scaleFactor})`,
-                transformOrigin: "top left",
-                width: device.w,
-                height: device.h,
-              }}>
-                <FanGalleryContent config={config} />
-              </div>
-            </div>
-          </div>
+            {(() => {
+              const preset = PREVIEW_PRESETS[previewDevice];
+              const maxW = 520;
+              const scale = Math.min(maxW / preset.w, 1);
+              const scaledW = preset.w * scale;
+              const scaledH = preset.h * scale;
+              const isPhone = preset.label === "Mobile";
+              const isTablet = preset.label === "Tablet";
+              const bezelRadius = isPhone ? 40 : isTablet ? 24 : 8;
+              const bezelPadTop = isPhone ? 48 : isTablet ? 20 : 28;
+              const bezelPadBottom = isPhone ? 48 : isTablet ? 20 : 12;
+              const bezelPadSide = isPhone ? 12 : isTablet ? 12 : 0;
 
-          {/* Size indicator */}
-          <div style={{
-            textAlign: "center",
-            fontSize: 10,
-            color: t.textFaint,
-            marginTop: DS.spacing[3],
-            flexShrink: 0,
-          }}>
-            {device.w} x {device.h} @ {previewScale}%
+              return (
+                <>
+                  {/* Device bezel */}
+                  <div style={{
+                    background: adminTheme === "dark" ? "#1a1a1e" : "#e4e4e7",
+                    borderRadius: bezelRadius,
+                    padding: `${bezelPadTop}px ${bezelPadSide}px ${bezelPadBottom}px`,
+                    boxShadow: "0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.06)",
+                    border: `1px solid ${adminTheme === "dark" ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.1)"}`,
+                    position: "relative",
+                  }}>
+                    {/* Notch / camera for phone */}
+                    {isPhone && (
+                      <div style={{
+                        position: "absolute", top: 14, left: "50%", transform: "translateX(-50%)",
+                        width: 80, height: 22, borderRadius: 12,
+                        background: adminTheme === "dark" ? "#000" : "#1a1a1e",
+                      }} />
+                    )}
+                    {/* Camera dot for tablet */}
+                    {isTablet && (
+                      <div style={{
+                        position: "absolute", top: 8, left: "50%", transform: "translateX(-50%)",
+                        width: 8, height: 8, borderRadius: "50%",
+                        background: adminTheme === "dark" ? "#333" : "#bbb",
+                      }} />
+                    )}
+                    {/* Screen */}
+                    <div style={{
+                      width: scaledW,
+                      height: scaledH,
+                      borderRadius: isPhone ? 4 : 2,
+                      overflow: "hidden",
+                      background: "#000",
+                      position: "relative",
+                    }}>
+                      <div style={{
+                        transform: `scale(${scale})`,
+                        transformOrigin: "top left",
+                        width: preset.w,
+                        height: preset.h,
+                        overflow: "hidden",
+                      }}>
+                        <FanGalleryContent config={config} />
+                      </div>
+                    </div>
+                    {/* Home indicator for phone */}
+                    {isPhone && (
+                      <div style={{
+                        position: "absolute", bottom: 12, left: "50%", transform: "translateX(-50%)",
+                        width: 100, height: 4, borderRadius: 2,
+                        background: adminTheme === "dark" ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.2)",
+                      }} />
+                    )}
+                  </div>
+
+                  {/* Size indicator */}
+                  <div style={{
+                    textAlign: "center",
+                    fontSize: 10,
+                    color: t.textFaint,
+                    marginTop: DS.spacing[3],
+                  }}>
+                    {preset.w} x {preset.h}
+                  </div>
+                </>
+              );
+            })()}
           </div>
         </div>
       </div>

@@ -109,6 +109,7 @@ export default function FanGalleryContent({ config = DEFAULT_CONFIG }: { config?
   const [triviaWrong, setTriviaWrong] = useState(false);
   const [surveyOpen, setSurveyOpen] = useState(false);
   const [surveyAnswers, setSurveyAnswers] = useState<Record<string, string>>({});
+  const [surveySubmitted, setSurveySubmitted] = useState(false);
 
   // disclaimerOpen removed — consent is now inline on screen 2
   const [ageConfirmed, setAgeConfirmed] = useState(false);
@@ -133,6 +134,21 @@ export default function FanGalleryContent({ config = DEFAULT_CONFIG }: { config?
   const [dragStart, setDragStart] = useState<{ x: number; y: number; ox: number; oy: number } | null>(null);
 
   const fileRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerW, setContainerW] = useState(375);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([entry]) => setContainerW(entry.contentRect.width));
+    ro.observe(el);
+    setContainerW(el.clientWidth);
+    return () => ro.disconnect();
+  }, []);
+
+  /** Layout breakpoint: "mobile" | "tablet" | "desktop" */
+  const layout = containerW >= 1024 ? "desktop" : containerW >= 600 ? "tablet" : "mobile";
+  const isWide = layout !== "mobile";
 
   useEffect(() => {
     const saved = localStorage.getItem("fan-gallery-theme") as "dark" | "light" | null;
@@ -429,126 +445,139 @@ export default function FanGalleryContent({ config = DEFAULT_CONFIG }: { config?
     /* ── SCREEN 0: GALLERY + CTA ── */
     () => (
       <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-        <div style={{ flex: 1, overflowY: "auto", padding: "20px 24px", paddingBottom: "calc(20px + env(safe-area-inset-bottom, 16px))" }}>
+        <div style={{ flex: 1, overflowY: "auto", padding: isWide ? "28px 40px" : "20px 24px", paddingBottom: "calc(20px + env(safe-area-inset-bottom, 16px))" }}>
 
-          {/* Hero CTA */}
-          <motion.div initial="hidden" animate="visible" variants={stagger}>
-            <motion.div variants={fadeUp} style={{ marginBottom: 28 }}>
-              <h1 style={{ ...titleCss, fontSize: 28, marginBottom: 6 }}>{config.galleryTitle}</h1>
-              <p style={{ ...subCss, marginBottom: 20 }}>{config.gallerySubtitle}</p>
-              <button onClick={() => { setPhotoDataUrl(null); resetEditorState(); setEditingMomentIndex(null); goTo(1); }} style={{
-                ...btnPrimary,
-                fontSize: 17, padding: "18px 28px", minHeight: 56,
-              }}>
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
-                  <circle cx="12" cy="12" r="9" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5" />
-                  <path d="M12 8v8M8 12h8" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
-                </svg>
-                Add Your Photo
-              </button>
-            </motion.div>
-          </motion.div>
+          <div style={{
+            display: isWide ? "flex" : "block",
+            gap: isWide ? 40 : 0,
+            alignItems: "flex-start",
+          }}>
+            {/* Left column on wide: Hero CTA + My Moments */}
+            <div style={{
+              ...(isWide ? { width: 280, flexShrink: 0, position: "sticky" as const, top: 0 } : {}),
+            }}>
+              {/* Hero CTA */}
+              <motion.div initial="hidden" animate="visible" variants={stagger}>
+                <motion.div variants={fadeUp} style={{ marginBottom: 28 }}>
+                  <h1 style={{ ...titleCss, fontSize: isWide ? 24 : 28, marginBottom: 6 }}>{config.galleryTitle}</h1>
+                  <p style={{ ...subCss, marginBottom: 20 }}>{config.gallerySubtitle}</p>
+                  <button onClick={() => { setPhotoDataUrl(null); resetEditorState(); setEditingMomentIndex(null); goTo(1); }} style={{
+                    ...btnPrimary,
+                    fontSize: isWide ? 15 : 17, padding: isWide ? "14px 24px" : "18px 28px", minHeight: isWide ? 48 : 56,
+                  }}>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
+                      <circle cx="12" cy="12" r="9" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5" />
+                      <path d="M12 8v8M8 12h8" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
+                    </svg>
+                    Add Your Photo
+                  </button>
+                </motion.div>
+              </motion.div>
 
-          {/* My Moments — swipeable carousel */}
-          {myMoments.length > 0 && (
-            <div style={{ marginBottom: 24 }}>
-              <div style={{ fontSize: 12, fontWeight: 600, color: t.accent, textTransform: "uppercase", letterSpacing: "0.14em", marginBottom: 12 }}>
-                My Moments{myMoments.length > 1 && ` (${myMoments.length})`}
-              </div>
-              <div
-                ref={swipeRef}
-                onScroll={() => {
-                  if (!swipeRef.current) return;
-                  const idx = Math.round(swipeRef.current.scrollLeft / swipeRef.current.clientWidth);
-                  setMomentSwipeIndex(idx);
-                }}
-                style={{
-                  display: "flex", gap: 12, overflowX: "auto",
-                  scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch",
-                  scrollbarWidth: "none", msOverflowStyle: "none",
-                  borderRadius: 12,
-                }}
-              >
-                {myMoments.map((moment, idx) => (
+              {/* My Moments — swipeable carousel */}
+              {myMoments.length > 0 && (
+                <div style={{ marginBottom: 24 }}>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: t.accent, textTransform: "uppercase", letterSpacing: "0.14em", marginBottom: 12 }}>
+                    My Moments{myMoments.length > 1 && ` (${myMoments.length})`}
+                  </div>
                   <div
-                    key={idx}
-                    onClick={() => setViewerPhoto({ name: "You", caption: moment.caption, dataUrl: moment.dataUrl, frameStyle: moment.frameStyle })}
+                    ref={swipeRef}
+                    onScroll={() => {
+                      if (!swipeRef.current) return;
+                      const idx = Math.round(swipeRef.current.scrollLeft / swipeRef.current.clientWidth);
+                      setMomentSwipeIndex(idx);
+                    }}
                     style={{
-                      scrollSnapAlign: "start", flexShrink: 0,
-                      width: "100%", borderRadius: 12, overflow: "hidden",
-                      aspectRatio: "3/4", border: `1px solid ${t.border}`,
-                      position: "relative", boxShadow: "0 4px 16px rgba(0,0,0,0.1)",
-                      cursor: "pointer",
+                      display: "flex", gap: 12, overflowX: "auto",
+                      scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch",
+                      scrollbarWidth: "none", msOverflowStyle: "none",
+                      borderRadius: 12,
                     }}
                   >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={moment.dataUrl} alt={`Moment ${idx + 1}`} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                    <PhotoOverlay variant={moment.frameStyle} />
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setEditingMomentIndex(idx);
-                        setPhotoDataUrl(moment.dataUrl);
-                        setCaption(moment.caption);
-                        setFrameStyle(moment.frameStyle);
-                        goTo(1);
-                      }}
-                      style={{
-                        position: "absolute", top: 10, right: 10,
-                        background: "rgba(0,0,0,0.55)", backdropFilter: "blur(8px)",
-                        border: "none", borderRadius: 8,
-                        padding: "6px 12px", cursor: "pointer",
-                        display: "flex", alignItems: "center", gap: 6,
-                        color: "#fff", fontFamily: "var(--font-inter)",
-                        fontSize: 12, fontWeight: 500,
-                      }}
-                    >
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                      </svg>
-                      Edit
-                    </button>
-                    {moment.caption && (
-                      <div style={{
-                        position: "absolute", bottom: 0, left: 0, right: 0,
-                        background: "linear-gradient(transparent, rgba(0,0,0,0.6))",
-                        padding: "24px 12px 10px",
-                      }}>
-                        <p style={{ fontSize: 11, fontWeight: 400, color: "rgba(255,255,255,0.85)", margin: 0, lineHeight: 1.4, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                          {moment.caption}
-                        </p>
+                    {myMoments.map((moment, idx) => (
+                      <div
+                        key={idx}
+                        onClick={() => setViewerPhoto({ name: "You", caption: moment.caption, dataUrl: moment.dataUrl, frameStyle: moment.frameStyle })}
+                        style={{
+                          scrollSnapAlign: "start", flexShrink: 0,
+                          width: "100%", borderRadius: 12, overflow: "hidden",
+                          aspectRatio: "3/4", border: `1px solid ${t.border}`,
+                          position: "relative", boxShadow: "0 4px 16px rgba(0,0,0,0.1)",
+                          cursor: "pointer",
+                        }}
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={moment.dataUrl} alt={`Moment ${idx + 1}`} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                        <PhotoOverlay variant={moment.frameStyle} />
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setEditingMomentIndex(idx);
+                            setPhotoDataUrl(moment.dataUrl);
+                            setCaption(moment.caption);
+                            setFrameStyle(moment.frameStyle);
+                            goTo(1);
+                          }}
+                          style={{
+                            position: "absolute", top: 10, right: 10,
+                            background: "rgba(0,0,0,0.55)", backdropFilter: "blur(8px)",
+                            border: "none", borderRadius: 8,
+                            padding: "6px 12px", cursor: "pointer",
+                            display: "flex", alignItems: "center", gap: 6,
+                            color: "#fff", fontFamily: "var(--font-inter)",
+                            fontSize: 12, fontWeight: 500,
+                          }}
+                        >
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                          </svg>
+                          Edit
+                        </button>
+                        {moment.caption && (
+                          <div style={{
+                            position: "absolute", bottom: 0, left: 0, right: 0,
+                            background: "linear-gradient(transparent, rgba(0,0,0,0.6))",
+                            padding: "24px 12px 10px",
+                          }}>
+                            <p style={{ fontSize: 11, fontWeight: 400, color: "rgba(255,255,255,0.85)", margin: 0, lineHeight: 1.4, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                              {moment.caption}
+                            </p>
+                          </div>
+                        )}
                       </div>
-                    )}
+                    ))}
                   </div>
-                ))}
-              </div>
-              {/* Dot indicators */}
-              {myMoments.length > 1 && (
-                <div style={{ display: "flex", justifyContent: "center", gap: 6, marginTop: 10 }}>
-                  {myMoments.map((_, idx) => (
-                    <div
-                      key={idx}
-                      onClick={() => {
-                        swipeRef.current?.scrollTo({ left: idx * (swipeRef.current?.clientWidth || 0), behavior: "smooth" });
-                      }}
-                      style={{
-                        width: momentSwipeIndex === idx ? 20 : 6, height: 6,
-                        borderRadius: 3, cursor: "pointer",
-                        background: momentSwipeIndex === idx ? ACCENT : t.border,
-                        transition: "all 200ms ease",
-                      }}
-                    />
-                  ))}
+                  {/* Dot indicators */}
+                  {myMoments.length > 1 && (
+                    <div style={{ display: "flex", justifyContent: "center", gap: 6, marginTop: 10 }}>
+                      {myMoments.map((_, idx) => (
+                        <div
+                          key={idx}
+                          onClick={() => {
+                            swipeRef.current?.scrollTo({ left: idx * (swipeRef.current?.clientWidth || 0), behavior: "smooth" });
+                          }}
+                          style={{
+                            width: momentSwipeIndex === idx ? 20 : 6, height: 6,
+                            borderRadius: 3, cursor: "pointer",
+                            background: momentSwipeIndex === idx ? ACCENT : t.border,
+                            transition: "all 200ms ease",
+                          }}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
             </div>
-          )}
 
-          {/* Gallery grid */}
-          <div style={{ fontSize: 12, fontWeight: 600, color: t.accent, textTransform: "uppercase", letterSpacing: "0.14em", marginBottom: 12 }}>Gallery</div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, paddingBottom: 16 }}>
-            {config.fans.map((f) => <PhotoPH key={f.name} name={f.name} photoUrl={f.photoUrl} />)}
+            {/* Right column on wide: Gallery grid */}
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 12, fontWeight: 600, color: t.accent, textTransform: "uppercase", letterSpacing: "0.14em", marginBottom: 12 }}>Gallery</div>
+              <div style={{ display: "grid", gridTemplateColumns: layout === "desktop" ? "1fr 1fr 1fr 1fr" : isWide ? "1fr 1fr 1fr" : "1fr 1fr", gap: 14, paddingBottom: 16 }}>
+                {config.fans.map((f) => <PhotoPH key={f.name} name={f.name} photoUrl={f.photoUrl} />)}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -616,7 +645,7 @@ export default function FanGalleryContent({ config = DEFAULT_CONFIG }: { config?
       return (
         <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
           <div style={{ flex: 1, overflowY: "auto" }}>
-            <motion.div style={{ padding: "16px 24px 8px" }} initial="hidden" animate="visible" variants={stagger}>
+            <motion.div style={{ padding: isWide ? "20px 40px 8px" : "16px 24px 8px" }} initial="hidden" animate="visible" variants={stagger}>
               <motion.h1 variants={fadeUp} style={{ ...titleCss, fontSize: 22 }}>
                 {photoDataUrl ? "Edit Your Moment" : "Capture Your Moment"}
               </motion.h1>
@@ -625,8 +654,16 @@ export default function FanGalleryContent({ config = DEFAULT_CONFIG }: { config?
               )}
             </motion.div>
 
+            {/* Wide: side-by-side viewfinder + controls */}
+            <div style={{
+              display: isWide ? "flex" : "block",
+              gap: isWide ? 32 : 0,
+              padding: isWide ? "0 40px" : "0",
+              alignItems: "flex-start",
+            }}>
+
             {/* Viewfinder / Photo preview */}
-            <div style={{ padding: "0 24px", marginBottom: 12 }}>
+            <div style={{ padding: isWide ? "0" : "0 24px", marginBottom: 12, ...(isWide ? { width: "45%", flexShrink: 0 } : {}) }}>
               <div
                 onClick={() => { if (!photoDataUrl) fileRef.current?.click(); }}
                 onPointerDown={handlePointerDown}
@@ -636,6 +673,7 @@ export default function FanGalleryContent({ config = DEFAULT_CONFIG }: { config?
                   background: photoDataUrl ? "#000" : t.surface2,
                   border: `1.5px solid ${photoDataUrl ? t.border : t.accent}`,
                   borderRadius: 16, aspectRatio: "3/4",
+                  ...(isWide ? { maxHeight: "55vh" } : {}),
                   display: "flex", flexDirection: "column",
                   alignItems: "center", justifyContent: "center", gap: 16,
                   position: "relative", overflow: "hidden",
@@ -680,12 +718,14 @@ export default function FanGalleryContent({ config = DEFAULT_CONFIG }: { config?
               </div>
             </div>
 
+            {/* Right column on wide: editor tools */}
+            <div style={{ flex: 1, minWidth: 0 }}>
             {/* Editor tools + inline caption */}
             {photoDataUrl && !activeTool && (
               <>
                 <div style={{
                   display: "flex", justifyContent: "center", gap: 8,
-                  padding: "0 24px", marginBottom: 12,
+                  padding: isWide ? "0" : "0 24px", marginBottom: 12,
                 }}>
                   {toolBtn(
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="16" height="16" rx="2" stroke="currentColor" strokeWidth="1.5" /><rect x="4.5" y="4.5" width="11" height="11" rx="1" stroke="currentColor" strokeWidth="1" strokeDasharray="2 1.5" /></svg>,
@@ -719,7 +759,7 @@ export default function FanGalleryContent({ config = DEFAULT_CONFIG }: { config?
                 </div>
 
                 {/* Caption + hashtags inline */}
-                <div style={{ padding: "0 24px", marginBottom: 8 }}>
+                <div style={{ padding: isWide ? "0" : "0 24px", marginBottom: 8 }}>
                   <textarea
                     value={caption}
                     onChange={(e) => setCaption(e.target.value)}
@@ -773,7 +813,7 @@ export default function FanGalleryContent({ config = DEFAULT_CONFIG }: { config?
 
             {/* Frame selector panel */}
             {photoDataUrl && activeTool === "frame" && (
-              <div style={{ padding: "0 24px", marginBottom: 8 }}>
+              <div style={{ padding: isWide ? "0" : "0 24px", marginBottom: 8 }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
                   <span style={{ fontSize: 12, fontWeight: 600, color: t.textMuted, textTransform: "uppercase", letterSpacing: "0.1em" }}>Choose Frame</span>
                   <button onClick={() => setActiveTool(null)} style={{
@@ -807,7 +847,7 @@ export default function FanGalleryContent({ config = DEFAULT_CONFIG }: { config?
 
             {/* Crop controls */}
             {photoDataUrl && activeTool === "crop" && (
-              <div style={{ padding: "0 24px", marginBottom: 8 }}>
+              <div style={{ padding: isWide ? "0" : "0 24px", marginBottom: 8 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5" stroke={t.textMuted} strokeWidth="1.2" /><path d="M8 5.5v5M5.5 8h5" stroke={t.textMuted} strokeWidth="1.2" strokeLinecap="round" /></svg>
                   <input
@@ -836,6 +876,8 @@ export default function FanGalleryContent({ config = DEFAULT_CONFIG }: { config?
                 </div>
               </div>
             )}
+            </div>{/* close right column */}
+            </div>{/* close flex row wrapper */}
           </div>
 
           {!activeTool && (
@@ -843,7 +885,7 @@ export default function FanGalleryContent({ config = DEFAULT_CONFIG }: { config?
               <button
                 onClick={() => myMoments.length > 0 ? setPromoOpen(true) : (() => { setActiveTool(null); goTo(2); })()}
                 disabled={!photoDataUrl}
-                style={{ ...btnPrimary, opacity: photoDataUrl ? 1 : 0.4, pointerEvents: photoDataUrl ? "auto" : "none" }}
+                style={{ ...btnPrimary, opacity: photoDataUrl ? 1 : 0.4, pointerEvents: photoDataUrl ? "auto" : "none", ...(isWide ? { maxWidth: 400, margin: "0 auto" } : {}) }}
               >
                 Use This Photo
               </button>
@@ -999,8 +1041,9 @@ export default function FanGalleryContent({ config = DEFAULT_CONFIG }: { config?
     /* ── SCREEN 2: CONTACT + SUBMIT ── */
     () => (
       <div style={{ display: "flex", flexDirection: "column", height: "100%", width: "100%" }}>
-        <div style={{ flex: 1, overflowY: "auto", width: "100%" }}>
-          <motion.div style={{ padding: "20px 24px" }} initial="hidden" animate="visible" variants={stagger}>
+        <div style={{ flex: 1, overflowY: "auto", width: "100%", ...(isWide ? { display: "flex", justifyContent: "center" } : {}) }}>
+          <div style={{ ...(isWide ? { maxWidth: 520, width: "100%" } : { width: "100%" }) }}>
+          <motion.div style={{ padding: isWide ? "28px 40px" : "20px 24px" }} initial="hidden" animate="visible" variants={stagger}>
             <motion.h1 variants={fadeUp} style={{ ...titleCss, fontSize: 24 }}>Almost there</motion.h1>
             <motion.p variants={fadeUp} style={subCss}>Where should we send your gallery link?</motion.p>
           </motion.div>
@@ -1083,13 +1126,14 @@ export default function FanGalleryContent({ config = DEFAULT_CONFIG }: { config?
               >fan gallery terms</span>. By submitting your photo, you grant Momentify and the event organizer permission to display it in the gallery and related marketing.
             </p>
           </div>
+          </div>{/* close centering wrapper */}
         </div>
 
         <div style={bottomBar}>
           <button
             onClick={handleSubmit}
             disabled={!email || !phone || !ageConfirmed || submitting}
-            style={{ ...btnPrimary, opacity: email && phone && ageConfirmed && !submitting ? 1 : 0.4, pointerEvents: email && phone && ageConfirmed && !submitting ? "auto" : "none" }}
+            style={{ ...btnPrimary, opacity: email && phone && ageConfirmed && !submitting ? 1 : 0.4, pointerEvents: email && phone && ageConfirmed && !submitting ? "auto" : "none", ...(isWide ? { maxWidth: 520, margin: "0 auto" } : {}) }}
           >
             {submitting ? "Publishing..." : "Publish My Photo"}
           </button>
@@ -1165,7 +1209,8 @@ export default function FanGalleryContent({ config = DEFAULT_CONFIG }: { config?
     /* ── SCREEN 3: CONFIRMATION ── */
     () => (
       <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-        <div style={{ flex: 1, overflowY: "auto", padding: "20px 24px" }}>
+        <div style={{ flex: 1, overflowY: "auto", padding: isWide ? "28px 40px" : "20px 24px", ...(isWide ? { display: "flex", justifyContent: "center" } : {}) }}>
+          <div style={{ ...(isWide ? { maxWidth: 600, width: "100%" } : { width: "100%" }) }}>
           <motion.div initial="hidden" animate="visible" variants={stagger}>
             <motion.h1 variants={fadeUp} style={titleCss}>{thankYou}</motion.h1>
             <motion.p variants={fadeUp} style={subCss}>Your photo is live in the gallery.</motion.p>
@@ -1317,7 +1362,7 @@ export default function FanGalleryContent({ config = DEFAULT_CONFIG }: { config?
                   <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke={ACCENT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 <span style={{ fontSize: 15, fontWeight: 600, color: t.text }}>
-                  {Object.keys(surveyAnswers).length >= 3 ? "Thanks for sharing!" : "Tell Us About You"}
+                  {surveySubmitted ? "Thanks for sharing!" : "Tell Us About You"}
                 </span>
               </div>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{
@@ -1341,7 +1386,7 @@ export default function FanGalleryContent({ config = DEFAULT_CONFIG }: { config?
                     borderTop: "none", borderRadius: "0 0 12px 12px",
                     padding: 20, marginBottom: 24,
                   }}>
-                    {Object.keys(surveyAnswers).length < 3 ? (
+                    {!surveySubmitted ? (
                       <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
                         {/* Question 1 */}
                         <div>
@@ -1411,6 +1456,20 @@ export default function FanGalleryContent({ config = DEFAULT_CONFIG }: { config?
                             ))}
                           </div>
                         </div>
+
+                        {/* Submit button */}
+                        <button
+                          onClick={() => setSurveySubmitted(true)}
+                          disabled={Object.keys(surveyAnswers).length < 3}
+                          style={{
+                            ...btnPrimary,
+                            marginTop: 4,
+                            opacity: Object.keys(surveyAnswers).length >= 3 ? 1 : 0.4,
+                            pointerEvents: Object.keys(surveyAnswers).length >= 3 ? "auto" : "none",
+                          }}
+                        >
+                          Submit
+                        </button>
                       </div>
                     ) : (
                       <div style={{ textAlign: "center", padding: "8px 0" }}>
@@ -1482,6 +1541,7 @@ export default function FanGalleryContent({ config = DEFAULT_CONFIG }: { config?
               Add another photo
             </button>
           </div>
+          </div>{/* close centering wrapper */}
         </div>
       </div>
     ),
@@ -1494,8 +1554,8 @@ export default function FanGalleryContent({ config = DEFAULT_CONFIG }: { config?
      ═══════════════════════════════════════ */
 
   return (
-    <div style={{
-      width: "100%", maxWidth: 430, margin: "0 auto", height: "100dvh",
+    <div ref={containerRef} style={{
+      width: "100%", height: "100dvh",
       background: t.bg, color: t.text,
       fontFamily: "var(--font-inter)",
       display: "flex", flexDirection: "column",
@@ -1508,7 +1568,7 @@ export default function FanGalleryContent({ config = DEFAULT_CONFIG }: { config?
         background: t.headerBg, backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
         borderBottom: `1px solid ${t.border}`,
-        padding: "12px 20px",
+        padding: isWide ? "12px 40px" : "12px 20px",
         display: "flex", alignItems: "center", justifyContent: "space-between",
         flexShrink: 0,
       }}>
