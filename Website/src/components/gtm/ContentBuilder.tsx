@@ -13,6 +13,9 @@ import {
   Shield,
   Globe,
   FileBarChart,
+  Presentation,
+  BarChart3,
+  GalleryHorizontalEnd,
   Copy,
   Check,
   RotateCw,
@@ -22,6 +25,8 @@ import {
   CalendarPlus,
   ExternalLink,
   Terminal,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react"
 import CanvasEditor from "@/components/social-toolkit/CanvasEditor"
 import {
@@ -117,6 +122,24 @@ export const contentTypes = [
     desc: "Single-page sales leave-behind",
     icon: FileBarChart,
   },
+  {
+    key: "pitch-deck",
+    label: "Pitch Deck",
+    desc: "8-slide branded deck with 16:9 graphics",
+    icon: Presentation,
+  },
+  {
+    key: "infographic",
+    label: "Infographic",
+    desc: "Vertical data story with branded panels",
+    icon: BarChart3,
+  },
+  {
+    key: "carousel",
+    label: "Social Carousel",
+    desc: "5-6 swipeable tip cards for social",
+    icon: GalleryHorizontalEnd,
+  },
 ]
 
 const defaultVerticals = [
@@ -183,6 +206,63 @@ function parseSocialOutput(raw: string): Record<Platform, PlatformContent> {
   return result
 }
 
+/** Parsed slide from pitch deck output */
+interface SlideData {
+  number: number
+  title: string
+  headline: string
+  subhead: string
+  body: string
+  layout: "title" | "top" | "center"
+}
+
+/** Slide layout presets for CanvasEditor rendering */
+const slidePresets: Record<string, {
+  textPosition: "top" | "center" | "bottom"
+  headlineFontSize: number
+  headlineFontWeight: number
+  subheadFontSize: number
+  showLogo: boolean
+  showUrl: boolean
+  useDarkBg: boolean
+}> = {
+  title: { textPosition: "center", headlineFontSize: 72, headlineFontWeight: 600, subheadFontSize: 32, showLogo: true, showUrl: true, useDarkBg: true },
+  top: { textPosition: "top", headlineFontSize: 56, headlineFontWeight: 600, subheadFontSize: 28, showLogo: false, showUrl: false, useDarkBg: false },
+  center: { textPosition: "center", headlineFontSize: 64, headlineFontWeight: 700, subheadFontSize: 30, showLogo: false, showUrl: false, useDarkBg: true },
+}
+
+/** Parse structured pitch deck response into slides */
+function parsePitchDeck(raw: string): SlideData[] {
+  const slides: SlideData[] = []
+  const slideRegex = /---SLIDE\s+(\d+)[:\s]*([^-]*)---/gi
+  const matches = [...raw.matchAll(slideRegex)]
+
+  for (let i = 0; i < matches.length; i++) {
+    const match = matches[i]
+    const slideNum = parseInt(match[1], 10)
+    const slideTitle = match[2]?.trim() || ""
+    const startIdx = match.index! + match[0].length
+    const endIdx = i + 1 < matches.length ? matches[i + 1].index! : raw.length
+    const section = raw.slice(startIdx, endIdx)
+
+    const headlineMatch = section.match(/HEADLINE:\s*(.+)/i)
+    const subheadMatch = section.match(/SUBHEAD:\s*(.+)/i)
+    const bodyMatch = section.match(/BODY:\s*([\s\S]*?)(?=LAYOUT:|$)/i)
+    const layoutMatch = section.match(/LAYOUT:\s*(\w+)/i)
+
+    slides.push({
+      number: slideNum,
+      title: slideTitle,
+      headline: headlineMatch?.[1]?.trim() || "",
+      subhead: subheadMatch?.[1]?.trim() || "",
+      body: bodyMatch?.[1]?.trim() || "",
+      layout: (layoutMatch?.[1]?.trim() as SlideData["layout"]) || "center",
+    })
+  }
+
+  return slides
+}
+
 export default function ContentBuilder({
   solution,
   solutionLabel,
@@ -223,7 +303,13 @@ export default function ContentBuilder({
   // Per-platform graphic cache (ref to avoid stale closures)
   const platformGraphicsRef = useRef<Record<string, GraphicState>>({})
 
+  // Pitch deck state
+  const [slides, setSlides] = useState<SlideData[]>([])
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [slideBgIndices, setSlideBgIndices] = useState<number[]>([])
+
   const isSocialPost = selectedContent === "social-post"
+  const isPitchDeck = selectedContent === "pitch-deck" || selectedContent === "infographic" || selectedContent === "carousel"
   const brandId = solutionToBrandId[solution] || "momentify"
   const brand = useMemo(() => getBrand(brandId), [brandId])
 
@@ -243,6 +329,9 @@ export default function ContentBuilder({
     setPlatformContent(null)
     setGraphicStage("none")
     setSelectedBgIndex(0)
+    setSlides([])
+    setCurrentSlide(0)
+    setSlideBgIndices([])
     platformGraphicsRef.current = {}
 
     try {
@@ -269,6 +358,14 @@ export default function ContentBuilder({
           const parsed = parseSocialOutput(raw)
           setPlatformContent(parsed)
           setGraphicStage("template")
+        }
+        if (selectedContent === "pitch-deck" || selectedContent === "infographic" || selectedContent === "carousel") {
+          const parsed = parsePitchDeck(raw)
+          setSlides(parsed)
+          setCurrentSlide(0)
+          // Alternate bg indices: dark for title/center, light for top
+          const bgIdxs = parsed.map((s) => s.layout === "top" ? Math.min(1, brand.backgrounds.length - 1) : 0)
+          setSlideBgIndices(bgIdxs)
         }
       }
     } catch {
@@ -363,6 +460,9 @@ export default function ContentBuilder({
       "battle-card": "content-creation",
       "microsite": "content-creation",
       "one-pager": "content-creation",
+      "pitch-deck": "content-creation",
+      "infographic": "content-creation",
+      "carousel": "content-creation",
     }
 
     const newTask = {
@@ -543,6 +643,9 @@ export default function ContentBuilder({
                       setScheduled(false)
                       setShowScheduler(false)
                       platformGraphicsRef.current = {}
+                      setSlides([])
+                      setCurrentSlide(0)
+                      setSlideBgIndices([])
                     }}
                     style={{
                       display: "flex",
@@ -1072,6 +1175,143 @@ export default function ContentBuilder({
               </div>
             )}
 
+            {/* Slide deck viewer for pitch-deck, infographic, carousel */}
+            {isPitchDeck && slides.length > 0 && (
+              <div style={{ marginTop: 20 }}>
+                <div
+                  style={{
+                    background: "var(--gtm-bg-card)",
+                    borderRadius: 10,
+                    padding: 20,
+                    border: "1px solid var(--gtm-border)",
+                  }}
+                >
+                  {/* Slide header with navigation */}
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+                    <span style={{ fontSize: 13, fontWeight: 700, color: "var(--gtm-text-primary)", fontFamily: font }}>
+                      Slide {currentSlide + 1} of {slides.length}
+                      {slides[currentSlide]?.title && (
+                        <span style={{ fontWeight: 400, color: "var(--gtm-text-muted)", marginLeft: 8 }}>
+                          {slides[currentSlide].title}
+                        </span>
+                      )}
+                    </span>
+                    <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                      {/* Background swatches for current slide */}
+                      {brand.backgrounds.map((bg, i) => (
+                        <button
+                          key={bg.id}
+                          onClick={() => {
+                            const updated = [...slideBgIndices]
+                            updated[currentSlide] = i
+                            setSlideBgIndices(updated)
+                          }}
+                          title={bg.label}
+                          style={{
+                            width: 20,
+                            height: 20,
+                            borderRadius: 5,
+                            background: bg.gradient,
+                            border: (slideBgIndices[currentSlide] ?? 0) === i ? "2px solid var(--gtm-accent)" : "2px solid transparent",
+                            cursor: "pointer",
+                            transition: "border-color 150ms ease",
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Slide canvas */}
+                  <div style={{ borderRadius: 8, overflow: "hidden", border: "1px solid var(--gtm-border)" }}>
+                    {(() => {
+                      const slide = slides[currentSlide]
+                      const preset = slidePresets[slide?.layout || "center"] || slidePresets.center
+                      const bgIdx = slideBgIndices[currentSlide] ?? 0
+                      const slideBg = brand.backgrounds[bgIdx] || brand.backgrounds[0]
+                      return (
+                        <CanvasEditor
+                          aspectRatio="16:9"
+                          background={slideBg}
+                          brandId={brandId}
+                          headline={slide?.headline || ""}
+                          subhead={slide?.subhead || ""}
+                          bodyCopy={slide?.body || ""}
+                          textPosition={preset.textPosition}
+                          showLogo={preset.showLogo}
+                          logoVariant="auto"
+                          logoScale={100}
+                          showUrl={preset.showUrl}
+                          urlScale={100}
+                          headlineFontSize={preset.headlineFontSize}
+                          headlineFontWeight={preset.headlineFontWeight}
+                          subheadFontSize={preset.subheadFontSize}
+                          subheadFontWeight={300}
+                          bodyFontSize={18}
+                          bodyFontWeight={300}
+                          headlineAlign="left"
+                          subheadAlign="left"
+                          bodyAlign="left"
+                          layoutMargin={60}
+                        />
+                      )
+                    })()}
+                  </div>
+
+                  {/* Slide navigation */}
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginTop: 12 }}>
+                    <button
+                      onClick={() => setCurrentSlide((p) => Math.max(0, p - 1))}
+                      disabled={currentSlide === 0}
+                      style={{
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        width: 32, height: 32, borderRadius: 6,
+                        border: "1px solid var(--gtm-border)", background: "transparent",
+                        color: currentSlide === 0 ? "var(--gtm-text-faint)" : "var(--gtm-text-primary)",
+                        cursor: currentSlide === 0 ? "not-allowed" : "pointer",
+                        opacity: currentSlide === 0 ? 0.4 : 1,
+                        transition: "all 150ms ease",
+                      }}
+                    >
+                      <ChevronLeft size={16} />
+                    </button>
+
+                    {/* Slide dots */}
+                    {slides.map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setCurrentSlide(i)}
+                        style={{
+                          width: i === currentSlide ? 24 : 8,
+                          height: 8,
+                          borderRadius: 4,
+                          border: "none",
+                          background: i === currentSlide ? "var(--gtm-accent)" : "var(--gtm-border)",
+                          cursor: "pointer",
+                          transition: "all 200ms ease",
+                        }}
+                      />
+                    ))}
+
+                    <button
+                      onClick={() => setCurrentSlide((p) => Math.min(slides.length - 1, p + 1))}
+                      disabled={currentSlide === slides.length - 1}
+                      style={{
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        width: 32, height: 32, borderRadius: 6,
+                        border: "1px solid var(--gtm-border)", background: "transparent",
+                        color: currentSlide === slides.length - 1 ? "var(--gtm-text-faint)" : "var(--gtm-text-primary)",
+                        cursor: currentSlide === slides.length - 1 ? "not-allowed" : "pointer",
+                        opacity: currentSlide === slides.length - 1 ? 0.4 : 1,
+                        transition: "all 150ms ease",
+                      }}
+                    >
+                      <ChevronRight size={16} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Feedback row */}
             <div
               style={{
@@ -1221,7 +1461,7 @@ export default function ContentBuilder({
                     <ExternalLink size={14} /> Copy DM Sequence
                   </button>
                 )}
-                {["lead-magnet", "partner-pitch", "battle-card", "discovery-script", "one-pager"].includes(selectedContent!) && (
+                {["lead-magnet", "partner-pitch", "battle-card", "discovery-script", "one-pager", "pitch-deck", "infographic", "carousel"].includes(selectedContent!) && (
                   <button
                     onClick={() => setShowAssetPrompt(!showAssetPrompt)}
                     style={{

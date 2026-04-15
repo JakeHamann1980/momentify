@@ -255,6 +255,185 @@ DESIGN NOTES: [layout, font stack Inter 300-800, headline weight 500, subhead we
 
 Rules: no em dashes, no buzzwords, every section should earn the next scroll. The page should convert a cold visitor in under 90 seconds of reading. Anchor the proof section and CTA in ROX language so the visitor leaves understanding that Momentify delivers measurable return, not just features. All accent colors, CTAs, eyebrows, and interactive elements must use the solution palette above, not generic Momentify brand colors.`
 
+    case "pitch-deck":
+      return `Write a pitch deck script for Momentify. This will be rendered as a series of branded 16:9 slides.
+
+Solution: ${solution}
+Vertical: ${vertLabel}
+Motion: ${motionLabel}
+Target buyer: ${icpTitle}${extra}
+${palette ? `
+COLOR PALETTE (${palette.name}):
+- Primary: ${palette.primary}
+- Light accent: ${palette.light}
+- Dark: ${palette.dark}
+- Hero gradient: ${palette.heroGrad}
+- Light section background: ${palette.lightBg}
+` : ""}
+Generate exactly 8 slides. For each slide, output using these exact markers:
+
+---SLIDE 1: TITLE---
+HEADLINE: [bold opening statement, under 8 words]
+SUBHEAD: [one sentence positioning statement]
+BODY:
+LAYOUT: title
+
+---SLIDE 2: PROBLEM---
+HEADLINE: [problem framing, under 10 words]
+SUBHEAD: [one sentence expanding the pain]
+BODY: [2-3 short bullet points describing the buyer's current state. Use bullet character. Each under 15 words]
+LAYOUT: top
+
+---SLIDE 3: COST---
+HEADLINE: [a striking cost or stat, e.g. "$2.1M per event with no measurable ROI"]
+SUBHEAD: [one sentence contextualizing the number for this vertical]
+BODY:
+LAYOUT: center
+
+---SLIDE 4: SOLUTION---
+HEADLINE: [solution framing, under 8 words]
+SUBHEAD: [one sentence on what Momentify delivers]
+BODY: [3 capability bullet points specific to this vertical and motion. Use bullet character. Each under 15 words]
+LAYOUT: top
+
+---SLIDE 5: HOW IT WORKS---
+HEADLINE: [e.g. "Three steps to measurable ROI"]
+SUBHEAD: [one sentence overview]
+BODY: [3 numbered steps: Deploy, Capture, Act. One sentence each]
+LAYOUT: top
+
+---SLIDE 6: ROX FRAMEWORK---
+HEADLINE: ROX: Return on Experience
+SUBHEAD: [one sentence on what ROX measures]
+BODY: [4 bullet points, one per ROX dimension, adapted to this vertical. Use bullet character]
+LAYOUT: top
+
+---SLIDE 7: PROOF---
+HEADLINE: [a key proof metric, e.g. "250+ qualified leads at a single show"]
+SUBHEAD: [one sentence of context. Keep customer-agnostic]
+BODY:
+LAYOUT: center
+
+---SLIDE 8: CTA---
+HEADLINE: [clear next step, under 8 words]
+SUBHEAD: [low-friction ask: ROX Audit, 20-minute call, or custom demo]
+BODY:
+LAYOUT: center
+
+Rules: no em dashes, no buzzwords, each slide must stand alone visually. Headlines should be punchy and scannable. Keep body text minimal. This is a visual deck, not a document.`
+
+    case "infographic":
+      return `Write an infographic script for Momentify. This will be rendered as a series of branded 16:9 panels stacked vertically.
+
+Solution: ${solution}
+Vertical: ${vertLabel}
+Motion: ${motionLabel}
+Target buyer: ${icpTitle}${extra}
+${palette ? `
+COLOR PALETTE (${palette.name}):
+- Primary: ${palette.primary}
+- Light accent: ${palette.light}
+- Dark: ${palette.dark}
+- Hero gradient: ${palette.heroGrad}
+- Light section background: ${palette.lightBg}
+` : ""}
+Generate exactly 6 panels. For each panel, output using these exact markers:
+
+---SLIDE 1: TITLE---
+HEADLINE: [infographic title, under 10 words]
+SUBHEAD: [one sentence framing what this data story covers]
+BODY:
+LAYOUT: title
+
+---SLIDE 2: THE PROBLEM---
+HEADLINE: [problem stat or insight, under 10 words]
+SUBHEAD: [one sentence expanding on the data point]
+BODY: [2-3 supporting facts. Use bullet character. Each under 15 words]
+LAYOUT: top
+
+---SLIDE 3: KEY STAT---
+HEADLINE: [one big number or percentage, e.g. "73% of event leads go cold"]
+SUBHEAD: [source or context for the stat]
+BODY:
+LAYOUT: center
+
+---SLIDE 4: THE SOLUTION---
+HEADLINE: [how Momentify addresses this, under 10 words]
+SUBHEAD: [one sentence on the approach]
+BODY: [3 bullet points mapping to ROX dimensions. Use bullet character]
+LAYOUT: top
+
+---SLIDE 5: ROX IMPACT---
+HEADLINE: [a proof metric, e.g. "40% improvement in lead qualification"]
+SUBHEAD: [one sentence of context]
+BODY:
+LAYOUT: center
+
+---SLIDE 6: CTA---
+HEADLINE: [clear next step, under 8 words]
+SUBHEAD: [low-friction ask]
+BODY:
+LAYOUT: center
+
+Rules: no em dashes, no buzzwords. Each panel should tell one part of a data story. Numbers and stats should be prominent. This is a visual data narrative, not a text document.`
+
+    case "carousel":
+      return `Write a social carousel for Momentify. This will be rendered as a series of branded swipeable cards.
+
+Solution: ${solution}
+Vertical: ${vertLabel}
+Motion: ${motionLabel}
+Target buyer: ${icpTitle}${extra}
+${palette ? `
+COLOR PALETTE (${palette.name}):
+- Primary: ${palette.primary}
+- Light accent: ${palette.light}
+- Dark: ${palette.dark}
+- Hero gradient: ${palette.heroGrad}
+- Light section background: ${palette.lightBg}
+` : ""}
+Generate exactly 6 cards. The theme should be tips, tricks, facts, or insights relevant to ${vertLabel} event marketers. Each card should deliver standalone value.
+
+For each card, output using these exact markers:
+
+---SLIDE 1: COVER---
+HEADLINE: [carousel title, under 8 words, e.g. "5 Signs Your Trade Show ROI Is Broken"]
+SUBHEAD: [one sentence hook that makes them swipe]
+BODY:
+LAYOUT: title
+
+---SLIDE 2: TIP 1---
+HEADLINE: [tip/fact title, under 8 words]
+SUBHEAD: [one sentence explanation]
+BODY: [1-2 sentences of supporting detail or a quick example]
+LAYOUT: center
+
+---SLIDE 3: TIP 2---
+HEADLINE: [tip/fact title, under 8 words]
+SUBHEAD: [one sentence explanation]
+BODY: [1-2 sentences of supporting detail or a quick example]
+LAYOUT: center
+
+---SLIDE 4: TIP 3---
+HEADLINE: [tip/fact title, under 8 words]
+SUBHEAD: [one sentence explanation]
+BODY: [1-2 sentences of supporting detail or a quick example]
+LAYOUT: center
+
+---SLIDE 5: TIP 4---
+HEADLINE: [tip/fact title, under 8 words]
+SUBHEAD: [one sentence explanation]
+BODY: [1-2 sentences of supporting detail or a quick example]
+LAYOUT: center
+
+---SLIDE 6: CTA---
+HEADLINE: [wrap-up or call to action, under 8 words]
+SUBHEAD: [one sentence with a low-friction CTA]
+BODY:
+LAYOUT: title
+
+Rules: no em dashes, no buzzwords. Each card should be valuable on its own. Mix data points, practical tips, and ROX insights. The cover card should create curiosity. The CTA card should feel like a natural conclusion, not a hard sell.`
+
     case "one-pager":
       return `Write a one-pager sales leave-behind for Momentify.
 
