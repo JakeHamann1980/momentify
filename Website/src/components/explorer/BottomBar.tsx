@@ -1,15 +1,24 @@
 'use client';
 
 import { useExplorer } from './ExplorerContext';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, QrCode, UserRound, Search } from 'lucide-react';
+
+const modeIcons = {
+  scan: QrCode,
+  form: UserRound,
+  search: Search,
+} as const;
 
 export default function BottomBar() {
-  const { config, session, nextStep, prevStep, goToStep, progressDots, setVisitorName } = useExplorer();
+  const { config, session, nextStep, prevStep, goToStep, progressDots, setVisitorName, setMode } = useExplorer();
 
   const currentStep = config.steps[session.currentStepIndex];
   const isRegistration = currentStep?.type === 'registration';
   const isResults = currentStep?.type === 'results';
   const isTrait = currentStep?.type === 'trait-selection';
+  const isMobile = config.formFactor === 'mobile';
+  const showMobileModeSwitcher =
+    isMobile && isRegistration && config.registration.modes.length > 1;
 
   // Find the summary step for the Done button
   const summaryStep = config.steps.find((s) => s.type === 'summary');
@@ -38,14 +47,32 @@ export default function BottomBar() {
         Back
       </button>
 
-      <div className="exp-progress-dots">
-        {progressDots.map((dot) => (
-          <div
-            key={dot.id}
-            className={`exp-progress-dot${dot.active ? ' active' : ''}${dot.completed ? ' completed' : ''}`}
-          />
-        ))}
-      </div>
+      {showMobileModeSwitcher ? (
+        <div className="exp-mobile-mode-row">
+          {config.registration.modes.map((mode) => {
+            const Icon = modeIcons[mode];
+            return (
+              <button
+                key={mode}
+                className={`exp-mode-btn${session.mode === mode ? ' active' : ''}`}
+                onClick={() => setMode(mode)}
+                aria-label={`Switch to ${mode} mode`}
+              >
+                <Icon />
+              </button>
+            );
+          })}
+        </div>
+      ) : (
+        <div className="exp-progress-dots">
+          {progressDots.map((dot) => (
+            <div
+              key={dot.id}
+              className={`exp-progress-dot${dot.active ? ' active' : ''}${dot.completed ? ' completed' : ''}`}
+            />
+          ))}
+        </div>
+      )}
 
       {isRegistration && config.registration.skipEnabled && !session.visitorName ? (
         <button className="exp-btn-skip" onClick={handleSkipRegistration}>

@@ -51,7 +51,14 @@ export default function SummaryStep({ step, onOpenOverlay, onEndSession, onShare
   if (session.selectedRole) {
     chips.push({ label: getOptionLabel(session.selectedRole), className: 'chip-role' });
   }
-  session.selectedInterests.forEach(interest => {
+  // Multi-select traits write to session.selectedTraits[stepId]; merge both
+  // sources (deduped) so chips show regardless of which path was used.
+  const interestValues = new Set<string>(session.selectedInterests);
+  Object.entries(session.selectedTraits).forEach(([stepId, values]) => {
+    if (stepId === 'role') return;
+    values.forEach(v => interestValues.add(v));
+  });
+  interestValues.forEach(interest => {
     chips.push({ label: getOptionLabel(interest), className: 'chip-interest' });
   });
 
@@ -161,7 +168,7 @@ export default function SummaryStep({ step, onOpenOverlay, onEndSession, onShare
         </div>
 
         <button className="exp-btn-end-session" onClick={onEndSession}>
-          End Session
+          {config.formFactor === 'mobile' ? 'End' : 'End Session'}
         </button>
       </div>
     </div>

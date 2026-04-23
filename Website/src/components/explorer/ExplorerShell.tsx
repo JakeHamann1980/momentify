@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import './explorer.css';
+import './explorer-mobile.css';
 import { useExplorer } from './ExplorerContext';
 import TopBar from './TopBar';
 import BottomBar from './BottomBar';
@@ -94,14 +95,19 @@ export default function ExplorerShell() {
     if (thankYouStep) goToStep(thankYouStep.id);
   };
 
+  const formFactor = config.formFactor ?? 'tablet';
+  const shellWidth = formFactor === 'mobile' ? 430 : 1366;
+  const shellHeight = formFactor === 'mobile' ? 932 : 1024;
+
   return (
     <div
       ref={shellRef}
       className="explorer-shell"
+      data-form={formFactor}
       style={{
         ...themeVars as React.CSSProperties,
-        width: 1366,
-        height: 1024,
+        width: shellWidth,
+        height: shellHeight,
       }}
     >
       {/* Theme-aware overrides for locked CSS hardcoded dark-mode values */}

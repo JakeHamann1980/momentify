@@ -107,12 +107,52 @@ const NEW_BRAND: ExplorerConfig = {
 };
 ```
 
+## Form Factors
+
+The engine supports two locked layouts. Content (`steps[]`, `content[]`) works unchanged across both — only layout dimensions differ.
+
+| Form Factor | Shell | Bezel | CSS File | Selector |
+|---|---|---|---|---|
+| `tablet` (default) | 1366 × 1024 landscape | iPad Pro 12.9" | `explorer.css` (LOCKED v1.0.0) | `.explorer-shell` |
+| `mobile` | 430 × 932 portrait | iPhone 14 Pro Max | `explorer-mobile.css` (LOCKED v1.0.0-mobile) | `.explorer-shell[data-form="mobile"]` |
+
+### How it works
+- Both stylesheets are imported by `ExplorerShell.tsx`.
+- `ExplorerShell` sets `data-form={config.formFactor ?? "tablet"}` on the `.explorer-shell` root div.
+- `explorer.css` applies globally (tablet layout). `explorer-mobile.css` rules are all scoped under `[data-form="mobile"]` so they only activate when the flag is set.
+- `ExplorerBezelWrapper` reads `config.formFactor` and renders the matching device bezel.
+
+### Mobile UX adaptations (not just a shrink)
+- **Dialogs are bottom sheets** — slide up from the bottom, full-width, rounded top corners only, respect `env(safe-area-inset-bottom)`.
+- **Card overlay is fullscreen** — no floating frame; uses safe-area inset padding.
+- **Bottom bar is sticky** and progress dots are hidden (too cramped at 430px wide).
+- **Result tabs scroll horizontally** when they overflow.
+- **View-size toggle is hidden on mobile** — results default to single-column medium cards.
+- **All interactive elements are ≥44×44pt** (iOS HIG). Form inputs are 16px font to prevent iOS auto-zoom.
+- **Trait header sticks** at the top while the grid scrolls.
+- **Touch scrolling uses `-webkit-overflow-scrolling: touch`**.
+
+### Setting form factor
+```typescript
+// In configs/{slug}.ts
+export const MY_CONFIG: ExplorerConfig = {
+  // ...
+  formFactor: 'mobile',   // or 'tablet' (default)
+  // ...
+};
+```
+
+The `ExplorerInstance` entry (in `instances.ts`) should match with `bezel: "iphone-portrait"` for static HTML prototypes, or `formFactor: "mobile"` (informational) for React-route instances.
+
+---
+
 ## File Map
 
 ```
 src/
   components/explorer/
-    explorer.css          ← LOCKED layout + theme (DO NOT EDIT)
+    explorer.css          ← LOCKED tablet layout + theme (DO NOT EDIT)
+    explorer-mobile.css   ← LOCKED mobile layout companion (DO NOT EDIT)
     ExplorerShell.tsx      ← Shell container, overlay state
     ExplorerContext.tsx     ← React context, session state
     TopBar.tsx             ← Top navigation bar

@@ -26,7 +26,8 @@ export default function ResultsStep({ step, onOpenOverlay }: ResultsStepProps) {
   } = useExplorer();
 
   const activeTab = session.activeTab || step.tabs[0]?.id || '';
-  const viewSize = session.viewSize || step.defaultView;
+  // Mobile always uses medium view so stat is visible and card sizing is consistent
+  const viewSize = config.formFactor === 'mobile' ? 'medium' : (session.viewSize || step.defaultView);
   const currentPage = session.pageState[activeTab] ?? 0;
 
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
@@ -52,11 +53,16 @@ export default function ResultsStep({ step, onOpenOverlay }: ResultsStepProps) {
     return cards;
   }, [activeTab, activeFilter, getContentByType, tabConfig]);
 
+  // Mobile scrolls the full list instead of paginating
+  const isMobile = config.formFactor === 'mobile';
+
   // Pagination — cards per page varies by view size (matches Cat Defense prototype)
   const cardsPerPage = viewSize === 'large' ? 1 : viewSize === 'medium' ? 2 : (step.cardsPerPage || 6);
-  const totalPages = Math.max(1, Math.ceil(tabCards.length / cardsPerPage));
+  const totalPages = isMobile ? 1 : Math.max(1, Math.ceil(tabCards.length / cardsPerPage));
   const safePage = Math.min(currentPage, totalPages - 1);
-  const pageCards = tabCards.slice(safePage * cardsPerPage, (safePage + 1) * cardsPerPage);
+  const pageCards = isMobile
+    ? tabCards
+    : tabCards.slice(safePage * cardsPerPage, (safePage + 1) * cardsPerPage);
 
   // Helper: look up label from trait-selection step options by value
   const getOptionLabel = (value: string): string => {
@@ -77,7 +83,16 @@ export default function ResultsStep({ step, onOpenOverlay }: ResultsStepProps) {
   if (session.selectedRole) {
     chips.push({ label: getOptionLabel(session.selectedRole), className: 'chip-role' });
   }
-  session.selectedInterests.forEach(interest => {
+  // Multi-select traits write to session.selectedTraits[stepId]; older flow wrote
+  // to session.selectedInterests. Merge both sources (deduped) so chips show
+  // regardless of which path the selection took.
+  const interestValues = new Set<string>(session.selectedInterests);
+  Object.entries(session.selectedTraits).forEach(([stepId, values]) => {
+    // Skip the role step (single-select) — already rendered above
+    if (stepId === 'role') return;
+    values.forEach(v => interestValues.add(v));
+  });
+  interestValues.forEach(interest => {
     chips.push({ label: getOptionLabel(interest), className: 'chip-interest' });
   });
 

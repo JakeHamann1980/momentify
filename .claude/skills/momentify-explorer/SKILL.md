@@ -364,6 +364,13 @@ After creating all files:
     - **CardOverlay media preview**: uses `var(--exp-card-bg)` and `var(--exp-card-border)` instead of hardcoded rgba values
 19. **No separator lines** -- The results tab bar separator and any other divider lines have been removed. Do not add `border-top`, `border-bottom`, or `<hr>` elements to any explorer components.
 20. **Light mode must feel clean, white, and crisp** -- Unselected cards should be translucent white (0.65), selected cards must have clear accent-colored border contrast. Card overlays and dialogs must be solid white. Avoid heavy gradients or strong orb colors in light mode.
+21. **Form factor is a top-level config field.** Add `formFactor: "mobile"` to the `ExplorerConfig` for phone experiences; default is `"tablet"`.
+    - Tablet layout: `explorer.css` (LOCKED v1.0.0), 1366x1024 landscape, iPad Pro 12.9" bezel.
+    - Mobile layout: `explorer-mobile.css` (LOCKED v1.0.0-mobile), 430x932 portrait, iPhone 14 Pro Max bezel.
+    - **Do NOT edit `explorer-mobile.css` for new templates** — same lock rule as the tablet CSS. All mobile rules are scoped under `.explorer-shell[data-form="mobile"]`.
+    - Mobile UX is thumb-first, not just a shrink: bottom-sheet dialogs, fullscreen card overlay, sticky trait headers, hidden view toggle (always medium cards), hidden progress dots, horizontal-scroll tabs, 44pt minimum touch targets, `env(safe-area-inset-*)` respected.
+    - Content (`steps[]`, `content[]`) works unchanged across tablet and mobile — only pick `formFactor` based on the deployment surface (kiosk = tablet, QR microsite = mobile).
+    - For instances in `instances.ts`: use `bezel: "iphone-portrait"` for mobile static HTML prototypes; for React-route mobile instances set `formFactor: "mobile"` on both the instance (informational, drives dashboard badge) and the `ExplorerConfig` (actually drives layout).
 
 ## Reference Files
 

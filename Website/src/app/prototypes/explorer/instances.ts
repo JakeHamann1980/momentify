@@ -8,8 +8,17 @@ export interface ExplorerInstance {
   accentColor: string;
   createdAt: string;
   password?: string;
-  bezel?: "ipad-landscape" | "dual-iphone-ipad";
+  bezel?: "ipad-landscape" | "iphone-portrait" | "dual-iphone-ipad";
   gateLogo?: string;
+  /** UI form factor of the experience. Purely informational for the dashboard —
+   * the actual layout is driven by ExplorerConfig.formFactor (for React routes)
+   * or the static HTML itself. Default 'tablet'. */
+  formFactor?: "tablet" | "mobile";
+  /** If set, renders an extra "Mobile" link in this card that opens the given slug.
+   * Use this to pair a tablet instance with its mobile companion. */
+  mobileSlug?: string;
+  /** Hide this instance from the dashboard listing. Still accessible by URL. */
+  hidden?: boolean;
 }
 
 export const instances: ExplorerInstance[] = [
@@ -131,6 +140,21 @@ export const instances: ExplorerInstance[] = [
     accentColor: "#4F46E5",
     createdAt: "2026-04-07",
     password: "clarium2026",
+    mobileSlug: "clarium-mobile",
+  },
+  {
+    slug: "clarium-mobile",
+    name: "Clarium Health Explorer (Mobile)",
+    company: "Clarium Health",
+    industry: "Healthcare Supply Chain",
+    prototypeFile: "/explorer/clarium-mobile",
+    logo: "/brand/assets/clarium-icon.png",
+    gateLogo: "/brand/assets/clarium-dark.png",
+    accentColor: "#4F46E5",
+    createdAt: "2026-04-23",
+    password: "clarium2026",
+    formFactor: "mobile",
+    hidden: true,
   },
   {
     slug: "maven-fp",

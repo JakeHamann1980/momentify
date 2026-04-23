@@ -208,12 +208,19 @@ export interface FeaturesConfig {
 
 // ─── Top-level Config ────────────────────────────────
 
+export type FormFactor = 'tablet' | 'mobile';
+
 export interface ExplorerConfig {
   id: string;
   name: string;
   version: number;
   createdAt: string;
   updatedAt: string;
+  /**
+   * Layout form factor. Selects between the locked tablet CSS (1366x1024 landscape)
+   * and the locked mobile CSS (430x932 portrait). Default: 'tablet'.
+   */
+  formFactor?: FormFactor;
   branding: BrandingConfig;
   registration: RegistrationConfig;
   steps: StepConfig[];

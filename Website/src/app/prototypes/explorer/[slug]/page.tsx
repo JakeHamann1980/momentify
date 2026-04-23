@@ -177,6 +177,10 @@ export default function ExplorerInstancePage() {
     return <DualBezel src={instance.prototypeFile} />;
   }
 
+  if (instance.bezel === "iphone-portrait") {
+    return <IPhoneBezel src={instance.prototypeFile} />;
+  }
+
   if (instance.bezel === "ipad-landscape") {
     return <IPadBezel src={instance.prototypeFile} />;
   }
@@ -501,6 +505,114 @@ function IPadBezel({ src }: { src: string }) {
         }}
       >
         Prototype preview &mdash; best viewed in landscape on desktop
+      </div>
+    </div>
+  );
+}
+
+function IPhoneBezel({ src }: { src: string }) {
+  const [scale, setScale] = useState(1);
+  const outerW = 446;
+  const outerH = 948;
+  const shellW = 430;
+  const shellH = 932;
+
+  useEffect(() => {
+    function resize() {
+      const w = window.innerWidth;
+      const h = window.innerHeight - 48;
+      const sx = w / outerW;
+      const sy = h / outerH;
+      setScale(Math.min(sx, sy, 1));
+    }
+    resize();
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
+  }, []);
+
+  return (
+    <div
+      style={{
+        position: "absolute",
+        inset: 0,
+        overflow: "hidden",
+        background: "#000E1F",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <div
+        style={{
+          width: outerW * scale,
+          height: outerH * scale,
+          flexShrink: 0,
+        }}
+      >
+        <div
+          style={{
+            position: "relative",
+            width: outerW,
+            height: outerH,
+            background: "#0a1628",
+            borderRadius: 48,
+            border: "1.5px solid rgba(255,255,255,0.1)",
+            boxShadow:
+              "0 0 0 1px rgba(255,255,255,0.03), 0 30px 100px rgba(0,0,0,0.65), 0 6px 24px rgba(0,0,0,0.4), inset 0 0.5px 0 rgba(255,255,255,0.08)",
+            padding: 8,
+            transform: `scale(${scale})`,
+            transformOrigin: "top left",
+          }}
+        >
+          {/* Dynamic Island */}
+          <div
+            style={{
+              position: "absolute",
+              top: 14,
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: 120,
+              height: 34,
+              borderRadius: 20,
+              background: "#000",
+              zIndex: 2,
+            }}
+          />
+          <div
+            style={{
+              width: shellW,
+              height: shellH,
+              borderRadius: 40,
+              overflow: "hidden",
+              background: "#000E1F",
+            }}
+          >
+            <iframe
+              src={src}
+              style={{
+                width: shellW,
+                height: shellH,
+                border: "none",
+                display: "block",
+              }}
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        style={{
+          fontSize: 11,
+          color: "rgba(255,255,255,0.2)",
+          letterSpacing: "0.03em",
+          whiteSpace: "nowrap",
+          textAlign: "center",
+          fontFamily: "'Inter', sans-serif",
+          marginTop: 12,
+          flexShrink: 0,
+        }}
+      >
+        iPhone 14 Pro Max preview
       </div>
     </div>
   );

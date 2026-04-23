@@ -26,6 +26,34 @@ function formatDate(iso: string) {
   });
 }
 
+function FormFactorBadge({ instance }: { instance: ExplorerInstance }) {
+  const isMobile =
+    instance.formFactor === "mobile" || instance.bezel === "iphone-portrait";
+  const label = isMobile ? "Mobile" : "Tablet";
+  const color = isMobile ? "#A78BFA" : "#38BDF8";
+  return (
+    <span
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 4,
+        padding: "2px 8px",
+        borderRadius: 10,
+        border: `1px solid ${color}`,
+        color: color,
+        fontSize: 10,
+        fontWeight: 500,
+        textTransform: "uppercase",
+        letterSpacing: "0.06em",
+        lineHeight: 1,
+        height: 18,
+      }}
+    >
+      {label}
+    </span>
+  );
+}
+
 function InstanceCard({
   instance,
   viewData,
@@ -97,16 +125,26 @@ function InstanceCard({
                 />
               </div>
             )}
-            <div>
+            <div style={{ flex: 1, minWidth: 0 }}>
               <div
                 style={{
-                  color: "var(--text)",
-                  fontSize: 16,
-                  fontWeight: 500,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
                   marginBottom: 2,
+                  flexWrap: "wrap",
                 }}
               >
-                {instance.name}
+                <div
+                  style={{
+                    color: "var(--text)",
+                    fontSize: 16,
+                    fontWeight: 500,
+                  }}
+                >
+                  {instance.name}
+                </div>
+                <FormFactorBadge instance={instance} />
               </div>
               <div
                 style={{
@@ -213,6 +251,42 @@ function InstanceCard({
             >
               Copy Link
             </button>
+            {instance.mobileSlug && (
+              <a
+                href={`/prototypes/explorer/${instance.mobileSlug}${instance.password ? `?pw=${instance.password}` : ""}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  trackView(instance.mobileSlug!);
+                }}
+                style={{
+                  padding: "6px 12px",
+                  borderRadius: 6,
+                  border: "1px solid #A78BFA",
+                  background: "transparent",
+                  color: "#A78BFA",
+                  fontSize: 11,
+                  fontWeight: 600,
+                  fontFamily: "inherit",
+                  cursor: "pointer",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.04em",
+                  whiteSpace: "nowrap",
+                  textDecoration: "none",
+                  transition: "all 0.15s",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 4,
+                }}
+              >
+                <svg width="11" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+                  <line x1="12" y1="18" x2="12" y2="18" />
+                </svg>
+                Mobile
+              </a>
+            )}
             <button
               onClick={(e) => {
                 e.preventDefault();
@@ -481,7 +555,7 @@ export default function ExplorerDashboard() {
           gap: 20,
         }}
       >
-        {instances.map((instance) => (
+        {instances.filter(i => !i.hidden).map((instance) => (
           <InstanceCard
             key={instance.slug}
             instance={instance}

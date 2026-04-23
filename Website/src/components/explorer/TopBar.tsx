@@ -168,7 +168,8 @@ export default function TopBar({ showModeSwitcher, onOpenNotes, onOpenVoice, onO
         </div>
       )}
 
-      {showModeSwitcher && config.registration.modes.length > 1 && (
+      {/* Mode switcher: tablet renders here centered; mobile renders it in BottomBar */}
+      {showModeSwitcher && config.registration.modes.length > 1 && config.formFactor !== 'mobile' && (
         <div className="exp-mode-switcher">
           {config.registration.modes.map((mode) => {
             const Icon = modeIcons[mode];
