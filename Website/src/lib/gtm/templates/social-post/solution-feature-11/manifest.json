@@ -1,0 +1,23 @@
+{
+  "id": "solution-feature-11",
+  "label": "Solution Feature · Square",
+  "assetType": "social-post",
+  "aspectRatio": "1:1",
+  "description": "Light square feature card with solution accent bar, headline, and three capability bullets. For announcing product features and solution capabilities.",
+  "slots": [
+    { "key": "LABEL",   "label": "Eyebrow label",       "kind": "eyebrow",  "maxChars": 36,  "example": "Trade Show Solution" },
+    { "key": "HEADLINE","label": "Feature headline",    "kind": "headline", "maxChars": 52,  "example": "Capture Every Lead. Score Every Rep." },
+    { "key": "BULLET1", "label": "First capability",    "kind": "support",  "maxChars": 72,  "example": "Real-time badge scanning at 300+ touchpoints per hour" },
+    { "key": "BULLET2", "label": "Second capability",   "kind": "support",  "maxChars": 72,  "example": "AI-powered lead enrichment and intent scoring on the floor" },
+    { "key": "BULLET3", "label": "Third capability",    "kind": "support",  "maxChars": 72,  "example": "ROX attribution from booth scan to closed deal" },
+    { "key": "CTA",     "label": "CTA text",            "kind": "cta_label","maxChars": 28,  "example": "Book a Demo" }
+  ],
+  "sampleData": {
+    "LABEL": "Trade Show Solution",
+    "HEADLINE": "Capture Every Lead. Score Every Rep.",
+    "BULLET1": "Real-time badge scanning at 300+ touchpoints per hour",
+    "BULLET2": "AI-powered lead enrichment and intent scoring on the floor",
+    "BULLET3": "ROX attribution from booth scan to closed deal",
+    "CTA": "Book a Demo"
+  }
+}
