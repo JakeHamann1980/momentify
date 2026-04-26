@@ -7,6 +7,7 @@ import { CLARIUM_MOBILE_CONFIG } from '@/lib/explorer/configs/clarium-mobile';
 import { MAVEN_FP_CONFIG } from '@/lib/explorer/configs/maven-fp';
 import { CDK_CONFIG } from '@/lib/explorer/configs/cdk';
 import { SALESFLOWIQ_CONFIG } from '@/lib/explorer/configs/salesflowiq';
+import { DEALROOM_CONFIG } from '@/lib/explorer/configs/dealroom';
 
 import type { ExplorerConfig } from '@/lib/explorer/types';
 
@@ -17,6 +18,7 @@ const CONFIGS: Record<string, ExplorerConfig> = {
   'maven-fp': MAVEN_FP_CONFIG,
   'cdk': CDK_CONFIG,
   'salesflowiq': SALESFLOWIQ_CONFIG,
+  'dealroom': DEALROOM_CONFIG,
 };
 
 export default async function ExplorerPage({ params }: { params: Promise<{ id: string }> }) {

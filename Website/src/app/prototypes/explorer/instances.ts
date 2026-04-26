@@ -193,6 +193,18 @@ export const instances: ExplorerInstance[] = [
     password: "salesflowiq2026",
   },
   {
+    slug: "dealroom",
+    name: "DealRoom Explorer",
+    company: "DealRoom",
+    industry: "M&A Management",
+    prototypeFile: "/explorer/dealroom",
+    logo: "/brand/assets/dealroom-icon.png",
+    gateLogo: "/brand/assets/dealroom-logo-reverse.svg",
+    accentColor: "#0278DB",
+    createdAt: "2026-04-26",
+    password: "dealroom2026",
+  },
+  {
     slug: "empire-jobfair",
     name: "Empire CAT Job Fair",
     company: "Empire CAT",

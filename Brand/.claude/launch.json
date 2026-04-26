@@ -10,8 +10,8 @@
     {
       "name": "website",
       "runtimeExecutable": "bash",
-      "runtimeArgs": ["-c", "export PATH=/opt/homebrew/Cellar/node/25.6.1_1/bin:/opt/homebrew/bin:$PATH && cd /Users/jakehamann/Development/Momentify/Website && npx next dev --port 3002"],
-      "port": 3002
+      "runtimeArgs": ["-c", "export PATH=/opt/homebrew/Cellar/node/25.6.1_1/bin:/opt/homebrew/bin:$PATH && cd /Users/jakehamann/Development/Momentify/Website && npx next dev --port 3003"],
+      "port": 3003
     }
   ]
 }
