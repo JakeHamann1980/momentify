@@ -83,46 +83,74 @@ export default function TraitSelectionStep({ step }: { step: TraitSelectionStepC
   const showRole = !isFirstTraitStep && !isSingle && !!session.selectedRole;
   const hasChips = showName || showRole;
 
+  const isMobile = config.formFactor === 'mobile';
+
+  const chips = hasChips && (
+    <div className="exp-selection-summary">
+      {showName && (
+        <span className="exp-summary-chip chip-name">
+          <User style={{ width: 12, height: 12 }} />
+          {session.visitorName}
+        </span>
+      )}
+      {showRole && (
+        <span className="exp-summary-chip chip-role">
+          <Sparkles style={{ width: 12, height: 12 }} />
+          {getOptionLabel(session.selectedRole!)}
+        </span>
+      )}
+    </div>
+  );
+
+  const greeting = step.showGreeting && session.visitorName && (
+    <div className="exp-trait-greeting">
+      Welcome, <strong>{session.visitorName}</strong>
+    </div>
+  );
+
+  const selectAllBtn = step.showSelectAll && (
+    <button
+      className={`exp-btn-select-all${allSelected ? ' active' : ''}`}
+      onClick={handleSelectAll}
+    >
+      {allSelected ? 'Deselect All' : 'Select All'}
+    </button>
+  );
+
   return (
     <div>
-      {/* Header — chips sit INSIDE header, above the title */}
-      <div className="exp-trait-header">
-        {hasChips && (
-          <div className="exp-selection-summary">
-            {showName && (
-              <span className="exp-summary-chip chip-name">
-                <User style={{ width: 12, height: 12 }} />
-                {session.visitorName}
-              </span>
-            )}
-            {showRole && (
-              <span className="exp-summary-chip chip-role">
-                <Sparkles style={{ width: 12, height: 12 }} />
-                {getOptionLabel(session.selectedRole!)}
-              </span>
-            )}
+      {isMobile ? (
+        /* Mobile: subtitle and Select All share a flex row so they're vertically centred */
+        <div className="exp-trait-header">
+          {chips}
+          {greeting}
+          <h2 className="exp-trait-title">{step.title}</h2>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+            <p className="exp-trait-subtitle" style={{ margin: 0 }}>{step.subtitle}</p>
+            {selectAllBtn}
           </div>
-        )}
-        {step.showGreeting && session.visitorName && (
-          <div className="exp-trait-greeting">
-            Welcome, <strong>{session.visitorName}</strong>
-          </div>
-        )}
-        <h2 className="exp-trait-title">{step.title}</h2>
-        <p className="exp-trait-subtitle">{step.subtitle}</p>
-      </div>
-
-      {/* Select All — positioned right, between header and grid */}
-      {step.showSelectAll && (
-        <div style={{ position: 'relative', maxWidth: 820, width: '100%', height: 0 }}>
-          <button
-            className={`exp-btn-select-all${allSelected ? ' active' : ''}`}
-            onClick={handleSelectAll}
-            style={{ position: 'absolute', bottom: 12, right: 0 }}
-          >
-            {allSelected ? 'Deselect All' : 'Select All'}
-          </button>
         </div>
+      ) : (
+        <>
+          {/* Tablet: header + zero-height float trick for Select All */}
+          <div className="exp-trait-header">
+            {chips}
+            {greeting}
+            <h2 className="exp-trait-title">{step.title}</h2>
+            <p className="exp-trait-subtitle">{step.subtitle}</p>
+          </div>
+          {step.showSelectAll && (
+            <div style={{ position: 'relative', maxWidth: 820, width: '100%', height: 0 }}>
+              <button
+                className={`exp-btn-select-all${allSelected ? ' active' : ''}`}
+                onClick={handleSelectAll}
+                style={{ position: 'absolute', bottom: 12, right: 0 }}
+              >
+                {allSelected ? 'Deselect All' : 'Select All'}
+              </button>
+            </div>
+          )}
+        </>
       )}
 
       {/* Trait Grid */}
