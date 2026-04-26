@@ -23,12 +23,23 @@ const CONFIGS: Record<string, ExplorerConfig> = {
   'dealroom-mobile': DEALROOM_MOBILE_CONFIG,
 };
 
-export default async function ExplorerPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function ExplorerPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ bezel?: string }>;
+}) {
   const { id } = await params;
+  const { bezel } = await searchParams;
   const config = CONFIGS[id];
 
   if (!config) {
     notFound();
+  }
+
+  if (bezel === 'false') {
+    return <ExplorerRenderer config={config} />;
   }
 
   return (
