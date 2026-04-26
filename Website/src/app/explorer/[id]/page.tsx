@@ -8,6 +8,7 @@ import { MAVEN_FP_CONFIG } from '@/lib/explorer/configs/maven-fp';
 import { CDK_CONFIG } from '@/lib/explorer/configs/cdk';
 import { SALESFLOWIQ_CONFIG } from '@/lib/explorer/configs/salesflowiq';
 import { DEALROOM_CONFIG } from '@/lib/explorer/configs/dealroom';
+import { DEALROOM_MOBILE_CONFIG } from '@/lib/explorer/configs/dealroom-mobile';
 
 import type { ExplorerConfig } from '@/lib/explorer/types';
 
@@ -19,6 +20,7 @@ const CONFIGS: Record<string, ExplorerConfig> = {
   'cdk': CDK_CONFIG,
   'salesflowiq': SALESFLOWIQ_CONFIG,
   'dealroom': DEALROOM_CONFIG,
+  'dealroom-mobile': DEALROOM_MOBILE_CONFIG,
 };
 
 export default async function ExplorerPage({ params }: { params: Promise<{ id: string }> }) {
