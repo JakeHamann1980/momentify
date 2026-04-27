@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { kv } from "@vercel/kv"
+import { kv } from "@/lib/gtm/kv-store"
 import { assetKvKey, isValidAssetParam } from "@/lib/gtm/asset-helpers"
 import { requireGtmAuth } from "@/lib/gtm/content-types"
 

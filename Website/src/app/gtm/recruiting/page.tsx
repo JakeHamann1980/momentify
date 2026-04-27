@@ -13,8 +13,9 @@ import {
   entevatePositioning,
 } from "@/lib/gtm/data/recruiting"
 import type { GTMLayer } from "@/lib/gtm/data/recruiting"
-import ContentBuilder from "@/components/gtm/ContentBuilder"
-import ContentLibrary from "@/components/gtm/ContentLibrary"
+import ContentBuilder from "@/components/gtm/tabs/ContentBuilder"
+import ContentLibrary from "@/components/gtm/tabs/ContentLibrary"
+import LibraryCountBadge from "@/components/gtm/LibraryCountBadge"
 import CustomerJourneyMap from "@/components/gtm/CustomerJourneyMap"
 
 const font = "'Inter', system-ui, -apple-system, sans-serif"
@@ -458,6 +459,7 @@ function RecruitingContent() {
               >
                 {Icon && <Icon size={14} />}
                 {tab.label}
+                {tab.key === "library" && <LibraryCountBadge solution="recruiting" />}
               </button>
             )
           })}
@@ -470,9 +472,9 @@ function RecruitingContent() {
           solution="recruiting"
           solutionLabel="Technical Recruiting"
           verticals={[
-            { key: "tech-recruiting", label: "Technical Recruiting" },
-            { key: "campus-recruiting", label: "Campus & University" },
-            { key: "skilled-trades", label: "Skilled Trades" },
+            { id: "tech-recruiting", label: "Technical Recruiting" },
+            { id: "campus-recruiting", label: "Campus & University" },
+            { id: "skilled-trades", label: "Skilled Trades" },
           ]}
         />
       ) : activeTab === "library" ? (

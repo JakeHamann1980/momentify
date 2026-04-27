@@ -13,8 +13,9 @@ import {
   entevatePositioning,
 } from "@/lib/gtm/data/events-venues"
 import type { GTMLayer } from "@/lib/gtm/data/events-venues"
-import ContentBuilder from "@/components/gtm/ContentBuilder"
-import ContentLibrary from "@/components/gtm/ContentLibrary"
+import ContentBuilder from "@/components/gtm/tabs/ContentBuilder"
+import ContentLibrary from "@/components/gtm/tabs/ContentLibrary"
+import LibraryCountBadge from "@/components/gtm/LibraryCountBadge"
 import CustomerJourneyMap from "@/components/gtm/CustomerJourneyMap"
 
 const font = "'Inter', system-ui, -apple-system, sans-serif"
@@ -458,6 +459,7 @@ function EventsVenuesContent() {
               >
                 {Icon && <Icon size={14} />}
                 {tab.label}
+                {tab.key === "library" && <LibraryCountBadge solution="events-venues" />}
               </button>
             )
           })}
@@ -470,8 +472,8 @@ function EventsVenuesContent() {
           solution="events-venues"
           solutionLabel="Events & Venues"
           verticals={[
-            { key: "sports-entertainment", label: "Sports & Entertainment" },
-            { key: "conference-venues", label: "Conference & Convention Venues" },
+            { id: "sports-entertainment", label: "Sports & Entertainment" },
+            { id: "conference-venues", label: "Conference & Convention Venues" },
           ]}
         />
       ) : activeTab === "library" ? (

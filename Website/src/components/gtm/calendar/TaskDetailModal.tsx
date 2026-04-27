@@ -365,6 +365,36 @@ export default function TaskDetailModal({
                   </p>
                 )}
 
+                {/* Asset preview — renders for tasks linked to a Library item
+                    that has a rendered HTML asset (currently social-post only).
+                    The /api/gtm/asset-preview proxy returns the rendered HTML
+                    inline so it can be iframe'd without CSP issues. */}
+                {task.libraryItemId && task.assetType === "social-post" && (
+                  <div
+                    style={{
+                      marginBottom: 20,
+                      borderRadius: 8,
+                      overflow: "hidden",
+                      border: "1px solid var(--gtm-border)",
+                      background: "var(--gtm-bg-page)",
+                      aspectRatio: "1 / 1",
+                      width: "100%",
+                    }}
+                  >
+                    <iframe
+                      title="Scheduled asset preview"
+                      src={`/api/gtm/asset-preview?solution=${encodeURIComponent(task.solution)}&assetType=social-post&itemId=${encodeURIComponent(task.libraryItemId)}`}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        border: "none",
+                        display: "block",
+                      }}
+                      sandbox="allow-scripts"
+                    />
+                  </div>
+                )}
+
                 {/* Meta row */}
                 <div
                   style={{

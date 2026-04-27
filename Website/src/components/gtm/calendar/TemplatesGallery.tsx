@@ -33,7 +33,9 @@ export default function TemplatesGallery({
 }: TemplatesGalleryProps) {
   const [pillar, setPillar] = useState<PillarId>(defaultPillar)
   const [aspectFilter, setAspectFilter] = useState<AspectFilter>("all")
-  const [reloadToken, setReloadToken] = useState(Date.now())
+  // Initialize to 0 so server and client render the same iframe src.
+  // After mount, the user can bump it via the reload button to cache-bust.
+  const [reloadToken, setReloadToken] = useState(0)
   const [copiedId, setCopiedId] = useState<string | null>(null)
 
   const visibleTemplates = useMemo(

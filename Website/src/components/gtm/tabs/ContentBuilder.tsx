@@ -399,6 +399,9 @@ ${rawContent || "[Generate the text brief in Content Builder first, then paste i
         description: `Scheduled from Content Builder.`,
         sortOrder: Date.now(),
         libraryItemId,
+        // Persist the asset type so TaskDetailModal knows whether to render
+        // an inline preview (only social-post has a rendered HTML asset).
+        assetType: contentType,
         industry,
         motion,
       }

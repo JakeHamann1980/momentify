@@ -1,4 +1,4 @@
-import { kv } from "@vercel/kv"
+import { kv } from "@/lib/gtm/kv-store"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { KV, type MicrositeRecord } from "@/lib/gtm/content-types"

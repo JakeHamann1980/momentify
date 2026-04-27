@@ -13,8 +13,9 @@ import {
   entevatePositioning,
 } from "@/lib/gtm/data/trade-shows"
 import type { GTMLayer } from "@/lib/gtm/data/trade-shows"
-import ContentBuilder from "@/components/gtm/ContentBuilder"
-import ContentLibrary from "@/components/gtm/ContentLibrary"
+import ContentBuilder from "@/components/gtm/tabs/ContentBuilder"
+import ContentLibrary from "@/components/gtm/tabs/ContentLibrary"
+import LibraryCountBadge from "@/components/gtm/LibraryCountBadge"
 import CustomerJourneyMap from "@/components/gtm/CustomerJourneyMap"
 
 const font = "'Inter', system-ui, -apple-system, sans-serif"
@@ -463,6 +464,7 @@ function TradeShowsContent() {
               >
                 {Icon && <Icon size={14} />}
                 {tab.label}
+                {tab.key === "library" && <LibraryCountBadge solution="trade-shows" />}
               </button>
             )
           })}
@@ -471,7 +473,15 @@ function TradeShowsContent() {
 
       {/* ── Tab Content ── */}
       {activeTab === "builder" ? (
-        <ContentBuilder solution="trade-shows" solutionLabel="Trade Shows & Exhibits" />
+        <ContentBuilder
+          solution="trade-shows"
+          solutionLabel="Trade Shows & Exhibits"
+          verticals={[
+            { id: "heavy-equipment", label: "Heavy Equipment" },
+            { id: "energy-infrastructure", label: "Energy, Infrastructure & Power" },
+            { id: "aerospace-aviation", label: "Aerospace & Aviation" },
+          ]}
+        />
       ) : activeTab === "library" ? (
         <div style={{ maxWidth: 1200, margin: "0 auto", padding: "32px 48px 80px" }}>
           <ContentLibrary solution="trade-shows" solutionLabel="Trade Shows & Exhibits" />

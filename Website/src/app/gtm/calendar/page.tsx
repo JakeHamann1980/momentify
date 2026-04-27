@@ -31,27 +31,32 @@ import { Undo2, X as XIcon } from "lucide-react"
 
 const font = "'Inter', system-ui, -apple-system, sans-serif"
 
+/**
+ * Load tasks from the API. Trust whatever the server returns — never
+ * re-inject defaults, otherwise deleted seed tasks reappear on next load.
+ *
+ * Defaults are only used as the very first hydration value before the API
+ * has ever responded (see useState initializer below). Once the API returns
+ * (success OR with an empty list), that's the source of truth.
+ */
 async function fetchTasks(): Promise<CalendarTask[]> {
   try {
     const res = await fetch("/api/gtm/calendar")
-    if (!res.ok) return defaultCalendarTasks
+    if (!res.ok) return []
     const data = await res.json()
-    if (!data.tasks || data.tasks.length === 0) return defaultCalendarTasks
-    // Merge any default tasks that might be missing
-    const existingIds = new Set(data.tasks.map((t: CalendarTask) => t.id))
-    for (const dt of defaultCalendarTasks) {
-      if (!existingIds.has(dt.id)) data.tasks.push(dt)
-    }
-    return data.tasks
+    return Array.isArray(data.tasks) ? data.tasks : []
   } catch {
-    return defaultCalendarTasks
+    return []
   }
 }
 
 export default function CalendarPage() {
   const [tasks, setTasks] = useState<CalendarTask[]>(defaultCalendarTasks)
   const [viewMode, setViewMode] = useState<"list" | "calendar">("calendar")
-  const [currentMonth, setCurrentMonth] = useState(() => new Date(2026, 2, 1)) // March 2026
+  const [currentMonth, setCurrentMonth] = useState(() => {
+    const t = new Date()
+    return new Date(t.getFullYear(), t.getMonth(), 1)
+  })
   const [selectedSolutions, setSelectedSolutions] = useState<string[]>([])
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [selectedTask, setSelectedTask] = useState<CalendarTask | null>(null)

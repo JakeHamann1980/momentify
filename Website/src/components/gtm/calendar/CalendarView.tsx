@@ -83,7 +83,7 @@ export default function CalendarView({
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(7, 1fr)",
+          gridTemplateColumns: "repeat(7, minmax(0, 1fr))",
           gap: 4,
           marginBottom: 4,
         }}
@@ -110,7 +110,7 @@ export default function CalendarView({
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(7, 1fr)",
+          gridTemplateColumns: "repeat(7, minmax(0, 1fr))",
           gap: 4,
         }}
       >

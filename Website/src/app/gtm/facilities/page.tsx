@@ -13,8 +13,9 @@ import {
   entevatePositioning,
 } from "@/lib/gtm/data/facilities"
 import type { GTMLayer } from "@/lib/gtm/data/facilities"
-import ContentBuilder from "@/components/gtm/ContentBuilder"
-import ContentLibrary from "@/components/gtm/ContentLibrary"
+import ContentBuilder from "@/components/gtm/tabs/ContentBuilder"
+import ContentLibrary from "@/components/gtm/tabs/ContentLibrary"
+import LibraryCountBadge from "@/components/gtm/LibraryCountBadge"
 import CustomerJourneyMap from "@/components/gtm/CustomerJourneyMap"
 
 const font = "'Inter', system-ui, -apple-system, sans-serif"
@@ -458,6 +459,7 @@ function FacilitiesContent() {
               >
                 {Icon && <Icon size={14} />}
                 {tab.label}
+                {tab.key === "library" && <LibraryCountBadge solution="facilities" />}
               </button>
             )
           })}
@@ -470,8 +472,8 @@ function FacilitiesContent() {
           solution="facilities"
           solutionLabel="Facilities"
           verticals={[
-            { key: "corporate-facilities", label: "Corporate Facilities" },
-            { key: "manufacturing-facilities", label: "Manufacturing Facilities" },
+            { id: "corporate-facilities", label: "Corporate Facilities" },
+            { id: "manufacturing-facilities", label: "Manufacturing Facilities" },
           ]}
         />
       ) : activeTab === "library" ? (

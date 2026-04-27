@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { kv } from "@vercel/kv"
+import { kv } from "@/lib/gtm/kv-store"
 import { KV, requireGtmAuth, type ContentItem } from "@/lib/gtm/content-types"
 
 export async function GET(request: Request) {

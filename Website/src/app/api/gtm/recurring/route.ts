@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { kv } from "@vercel/kv"
+import { kv } from "@/lib/gtm/kv-store"
 import { KV, requireGtmAuth, type RecurringSchedule } from "@/lib/gtm/content-types"
 import { nextSundayOn } from "@/lib/gtm/schedule-planner"
 

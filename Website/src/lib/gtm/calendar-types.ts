@@ -24,6 +24,16 @@ export interface CalendarTask {
   description?: string
   sortOrder: number
   roxTouchpoint?: string  // which ROX dimension this supports
+  // Linkage to the saved Library item this task was scheduled from.
+  // When present, TaskDetailModal can render the rendered asset preview
+  // (e.g. social-post HTML) inline.
+  libraryItemId?: string
+  // Optional render hint — usually "social-post" for inline iframe preview.
+  // Other content types (cold-email, lead-magnet, etc.) only show metadata.
+  assetType?: string
+  // Optional context fields surfaced from the Library brief.
+  industry?: string
+  motion?: string
 }
 
 export interface TaskCategoryMeta {

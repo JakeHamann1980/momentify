@@ -13,8 +13,9 @@ import {
   entevatePositioning,
 } from "@/lib/gtm/data/field-sales"
 import type { GTMLayer } from "@/lib/gtm/data/field-sales"
-import ContentBuilder from "@/components/gtm/ContentBuilder"
-import ContentLibrary from "@/components/gtm/ContentLibrary"
+import ContentBuilder from "@/components/gtm/tabs/ContentBuilder"
+import ContentLibrary from "@/components/gtm/tabs/ContentLibrary"
+import LibraryCountBadge from "@/components/gtm/LibraryCountBadge"
 import CustomerJourneyMap from "@/components/gtm/CustomerJourneyMap"
 
 const font = "'Inter', system-ui, -apple-system, sans-serif"
@@ -458,6 +459,7 @@ function FieldSalesContent() {
               >
                 {Icon && <Icon size={14} />}
                 {tab.label}
+                {tab.key === "library" && <LibraryCountBadge solution="field-sales" />}
               </button>
             )
           })}
@@ -470,9 +472,9 @@ function FieldSalesContent() {
           solution="field-sales"
           solutionLabel="Field Sales Enablement"
           verticals={[
-            { key: "territory-sales", label: "Territory Sales" },
-            { key: "enterprise-sales", label: "Enterprise Sales" },
-            { key: "channel-sales", label: "Channel & Distributor" },
+            { id: "territory-sales", label: "Territory Sales" },
+            { id: "enterprise-sales", label: "Enterprise Sales" },
+            { id: "channel-sales", label: "Channel & Distributor" },
           ]}
         />
       ) : activeTab === "library" ? (
